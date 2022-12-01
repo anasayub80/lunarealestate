@@ -1,0 +1,159 @@
+{
+    "language":"English",
+    "@language":{
+        "description": "The current Language"
+    },
+   "exm": "Existing morgage?",
+   "@exm": {
+        "description": "The EXM mortage"
+   },
+   "yes": "Yes",
+   "@yes": {
+        "description": "option yes"
+   },
+   "survey": "Survey",
+   "@survey": {
+        "description": "survey text"
+   },
+   "washer": "Washer",
+   "@washer": {
+        "description": "Washer text"
+   },
+   "range": "Range",
+   "@range": {
+        "description": "Range text"
+   },
+   "dryer": "Dryer",
+   "@dryer": {
+        "description": "Dryer text"
+   },
+   "gua": "Gas utility available?",
+   "@gua": {
+        "description": "Gas utility available text"
+   },
+   "wateron": "Water on?",
+   "@wateron": {
+        "description": "wateron text"
+   },
+   "sewer": "Sewer",
+   "@sewer": {
+        "description": "Sewer text"
+   },
+   "bto": "Backed tax owed?",
+   "@bto": {
+        "description": "bto text"
+   },
+   "lop": "Leins on property?",
+   "@lop": {
+        "description": "Leins on property text"
+   },
+   "isProp": "Is property?",
+   "@isProp": {
+        "description": "es propiedad text"
+   },
+   "vecant": "vecant",
+   "@vecant": {
+        "description": "es propiedad text"
+   },
+   "occupied": "occupied",
+   "@occupied": {
+        "description": "es propiedad text"
+   },
+   "istherelopinspec": "Is there a lock box for inspections?",
+   "@istherelopinspec": {
+        "description": "Is there a lock box for inspections"
+   },
+   "opentoOfinanced": "Open to owner financed",
+   "@opentoOfinanced": {
+        "description": "Is there a lock box for inspections"
+   },
+   "areyoulooking": "Are you looking for a new primary home after selling current home?",
+   "@areyoulooking": {
+        "description": "Are you looking for a new primary home after selling current home?"
+   },
+   "assistancefornewhome": "Do you need assistance finding a new home?",
+   "@assistancefornewhome": {
+        "description": "desc here"
+   },
+   "morgagelender": "Do you need help finding a morgage lender if your selling?",
+   "@morgagelender": {
+        "description": "desc here"
+   },
+   "morgagelender": "Do you need help finding a morgage lender if your selling?",
+   "@morgagelender": {
+        "description": "desc here"
+   },
+   "foundation": "Foundation",
+   "@foundation": {
+        "description": "desc here"
+   },
+   "pierandbeam": "pier & beam",
+   "@pierandbeam": {
+        "description": "desc here"
+   },
+   "slab": "slab",
+   "@slab": {
+        "description": "desc here"
+   },
+   "havebasement": "Have Basement?",
+   "@havebasement": {
+        "description": "desc here"
+   },
+   
+   "backedtaxamount": "Backed Tax amount owed",
+   "@backedtaxamount": {
+        "description": "desc here"
+   },
+   "enteramount": "Enter Amount",
+   "@enteramount": {
+        "description": "desc here"
+   },
+   "lopexplain": "Leins on property? Explain",
+   "@lopexplain": {
+        "description": "desc here"
+   },
+   "explease": "Explain Please..",
+   "@explease": {
+        "description": "desc here"
+   },
+   "describeplace": "Describe best place for Luna Enterprises lockbox to be placed.",
+   "@describeplace": {
+        "description": "desc here"
+   },
+   "describe": "Describe..",
+   "@describe": {
+        "description": "desc here"
+   },
+   "timeframe": "Time frame of selling property?",
+   "@timeframe": {
+        "description": "desc here"
+   },
+   "eg": "Eg, 3 Days",
+   "@eg": {
+        "description": "desc here"
+   },
+   "payment": "Payment?",
+   "@payment": {
+        "description": "desc here"
+   },
+   "cash": "Cash",
+   "@cash": {
+        "description": "desc here"
+   },
+   "check": "Check",
+   "@check": {
+        "description": "desc here"
+   },
+   "wiredep": "Wire Deposit",
+   "@wiredep": {
+        "description": "desc here"
+   },
+   "note": "-note exchange happens with escrow company. Beware of wire fraud. Wire transfers are made from only Luna Enterprises LLC / agreed title company.",
+   "@note": {
+        "description": "desc here"
+   },
+   "ratecond": "Rate Your Home Condition",
+   "@ratecond": {
+        "description": "desc here"
+   }
+}
