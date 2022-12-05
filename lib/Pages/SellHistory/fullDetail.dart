@@ -228,14 +228,7 @@ class FullDetail extends StatelessWidget {
                                     formId: formId,
                                     from: from,
                                   ),
-                                  ListCard(
-                                    title: 'Bedroom :',
-                                    val: snapshot.data[0]['bedrooms'],
-                                    type: 'text',
-                                    column: 'bedrooms',
-                                    formId: formId,
-                                    from: from,
-                                  ),
+                                 
                                   ListCard(
                                     title: 'Bathrooms:',
                                     val: snapshot.data[0]['bathrooms'],

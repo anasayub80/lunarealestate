@@ -23,6 +23,7 @@ import 'l10n/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'provider/languageProvider.dart';
 
+// SKU FOR APPSTORE DOTCLICK-LUNA-SKU
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
