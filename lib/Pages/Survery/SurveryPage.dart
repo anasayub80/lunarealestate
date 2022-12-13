@@ -307,6 +307,7 @@ class _SuerveyPageState extends State<SuerveyPage> {
                                       lopExplain: leanOnProp.text,
                                       lockboxPlace: lockBoxPlaced.text,
                                       rating: prov.value.toString(),
+                                      fastcash: fastcashY,
                                       paymethod: 'autoget',
                                       timeFrame: timeFrameofPro.text,
                                       tab: 'survey_more',

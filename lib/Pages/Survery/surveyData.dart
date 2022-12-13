@@ -67,6 +67,7 @@ String lockBoxValY = 'none';
 String ownerFinanaceValY = 'none';
 String newHomeValY = 'none';
 String assistfornewHomeValY = 'none';
+String fastcashY = 'none';
 String morghelpValY = 'none';
 String FoundationValY = 'none';
 String basementValY = 'none';

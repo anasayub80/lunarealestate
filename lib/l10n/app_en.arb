@@ -128,9 +128,13 @@
    "@timeframe": {
         "description": "desc here"
    },
-   "eg": "Eg, 3 Days",
+   "eg": "Eg, 14 Days",
    "@eg": {
         "description": "desc here"
+   },
+   "fastcash": "Are you needing fast cash to help with moving or other expenses?",
+   "@fastcash": {
+        "description": "Are you needing fast cash to help with moving or other expenses?"
    },
    "payment": "Payment?",
    "@payment": {

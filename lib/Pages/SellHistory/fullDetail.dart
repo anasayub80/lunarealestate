@@ -221,6 +221,14 @@ class FullDetail extends StatelessWidget {
                                     ),
                                   ),
                                   ListCard(
+                                    title: 'Name:',
+                                    val: snapshot.data[0]['ownerName'],
+                                    type: 'text',
+                                    column: 'location',
+                                    formId: formId,
+                                    from: from,
+                                  ),
+                                  ListCard(
                                     title: 'Bedrooms',
                                     type: 'text',
                                     val: snapshot.data[0]['bedrooms'],
@@ -228,7 +236,6 @@ class FullDetail extends StatelessWidget {
                                     formId: formId,
                                     from: from,
                                   ),
-                                 
                                   ListCard(
                                     title: 'Bathrooms:',
                                     val: snapshot.data[0]['bathrooms'],

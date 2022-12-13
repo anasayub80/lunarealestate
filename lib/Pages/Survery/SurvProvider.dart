@@ -263,19 +263,21 @@ class SurvProvider with ChangeNotifier {
   void saveSurveyMoreData(var uid) {
     SurveyMoreModel model = SurveyMoreModel(
       // survery data
-      lockboxPlace: lockBoxPlaced.value,
-      lopExplain: leanOnProp.value,
+      lockboxPlace: lockBoxPlaced.value.toString(),
+      lopExplain: leanOnProp.value.toString(),
       paymethod: cash == true
           ? 'Cash'
           : check == true
               ? 'Check'
               : 'Wire Transfer',
       rating: value.toString(),
-      taxAmount: backedTaxAmount.value,
-      timeFrame: timeFrameofPro.value,
+                                            fastcash: fastcashY,
+
+      taxAmount: backedTaxAmount.value.toString(),
+      timeFrame: timeFrameofPro.value.toString(),
       tab: 'survey_more',
-      formid: formid,
-      userid: uid,
+      formid: formid.toString(),
+      userid: uid.toString(),
     );
     var modelData = jsonEncode(model);
     debugPrint(modelData);

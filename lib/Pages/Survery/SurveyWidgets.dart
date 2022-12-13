@@ -504,7 +504,7 @@ class _MultiImageWidgetState extends State<MultiImageWidget> {
 
     try {
       resultList = await MultipleImagesPicker.pickImages(
-        maxImages: 10,
+        maxImages: 30,
         enableCamera: true,
         selectedAssets: images,
         cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
@@ -1580,6 +1580,55 @@ class _surveyMoreState extends State<surveyMore> {
                     ),
                     SizedBox(
                       height: 25,
+                    ),
+                    ChoiceTile(
+                        y: fastcashY == 'none'
+                            ? false
+                            : fastcashY == 'true'
+                                ? true
+                                : false,
+                        n: fastcashY == 'none'
+                            ? false
+                            : fastcashY == 'true'
+                                ? false
+                                : true,
+                        index: ' ',
+                        title: langloc.fastcash,
+                        onChange1: (newVal) {
+                          if (newVal!) {
+                            setState(() {
+                              fastcashY = 'true';
+                            });
+                          } else {
+                            setState(() {
+                              fastcashY = 'none';
+                            });
+                          }
+                          Provider.of<SurvProvider>(context, listen: false)
+                              .saveSurveyMoreData(
+                                  Provider.of<UserData>(context, listen: false)
+                                      .id!);
+                        },
+                        onChange2: (newVal) {
+                          if (newVal!) {
+                            setState(() {
+                              fastcashY = 'false';
+                            });
+                          } else {
+                            setState(() {
+                              exmValY = 'none';
+                            });
+                          }
+                          print(newVal);
+                          Provider.of<SurvProvider>(context, listen: false)
+                              .saveSurveyMoreData(
+                                  Provider.of<UserData>(context, listen: false)
+                                      .id!);
+                        },
+                        box1: langloc.yes,
+                        box2: 'No'),
+                    SizedBox(
+                      height: 10,
                     ),
                     headingText(langloc.payment),
                     SizedBox(
