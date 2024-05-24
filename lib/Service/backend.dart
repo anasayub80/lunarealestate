@@ -213,20 +213,20 @@ class backend {
   Future uploadImageToServer(BuildContext context) async {
     try {
       final formData = <String, dynamic>{};
-
-      for (var i = 0; i < images.length; i++) {
-        final File file = File((await LecleFlutterAbsolutePath.getAbsolutePath(
-          uri: images[i].identifier!,
-        ))!);
-        String fileName = file.path.split('/').last;
-        formData.addAll({
-          "gallery[$i]": await MultipartFile.fromFile(
-            file.path,
-            filename: fileName,
-            contentType: MediaType("image", "jpeg"), //important
-          ),
-        });
-      }
+      // TODO UnComment
+      // for (var i = 0; i < images.length; i++) {
+      //   final File file = File((await LecleFlutterAbsolutePath.getAbsolutePath(
+      //     uri: images[i].identifier!,
+      //   ))!);
+      //   String fileName = file.path.split('/').last;
+      //   formData.addAll({
+      //     "gallery[$i]": await MultipartFile.fromFile(
+      //       file.path,
+      //       filename: fileName,
+      //       contentType: MediaType("image", "jpeg"), //important
+      //     ),
+      //   });
+      // }
       formData.addAll({
         "tab": "image",
         // ignore: use_build_context_synchronously

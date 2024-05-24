@@ -1,26 +1,28 @@
+import 'dart:async';
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:lunarestate/Config/config.dart';
-import 'package:bot_toast/bot_toast.dart';
+
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
+
+import 'package:lunarestate/Config/config.dart';
 import 'package:lunarestate/Pages/Gallery/GalleryPage.dart';
 import 'package:lunarestate/Pages/SellHistory/SellHistory.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
-import 'package:lunarestate/Service/UserData.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:lunarestate/Pages/Survery/SurveryPage.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:lunarestate/Service/UserData.dart';
+
 import 'Pages/HomePage/HomePage.dart';
 import 'Pages/More/MorePage.dart';
 import 'Pages/Splash/SplashPage.dart';
-import 'package:sizer/sizer.dart';
-import 'package:fullscreen/fullscreen.dart';
-import 'package:provider/provider.dart';
-import 'dart:async';
-import 'package:flutter/services.dart';
 import 'l10n/l10n.dart';
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
 import 'provider/languageProvider.dart';
 
 // SKU FOR APPSTORE DOTCLICK-LUNA-SKU
@@ -76,7 +78,7 @@ class _MyAppState extends State<MyApp> {
           navigatorObservers: [BotToastNavigatorObserver()],
           supportedLocales: L10n.all,
           localizationsDelegates: [
-            AppLocalizations.delegate,
+            // AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
@@ -114,7 +116,7 @@ class _MyNavigationState extends State<MyNavigation> {
   }
 
   void exitFullScreen() async {
-    await FullScreen.exitFullScreen();
+    // await FullScreen.exitFullScreen();
   }
 
   DateTime? currentBackPressTime;

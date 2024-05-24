@@ -9,7 +9,6 @@ import 'package:lunarestate/Service/backend.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:floading/floading.dart';
-import 'package:multiple_images_picker/multiple_images_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Widgets/Utils.dart';
@@ -20,7 +19,6 @@ final basicInfoFormKey = GlobalKey<FormState>();
 final propInfoFormKey = GlobalKey<FormState>();
 
 StreamController stepperIndexStream = BehaviorSubject();
-List<Asset> images = <Asset>[];
 
 List<String> peropertUnits = ['Sq. Ft.', 'Sq. M.', 'Sq. Yd']; // Option 2
 String selectedPropertyUnit = 'Sq. Ft.'; // Option 2

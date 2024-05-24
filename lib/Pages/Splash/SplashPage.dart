@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunarestate/Pages/Login/login_page.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fullscreen/fullscreen.dart';
+// import 'package:fullscreen/fullscreen.dart';
 import 'package:provider/provider.dart';
 import '../../Admin/Pages/adminHome.dart';
 import '../../Service/UserData.dart';
@@ -51,7 +51,7 @@ class _SplashPageState extends State<SplashPage> {
   bool _visible = true;
 
   enterFullScreen() async {
-    await FullScreen.enterFullScreen(FullScreenMode.EMERSIVE_STICKY);
+    // await FullScreen.enterFullScreen(FullScreenMode.EMERSIVE_STICKY);
   }
 
   checkLogin() async {

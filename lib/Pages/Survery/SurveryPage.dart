@@ -55,7 +55,13 @@ class _SuerveyPageState extends State<SuerveyPage> {
 
   final controller = MultiImagePickerController(
     maxImages: 10,
-    allowedImageTypes: ['png', 'jpg', 'jpeg'],
+    picker: (bool allowMultiple) async {
+      if (allowMultiple) {
+        return [];
+      }
+      return [];
+    },
+    // allowedImageTypes: ['png', 'jpg', 'jpeg'],
   );
   // final List<File> images = [];
 
@@ -267,27 +273,28 @@ class _SuerveyPageState extends State<SuerveyPage> {
                                       }
                                       break;
                                     case 2:
-                                      if (images.isEmpty) {
-                                        Utils().showSnackbar(
-                                            'Select at least 4 Image',
-                                            Colors.red,
-                                            context);
-                                        log('No Image Selected ${images.length.toString()}');
-                                      } else if (images.length >= 4) {
-                                        // ignore: use_build_context_synchronously
-                                        var res =
-                                            await submitMultipleImages(context);
-                                        if (res == '1') {
-                                          setState((() {
-                                            prov.activeStepIndex += 1;
-                                          }));
-                                        }
-                                      } else {
-                                        Utils().showSnackbar(
-                                            'Select at least 4 Image',
-                                            Colors.red,
-                                            context);
-                                      }
+                                      // TODO UnComment
+                                      // if (images.isEmpty) {
+                                      //   Utils().showSnackbar(
+                                      //       'Select at least 4 Image',
+                                      //       Colors.red,
+                                      //       context);
+                                      //   log('No Image Selected ${images.length.toString()}');
+                                      // } else if (images.length >= 4) {
+                                      //   // ignore: use_build_context_synchronously
+                                      //   var res =
+                                      //       await submitMultipleImages(context);
+                                      //   if (res == '1') {
+                                      //     setState((() {
+                                      //       prov.activeStepIndex += 1;
+                                      //     }));
+                                      //   }
+                                      // } else {
+                                      //   Utils().showSnackbar(
+                                      //       'Select at least 4 Image',
+                                      //       Colors.red,
+                                      //       context);
+                                      // }
                                       break;
                                     default:
                                   }

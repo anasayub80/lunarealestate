@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Admin/Pages/adminHome.dart';
 import 'package:lunarestate/Config/config.dart';
@@ -151,20 +153,16 @@ class _LoginPageState extends State<LoginPage> {
                             sharedPref().saveuserData(res['user']);
                             sharedPref()
                                 .storeVal('email', _emailController.text);
-                            // ignore: use_build_context_synchronously
                             Utils().showSnackbar(
                                 res['msg'], Colors.green, context);
-                            // ignore: use_build_context_synchronously
                             await Provider.of<UserData>(context, listen: false)
                                 .initUserData();
                             FLoading.hide();
 
                             switch (res['user']['role']) {
                               case 'admin':
-                                // ignore: use_build_context_synchronously
                                 Navigator.of(context)
                                     .popUntil((route) => route.isFirst);
-                                // ignore: use_build_context_synchronously
                                 Navigator.pushReplacement(
                                     context,
                                     PageTransition(
@@ -174,7 +172,6 @@ class _LoginPageState extends State<LoginPage> {
                                         type: PageTransitionType.bottomToTop));
                                 break;
                               default:
-                                // ignore: use_build_context_synchronously
                                 Navigator.pushReplacement(
                                     context,
                                     PageTransition(
@@ -185,7 +182,6 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           } else {
                             FLoading.hide();
-                            // ignore: use_build_context_synchronously
                             Utils()
                                 .showSnackbar(res['msg'], Colors.red, context);
                           }
