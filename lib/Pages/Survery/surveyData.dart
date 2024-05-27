@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, use_build_context_synchronously
 
 import 'dart:async';
 import 'dart:developer';
@@ -108,7 +108,6 @@ Future submitpropertyInfo(
         log('case 0');
         FLoading.hide();
         log('this is my form id ${res['formid']}');
-        // ignore: use_build_context_synchronously
         Provider.of<SurvProvider>(context, listen: false)
             .saveFormId(res['formid'], context);
         log('Data Submitted');
@@ -123,11 +122,8 @@ Future submitpropertyInfo(
         await pref.remove('PropInfoData');
         await pref.remove('PropInfoData');
         FLoading.hide();
-        // ignore: use_build_context_synchronously
         Utils().showSnackbar('Property Submitted', Colors.green, context);
-        // ignore: use_build_context_synchronously
         Navigator.of(context).popUntil((route) => route.isFirst);
-        // ignore: use_build_context_synchronously
         Navigator.pushReplacement(
             context,
             PageTransition(
@@ -142,7 +138,6 @@ Future submitpropertyInfo(
   } else {
     FLoading.hide();
     return '0';
-    // ignore: use_build_context_synchronously
   }
 }
 

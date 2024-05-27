@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -199,18 +201,14 @@ class _AccountInfoState extends State<AccountInfo> {
                             prefs.setString('email', _email.text);
                             sharedPref().saveuserData(res['user']);
                             FLoading.hide();
-                            // ignore: use_build_context_synchronously
                             Utils().showSnackbar(
                                 'Changes Saved!', Colors.green, context);
 
-                            // ignore: use_build_context_synchronously
                             await Provider.of<UserData>(context, listen: false)
                                 .initUserData();
-                            // ignore: use_build_context_synchronously
                             Navigator.pop(context);
                           } else {
                             FLoading.hide();
-                            // ignore: use_build_context_synchronously
                             Utils()
                                 .showSnackbar(res['msg'], Colors.red, context);
                           }

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:floading/floading.dart';
@@ -133,14 +135,11 @@ class SignUpPage extends StatelessWidget {
                             sharedPref()
                                 .storeVal('email', _emailController.text);
                             FLoading.hide();
-                            // ignore: use_build_context_synchronously
                             Utils().showSnackbar(
                                 res['res'], Colors.green, context);
-                            // ignore: use_build_context_synchronously
-                            Navigator.pop(context,_emailController.text);
+                            Navigator.pop(context, _emailController.text);
                           } else {
                             FLoading.hide();
-                            // ignore: use_build_context_synchronously
                             Utils()
                                 .showSnackbar(res['res'], Colors.red, context);
                           }

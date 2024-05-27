@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Widgets/Utils.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
@@ -89,7 +91,6 @@ class CreatenewPassPage extends StatelessWidget {
                               if (res == '1') {
                                 FLoading.hide();
                               } else {
-                                // ignore: use_build_context_synchronously
                                 Utils().showSnackbar(
                                     'Invalid Details!', Colors.red, context);
                               }

@@ -81,6 +81,9 @@ flutter:
     - family: RocknRollOne
       fonts:
         - asset: assets/fonts/RocknRollOne-Regular.ttf
+    - family: Aspekta
+      fonts:
+        - asset: assets/fonts/Aspekta-350.ttf
     - family: Prompt
       fonts:
         - asset: assets/fonts/Prompt-Medium.ttf

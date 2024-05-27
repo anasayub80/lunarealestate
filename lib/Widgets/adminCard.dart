@@ -5,7 +5,7 @@ import '../Admin/AppTheme.dart';
 SizedBox card(String asset, String name) {
   return SizedBox(
     child: Card(
-      color: AppThemes().cardColor,
+      color: AppThemes.cardColor,
       child: Column(
         children: [
           Padding(

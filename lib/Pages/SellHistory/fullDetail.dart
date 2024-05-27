@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'dart:async';
 import 'dart:developer';
@@ -500,12 +500,10 @@ class FullDetail extends StatelessWidget {
                                 if (res['status'] == 'success') {
                                   debugPrint('success');
                                   FLoading.hide();
-                                  // ignore: use_build_context_synchronously
                                   Navigator.pop(context, 'success');
                                 } else {
                                   FLoading.hide();
                                   debugPrint('fail');
-                                  // ignore: use_build_context_synchronously
                                   Utils().showSnackbar(
                                       res['msg'], Colors.red, context);
                                 }
@@ -563,9 +561,7 @@ class FullDetail extends StatelessWidget {
                                 });
 
                                 if (res['status'] == 'success') {
-                                  // ignore: use_build_context_synchronously
                                   FLoading.hide();
-                                  // ignore: use_build_context_synchronously
                                   Navigator.pop(context, 'success');
                                 }
                               }).show();

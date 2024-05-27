@@ -1,8 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Admin/Pages/adminHome.dart';
 import 'package:lunarestate/Config/config.dart';
+import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/ForgetPass/ForgetPass.dart';
 import 'package:lunarestate/Pages/SignUp/SignUpPage.dart';
 import 'package:floading/floading.dart';
@@ -15,6 +17,8 @@ import '../../Service/backend.dart';
 import '../../Widgets/roundbutton.dart';
 import '../../Widgets/textBox.dart';
 import 'package:page_transition/page_transition.dart';
+
+import '../Background/bg_one.dart';
 
 // ignore: must_be_immutable
 class LoginPage extends StatefulWidget {
@@ -36,45 +40,41 @@ class _LoginPageState extends State<LoginPage> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Container(
-            height: size.height,
-            width: size.width,
-            decoration: BoxDecoration(
-              color: Colors.black,
-              image: DecorationImage(
-                  image: AssetImage('assets/images/tower.jpg'),
-                  opacity: 0.2,
-                  fit: BoxFit.fill),
-            ),
+          child: BgOne(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 40,
-                ),
+                130.height,
                 Container(
                   child: Image.asset('assets/icons/icon.png'),
                   width: size.width,
                   height: 75,
                 ),
-                SizedBox(
-                  height: 25,
-                ),
+                30.height,
                 Expanded(
                     child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    40.height,
                     Text(
-                      'Login Account',
+                      'SIGN IN',
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.normal,
+                        color: AppThemes.primaryColor,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(
-                      height: 25,
+                    Text(
+                      'Login into your account',
+                      style: TextStyle(
+                        color: AppThemes.whiteColor,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
+                    40.height,
                     textBox(
                         icon: Icons.email_outlined,
                         emailController: _emailController,
@@ -89,26 +89,48 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: 25,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        Navigator.push(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.rightToLeft,
-                            child: ForgetMyPass(title: 'Forget Password'),
-                            isIos: true,
-                            duration: Duration(milliseconds: 800),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        'Forget Password?',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Checkbox(
+                                activeColor: AppThemes.primaryColor,
+                                value: true,
+                                onChanged: (c) {}),
+                            Text(
+                              "Remember Me",
+                              style: TextStyle(
+                                  color: AppThemes.whiteColor, fontSize: 14),
+                            ),
+                          ],
                         ),
-                      ),
+                        GestureDetector(
+                          onTap: () {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: ForgetMyPass(title: 'Forget Password'),
+                                isIos: true,
+                                duration: Duration(milliseconds: 800),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Forget Password?',
+                            style: TextStyle(
+                              color: AppThemes.primaryColor,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 14.0,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 25,
@@ -189,9 +211,7 @@ class _LoginPageState extends State<LoginPage> {
                       }),
                       text: 'LOGIN',
                     ),
-                    SizedBox(
-                      height: 25,
-                    ),
+                    30.height,
                     GestureDetector(
                       onTap: () async {
                         FocusManager.instance.primaryFocus?.unfocus();
@@ -208,19 +228,27 @@ class _LoginPageState extends State<LoginPage> {
                           _emailController.text = res;
                         }
                       },
-                      child: RichText(
-                        text:
-                            TextSpan(text: "Don't have an Account?", children: [
-                          TextSpan(
-                              text: ' SignUp',
+                      child: Center(
+                        child: RichText(
+                          text: TextSpan(
+                              text: "Don't have an Account?",
                               style: TextStyle(
-                                  color: Colors.amber,
-                                  fontWeight: FontWeight.bold)),
-                        ]),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300,
+                              ),
+                              children: [
+                                TextSpan(
+                                    text: ' SIGN UP',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: AppThemes.primaryColor,
+                                        fontWeight: FontWeight.w400)),
+                              ]),
+                        ),
                       ),
                     ),
                   ],
-                )),
+                ).addPadding(horizontal: 25)),
               ],
             ),
           ),

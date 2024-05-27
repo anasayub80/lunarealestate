@@ -76,9 +76,9 @@ class _userListPageState extends State<userListPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: AppThemes().bgColor,
+        backgroundColor: AppThemes.bgColor,
         appBar: AppBar(
-          backgroundColor: AppThemes().bgColor,
+          backgroundColor: AppThemes.bgColor,
           title: Text(widget.title),
           centerTitle: true,
         ),
@@ -110,7 +110,7 @@ class _userListPageState extends State<userListPage> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10.0),
                               child: Card(
-                                color: AppThemes().cardColor,
+                                color: AppThemes.cardColor,
                                 child: Container(
                                   child: Row(
                                     children: [
@@ -287,7 +287,7 @@ class _userListPageState extends State<userListPage> {
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                    .only(
+                                                                .only(
                                                                 right: 6.0),
                                                         child: OutlinedButton(
                                                             onPressed: () {

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Pages/Login/login_page.dart';
@@ -58,7 +60,6 @@ class _SplashPageState extends State<SplashPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var displayName = prefs.getString('email');
     if (displayName != null) {
-      // ignore: use_build_context_synchronously
       Provider.of<UserData>(context, listen: false).initUserData();
 
       Future.delayed(
@@ -68,9 +69,7 @@ class _SplashPageState extends State<SplashPage> {
               'Role is ${Provider.of<UserData>(context, listen: false).role}');
           if (Provider.of<UserData>(context, listen: false).role.toString() ==
               'admin') {
-            // ignore: use_build_context_synchronously
             Navigator.of(context).popUntil((route) => route.isFirst);
-            // ignore: use_build_context_synchronously
             Navigator.pushReplacement(
                 context,
                 PageTransition(
@@ -80,7 +79,6 @@ class _SplashPageState extends State<SplashPage> {
                     type: PageTransitionType.bottomToTop));
           } else {
             Navigator.of(context).popUntil((route) => route.isFirst);
-            // ignore: use_build_context_synchronously
             Navigator.pushReplacement(
                 context,
                 PageTransition(
@@ -92,7 +90,6 @@ class _SplashPageState extends State<SplashPage> {
         },
       );
     } else {
-      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
         PageTransition(

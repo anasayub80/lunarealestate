@@ -47,11 +47,11 @@ class AdminHome extends StatelessWidget {
             ),
           )
         ],
-        backgroundColor: AppThemes().bgColor,
+        backgroundColor: AppThemes.bgColor,
         elevation: 0,
       ),
       // drawer: admimDrawer(),
-      backgroundColor: AppThemes().bgColor,
+      backgroundColor: AppThemes.bgColor,
       body: SingleChildScrollView(
         child: Column(
           children: [

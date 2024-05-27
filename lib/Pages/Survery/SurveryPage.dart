@@ -1,4 +1,4 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, use_build_context_synchronously
 
 import 'dart:developer';
 import 'package:lunarestate/Models/BasicInfoMode.dart';
@@ -140,7 +140,7 @@ class _SuerveyPageState extends State<SuerveyPage> {
                   colorScheme: ColorScheme.dark(
                     primary: Colors.amber,
                     secondary: Colors.amber,
-                    background: Colors.grey,
+                    surface: Colors.grey,
                   ),
                 ),
                 child: StreamBuilder(
@@ -224,7 +224,6 @@ class _SuerveyPageState extends State<SuerveyPage> {
                                             prov.activeStepIndex += 1;
                                           }));
                                         } else {
-                                          // ignore: use_build_context_synchronously
                                           Utils().showSnackbar(
                                               'Something Wrong',
                                               Colors.red,
@@ -248,7 +247,6 @@ class _SuerveyPageState extends State<SuerveyPage> {
                                           tab: 'property_info',
                                           squarefootage:
                                               squarefootageController.text,
-                                          // ignore: use_build_context_synchronously
                                           userid: Provider.of<UserData>(context,
                                                   listen: false)
                                               .id!,
@@ -264,7 +262,6 @@ class _SuerveyPageState extends State<SuerveyPage> {
                                             prov.activeStepIndex += 1;
                                           }));
                                         } else {
-                                          // ignore: use_build_context_synchronously
                                           Utils().showSnackbar(
                                               'Something Wrong',
                                               Colors.red,

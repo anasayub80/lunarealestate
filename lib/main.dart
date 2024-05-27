@@ -1,24 +1,20 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
 import 'package:lunarestate/Config/config.dart';
 import 'package:lunarestate/Pages/Gallery/GalleryPage.dart';
 import 'package:lunarestate/Pages/SellHistory/SellHistory.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
 import 'package:lunarestate/Pages/Survery/SurveryPage.dart';
 import 'package:lunarestate/Service/UserData.dart';
-
 import 'Pages/HomePage/HomePage.dart';
 import 'Pages/More/MorePage.dart';
 import 'Pages/Splash/SplashPage.dart';
@@ -84,7 +80,7 @@ class _MyAppState extends State<MyApp> {
             GlobalWidgetsLocalizations.delegate,
           ],
           theme: ThemeData(
-            fontFamily: 'PTSans',
+            fontFamily: 'Aspekta',
             appBarTheme: AppBarTheme(
                 backgroundColor: mainColor,
                 foregroundColor: Colors.white //here you can give the text color
@@ -169,8 +165,18 @@ class _MyNavigationState extends State<MyNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: onWillPop,
+    return PopScope(
+      // onWillPop: onWillPop,
+      onPopInvoked: (didPop) {
+        DateTime now = DateTime.now();
+        if (currentBackPressTime == null ||
+            now.difference(currentBackPressTime!) > Duration(seconds: 2)) {
+          currentBackPressTime = now;
+          BotToast.showText(text: 'Tap Again to leave');
+          // return Future.value(false);
+        }
+        exit(0);
+      },
       child: Scaffold(
         backgroundColor: Color(0xff141414),
         // body: children.elementAt(_bottomNavIndex),

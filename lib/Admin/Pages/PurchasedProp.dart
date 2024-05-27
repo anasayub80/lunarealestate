@@ -69,9 +69,9 @@ class _purchasedPropPageState extends State<purchasedPropPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: AppThemes().bgColor,
+        backgroundColor: AppThemes.bgColor,
         appBar: AppBar(
-          backgroundColor: AppThemes().bgColor,
+          backgroundColor: AppThemes.bgColor,
           title: Text(widget.title),
           centerTitle: true,
         ),
@@ -122,7 +122,7 @@ class _purchasedPropPageState extends State<purchasedPropPage> {
                                   }
                                 },
                                 child: Card(
-                                  color: AppThemes().cardColor,
+                                  color: AppThemes.cardColor,
                                   child: Container(
                                     child: Row(
                                       children: [

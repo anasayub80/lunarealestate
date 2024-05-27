@@ -1,37 +1,47 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class roundButton extends StatelessWidget {
+  final VoidCallback onClick;
+  final String text;
+
   roundButton({required this.onClick, required this.text});
-  var onClick;
-  String text;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 55.0),
-      child: ElevatedButton(
-        onPressed: onClick,
-        child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 17,
-              color: Colors.white,
-            ),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFD3A45C), Color(0xFFDCA249)],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
           ),
+          borderRadius: BorderRadius.circular(18.0),
         ),
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
+        height: 40,
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: onClick,
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              // primary: Colors.transparent,
+              shadowColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18.0),
-                side: BorderSide(color: Colors.white)),
-          ),
-          backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.pressed)) return Colors.amber;
-              return Colors.transparent; // Use the component's default.
-            },
+              ),
+              minimumSize: Size.fromWidth(size.width)),
+          child: Center(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0xff25272A),
+              ),
+            ),
           ),
         ),
       ),

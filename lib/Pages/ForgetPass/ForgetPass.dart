@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Pages/ForgetPass/OTPPage.dart';
@@ -75,7 +77,6 @@ class ForgetMyPass extends StatelessWidget {
                             });
                             if (res['status'] == 'success') {
                               FLoading.hide();
-                              // ignore: use_build_context_synchronously
                               Navigator.push(
                                   context,
                                   PageTransition(
