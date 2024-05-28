@@ -2,10 +2,12 @@
 
 import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
+import 'package:lunarestate/Config/bc_ext.dart';
+import 'package:lunarestate/Config/spacing_ext.dart';
+import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/ForgetPass/OTPPage.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Widgets/Utils.dart';
-import 'package:lunarestate/Widgets/customAppBar.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../Widgets/textBox.dart';
@@ -18,28 +20,38 @@ class ForgetMyPass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        body: Container(
-          child: NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [
-                CustomAppBarwithBackButton(title),
-              ];
-            },
-            body: Container(
-              child: SingleChildScrollView(
-                child: Column(
+        body: BgOne(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                50.height,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                      onPressed: () {
+                        context.popFromScreen();
+                      },
+                      icon: Icon(
+                        Icons.keyboard_arrow_left,
+                        size: 24,
+                        color: Colors.white,
+                      )),
+                ),
+                30.height,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 25,
-                    ),
                     Image.asset(
                       'assets/icons/forget.png',
                       height: 125,
                     ),
+                    30.height,
                     textBox(
                         icon: Icons.email_outlined,
                         emailController: _email,
@@ -96,30 +108,11 @@ class ForgetMyPass extends StatelessWidget {
                         },
                         text: 'Send OTP')
                   ],
-                ),
-              ),
-              decoration: BoxDecoration(
-                  color: Color(0xff141414),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(35),
-                    topRight: Radius.circular(35),
-                  )),
-              height: size.height,
-              width: size.width,
+                ).addPadding(horizontal: 25)
+              ],
             ),
           ),
-          height: size.height,
-          width: size.width,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-            image: AssetImage(
-              'assets/images/tower.jpg',
-            ),
-            opacity: 0.2,
-            fit: BoxFit.cover,
-          )),
         ),
-        backgroundColor: Colors.black,
       ),
     );
   }

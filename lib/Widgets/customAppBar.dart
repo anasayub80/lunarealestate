@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lunarestate/Config/bc_ext.dart';
+import 'package:lunarestate/Config/spacing_ext.dart';
+
+import '../Admin/AppTheme.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String title;
@@ -22,6 +26,50 @@ class CustomAppBar extends StatelessWidget {
       ),
       pinned: true,
       floating: true,
+    );
+  }
+}
+
+class CustomAppBarWithCircleback extends StatelessWidget {
+  const CustomAppBarWithCircleback({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        50.height,
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: () {
+                  context.popFromScreen();
+                },
+                child: CircleAvatar(
+                  backgroundColor: AppThemes.primaryColor,
+                  radius: 16,
+                  child: Icon(
+                    Icons.keyboard_arrow_left,
+                    size: 24,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Text(
+                "Back",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ).addPadding(left: 10)
+            ],
+          ).addPadding(left: 10),
+        ),
+      ],
     );
   }
 }

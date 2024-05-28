@@ -110,7 +110,7 @@ class _passTextBoxState extends State<passTextBox> {
       child: Center(
         child: TextFormField(
           autofocus: false,
-          cursorColor: Colors.amber,
+          cursorColor: AppThemes.primaryColor,
           style: TextStyle(color: Colors.white),
           controller: widget._passwordController,
           keyboardType: TextInputType.visiblePassword,
@@ -118,6 +118,19 @@ class _passTextBoxState extends State<passTextBox> {
           decoration: InputDecoration(
               hintText: widget.hint,
               icon: Icon(Icons.lock_outlined, color: AppThemes.primaryColor),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  // Based on passwordVisible state choose the icon
+                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.grey,
+                ),
+                onPressed: () {
+                  // Update the state i.e. toogle the state of passwordVisible variable
+                  setState(() {
+                    _passwordVisible = !_passwordVisible;
+                  });
+                },
+              ),
               // focusColor: AppThemes.primaryColor,
               focusedBorder: InputBorder.none,
               labelStyle: TextStyle(
@@ -159,7 +172,7 @@ class _passTextBoxState extends State<passTextBox> {
           //     hintStyle: TextStyle(
           //       color: Colors.white,
           //     )),
-        ).addPadding(left: 20),
+        ).addPadding(left: 20, top: 5, right: 10, bottom: 5),
       ),
     );
   }
