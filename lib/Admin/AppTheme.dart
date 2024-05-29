@@ -6,4 +6,5 @@ abstract class AppThemes {
   static Color bgColor = Color(0xff171820);
   static Color cardColornew = Color(0xff22252A);
   static Color cardColor = Color(0xff30313A);
+  static Color secondarycolor = Color(0xFFD3A45C);
 }

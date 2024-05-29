@@ -53,6 +53,8 @@ class SignUpPage extends StatelessWidget {
                       color: AppThemes.primaryColor,
                       fontSize: 18.0,
                       fontWeight: FontWeight.w600,
+                      // letterSpacing:
+                      letterSpacing: 3.2,
                     ),
                   ),
                   Text(

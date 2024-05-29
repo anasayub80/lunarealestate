@@ -31,7 +31,9 @@ class BgTwo extends StatelessWidget {
       width: size.width,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/images/bgTwo.png'), fit: BoxFit.fill),
+          image: AssetImage('assets/images/bgTwo.png'),
+          fit: BoxFit.fill,
+        ),
       ),
       child: child,
     );

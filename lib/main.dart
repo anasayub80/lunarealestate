@@ -6,6 +6,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -80,6 +81,13 @@ class _MyAppState extends State<MyApp> {
             GlobalWidgetsLocalizations.delegate,
           ],
           theme: ThemeData(
+            textSelectionTheme: TextSelectionThemeData(
+              cursorColor: AppThemes.primaryColor,
+              selectionColor: AppThemes.primaryColor.withOpacity(.1),
+              selectionHandleColor: AppThemes.primaryColor,
+            ),
+            progressIndicatorTheme:
+                ProgressIndicatorThemeData(color: mainColor),
             fontFamily: 'Aspekta',
             appBarTheme: AppBarTheme(
                 backgroundColor: mainColor,

@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/Login/login_page.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -105,9 +106,8 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
-      body: Container(
+      body: BgOne(
         child: Column(
           children: [
             Expanded(
@@ -142,15 +142,6 @@ class _SplashPageState extends State<SplashPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
         ),
-        decoration: BoxDecoration(
-          color: Colors.black,
-          image: DecorationImage(
-              image: AssetImage('assets/images/tower.jpg'),
-              opacity: 0.2,
-              fit: BoxFit.fill),
-        ),
-        height: size.height,
-        width: size.width,
       ),
     );
   }

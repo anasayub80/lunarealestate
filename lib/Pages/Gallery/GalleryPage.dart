@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:lunarestate/Config/spacing_ext.dart';
+import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/Gallery/ImageView.dart';
 import 'package:lunarestate/Widgets/customAppBar.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:page_transition/page_transition.dart';
+
+import '../../Admin/AppTheme.dart';
 
 // ignore: must_be_immutable
 class GalleryPage extends StatefulWidget {
@@ -43,120 +48,123 @@ class _GalleryPageState extends State<GalleryPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          child: NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [
-                CustomAppBar('Gallery'),
-              ];
-            },
-            physics: NeverScrollableScrollPhysics(),
-            body: Container(
-              child: FutureBuilder<dynamic>(
-                future: getData(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (snapshot.data != '0') {
-                    return SizedBox(
-                      height: size.height,
-                      width: size.width,
-                      child: ListView.builder(
-                        itemCount: myList.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 8),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        child: ImageView(url: myList[index]),
-                                        type: PageTransitionType.fade));
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Container(
-                                  height: 220,
-                                  width: size.width * 0.65,
-                                  child: PhotoView(
-                                    backgroundDecoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.01),
-                                    ),
-                                    imageProvider: NetworkImage(
-                                      myList[index],
-                                    ),
-                                    // imageUrl: myList[index] ?? '',
-                                    // height: 220,
-                                    // width: size.width * 0.65,
-                                    // fit: BoxFit.fill,
-                                    loadingBuilder: (context, url) => Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 5, vertical: 5),
-                                        child: Shimmer.fromColors(
-                                            highlightColor: Colors.white,
-                                            baseColor: Colors.amber.shade600,
-                                            child: Container(
-                                              margin: EdgeInsets.only(right: 0),
-                                              height: 155,
-                                              width: size.width * 0.65,
-                                              decoration: BoxDecoration(
-                                                color: Colors.black26,
-                                                borderRadius:
-                                                    BorderRadius.circular(16),
-                                              ),
-                                            ))),
-                                    //       period: Duration(seconds: 2),
-                                    //     )),
-                                    errorBuilder: (context, url, error) =>
-                                        Icon(Icons.error),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  } else {
-                    return Center(
-                      child: Text(
-                        '...',
+    return Scaffold(
+      body: BgTwo(
+        child: Column(
+          children: [
+            CustomAppBarWithCircleback(),
+            Expanded(
+              child: ListView(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Gallery',
                         style: TextStyle(
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          decorationColor: AppThemes.primaryColor,
+                          color: AppThemes.whiteColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                    );
-                  }
-                },
-              ),
-              height: size.height,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Color(0xff141414).withOpacity(0.9),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(35),
-                    topRight: Radius.circular(35),
-                  )),
+                      20.height,
+                      FutureBuilder<dynamic>(
+                        future: getData(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else if (snapshot.data != '0') {
+                            return GridView.builder(
+                              padding: EdgeInsets.zero,
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: myList.length,
+                              gridDelegate: SliverWovenGridDelegate.count(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 8,
+                                crossAxisSpacing: 8,
+                                pattern: [
+                                  WovenGridTile(1),
+                                  WovenGridTile(
+                                    5 / 7,
+                                    crossAxisRatio: 0.9,
+                                    alignment: AlignmentDirectional.centerEnd,
+                                  ),
+                                ],
+                              ),
+                              itemBuilder: (context, index) {
+                                return GridChild(
+                                  url: myList[index],
+                                );
+                              },
+                              // childrenDelegate: SliverChildBuilderDelegate(
+                              //   (context, index) => GridChild(myList: myList),
+                              // ),
+                            );
+                            // return MasonryGridView.builder(
+                            //   itemCount: myList.length,
+                            //   gridDelegate:
+                            //       SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                            //           crossAxisCount: 2),
+                            //   shrinkWrap: true,
+                            //   physics: NeverScrollableScrollPhysics(),
+                            //   itemBuilder: (context, index) {
+                            //     return GridChild(myList: myList);
+                            //   },
+                            // );
+                          } else {
+                            return Center(
+                              child: Text(
+                                '...',
+                                style: TextStyle(
+                                  fontSize: 24.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ).addPadding(horizontal: 25),
             ),
-          ),
-          height: size.height,
-          width: size.width,
-          decoration: BoxDecoration(
-              color: Colors.black,
-              image: DecorationImage(
-                opacity: 0.2,
-                image: AssetImage(
-                  'assets/images/tower.jpg',
-                ),
-                fit: BoxFit.cover,
-              )),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class GridChild extends StatelessWidget {
+  const GridChild({
+    super.key,
+    required this.url,
+  });
+
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            PageTransition(
+                child: ImageView(url: url), type: PageTransitionType.fade));
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: Image.network(
+          url,
+          fit: BoxFit.fill,
         ),
       ),
     );

@@ -2,15 +2,12 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:lecle_flutter_absolute_path/lecle_flutter_absolute_path.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lunarestate/Config/config.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
-import 'package:lunarestate/Pages/Survery/surveyData.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'package:provider/provider.dart';
 
 class backend {

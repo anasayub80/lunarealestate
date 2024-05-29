@@ -53,202 +53,218 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 30.height,
                 Expanded(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    40.height,
-                    Text(
-                      'SIGN IN',
-                      style: TextStyle(
-                        color: AppThemes.primaryColor,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      'Login into your account',
-                      style: TextStyle(
-                        color: AppThemes.whiteColor,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    40.height,
-                    textBox(
-                        icon: Icons.email_outlined,
-                        emailController: _emailController,
-                        Ktype: TextInputType.emailAddress,
-                        hint: 'Enter Email'),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    passTextBox(
-                        passwordController: _passwordController,
-                        hint: 'Enter Password'),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Checkbox(
-                                activeColor: AppThemes.primaryColor,
-                                value: true,
-                                onChanged: (c) {}),
-                            Text(
-                              "Remember Me",
-                              style: TextStyle(
-                                  color: AppThemes.whiteColor, fontSize: 14),
-                            ),
-                          ],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      40.height,
+                      Text(
+                        'SIGN IN',
+                        style: TextStyle(
+                          color: AppThemes.primaryColor,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 3.2,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            FocusManager.instance.primaryFocus?.unfocus();
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.rightToLeft,
-                                child: ForgetMyPass(title: 'Forget Password'),
-                                isIos: true,
-                                duration: Duration(milliseconds: 800),
+                      ),
+                      Text(
+                        'Login into your account',
+                        style: TextStyle(
+                          color: AppThemes.whiteColor,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      40.height,
+                      textBox(
+                          icon: Icons.email_outlined,
+                          emailController: _emailController,
+                          Ktype: TextInputType.emailAddress,
+                          hint: 'Enter Email'),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      passTextBox(
+                          passwordController: _passwordController,
+                          hint: 'Enter Password'),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Checkbox(
+                                  activeColor: AppThemes.primaryColor,
+                                  value: true,
+                                  onChanged: (c) {}),
+                              Text(
+                                "Remember",
+                                style: TextStyle(
+                                  color: AppThemes.whiteColor,
+                                  fontSize: 14,
+                                ),
                               ),
-                            );
-                          },
-                          child: Text(
-                            'Forget Password?',
-                            style: TextStyle(
-                              color: AppThemes.primaryColor,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 14.0,
+                            ],
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.rightToLeft,
+                                  child: ForgetMyPass(title: 'Forget Password'),
+                                  isIos: true,
+                                  duration: Duration(milliseconds: 800),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Forget Password?',
+                              style: TextStyle(
+                                color: AppThemes.primaryColor,
+                                fontWeight: FontWeight.w200,
+                                fontSize: 14.0,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    roundButton(
-                      onClick: (() async {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        if (_emailController.text.trim().isEmpty ||
-                            _passwordController.text.trim().isEmpty) {
-                          Utils().showSnackbar(
-                              'Enter Details!', Colors.red, context);
-                        } else {
-                          FLoading.show(
-                            context,
-                            loading: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  "assets/icons/icon.png",
-                                  width: 200,
-                                  height: 200,
-                                ),
-                                SizedBox(
-                                  height: 25,
-                                ),
-                                CircularProgressIndicator()
-                              ],
-                            ),
-                            closable: false,
-                            color: Colors.black.withOpacity(0.7),
-                          );
-                          var res = await backend().loginAccount({
-                            'email': _emailController.text,
-                            'password': _passwordController.text,
-                            'token': TOKEN,
-                          });
-
-                          if (res['status'] == 'success') {
-                            // List<dynamic> data = res["user"];
-                            debugPrint(res['user']["name"]);
-                            sharedPref().saveuserData(res['user']);
-                            sharedPref()
-                                .storeVal('email', _emailController.text);
+                        ],
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      roundButton(
+                        onClick: (() async {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          if (_emailController.text.trim().isEmpty ||
+                              _passwordController.text.trim().isEmpty) {
                             Utils().showSnackbar(
-                                res['msg'], Colors.green, context);
-                            await Provider.of<UserData>(context, listen: false)
-                                .initUserData();
-                            FLoading.hide();
-
-                            switch (res['user']['role']) {
-                              case 'admin':
-                                Navigator.of(context)
-                                    .popUntil((route) => route.isFirst);
-                                Navigator.pushReplacement(
-                                    context,
-                                    PageTransition(
-                                        child: AdminHome(),
-                                        isIos: true,
-                                        duration: Duration(milliseconds: 600),
-                                        type: PageTransitionType.bottomToTop));
-                                break;
-                              default:
-                                Navigator.pushReplacement(
-                                    context,
-                                    PageTransition(
-                                        child: MyNavigation(),
-                                        isIos: true,
-                                        duration: Duration(milliseconds: 600),
-                                        type: PageTransitionType.bottomToTop));
-                            }
+                                'Enter Details!', Colors.red, context);
                           } else {
-                            FLoading.hide();
-                            Utils()
-                                .showSnackbar(res['msg'], Colors.red, context);
-                          }
-                        }
-                      }),
-                      text: 'LOGIN',
-                    ),
-                    30.height,
-                    GestureDetector(
-                      onTap: () async {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        final res = await Navigator.push(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.rightToLeft,
-                            child: SignUpPage(),
-                            isIos: true,
-                            duration: Duration(milliseconds: 800),
-                          ),
-                        );
-                        if (res != null) {
-                          _emailController.text = res;
-                        }
-                      },
-                      child: Center(
-                        child: RichText(
-                          text: TextSpan(
-                              text: "Don't have an Account?",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w300,
+                            FLoading.show(
+                              context,
+                              loading: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    "assets/icons/icon.png",
+                                    width: 200,
+                                    height: 200,
+                                  ),
+                                  SizedBox(
+                                    height: 25,
+                                  ),
+                                  CircularProgressIndicator()
+                                ],
                               ),
-                              children: [
-                                TextSpan(
-                                    text: ' SIGN UP',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: AppThemes.primaryColor,
-                                        fontWeight: FontWeight.w400)),
-                              ]),
+                              closable: false,
+                              color: Colors.black.withOpacity(0.7),
+                            );
+                            try {
+                              var res = await backend().loginAccount({
+                                'email': _emailController.text,
+                                'password': _passwordController.text,
+                                'token': TOKEN,
+                              });
+
+                              if (res['status'] == 'success') {
+                                debugPrint(res['user']["name"]);
+                                sharedPref().saveuserData(res['user']);
+                                sharedPref()
+                                    .storeVal('email', _emailController.text);
+                                Utils().showSnackbar(
+                                    res['msg'], Colors.green, context);
+                                await Provider.of<UserData>(context,
+                                        listen: false)
+                                    .initUserData();
+                                FLoading.hide();
+
+                                switch (res['user']['role']) {
+                                  case 'admin':
+                                    Navigator.of(context)
+                                        .popUntil((route) => route.isFirst);
+                                    Navigator.pushReplacement(
+                                        context,
+                                        PageTransition(
+                                            child: AdminHome(),
+                                            isIos: true,
+                                            duration:
+                                                Duration(milliseconds: 600),
+                                            type: PageTransitionType
+                                                .bottomToTop));
+                                    break;
+                                  default:
+                                    Navigator.pushReplacement(
+                                        context,
+                                        PageTransition(
+                                            child: MyNavigation(),
+                                            isIos: true,
+                                            duration:
+                                                Duration(milliseconds: 600),
+                                            type: PageTransitionType
+                                                .bottomToTop));
+                                }
+                              } else {
+                                FLoading.hide();
+                                Utils().showSnackbar(
+                                    res['msg'], Colors.red, context);
+                              }
+                            } catch (e) {
+                              debugPrint("Login Error: $e");
+
+                              FLoading.hide();
+                              Utils().showSnackbar(
+                                  e.toString(), Colors.red, context);
+                            }
+                          }
+                        }),
+                        text: 'LOGIN',
+                      ),
+                      30.height,
+                      GestureDetector(
+                        onTap: () async {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          final res = await Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: SignUpPage(),
+                              isIos: true,
+                              duration: Duration(milliseconds: 800),
+                            ),
+                          );
+                          if (res != null) {
+                            _emailController.text = res;
+                          }
+                        },
+                        child: Center(
+                          child: RichText(
+                            text: TextSpan(
+                                text: "Don't have an Account?",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                                children: [
+                                  TextSpan(
+                                      text: ' SIGN UP',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: AppThemes.primaryColor,
+                                          fontWeight: FontWeight.w400)),
+                                ]),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ).addPadding(horizontal: 25)),
+                    ],
+                  ).addPadding(horizontal: 25),
+                ),
               ],
             ),
           ),
