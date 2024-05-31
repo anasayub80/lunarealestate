@@ -19,12 +19,19 @@ class GlobalAppBar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CircleAvatar(
-                radius: 41,
-                backgroundColor: Color(0xFF3E434E),
-                child: SvgPicture.asset('assets/icons/menu.svg'),
-              ).addPadding(
-                horizontal: 12,
+              FittedBox(
+                child: CircleAvatar(
+                  radius: 41,
+                  backgroundColor: Color(0xFF3E434E),
+                  child: SvgPicture.asset(
+                    'assets/icons/menu.svg',
+                    height: 14,
+                    width: 14,
+                    fit: BoxFit.fill,
+                  ),
+                ).addPadding(
+                  horizontal: 12,
+                ),
               ),
               SizedBox(
                 child: Column(
@@ -38,13 +45,13 @@ class GlobalAppBar extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           wordSpacing: 3.1),
                     ),
-                    4.height,
+                    // 4.height,
                     Row(
                       children: [
                         Icon(
                           Icons.location_on,
                           color: AppThemes.secondarycolor,
-                          size: 16,
+                          size: 20,
                         ),
                         4.width,
                         Text(

@@ -4,8 +4,6 @@ import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/Gallery/ImageView.dart';
 import 'package:lunarestate/Widgets/customAppBar.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../Admin/AppTheme.dart';
@@ -46,7 +44,7 @@ class _GalleryPageState extends State<GalleryPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       body: BgTwo(

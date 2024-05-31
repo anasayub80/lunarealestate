@@ -81,11 +81,13 @@ class _MyAppState extends State<MyApp> {
             GlobalWidgetsLocalizations.delegate,
           ],
           theme: ThemeData(
+            // cupertinoOverrideTheme: TextSelectionTheme(data: data, child: child),
             textSelectionTheme: TextSelectionThemeData(
               cursorColor: AppThemes.primaryColor,
               selectionColor: AppThemes.primaryColor.withOpacity(.1),
               selectionHandleColor: AppThemes.primaryColor,
             ),
+
             progressIndicatorTheme:
                 ProgressIndicatorThemeData(color: mainColor),
             fontFamily: 'Aspekta',

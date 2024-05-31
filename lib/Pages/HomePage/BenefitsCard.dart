@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/config.dart';
 
 class BenefitCard extends StatelessWidget {
@@ -39,7 +40,7 @@ class BenefitCard extends StatelessWidget {
                       ),
                     ),
                     VerticalDivider(
-                      color: mainColor,
+                      color: AppThemes.primaryColor,
                       thickness: 1,
                       indent: 0,
                       endIndent: 0,
@@ -65,7 +66,7 @@ class BenefitCard extends StatelessWidget {
                 ),
               ),
               Divider(
-                color: mainColor,
+                color: AppThemes.primaryColor,
               ),
               Expanded(
                 flex: 3,
@@ -89,7 +90,7 @@ class BenefitCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 4.0),
                       child: VerticalDivider(
-                        color: mainColor,
+                        color: AppThemes.primaryColor,
                         thickness: 1,
                         indent: 0,
                         endIndent: 0,
@@ -116,7 +117,7 @@ class BenefitCard extends StatelessWidget {
                 ),
               ),
               Divider(
-                color: mainColor,
+                color: AppThemes.primaryColor,
               ),
               Expanded(
                 flex: 4,
@@ -140,7 +141,7 @@ class BenefitCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 4.0),
                       child: VerticalDivider(
-                        color: mainColor,
+                        color: AppThemes.primaryColor,
                         thickness: 1,
                         indent: 0,
                         endIndent: 0,

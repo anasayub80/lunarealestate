@@ -1,14 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
-import 'package:lunarestate/Config/bc_ext.dart';
-import 'package:lunarestate/Config/config.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
-
 import 'package:lunarestate/Widgets/global_appbar.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:video_player/video_player.dart';
+
+import '../SellHistory/SellHistory.dart';
+import '../Survery/SurveryPage.dart';
+import 'Widgets/benefits_wid.dart';
+import 'Widgets/home_button.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -32,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (mounted) setState(f);
   }
 
-  final _pageViewController = PageController(viewportFraction: 0.8);
+  // final _pageViewController = PageController(viewportFraction: 0.8);
   loadVideoPlayer() {
     controller = VideoPlayerController.asset('assets/intro.mp4',
         videoPlayerOptions: VideoPlayerOptions(
@@ -64,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final CarouselController _carouselController = CarouselController();
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -93,8 +95,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ).addPadding(horizontal: 14),
+                    10.height,
                     SizedBox(
-                      height: 120,
+                      height: 174,
                       width: double.infinity,
                       child: CarouselSlider(
                         items: img
@@ -120,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           aspectRatio: 16 /
                               9, // Adjust the aspect ratio for desired effect
                           viewportFraction:
-                              0.5, // Make sure images fill the space properly
+                              0.8, // Make sure images fill the space properly
                           scrollPhysics: img.length == 1
                               ? const NeverScrollableScrollPhysics()
                               : const ScrollPhysics(),
@@ -130,6 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ).addPadding(horizontal: 14),
+                    10.height,
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -137,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: TextStyle(
                           color: AppThemes.whiteColor,
                           fontWeight: FontWeight.w500,
-                          fontSize: 19.0,
+                          fontSize: 18.0,
                         ),
                       ),
                     ).addPadding(
@@ -160,308 +164,35 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(
                       height: 18,
                     ),
-                    Container(
-                      width: context.screenWidth * 0.9,
-                      height: 62,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF22252A),
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                          width: 3,
-                          color: Color(0xFF494748),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset("assets/images/my_home.svg"),
-                              15.width,
-                              Text(
-                                "Sell House",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  letterSpacing: 1.1,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: mainColor,
-                          ),
-                        ],
-                      ).addPadding(overall: 12),
-                      // child: mainColor,
-                    ).center(),
+                    HomeButtons(
+                      onTapBtn: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                isIos: true,
+                                duration: Duration(milliseconds: 700),
+                                child: SuerveyPage(),
+                                type: PageTransitionType.fade));
+                      },
+                      svg: "assets/images/my_home.svg",
+                      title: "Sell House",
+                    ),
                     15.height,
-                    Container(
-                      width: context.screenWidth * 0.9,
-                      height: 62,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF22252A),
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                          width: 3,
-                          color: Color(0xFF494748),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset("assets/images/home_my.svg"),
-                              15.width,
-                              Text(
-                                "Sell House",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  letterSpacing: 1.1,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: mainColor,
-                          ),
-                        ],
-                      ).addPadding(overall: 12),
-                      // child: mainColor,
-                    ).center(),
-                    20.height,
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'The Benefits of Selling To Lana Enterprises',
-                        style: TextStyle(
-                          color: AppThemes.whiteColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 19.0,
-                        ),
-                      ),
-                    ).addPadding(
-                      horizontal: 19,
-                      vertical: 4,
+                    HomeButtons(
+                      onTapBtn: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                isIos: true,
+                                duration: Duration(milliseconds: 700),
+                                child: SellHistoryPage(from: 'btn'),
+                                type: PageTransitionType.fade));
+                      },
+                      svg: "assets/images/home_my.svg",
+                      title: "My Home",
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: SizedBox(
-                        width: 50,
-                        child: Divider(
-                          thickness: 1.8,
-                          color: AppThemes.secondarycolor,
-                        ),
-                      ),
-                    ).addPadding(
-                      horizontal: 19,
-                      vertical: 0,
-                    ),
-                    20.height,
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Commissions / Fees:",
-                        style: TextStyle(
-                          color: AppThemes.secondarycolor,
-                          fontSize: 21,
-                        ),
-                      ).addPadding(
-                        horizontal: 19,
-                      ),
-                    ),
-                    Container(
-                      width: context.screenWidth * 0.9,
-                      height: 65,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF22252A),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          width: 1,
-                          color: Color(0xFF494748),
-                        ),
-                      ),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          '6% on average is paid by you, the seller-No Commissions by  Luna Enterprises.',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ).addPadding(overall: 8),
-                      ),
-                    ).center().addPadding(overall: 12),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Who Pays Closing Costs?",
-                        style: TextStyle(
-                          color: AppThemes.secondarycolor,
-                          fontSize: 21,
-                        ),
-                      ).addPadding(
-                        horizontal: 19,
-                      ),
-                    ),
-                    Container(
-                      width: context.screenWidth * 0.9,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF22252A),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          width: 1,
-                          color: Color(0xFF494748),
-                        ),
-                      ),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          '2% on average is paid by you, the seller. We split close closing cost.',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ).addPadding(overall: 8),
-                      ),
-                    ).center().addPadding(overall: 12),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Other Benefits.",
-                        style: TextStyle(
-                          color: AppThemes.secondarycolor,
-                          fontSize: 21,
-                        ),
-                      ).addPadding(
-                        horizontal: 19,
-                      ),
-                    ),
-                    Container(
-                      // width: context.screenWidth * 0.9,
-                      // height: 65,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF22252A),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          width: 1,
-                          color: Color(0xFF494748),
-                        ),
-                      ),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 12,
-                                ),
-                                CircleAvatar(
-                                  radius: 2,
-                                  backgroundColor: AppThemes.secondarycolor,
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    'No showing.',
-                                    softWrap: true,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ).addPadding(overall: 8),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 12,
-                                ),
-                                CircleAvatar(
-                                  radius: 2,
-                                  backgroundColor: AppThemes.secondarycolor,
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    'No out of pocket repair cost.',
-                                    softWrap: true,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ).addPadding(overall: 8),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 12,
-                                ),
-                                CircleAvatar(
-                                  radius: 2,
-                                  backgroundColor: AppThemes.secondarycolor,
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    'NO dealing with multiple inspectors hassling or nitpick your home.',
-                                    softWrap: true,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ).addPadding(overall: 8),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 12,
-                                ),
-                                CircleAvatar(
-                                  radius: 2,
-                                  backgroundColor: AppThemes.secondarycolor,
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    'Fast quick and cash',
-                                    softWrap: true,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ).addPadding(overall: 8),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ).center().addPadding(
-                          overall: 12,
-                        ),
+                    35.height,
+                    BenefitsWidget(),
                   ],
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
