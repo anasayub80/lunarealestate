@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
+import 'package:lunarestate/Pages/Survery/pages/children_widgets/basic_info.dart';
+import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Widgets/global_appbar.dart';
+import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:video_player/video_player.dart';
 
@@ -134,33 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ).addPadding(horizontal: 14),
                     10.height,
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Your Home Our Passion',
-                        style: TextStyle(
-                          color: AppThemes.whiteColor,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18.0,
-                        ),
-                      ),
-                    ).addPadding(
-                      horizontal: 19,
-                      vertical: 4,
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: SizedBox(
-                        width: 50,
-                        child: Divider(
-                          thickness: 1.8,
-                          color: AppThemes.secondarycolor,
-                        ),
-                      ),
-                    ).addPadding(
-                      horizontal: 19,
-                      vertical: 0,
-                    ),
+                    getHeader('Your Home Our Passion'),
                     SizedBox(
                       height: 18,
                     ),
@@ -169,10 +146,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         Navigator.push(
                             context,
                             PageTransition(
-                                isIos: true,
-                                duration: Duration(milliseconds: 700),
-                                child: SuerveyPage(),
-                                type: PageTransitionType.fade));
+                              isIos: true,
+                              duration: Duration(milliseconds: 700),
+                              child: SellHousePage(
+                                child: BasicInfo(),
+                              ),
+                              type: PageTransitionType.fade,
+                            ));
                       },
                       svg: "assets/images/my_home.svg",
                       title: "Sell House",

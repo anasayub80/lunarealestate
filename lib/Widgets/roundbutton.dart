@@ -3,15 +3,21 @@ import 'package:flutter/material.dart';
 class roundButton extends StatelessWidget {
   final VoidCallback onClick;
   final String text;
-
-  roundButton({required this.onClick, required this.text});
+  final double horizontalPadding;
+  final double buttonWidth;
+  roundButton({
+    required this.onClick,
+    required this.text,
+    this.horizontalPadding = 55,
+    this.buttonWidth = double.infinity,
+  });
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 55.0),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -22,7 +28,7 @@ class roundButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(18.0),
         ),
         height: 40,
-        width: double.infinity,
+        width: buttonWidth,
         child: ElevatedButton(
           onPressed: onClick,
           style: ElevatedButton.styleFrom(

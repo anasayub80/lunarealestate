@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -88,6 +89,10 @@ class _MyAppState extends State<MyApp> {
               selectionHandleColor: AppThemes.primaryColor,
             ),
 
+            cupertinoOverrideTheme: CupertinoThemeData(
+              primaryColor: AppThemes.primaryColor,
+            ),
+
             progressIndicatorTheme:
                 ProgressIndicatorThemeData(color: mainColor),
             fontFamily: 'Aspekta',
@@ -98,6 +103,9 @@ class _MyAppState extends State<MyApp> {
             primarySwatch: Colors.amber,
           ),
           home: SplashPage(),
+          // home: SellHousePage(
+          //   child: PropertyInfo(),
+          // ),
         ),
       );
     });

@@ -7,12 +7,14 @@ class textBox extends StatelessWidget {
   String hint;
   TextInputType Ktype;
   var icon;
+  final bool isSvg;
   textBox({
     Key? key,
     required TextEditingController emailController,
     required this.hint,
     required this.icon,
     required this.Ktype,
+    this.isSvg = false,
   })  : _emailController = emailController,
         super(key: key);
 
@@ -22,9 +24,12 @@ class textBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Color(0xff22252A),
-          borderRadius: BorderRadius.circular(36),
-          border: Border.all(color: Color(0xff494748))),
+        color: Color(0xff22252A),
+        borderRadius: BorderRadius.circular(36),
+        border: Border.all(
+          color: Color(0xff494748),
+        ),
+      ),
       height: 55,
       child: Center(
         child: TextFormField(
@@ -35,7 +40,13 @@ class textBox extends StatelessWidget {
           controller: _emailController,
           decoration: InputDecoration(
               hintText: hint,
-              icon: Icon(icon, color: AppThemes.primaryColor),
+              // !! parse the whole Svg widget in "icon", but make sure you have "isSvg" enabled.
+              // !! -jawad
+              icon: icon != null
+                  ? isSvg
+                      ? icon
+                      : Icon(icon, color: AppThemes.primaryColor)
+                  : SizedBox.shrink(),
               // focusColor: AppThemes.primaryColor,
               focusedBorder: InputBorder.none,
               labelStyle: TextStyle(

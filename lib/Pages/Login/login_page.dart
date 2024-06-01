@@ -253,11 +253,13 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 children: [
                                   TextSpan(
-                                      text: ' SIGN UP',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: AppThemes.primaryColor,
-                                          fontWeight: FontWeight.w400)),
+                                    text: ' SIGN UP',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: AppThemes.primaryColor,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
                                 ]),
                           ),
                         ),

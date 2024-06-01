@@ -14,18 +14,20 @@ showSingleChoiceDialog(BuildContext context) => showDialog(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: languages
-                    .map((e) => RadioListTile(
-                          title: Text(e),
-                          value: e,
-                          groupValue: singleNotifier.currentlanguage,
-                          selected: singleNotifier.currentlanguage == e,
-                          onChanged: (value) {
-                            if (value != singleNotifier.currentlanguage) {
-                              singleNotifier.updatelanguage(value);
-                              Navigator.of(context).pop();
-                            }
-                          },
-                        ))
+                    .map(
+                      (e) => RadioListTile(
+                        title: Text(e),
+                        value: e,
+                        groupValue: singleNotifier.currentlanguage,
+                        selected: singleNotifier.currentlanguage == e,
+                        onChanged: (value) {
+                          if (value != singleNotifier.currentlanguage) {
+                            singleNotifier.updatelanguage(value);
+                            Navigator.of(context).pop();
+                          }
+                        },
+                      ),
+                    )
                     .toList(),
               ),
             ),

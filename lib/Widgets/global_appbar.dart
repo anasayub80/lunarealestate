@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 
@@ -19,20 +18,6 @@ class GlobalAppBar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              FittedBox(
-                child: CircleAvatar(
-                  radius: 41,
-                  backgroundColor: Color(0xFF3E434E),
-                  child: SvgPicture.asset(
-                    'assets/icons/menu.svg',
-                    height: 14,
-                    width: 14,
-                    fit: BoxFit.fill,
-                  ),
-                ).addPadding(
-                  horizontal: 12,
-                ),
-              ),
               SizedBox(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +57,9 @@ class GlobalAppBar extends StatelessWidget {
           Spacer(),
           CircleAvatar(
             radius: 41,
-            backgroundImage: NetworkImage('https://picsum.photos/200/300'),
+            backgroundImage: NetworkImage(
+              'https://picsum.photos/200/300',
+            ),
           ),
         ],
       ).addPadding(
