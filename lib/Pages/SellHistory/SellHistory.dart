@@ -8,6 +8,7 @@ import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/SellHistory/fullDetail.dart';
 import 'package:lunarestate/Service/UserData.dart';
 import 'package:lunarestate/Service/backend.dart';
+import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Config/customDelgate.dart';
@@ -80,37 +81,41 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 20.height,
-                Text.rich(
-                  TextSpan(
-                    text: '',
-                    style: TextStyle(
-                      color: AppThemes.whiteColor,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'My ',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          decorationColor: AppThemes.primaryColor,
-                          color: AppThemes.whiteColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      TextSpan(
-                        text: 'Houses',
-                        style: TextStyle(
-                          color: AppThemes.whiteColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      // can add more TextSpans here...
-                    ],
-                  ),
+                getHeader(
+                  'My Houses',
+                  horizontalPadding: 8,
                 ),
+                // Text.rich(
+                //   TextSpan(
+                //     text: '',
+                //     style: TextStyle(
+                //       color: AppThemes.whiteColor,
+                //       fontSize: 18,
+                //       fontWeight: FontWeight.w500,
+                //     ),
+                //     children: <TextSpan>[
+                //       TextSpan(
+                //         text: 'My ',
+                //         style: TextStyle(
+                //           decoration: TextDecoration.underline,
+                //           decorationColor: AppThemes.primaryColor,
+                //           color: AppThemes.whiteColor,
+                //           fontSize: 18,
+                //           fontWeight: FontWeight.w500,
+                //         ),
+                //       ),
+                //       TextSpan(
+                //         text: 'Houses',
+                //         style: TextStyle(
+                //           color: AppThemes.whiteColor,
+                //           fontSize: 18,
+                //           fontWeight: FontWeight.w500,
+                //         ),
+                //       ),
+                //       // can add more TextSpans here...
+                //     ],
+                //   ),
+                // ),
                 20.height,
                 FutureBuilder(
                     future: backend().fetchProperty(

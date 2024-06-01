@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 
-Widget getHeader(String text) {
+Widget getHeader(String text, {double horizontalPadding = 19.0}) {
   return Column(
     children: [
       Align(
@@ -17,7 +17,7 @@ Widget getHeader(String text) {
           ),
         ),
       ).addPadding(
-        horizontal: 19,
+        horizontal: horizontalPadding,
         vertical: 4,
       ),
       Align(
@@ -30,7 +30,7 @@ Widget getHeader(String text) {
           ),
         ),
       ).addPadding(
-        horizontal: 19,
+        horizontal: horizontalPadding,
         vertical: 0,
       ),
     ],
