@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
+import 'package:lunarestate/Pages/Survery/pages/children_widgets/survey_page.dart';
 import 'package:lunarestate/Pages/Survery/pages/children_widgets/upload_photos.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
@@ -98,7 +99,18 @@ class _MyAppState extends State<MyApp> {
             cupertinoOverrideTheme: CupertinoThemeData(
               primaryColor: AppThemes.primaryColor,
             ),
-
+            checkboxTheme: CheckboxThemeData(
+              // checkColor: Colors.white,
+              // fillColor: WidgetStateColor.resolveWith((s) {
+              //   // if(MaterialState.)
+              // }),
+              fillColor: MaterialStateProperty.resolveWith((states) {
+                if (states.contains(MaterialState.selected)) {
+                  return mainColor;
+                }
+                return null;
+              }),
+            ),
             progressIndicatorTheme:
                 ProgressIndicatorThemeData(color: mainColor),
             fontFamily: 'Aspekta',
@@ -108,10 +120,10 @@ class _MyAppState extends State<MyApp> {
                 ),
             primarySwatch: Colors.amber,
           ),
-          home: SplashPage(),
-          // home: SellHousePage(
-          //   child: UploadPhotos(),
-          // ),
+          // home: SplashPage(),
+          home: SellHousePage(
+            child: SurveryWidget(),
+          ),
         ),
       );
     });

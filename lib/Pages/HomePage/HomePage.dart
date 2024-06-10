@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
+import 'package:lunarestate/Pages/Survery/SurveyWidgets.dart';
 import 'package:lunarestate/Pages/Survery/pages/children_widgets/basic_info.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Widgets/global_appbar.dart';
@@ -148,7 +149,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             PageTransition(
                               isIos: true,
                               duration: Duration(milliseconds: 700),
-                              child: SuerveyPage(),
+                              child: SellHousePage(
+                                child: BasicInfo(),
+                              ),
                               type: PageTransitionType.fade,
                             ));
                       },

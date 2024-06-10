@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
+import 'package:lunarestate/Pages/Survery/pages/children_widgets/upload_photos.dart';
+import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:lunarestate/Widgets/textBox.dart';
+import 'package:page_transition/page_transition.dart';
 
 class PropertyInfo extends StatelessWidget {
   PropertyInfo({super.key});
@@ -87,7 +90,16 @@ class PropertyInfo extends StatelessWidget {
           height: 55,
           circleBorder: 30,
           onClick: () {
-            // Navigator.push(context, route);
+            Navigator.push(
+                context,
+                PageTransition(
+                  isIos: true,
+                  duration: Duration(milliseconds: 700),
+                  child: SellHousePage(
+                    child: UploadPhotos(),
+                  ),
+                  type: PageTransitionType.fade,
+                ));
           },
           text: 'NEXT',
         ),
