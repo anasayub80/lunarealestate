@@ -148,9 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             PageTransition(
                               isIos: true,
                               duration: Duration(milliseconds: 700),
-                              child: SellHousePage(
-                                child: BasicInfo(),
-                              ),
+                              child: SuerveyPage(),
                               type: PageTransitionType.fade,
                             ));
                       },

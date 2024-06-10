@@ -20,6 +20,7 @@ class SellHousePage extends StatelessWidget {
       body: BgTwo(
         child: Column(
           children: [
+            20.height,
             SafeArea(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -52,7 +53,7 @@ class SellHousePage extends StatelessWidget {
             20.height,
             child
           ],
-        ),
+        ).addPadding(overall: 12),
       ),
     );
   }

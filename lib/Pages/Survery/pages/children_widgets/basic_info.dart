@@ -23,7 +23,7 @@ class BasicInfo extends StatelessWidget {
         getHeader(
           'Basic Info',
         ),
-        20.height,
+        45.height,
         textBox(
           emailController: nameOfOwner,
           hint: 'Name of owner',
@@ -87,14 +87,9 @@ class BasicInfo extends StatelessWidget {
         roundButton(
           buttonWidth: double.infinity,
           horizontalPadding: 15,
+          height: 55,
+          circleBorder: 30,
           onClick: () {
-            // Navigator.push(context, MaterialPageRoute(
-            //   builder: (context) {
-            //     return SellHousePage(
-            //       child: PropertyInfo(),
-            //     );
-            //   },
-            // ));
             Navigator.push(
                 context,
                 PageTransition(

@@ -5,11 +5,15 @@ class roundButton extends StatelessWidget {
   final String text;
   final double horizontalPadding;
   final double buttonWidth;
+  final double height;
+  final double circleBorder;
   roundButton({
     required this.onClick,
     required this.text,
     this.horizontalPadding = 55,
     this.buttonWidth = double.infinity,
+    this.height = 40,
+    this.circleBorder = 18,
   });
 
   @override
@@ -25,9 +29,9 @@ class roundButton extends StatelessWidget {
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
-          borderRadius: BorderRadius.circular(18.0),
+          borderRadius: BorderRadius.circular(circleBorder),
         ),
-        height: 40,
+        height: height,
         width: buttonWidth,
         child: ElevatedButton(
           onPressed: onClick,
@@ -36,7 +40,7 @@ class roundButton extends StatelessWidget {
               // primary: Colors.transparent,
               shadowColor: Colors.transparent,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
+                borderRadius: BorderRadius.circular(circleBorder),
               ),
               minimumSize: Size.fromWidth(size.width)),
           child: Center(

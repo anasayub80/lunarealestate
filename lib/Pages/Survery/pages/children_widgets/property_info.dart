@@ -20,7 +20,7 @@ class PropertyInfo extends StatelessWidget {
         getHeader(
           'Property Info',
         ),
-        20.height,
+        45.height,
         textBox(
           emailController: nameOfOwner,
           hint: 'Lot Size',
@@ -82,8 +82,10 @@ class PropertyInfo extends StatelessWidget {
         ),
         40.height,
         roundButton(
-          buttonWidth: double.infinity,
           horizontalPadding: 15,
+          buttonWidth: double.infinity,
+          height: 55,
+          circleBorder: 30,
           onClick: () {
             // Navigator.push(context, route);
           },

@@ -21,6 +21,7 @@ dependencies:
   carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
+  dotted_border: ^2.1.0
   eva_icons_flutter: ^3.1.0
   floading: ^2.0.0
   flutter:
