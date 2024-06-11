@@ -5,6 +5,7 @@ import 'package:lunarestate/Config/spacing_ext.dart';
 
 Widget getHeader(String text, {double horizontalPadding = 19.0}) {
   return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Align(
         alignment: Alignment.centerLeft,

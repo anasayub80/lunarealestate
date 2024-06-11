@@ -26,14 +26,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late VideoPlayerController controller;
 
-  @override
-  void initState() {
-    // ignore: todo
-    // TODO: implement initState
-    super.initState();
-    loadVideoPlayer();
-  }
-
   void setStateIfMounted(f) {
     if (mounted) setState(f);
   }
@@ -79,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               children: [
                 30.height,
-                GlobalAppBar(),
+                GlobalAppBar().addPadding(horizontal: 8),
                 30.height,
                 Column(
                   children: [

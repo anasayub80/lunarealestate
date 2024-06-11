@@ -52,7 +52,7 @@ class CustomAppBarWithCircleback extends StatelessWidget {
                 },
                 child: CircleAvatar(
                   backgroundColor: AppThemes.primaryColor,
-                  radius: 16,
+                  radius: 12,
                   child: Icon(
                     Icons.keyboard_arrow_left,
                     size: 24,
