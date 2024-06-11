@@ -7,9 +7,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/config.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
+import 'package:lunarestate/Pages/Survery/pages/children_widgets/survey_page.dart';
+import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
 import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -154,6 +157,16 @@ class UploadPhotos extends StatelessWidget {
             circleBorder: 30,
             onClick: () {
               // Navigator.push(context, route);
+              Navigator.push(
+                  context,
+                  PageTransition(
+                    isIos: true,
+                    duration: Duration(milliseconds: 700),
+                    child: SellHousePage(
+                      child: SurveryWidget(),
+                    ),
+                    type: PageTransitionType.fade,
+                  ));
             },
             text: 'NEXT',
           ),

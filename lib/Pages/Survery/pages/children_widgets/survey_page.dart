@@ -1,8 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
+import 'package:lunarestate/Pages/Survery/pages/children_widgets/survey_page_2.dart';
+import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Widgets/header_text.dart';
-import 'package:sizer/sizer.dart';
+import 'package:lunarestate/Widgets/roundbutton.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SurveryWidget extends StatelessWidget {
   const SurveryWidget({super.key});
@@ -76,6 +78,26 @@ class SurveryWidget extends StatelessWidget {
           ),
         ).addPadding(
           overall: 8,
+        ),
+        40.height,
+        roundButton(
+          horizontalPadding: 15,
+          buttonWidth: double.infinity,
+          height: 55,
+          circleBorder: 30,
+          onClick: () {
+            Navigator.push(
+                context,
+                PageTransition(
+                  isIos: true,
+                  duration: Duration(milliseconds: 700),
+                  child: SellHousePage(
+                    child: SurveyPage2(),
+                  ),
+                  type: PageTransitionType.fade,
+                ));
+          },
+          text: 'NEXT',
         ),
       ],
     );
