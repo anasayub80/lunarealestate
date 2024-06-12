@@ -11,6 +11,7 @@ Widget getListView(List property, int dataLength, BuildContext context) {
     height: context.screenHeight,
     width: double.infinity,
     child: ListView.builder(
+      physics: NeverScrollableScrollPhysics(),
       itemCount: dataLength,
       itemBuilder: (context, index) {
         return InkWell(

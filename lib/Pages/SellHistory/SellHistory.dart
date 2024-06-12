@@ -148,6 +148,7 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
                                   itemCount: snapshot.data.length,
                                   shrinkWrap: true,
                                   padding: EdgeInsets.zero,
+                                  physics: NeverScrollableScrollPhysics(),
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
                                           crossAxisCount: 2,

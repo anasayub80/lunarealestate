@@ -139,6 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: 25,
                       ),
                       roundButton(
+                        buttonWidth: double.infinity,
                         onClick: (() async {
                           FocusManager.instance.primaryFocus?.unfocus();
                           if (_emailController.text.trim().isEmpty ||
@@ -224,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           }
                         }),
-                        text: 'LOGIN',
+                        text: 'SIGN IN',
                       ),
                       30.height,
                       GestureDetector(

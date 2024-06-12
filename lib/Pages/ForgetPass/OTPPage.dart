@@ -82,7 +82,7 @@ class _OTPPageState extends State<OTPPage> {
                       10.height,
                       RichText(
                         text: TextSpan(
-                          text: 'Enter the code from the sms we sent to',
+                          text: 'Enter the code from the SMS we sent to',
                           children: [
                             TextSpan(
                               text: ' +8801774280847',

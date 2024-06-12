@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:developer';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
@@ -136,42 +137,8 @@ class FullDetail extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    height: 60,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF22252A),
-                      borderRadius: BorderRadius.circular(41),
-                      border: Border.all(
-                        width: 1,
-                        color: Color(0xFF494748),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Title:',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Color(0xFFD3A45C),
-                          ),
-                        ).addPadding(left: 5),
-                        Text(
-                          'Arcade X',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Color(0xFF606060),
-                          ),
-                        ).addPadding(left: 0),
-                        SvgPicture.asset('assets/icons/edit_icon.svg')
-                            .addPadding(right: 5),
-                      ],
-                    ).addPadding(overall: 12),
-                  ).addPadding(overall: 12),
                   Visibility(
-                    visible: false,
+                    visible: true,
                     child: StreamBuilder<dynamic>(
                         stream: _houseDetail.stream,
                         builder: (context, snapshot) {
@@ -202,60 +169,76 @@ class FullDetail extends StatelessWidget {
                                         formId: formId,
                                         from: from,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20.0),
-                                        child: SizedBox(
-                                          height: 70,
-                                          child: Card(
-                                            color:
-                                                Colors.black.withOpacity(0.5),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      'Date:',
-                                                      style: TextStyle(
-                                                        color: Colors.amber,
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 12.0),
-                                                      child: Text(
-                                                        snapshot.data[0]
-                                                            ['date'],
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 14,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 14.0),
-                                                    child: Icon(
-                                                      Icons.calendar_month,
-                                                      color: Colors.amber,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.symmetric(
+                                      //       horizontal: 20.0),
+                                      //   child: SizedBox(
+                                      //     height: 70,
+                                      //     child: Card(
+                                      //       color:
+                                      //           Colors.black.withOpacity(0.5),
+                                      //       child: Padding(
+                                      //         padding:
+                                      //             const EdgeInsets.all(8.0),
+                                      //         child: Row(
+                                      //           mainAxisAlignment:
+                                      //               MainAxisAlignment
+                                      //                   .spaceBetween,
+                                      //           children: [
+                                      //             Expanded(
+                                      //               child: Text(
+                                      //                 'Date:',
+                                      //                 style: TextStyle(
+                                      //                   color: Colors.amber,
+                                      //                   fontSize: 18,
+                                      //                 ),
+                                      //               ),
+                                      //             ),
+                                      //             Expanded(
+                                      //               child: Padding(
+                                      //                 padding:
+                                      //                     const EdgeInsets.only(
+                                      //                         left: 12.0),
+                                      //                 child: Text(
+                                      //                   snapshot.data[0]
+                                      //                       ['date'],
+                                      //                   style: TextStyle(
+                                      //                     color: Colors.white,
+                                      //                     fontSize: 14,
+                                      //                   ),
+                                      //                 ),
+                                      //               ),
+                                      //             ),
+                                      //             Padding(
+                                      //               padding:
+                                      //                   const EdgeInsets.only(
+                                      //                       right: 14.0),
+                                      //               child: Icon(
+                                      //                 Icons.calendar_month,
+                                      //                 color: Colors.amber,
+                                      //               ),
+                                      //             )
+                                      //           ],
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      ListCard(
+                                        title: 'Date:',
+                                        val: snapshot.data[0]['date'],
+                                        type: 'text',
+                                        column: 'location',
+                                        formId: formId,
+                                        from: from,
+                                      ),
+                                      ListCard(
+                                        title: 'Name:',
+                                        val: snapshot.data[0]['ownerName'],
+                                        type: 'text',
+                                        column: 'location',
+                                        formId: formId,
+                                        from: from,
                                       ),
                                       ListCard(
                                         title: 'Name:',
@@ -562,7 +545,8 @@ class FullDetail extends StatelessWidget {
                               btnCancelOnPress: () {},
                               onDismissCallback: (type) {
                                 debugPrint(
-                                    'Dialog Dismiss from callback $type');
+                                  'Dialog Dismiss from callback $type',
+                                );
                               },
                               btnOkText: 'Yes',
                               btnOkOnPress: () async {
@@ -636,89 +620,65 @@ class ListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: SizedBox(
-        child: Card(
-          color: Colors.black.withOpacity(0.5),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                      color: Colors.amber,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 12.0),
-                    child: Text(
-                      (type == 'checkbox'
-                          ? (val == '--'
-                              ? val
-                              : val == 'true'
-                                  ? box1!
-                                  : box2!)
-                          : val),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ),
-                from == 'admin'
-                    ? SizedBox.shrink()
-                    : IconButton(
-                        onPressed: () async {
-                          if (type == 'text') {
-                            var res =
-                                await Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return TextEditPage(
-                                  val: val,
-                                  column: column,
-                                  title: title,
-                                  formid: formId,
-                                );
-                              },
-                            ));
-                            // ignore: unrelated_type_equality_checks
-                            if (res == 'success') getData(formId);
-                          } else {
-                            var res =
-                                await Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return checkBoxEditPage(
-                                  val1: box1!,
-                                  val2: box2!,
-                                  val: val == '--' ? 'none' : val,
-                                  column: column,
-                                  title: title,
-                                  formid: formId,
-                                );
-                              },
-                            ));
-                            print('my res $res');
-                            // ignore: unrelated_type_equality_checks
-                            if (res.toString() == 'success') getData(formId);
-                          }
-                        },
-                        icon: Icon(
-                          Icons.edit,
-                          color: Colors.amber,
-                        ))
-              ],
-            ),
-          ),
+    return Container(
+      // height: 60,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Color(0xFF22252A),
+        borderRadius: BorderRadius.circular(41),
+        border: Border.all(
+          width: 1,
+          color: Color(0xFF494748),
         ),
       ),
-    );
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Flexible(
+            flex: 2,
+            child: AutoSizeText(
+              title,
+              maxLines: null,
+              style: TextStyle(
+                fontSize: 14,
+                color: Color(0xFFD3A45C),
+              ),
+            ).addPadding(left: 5, vertical: 8),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(
+              val,
+              style: TextStyle(
+                fontSize: 16,
+                color: Color(0xFF606060),
+              ),
+            ).addPadding(left: 2),
+          ),
+          Expanded(
+              child: GestureDetector(
+            onTap: () async {
+              if (type == 'text') {
+                var res = await Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return TextEditPage(
+                      val: val,
+                      column: column,
+                      title: title,
+                      formid: formId,
+                    );
+                  },
+                ));
+                // ignore: unrelated_type_equality_checks
+                if (res == 'success') getData(formId);
+              }
+            },
+            child: SvgPicture.asset('assets/icons/edit_icon.svg')
+                .addPadding(right: 0),
+          )),
+        ],
+      ).addPadding(overall: 12),
+    ).addPadding(overall: 12);
   }
 }
