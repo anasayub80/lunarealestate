@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Admin/Pages/adminHome.dart';
+import 'package:lunarestate/Admin/new/home_page.dart';
 import 'package:lunarestate/Config/config.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/ForgetPass/ForgetPass.dart';
@@ -193,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
                                     Navigator.pushReplacement(
                                         context,
                                         PageTransition(
-                                            child: AdminHome(),
+                                            child: HomePageAdmin(),
                                             isIos: true,
                                             duration:
                                                 Duration(milliseconds: 600),

@@ -1,5 +1,11 @@
 import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
+import 'package:lunarestate/Admin/AppTheme.dart';
+import 'package:lunarestate/Config/bc_ext.dart';
+import 'package:lunarestate/Config/spacing_ext.dart';
+import 'package:lunarestate/Pages/Background/bg_one.dart';
+import 'package:lunarestate/Widgets/global_appbar.dart';
+import 'package:lunarestate/Widgets/header_text.dart';
 
 import '../../Service/backend.dart';
 import '../../Widgets/Utils.dart';
@@ -35,96 +41,88 @@ class _TextEditPageState extends State<TextEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        body: Container(
-          height: size.height,
-          width: size.width,
-          decoration: BoxDecoration(
-              color: Colors.black,
-              image: DecorationImage(
-                opacity: 0.2,
-                image: AssetImage(
-                  'assets/images/tower.jpg',
-                ),
-                fit: BoxFit.cover,
-              )),
-          child: NestedScrollView(
-              headerSliverBuilder: (context, innerBoxIsScrolled) {
-                return [CustomAppBar('Edit Property')];
-              },
-              body: Column(
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  textBox(
-                      icon: Icons.edit,
-                      emailController: _textEditingController,
-                      Ktype: TextInputType.name,
-                      hint: 'Enter ${widget.title}'),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  roundButton(
-                    onClick: (() async {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      if (_textEditingController.text.trim().isEmpty) {
-                        Utils().showSnackbar(
-                            'Enter Details!', Colors.red, context);
-                      } else {
-                        FLoading.show(
-                          context,
-                          loading: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                "assets/icons/icon.png",
-                                width: 200,
-                                height: 200,
-                              ),
-                              SizedBox(
-                                height: 25,
-                              ),
-                              CircularProgressIndicator()
-                            ],
-                          ),
-                          closable: false,
-                          color: Colors.black.withOpacity(0.7),
-                        );
-                        var res = await backend().update({
-                          'value': _textEditingController.text,
-                          'column': widget.column,
-                          'table': 'house_details',
-                          'id': widget.formid,
-                        });
+        body: BgTwo(
+            child: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            CustomAppBarWithCircleback().addPadding(overall: 8),
+            4.height,
+            GlobalAppBar().addPadding(overall: 8),
+            getHeader('Edit Property').addPadding(overall: 8),
+            SizedBox(
+              height: 40,
+            ),
+            // Spacer(),
+            textBox(
+                    icon: Icons.edit,
+                    emailController: _textEditingController,
+                    Ktype: TextInputType.name,
+                    hint: 'Enter ${widget.title}')
+                .center()
+                .addPadding(horizontal: 12, vertical: 8),
 
-                        if (res['status'] == 'success') {
-                          debugPrint('success');
-                          FLoading.hide();
-                          // ignore: use_build_context_synchronously
-                          Navigator.pop(context, 'success');
-                        } else {
-                          FLoading.hide();
-                          debugPrint('fail');
-                          // ignore: use_build_context_synchronously
-                          Utils().showSnackbar(res['msg'], Colors.red, context);
-                        }
-                      }
-                    }),
-                    text: 'UPDATE',
-                  ),
-                ],
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-              )),
-        ),
+            40.height,
+            roundButton(
+              buttonWidth: context.screenWidth,
+              onClick: (() async {
+                FocusManager.instance.primaryFocus?.unfocus();
+                if (_textEditingController.text.trim().isEmpty) {
+                  Utils().showSnackbar('Enter Details!', Colors.red, context);
+                } else {
+                  FLoading.show(
+                    context,
+                    loading: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/icons/icon.png",
+                          width: 200,
+                          height: 200,
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        CircularProgressIndicator()
+                      ],
+                    ),
+                    closable: false,
+                    color: Colors.black.withOpacity(0.7),
+                  );
+                  var res = await backend().update({
+                    'value': _textEditingController.text,
+                    'column': widget.column,
+                    'table': 'house_details',
+                    'id': widget.formid,
+                  });
+
+                  if (res['status'] == 'success') {
+                    debugPrint('success');
+                    FLoading.hide();
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context, 'success');
+                  } else {
+                    FLoading.hide();
+                    debugPrint('fail');
+                    // ignore: use_build_context_synchronously
+                    Utils().showSnackbar(res['msg'], Colors.red, context);
+                  }
+                }
+              }),
+              text: 'Update',
+            ).center().addPadding(bottom: 21),
+            // Spacer(),
+          ],
+          mainAxisAlignment: MainAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.s,
+        )),
       ),
     );
   }

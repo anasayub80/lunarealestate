@@ -60,7 +60,9 @@ class FullDetail extends StatelessWidget {
             child: SafeArea(
               child: Column(
                 children: [
-                  20.height,
+                  // 20.height,
+                  CustomAppBarWithCircleback()
+                      .addPadding(horizontal: 10, vertical: 4),
                   GlobalAppBar().addPadding(overall: 12),
                   getHeader('Property Details'),
                   FutureBuilder(
