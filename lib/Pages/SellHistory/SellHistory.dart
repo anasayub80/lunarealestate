@@ -89,7 +89,13 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomAppBarWithCircleback().addPadding(horizontal: 8),
+              Visibility(
+                  visible: widget.from != 'nav',
+                  replacement: SizedBox(
+                    height: 35,
+                  ),
+                  child:
+                      CustomAppBarWithCircleback().addPadding(horizontal: 8)),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

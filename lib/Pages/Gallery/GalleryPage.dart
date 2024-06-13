@@ -10,7 +10,8 @@ import '../../Admin/AppTheme.dart';
 
 // ignore: must_be_immutable
 class GalleryPage extends StatefulWidget {
-  const GalleryPage({super.key});
+  String from;
+  GalleryPage({required this.from});
 
   @override
   State<GalleryPage> createState() => _GalleryPageState();
@@ -44,13 +45,16 @@ class _GalleryPageState extends State<GalleryPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: BgTwo(
         child: Column(
           children: [
-            CustomAppBarWithCircleback(),
+            Visibility(
+                visible: widget.from != 'nav',
+                replacement: SizedBox(
+                  height: 35,
+                ),
+                child: CustomAppBarWithCircleback().addPadding(horizontal: 8)),
             Expanded(
               child: ListView(
                 children: [

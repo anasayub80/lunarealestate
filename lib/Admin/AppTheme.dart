@@ -16,3 +16,7 @@ abstract class AppThemes {
     ),
   );
 }
+
+adfas() {
+  // AppThemes.commonBoxDecoration.copyWith(border: )
+}

@@ -1,32 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
+// import 'package:lunarestate/Admin/widgets/app_bar_global.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
-// import 'package:lunarestate/Config/bc_ext.dart';
-import 'package:lunarestate/Config/spacing_ext.dart';
-import 'package:lunarestate/Pages/SellHistory/fullDetail.dart';
 
-Widget getListView(List property, int dataLength, BuildContext context) {
+import 'package:flutter/material.dart';
+import 'package:lunarestate/Config/spacing_ext.dart';
+
+Widget getListViewAdmin(BuildContext context, Map property, int dataLength) {
   return SizedBox(
     height: context.screenHeight,
     width: double.infinity,
     child: ListView.builder(
       physics: NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.zero,
       itemCount: dataLength,
       itemBuilder: (context, index) {
         return InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return FullDetail(
-                  from: 'name',
-                  formId: property[index]['id'],
-                );
-              }),
-            );
-          },
+          onTap: () {},
           child: Container(
             height: context.screenHeight * 0.14,
             width: double.infinity,
@@ -37,14 +25,14 @@ Widget getListView(List property, int dataLength, BuildContext context) {
                   child: Stack(
                     children: [
                       Image.network(
-                        property[index]['image'],
+                        'https://picsum.photos/200/300',
                         height: context.screenHeight * 0.14,
                         fit: BoxFit.fill,
                         width: context.screenWidth,
                       ),
                       Align(
                         alignment: Alignment.topLeft,
-                        child: property[index]['detailType'] == 'Complete'
+                        child: 'Complete' == 'Complete'
                             ? SizedBox.shrink()
                             : Container(
                                 decoration: BoxDecoration(
@@ -54,10 +42,9 @@ Widget getListView(List property, int dataLength, BuildContext context) {
                                   padding: const EdgeInsets.only(
                                       left: 8.0, right: 8),
                                   child: Text(
-                                    property[index]['detailType'],
+                                    'Complete',
                                     style: TextStyle(
-                                      color: property[index]['detailType'] ==
-                                              'Complete'
+                                      color: 'Complete' == 'Complete'
                                           ? Colors.green
                                           : Colors.white,
                                       fontSize: 12,
@@ -78,7 +65,7 @@ Widget getListView(List property, int dataLength, BuildContext context) {
                         children: [
                           6.width,
                           Text(
-                            property[index]['title'],
+                            'Arcade X',
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,
@@ -95,7 +82,7 @@ Widget getListView(List property, int dataLength, BuildContext context) {
                             color: AppThemes.secondarycolor,
                           ),
                           Text(
-                            property[index]['location'],
+                            'Larachi se thora bahir',
                             style: TextStyle(
                               fontSize: 12,
                               color: AppThemes.secondarycolor,
@@ -109,17 +96,18 @@ Widget getListView(List property, int dataLength, BuildContext context) {
                         children: [
                           6.width,
                           Text(
-                            property[index]['date'],
+                            '12 May 2023',
                             style: TextStyle(
                               fontSize: 10,
-                              color: Colors.white,
+                              color: Color(0xFFBEB8B8),
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],
                       ),
-                      4.height,
+                      6.height,
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           6.width,
                           Container(
@@ -128,12 +116,12 @@ Widget getListView(List property, int dataLength, BuildContext context) {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Icon(
-                                  FontAwesomeIcons.trashCan,
+                                  Icons.email,
                                   color: Colors.white,
                                   size: 12,
                                 ),
                                 Text(
-                                  "Delete",
+                                  "Call",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w400,
@@ -142,7 +130,35 @@ Widget getListView(List property, int dataLength, BuildContext context) {
                               ],
                             ),
                             decoration: BoxDecoration(
-                              color: Color(0xffE10A0A),
+                                color: Color(0xff3A3D41),
+                                borderRadius: BorderRadius.circular(4),
+                                border:
+                                    Border.all(color: Colors.white, width: 2)),
+                            height: 22,
+                            width: 66,
+                          ),
+                          20.width,
+                          Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.phone,
+                                  color: Colors.white,
+                                  size: 12,
+                                ),
+                                Text(
+                                  "Call",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12),
+                                )
+                              ],
+                            ),
+                            decoration: BoxDecoration(
+                              color: Color(0xff4ABE5D),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             height: 22,
@@ -156,7 +172,7 @@ Widget getListView(List property, int dataLength, BuildContext context) {
               ],
             ),
           ),
-        ).addPadding(vertical: 12);
+        ).addPadding(horizontal: 20, vertical: 14);
       },
     ),
   );

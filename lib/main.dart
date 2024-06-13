@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
+import 'package:lunarestate/Admin/new/users/user_detailed_View.dart';
+import 'package:lunarestate/Pages/Login/login_page.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,7 @@ import 'package:lunarestate/Pages/SellHistory/SellHistory.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
 import 'package:lunarestate/Pages/Survery/SurveryPage.dart';
 import 'package:lunarestate/Service/UserData.dart';
+import 'package:ultimate_bottom_navbar/ultimate_bottom_navbar.dart';
 import 'Pages/HomePage/HomePage.dart';
 import 'Pages/More/MorePage.dart';
 import 'Pages/Splash/SplashPage.dart';
@@ -101,8 +103,8 @@ class _MyAppState extends State<MyApp> {
               // fillColor: WidgetStateColor.resolveWith((s) {
               //   // if(MaterialState.)
               // }),
-              fillColor: MaterialStateProperty.resolveWith((states) {
-                if (states.contains(MaterialState.selected)) {
+              fillColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
                   return mainColor;
                 }
                 return null;
@@ -117,7 +119,8 @@ class _MyAppState extends State<MyApp> {
                 ),
             primarySwatch: Colors.amber,
           ),
-          home: SplashPage(),
+          // home: SplashPage(),
+          home: LoginPage(),
         ),
       );
     });
@@ -161,7 +164,9 @@ class _MyNavigationState extends State<MyNavigation> {
   List<Widget> children = <Widget>[
     MyHomePage(),
     SellHistoryPage(from: 'nav'),
-    GalleryPage(),
+    GalleryPage(
+      from: 'nav',
+    ),
     MorePage(),
   ];
   final iconList = <IconData>[
@@ -169,6 +174,12 @@ class _MyNavigationState extends State<MyNavigation> {
     Icons.history,
     EvaIcons.gift,
     Icons.more,
+  ];
+  final titles = <String>[
+    "",
+    "",
+    "",
+    "",
   ];
   void onButtonPressed(int index) {
     print("${index.toString()} my index***");
@@ -209,7 +220,9 @@ class _MyNavigationState extends State<MyNavigation> {
       },
       child: Scaffold(
         backgroundColor: Color(0xff141414),
-        // body: children.elementAt(_bottomNavIndex),
+        // body: children.elementAt(_bottomNavIndex
+        // b),
+
         body: PageView(
           // physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
@@ -218,6 +231,7 @@ class _MyNavigationState extends State<MyNavigation> {
             pageChanged(index);
           },
         ),
+        extendBody: true,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(
@@ -230,21 +244,22 @@ class _MyNavigationState extends State<MyNavigation> {
             Icons.sell_outlined,
             color: Colors.white,
           ),
-          backgroundColor: mainColor,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+          backgroundColor: AppThemes.primaryColor,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: AnimatedBottomNavigationBar(
-          splashColor: Colors.white,
-          backgroundColor: mainColor,
-          inactiveColor: Colors.white38,
-          activeColor: Colors.white,
-          height: 65.0,
+        bottomNavigationBar: UltimateBottomNavBar(
+          backgroundColor: Color(0xff393B44),
+          midCircleBorderRadiusStatic: 30,
+          underCurve: true,
+          showMidCircleStatic: true,
+          foregroundColor: AppThemes.primaryColor,
+          unselectedIconColor: Colors.white,
+          currentIndex: selectedIndex,
+          selectedIconColor: AppThemes.primaryColor,
+          titles: titles,
           icons: iconList,
-          activeIndex: selectedIndex,
-          gapLocation: GapLocation.center,
-          notchSmoothness: NotchSmoothness.defaultEdge,
-          leftCornerRadius: 32,
-          rightCornerRadius: 32,
           onTap: (i) {
             bottomTapped(i);
           },

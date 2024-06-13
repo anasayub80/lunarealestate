@@ -1,18 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:lunarestate/Admin/AppTheme.dart';
+import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
-import 'package:lunarestate/Pages/Survery/SurveyWidgets.dart';
+import 'package:lunarestate/Pages/Gallery/GalleryPage.dart';
 import 'package:lunarestate/Pages/Survery/pages/children_widgets/basic_info.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Widgets/global_appbar.dart';
 import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:video_player/video_player.dart';
-
 import '../SellHistory/SellHistory.dart';
-import '../Survery/SurveryPage.dart';
 import 'Widgets/benefits_wid.dart';
 import 'Widgets/home_button.dart';
 
@@ -77,17 +75,22 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Align(
                       alignment: Alignment.centerRight,
-                      child: SizedBox(
-                        child: Column(
-                          children: [
-                            Text(
-                              'View Gallery',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFFD3A45C),
+                      child: InkWell(
+                        onTap: () {
+                          context.pushScreenTo(GalleryPage(from: ''));
+                        },
+                        child: SizedBox(
+                          child: Column(
+                            children: [
+                              Text(
+                                'View Gallery',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFFD3A45C),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ).addPadding(horizontal: 14),

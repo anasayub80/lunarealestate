@@ -1,146 +1,38 @@
-import 'dart:async';
-import 'dart:developer';
+import 'package:lunarestate/Admin/AppTheme.dart';
+// import 'package:lunarestate/Admin/widgets/app_bar_global.dart';
+import 'package:lunarestate/Config/bc_ext.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lunarestate/Admin/AppTheme.dart';
-import 'package:lunarestate/Admin/widgets/app_bar_global.dart';
-import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
-import 'package:lunarestate/Pages/Background/bg_one.dart';
-import 'package:lunarestate/Service/backend.dart';
-import 'package:lunarestate/Widgets/customAppBar.dart';
-import 'package:lunarestate/Widgets/header_text.dart';
 
-class SellerRequestPage extends StatefulWidget {
-  const SellerRequestPage({super.key});
-
-  @override
-  State<SellerRequestPage> createState() => _SellerRequestPageState();
-}
-
-class _SellerRequestPageState extends State<SellerRequestPage> {
-  final controller = ScrollController();
-  List? itemlist = [];
-  int Limit = 20;
-  @override
-  void initState() {
-    super.initState();
-    fetch();
-    controller.addListener(() {
-      if (controller.position.maxScrollExtent == controller.offset) {
-        fetch();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  StreamController _streamController = StreamController();
-  bool hasMore = true;
-  int page = 0;
-  fetch() async {
-    log('getData');
-    var newitems = await backend()
-        .fetchMoreAdminProperty({'type': 'unsold', 'limit': page.toString()});
-    setState(() {
-      if (newitems != null) {
-        page += 10;
-        if (newitems.length <= 10) {
-          hasMore = false;
-        }
-        itemlist!.addAll(newitems.map((item) {
-          return item;
-        }));
-        _streamController.add(['hasData']);
-      } else {
-        _streamController.add(null);
-        hasMore = false;
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: BgTwo(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SafeArea(
-                child: CustomAppBarWithCircleback().addPadding(left: 12),
-              ),
-              SafeArea(
-                child: GlobalAppBarAdmin(),
-              ),
-              30.height,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  getHeader('Seller Request'),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          // togglegrid();
-                        },
-                        child: SvgPicture.asset(
-                          'assets/icons/grid_icon.svg',
-                          color: Color(0xFFD3A45C),
-                        ),
-                      ),
-                      12.width,
-                      GestureDetector(
-                        onTap: () {
-                          // togglegrid();
-                        },
-                        child: SvgPicture.asset(
-                          'assets/icons/list_icon.svg',
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ).addPadding(horizontal: 19),
-                ],
-              ),
-              getListView(context, {}, 6),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-Widget getListView(BuildContext context, Map property, int dataLength) {
+Widget getGridViewAdmin(BuildContext context, Map property, int dataLength) {
   return SizedBox(
     height: context.screenHeight,
     width: double.infinity,
-    child: ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
+    child: GridView.builder(
       itemCount: dataLength,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 5.0,
+        mainAxisSpacing: 5.0,
+      ),
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {},
           child: Container(
-            height: context.screenHeight * 0.14,
             width: double.infinity,
             decoration: AppThemes.commonBoxDecoration,
-            child: Row(
+            child: Column(
               children: [
                 Expanded(
+                  flex: 2,
                   child: Stack(
                     children: [
                       Image.network(
                         'https://picsum.photos/200/300',
-                        height: context.screenHeight * 0.14,
+                        // height: context.screenHeight * 0.1,
                         fit: BoxFit.fill,
-                        width: context.screenWidth,
+                        width: double.infinity,
                       ),
                       Align(
                         alignment: Alignment.topLeft,
@@ -168,10 +60,10 @@ Widget getListView(BuildContext context, Map property, int dataLength) {
                     ],
                   ),
                 ),
-                Expanded(
+                Padding(
+                  padding: const EdgeInsets.all(6.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Row(
                         children: [
@@ -279,12 +171,12 @@ Widget getListView(BuildContext context, Map property, int dataLength) {
                         ],
                       ),
                     ],
-                  ).addPadding(overall: 6),
+                  ),
                 ),
               ],
             ),
-          ),
-        ).addPadding(horizontal: 20, vertical: 14);
+          ).addPadding(overall: 8),
+        );
       },
     ),
   );

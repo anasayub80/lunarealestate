@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 
@@ -128,7 +129,8 @@ class _passTextBoxState extends State<passTextBox> {
           obscureText: !_passwordVisible,
           decoration: InputDecoration(
               hintText: widget.hint,
-              icon: Icon(Icons.lock_outlined, color: AppThemes.primaryColor),
+              // icon: Icon(Icons.lock_outlined, color: AppThemes.primaryColor),
+              icon: SvgPicture.asset('assets/icons/password_icon.svg'),
               suffixIcon: IconButton(
                 icon: Icon(
                   // Based on passwordVisible state choose the icon

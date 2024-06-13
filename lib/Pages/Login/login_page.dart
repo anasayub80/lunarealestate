@@ -1,9 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Admin/Pages/adminHome.dart';
 import 'package:lunarestate/Admin/new/home_page.dart';
+import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/config.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/ForgetPass/ForgetPass.dart';
@@ -78,8 +80,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       40.height,
                       textBox(
-                          icon: Icons.email_outlined,
+                          icon: SvgPicture.asset('assets/icons/email_icon.svg'),
                           emailController: _emailController,
+                          isSvg: true,
                           Ktype: TextInputType.emailAddress,
                           hint: 'Enter Email'),
                       SizedBox(
@@ -140,7 +143,9 @@ class _LoginPageState extends State<LoginPage> {
                         height: 25,
                       ),
                       roundButton(
-                        buttonWidth: double.infinity,
+                        height: context.screenHeight * 0.057,
+                        horizontalPadding: 0,
+                        circleBorder: 31,
                         onClick: (() async {
                           FocusManager.instance.primaryFocus?.unfocus();
                           if (_emailController.text.trim().isEmpty ||

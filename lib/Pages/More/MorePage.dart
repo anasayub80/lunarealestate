@@ -19,8 +19,8 @@ class MorePage extends StatelessWidget {
       body: BgTwo(
         child: Column(
           children: [
-            65.height,
-            GlobalAppBar(),
+            100.height,
+            GlobalAppBar().addPadding(horizontal: 20),
             80.height,
             ListTile(
               onTap: () {

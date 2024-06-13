@@ -1,7 +1,8 @@
 // import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:lunarestate/Admin/new/seller_request_page.dart';
+import 'package:lunarestate/Admin/new/seller_request/seller_request_page.dart';
+import 'package:lunarestate/Admin/new/users/users_view.dart';
 import 'package:lunarestate/Admin/widgets/app_bar_global.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
@@ -26,6 +27,12 @@ class _HomePageAdminState extends State<HomePageAdmin> {
     'https://picsum.photos/200/300',
   ];
 
+  bool isGrid = true;
+  togglegrid() {
+    isGrid = !isGrid;
+    setState(() {});
+  }
+
   int currentPage = 0;
 
   void updateCurrentPageTop(int page) {
@@ -48,6 +55,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
           SafeArea(
             child: GlobalAppBarAdmin().addPadding(overall: 12),
           ),
+          18.height,
           Align(
             alignment: Alignment.centerRight,
             child: SizedBox(
@@ -144,9 +152,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                   PageTransition(
                     isIos: true,
                     duration: Duration(milliseconds: 700),
-                    child: SellHousePage(
-                      child: BasicInfo(),
-                    ),
+                    child: UsersView(),
                     type: PageTransitionType.fade,
                   ));
             },

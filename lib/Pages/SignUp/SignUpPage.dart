@@ -1,7 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
+import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
@@ -67,7 +69,8 @@ class SignUpPage extends StatelessWidget {
                   ),
                   40.height,
                   textBox(
-                      icon: Icons.person,
+                      icon: SvgPicture.asset("assets/icons/person_icon.svg"),
+                      isSvg: true,
                       emailController: _nameController,
                       Ktype: TextInputType.name,
                       hint: 'Username'),
@@ -75,7 +78,9 @@ class SignUpPage extends StatelessWidget {
                     height: 25,
                   ),
                   textBox(
-                      icon: Icons.email_outlined,
+                      // icon: Icons.email_outlined,
+                      icon: SvgPicture.asset('assets/icons/email_icon.svg'),
+                      isSvg: true,
                       Ktype: TextInputType.emailAddress,
                       emailController: _emailController,
                       hint: 'Email here'),
@@ -83,7 +88,9 @@ class SignUpPage extends StatelessWidget {
                     height: 25,
                   ),
                   textBox(
-                      icon: Icons.numbers,
+                      // icon: Icons.numbers,
+                      isSvg: true,
+                      icon: SvgPicture.asset('assets/icons/phone_icon.svg'),
                       emailController: _number,
                       Ktype: TextInputType.number,
                       hint: 'Phone number'),
@@ -103,6 +110,9 @@ class SignUpPage extends StatelessWidget {
                     height: 25,
                   ),
                   roundButton(
+                    height: context.screenHeight * 0.057,
+                    horizontalPadding: 0,
+                    circleBorder: 31,
                     onClick: (() async {
                       if (_emailController.text.trim().isEmpty ||
                           _passwordController.text.trim().isEmpty ||
