@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
-import 'package:lunarestate/Admin/Pages/adminHome.dart';
 import 'package:lunarestate/Admin/new/home_page.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/config.dart';
@@ -131,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: Text(
                               'Forget Password?',
                               style: TextStyle(
-                                color: AppThemes.primaryColor,
+                                color: Color(0xFFE2BC81),
                                 fontWeight: FontWeight.w200,
                                 fontSize: 14.0,
                               ),
