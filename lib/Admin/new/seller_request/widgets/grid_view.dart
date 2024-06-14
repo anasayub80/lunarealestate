@@ -16,6 +16,7 @@ Widget getGridViewAdmin(BuildContext context, Map property, int dataLength) {
         crossAxisSpacing: 5.0,
         mainAxisSpacing: 5.0,
       ),
+      padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {},

@@ -87,8 +87,11 @@ class VerifyPhoneNumber extends StatelessWidget {
                       40.height,
                       textBox(
                           icon: Icons.phone,
-                          emailController: _phone,
+                          controller: _phone,
                           Ktype: TextInputType.phone,
+                          validator: (p0) {
+                            return null;
+                          },
                           hint: 'Enter Phone Number'),
                       20.height,
                     ],

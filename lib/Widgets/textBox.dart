@@ -9,14 +9,18 @@ class textBox extends StatelessWidget {
   TextInputType Ktype;
   var icon;
   final bool isSvg;
+  String? Function(String?) validator;
+  void Function(String)? onFieldSubmitted;
   textBox({
     Key? key,
-    required TextEditingController emailController,
+    required TextEditingController controller,
     required this.hint,
     required this.icon,
+    required this.validator,
     required this.Ktype,
+    this.onFieldSubmitted,
     this.isSvg = false,
-  })  : _emailController = emailController,
+  })  : _emailController = controller,
         super(key: key);
 
   final TextEditingController _emailController;
@@ -34,8 +38,10 @@ class textBox extends StatelessWidget {
       height: 55,
       child: Center(
         child: TextFormField(
+          onFieldSubmitted: onFieldSubmitted,
           cursorColor: AppThemes.primaryColor,
           autofocus: false,
+          validator: validator,
           style: TextStyle(color: Colors.white),
           keyboardType: Ktype,
           controller: _emailController,

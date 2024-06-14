@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailController = TextEditingController();
 
   TextEditingController _passwordController = TextEditingController();
-
+  bool isRememberMe = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -80,8 +80,11 @@ class _LoginPageState extends State<LoginPage> {
                       40.height,
                       textBox(
                           icon: SvgPicture.asset('assets/icons/email_icon.svg'),
-                          emailController: _emailController,
+                          controller: _emailController,
                           isSvg: true,
+                          validator: (p0) {
+                            return null;
+                          },
                           Ktype: TextInputType.emailAddress,
                           hint: 'Enter Email'),
                       SizedBox(
@@ -103,8 +106,12 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               Checkbox(
                                   activeColor: AppThemes.primaryColor,
-                                  value: true,
-                                  onChanged: (c) {}),
+                                  value: isRememberMe,
+                                  onChanged: (c) {
+                                    setState(() {
+                                      isRememberMe = c ?? false;
+                                    });
+                                  }),
                               Text(
                                 "Remember",
                                 style: TextStyle(
@@ -181,9 +188,13 @@ class _LoginPageState extends State<LoginPage> {
 
                               if (res['status'] == 'success') {
                                 debugPrint(res['user']["name"]);
-                                sharedPref().saveuserData(res['user']);
-                                sharedPref()
-                                    .storeVal('email', _emailController.text);
+                                if (isRememberMe) {
+                                  sharedPref().saveuserData(res['user']);
+                                  debugPrint(
+                                      "save Email ${_emailController.text}");
+                                  sharedPref()
+                                      .storeVal('email', _emailController.text);
+                                }
                                 Utils().showSnackbar(
                                     res['msg'], Colors.green, context);
                                 await Provider.of<UserData>(context,

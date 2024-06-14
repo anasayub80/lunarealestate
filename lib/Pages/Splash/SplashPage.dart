@@ -9,7 +9,6 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:fullscreen/fullscreen.dart';
 import 'package:provider/provider.dart';
-import '../../Admin/Pages/adminHome.dart';
 import '../../Service/UserData.dart';
 import '../../main.dart';
 import 'dart:io' show Platform;
@@ -59,8 +58,11 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   checkLogin() async {
+    debugPrint("checkLogin Email");
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var displayName = prefs.getString('email');
+    debugPrint("get saved Email ${displayName}");
     if (displayName != null) {
       Provider.of<UserData>(context, listen: false).initUserData();
 

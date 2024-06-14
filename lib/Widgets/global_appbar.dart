@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/cli_commands.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/ProfilePage/ProfilePage.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
+
+import '../Service/UserData.dart';
 
 class GlobalAppBar extends StatelessWidget {
   const GlobalAppBar({super.key});
@@ -25,7 +29,9 @@ class GlobalAppBar extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Nur Pit',
+                      Provider.of<UserData>(context, listen: false)
+                          .name!
+                          .capitalize(),
                       style: TextStyle(
                           color: AppThemes.whiteColor,
                           fontSize: 18.0,
@@ -36,13 +42,15 @@ class GlobalAppBar extends StatelessWidget {
                     Row(
                       children: [
                         Icon(
-                          Icons.location_on,
+                          Icons.email,
                           color: AppThemes.secondarycolor,
                           size: 20,
                         ),
                         4.width,
                         Text(
-                          'California, USA',
+                          Provider.of<UserData>(context, listen: false)
+                              .email
+                              .toString(),
                           style: TextStyle(
                             color: AppThemes.whiteColor,
                             fontSize: 15.0,
@@ -70,8 +78,15 @@ class GlobalAppBar extends StatelessWidget {
             child: CircleAvatar(
               radius: 41,
               backgroundImage: NetworkImage(
-                'https://picsum.photos/200/300',
+                Provider.of<UserData>(context, listen: true).profile.toString(),
               ),
+              onBackgroundImageError: (exception, stackTrace) {
+                Icon(
+                  Icons.broken_image,
+                  color: Colors.red,
+                  size: 30,
+                );
+              },
             ),
           ),
         ],

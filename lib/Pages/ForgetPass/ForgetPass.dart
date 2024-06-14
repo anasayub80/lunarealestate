@@ -54,7 +54,10 @@ class ForgetMyPass extends StatelessWidget {
                     30.height,
                     textBox(
                         icon: Icons.email_outlined,
-                        emailController: _email,
+                        validator: (p0) {
+                          return null;
+                        },
+                        controller: _email,
                         Ktype: TextInputType.emailAddress,
                         hint: 'Enter Email'),
                     SizedBox(

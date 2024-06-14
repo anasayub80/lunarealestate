@@ -4,7 +4,6 @@ import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/Gallery/GalleryPage.dart';
-import 'package:lunarestate/Pages/Survery/pages/children_widgets/basic_info.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Widgets/global_appbar.dart';
 import 'package:lunarestate/Widgets/header_text.dart';
@@ -144,9 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             PageTransition(
                               isIos: true,
                               duration: Duration(milliseconds: 700),
-                              child: SellHousePage(
-                                child: BasicInfo(),
-                              ),
+                              child: InitializedSellHouse(),
                               type: PageTransitionType.fade,
                             ));
                       },

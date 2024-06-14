@@ -3,12 +3,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lunarestate/Admin/new/seller_request/widgets/grid_view.dart';
-import 'package:lunarestate/Admin/widgets/app_bar_global.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Widgets/customAppBar.dart';
 import 'package:lunarestate/Widgets/header_text.dart';
+
+import '../../../Widgets/global_appbar.dart';
 
 class SellerRequestPage extends StatefulWidget {
   const SellerRequestPage({super.key});
@@ -77,12 +78,9 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SafeArea(
-                child: CustomAppBarWithCircleback().addPadding(left: 12),
-              ),
-              SafeArea(
-                child: GlobalAppBarAdmin(),
-              ),
+              CustomAppBarWithCircleback().addPadding(left: 12),
+              20.height,
+              GlobalAppBar().addPadding(horizontal: 12),
               30.height,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,7 +112,6 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
                 ],
               ),
               // Spacer(),
-              100.height,
               // SizedBox(
               //   child: Column(
               //     mainAxisAlignment: MainAxisAlignment.center,

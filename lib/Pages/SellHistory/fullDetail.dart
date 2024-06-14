@@ -12,7 +12,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
-import 'package:lunarestate/Pages/EditPage/checkBoxEdit.dart';
 import 'package:lunarestate/Pages/EditPage/textEdit.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Widgets/global_appbar.dart';
@@ -21,6 +20,7 @@ import 'package:rxdart/rxdart.dart';
 
 import '../../Widgets/Utils.dart';
 import '../../Widgets/customAppBar.dart';
+import '../EditPage/checkBoxEdit.dart';
 import '../Gallery/ImageView.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -56,429 +56,356 @@ class FullDetail extends StatelessWidget {
     return Scaffold(
       body: BgTwo(
         child: Container(
-          child: Container(
-            child: SafeArea(
-              child: Column(
-                children: [
-                  // 20.height,
-                  CustomAppBarWithCircleback()
-                      .addPadding(horizontal: 10, vertical: 4),
-                  GlobalAppBar().addPadding(overall: 12),
-                  getHeader('Property Details'),
-                  FutureBuilder(
-                      future: getImages(),
-                      builder: (context, snapshot) {
-                        switch (snapshot.connectionState) {
-                          case ConnectionState.waiting:
-                            return Center(child: CircularProgressIndicator());
+          child: ListView(
+            children: [
+              CustomAppBarWithCircleback().addPadding(horizontal: 10),
+              10.height,
+              GlobalAppBar().addPadding(overall: 12),
+              10.height,
+              getHeader('Property Details'),
+              10.height,
+              FutureBuilder(
+                  future: getImages(),
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return Center(child: CircularProgressIndicator());
 
-                          default:
-                            if (snapshot.hasError) {
-                              return Text('Error');
-                            } else if (imgList.length >= 1) {
-                              return CarouselSlider(
-                                  options: CarouselOptions(),
-                                  items: imgList
-                                      .map((item) => GestureDetector(
-                                            onDoubleTap: () {
-                                              Navigator.push(
-                                                context,
-                                                PageTransition(
-                                                  child: ImageView(url: item),
-                                                  type: PageTransitionType.fade,
+                      default:
+                        if (snapshot.hasError) {
+                          return Text('Error');
+                        } else if (imgList.length >= 1) {
+                          return CarouselSlider(
+                              options: CarouselOptions(),
+                              items: imgList
+                                  .map((item) => GestureDetector(
+                                        onDoubleTap: () {
+                                          Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              child: ImageView(url: item),
+                                              type: PageTransitionType.fade,
+                                            ),
+                                          );
+                                        },
+                                        child: Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.30,
+                                          width: double.infinity,
+                                          child: Center(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: CachedNetworkImage(
+                                                imageUrl: item,
+                                                width: double.infinity,
+                                                fit: BoxFit.fill,
+                                                placeholder: (context, url) =>
+                                                    Center(
+                                                  child:
+                                                      CircularProgressIndicator(),
                                                 ),
-                                              );
-                                            },
-                                            child: Container(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.30,
-                                              width: double.infinity,
-                                              child: Center(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: CachedNetworkImage(
-                                                    imageUrl: item,
-                                                    width: double.infinity,
-                                                    fit: BoxFit.fill,
-                                                    placeholder:
-                                                        (context, url) =>
-                                                            Center(
-                                                      child:
-                                                          CircularProgressIndicator(),
-                                                    ),
-                                                    errorWidget:
-                                                        (context, url, error) =>
-                                                            Icon(Icons.error),
-                                                  ),
-                                                ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
                                               ),
                                             ),
-                                          ))
-                                      .toList());
-                            }
-                            return Container(
-                              height: MediaQuery.of(context).size.height * 0.30,
-                              width: double.infinity,
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(14.0),
-                                  child: Image.asset(
-                                    'assets/icons/defaultHouse.png',
-                                    height: MediaQuery.of(context).size.height,
-                                    fit: BoxFit.fill,
-                                    width: double.infinity,
-                                  ),
-                                ),
-                              ),
-                            );
+                                          ),
+                                        ),
+                                      ))
+                                  .toList());
                         }
-                      }),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Visibility(
-                    visible: true,
-                    child: StreamBuilder<dynamic>(
-                        stream: _houseDetail.stream,
-                        builder: (context, snapshot) {
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.waiting:
-                              return Center(child: CircularProgressIndicator());
-                            default:
-                              if (snapshot.hasError) {
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              } else {
-                                return Expanded(
-                                  child: ListView(
-                                    children: [
-                                      ListCard(
-                                        title: 'Title:',
-                                        val: snapshot.data[0]['title'],
-                                        type: 'text',
-                                        column: 'title',
-                                        formId: formId,
-                                        from: from,
-                                      ),
-                                      ListCard(
-                                        title: 'Address:',
-                                        val: snapshot.data[0]['location'],
-                                        type: 'text',
-                                        column: 'location',
-                                        formId: formId,
-                                        from: from,
-                                      ),
-                                      // Padding(
-                                      //   padding: const EdgeInsets.symmetric(
-                                      //       horizontal: 20.0),
-                                      //   child: SizedBox(
-                                      //     height: 70,
-                                      //     child: Card(
-                                      //       color:
-                                      //           Colors.black.withOpacity(0.5),
-                                      //       child: Padding(
-                                      //         padding:
-                                      //             const EdgeInsets.all(8.0),
-                                      //         child: Row(
-                                      //           mainAxisAlignment:
-                                      //               MainAxisAlignment
-                                      //                   .spaceBetween,
-                                      //           children: [
-                                      //             Expanded(
-                                      //               child: Text(
-                                      //                 'Date:',
-                                      //                 style: TextStyle(
-                                      //                   color: Colors.amber,
-                                      //                   fontSize: 18,
-                                      //                 ),
-                                      //               ),
-                                      //             ),
-                                      //             Expanded(
-                                      //               child: Padding(
-                                      //                 padding:
-                                      //                     const EdgeInsets.only(
-                                      //                         left: 12.0),
-                                      //                 child: Text(
-                                      //                   snapshot.data[0]
-                                      //                       ['date'],
-                                      //                   style: TextStyle(
-                                      //                     color: Colors.white,
-                                      //                     fontSize: 14,
-                                      //                   ),
-                                      //                 ),
-                                      //               ),
-                                      //             ),
-                                      //             Padding(
-                                      //               padding:
-                                      //                   const EdgeInsets.only(
-                                      //                       right: 14.0),
-                                      //               child: Icon(
-                                      //                 Icons.calendar_month,
-                                      //                 color: Colors.amber,
-                                      //               ),
-                                      //             )
-                                      //           ],
-                                      //         ),
-                                      //       ),
-                                      //     ),
-                                      //   ),
-                                      // ),
-                                      ListCard(
-                                        title: 'Date:',
-                                        val: snapshot.data[0]['date'],
-                                        type: 'text',
-                                        column: 'location',
-                                        formId: formId,
-                                        from: from,
-                                      ),
-                                      ListCard(
-                                        title: 'Name:',
-                                        val: snapshot.data[0]['ownerName'],
-                                        type: 'text',
-                                        column: 'location',
-                                        formId: formId,
-                                        from: from,
-                                      ),
-                                      ListCard(
-                                        title: 'Name:',
-                                        val: snapshot.data[0]['ownerName'],
-                                        type: 'text',
-                                        column: 'location',
-                                        formId: formId,
-                                        from: from,
-                                      ),
-                                      ListCard(
-                                        title: 'Bedrooms',
-                                        type: 'text',
-                                        val: snapshot.data[0]['bedrooms'],
-                                        column: 'bedrooms',
-                                        formId: formId,
-                                        from: from,
-                                      ),
-                                      ListCard(
-                                        title: 'Bathrooms:',
-                                        val: snapshot.data[0]['bathrooms'],
-                                        type: 'text',
-                                        column: 'bathrooms',
-                                        formId: formId,
-                                        from: from,
-                                      ),
-                                      ListCard(
-                                        title: 'Stories:',
-                                        val: snapshot.data[0]['stories'],
-                                        type: 'text',
-                                        column: 'stories',
-                                        formId: formId,
-                                        from: from,
-                                      ),
-                                      ListCard(
-                                        title: 'Lot Size:',
-                                        val: snapshot.data[0]['areaSize'],
-                                        type: 'text',
-                                        column: 'areaSize',
-                                        formId: formId,
-                                        from: from,
-                                      ),
-                                      ListCard(
-                                        title: 'Square Footage:',
-                                        val: snapshot.data[0]['squarefootage'],
-                                        type: 'text',
-                                        column: 'squarefootage',
-                                        formId: formId,
-                                        from: from,
-                                      ),
-                                      ListCard(
-                                        title: 'Existing Moragage:',
-                                        val: snapshot.data[0]
-                                            ['existingMorgage'],
-                                        type: 'checkbox',
-                                        column: 'existingMorgage',
-                                        formId: formId,
-                                        from: from,
-                                        box1: 'Yes',
-                                        box2: 'No',
-                                      ),
-                                      ListCard(
-                                        title: 'Survey:',
-                                        val: snapshot.data[0]['survery'],
-                                        type: 'checkbox',
-                                        column: 'survery',
-                                        formId: formId,
-                                        from: from,
-                                        box1: 'Yes',
-                                        box2: 'No',
-                                      ),
-                                      ListCard(
-                                        title: 'Washer:',
-                                        val: snapshot.data[0]['washer'],
-                                        type: 'checkbox',
-                                        column: 'washer',
-                                        formId: formId,
-                                        from: from,
-                                        box1: 'Yes',
-                                        box2: 'No',
-                                      ),
-                                      ListCard(
-                                        title: 'Dryer:',
-                                        val: snapshot.data[0]['dryer'],
-                                        type: 'checkbox',
-                                        column: 'dryer',
-                                        formId: formId,
-                                        from: from,
-                                        box1: 'Yes',
-                                        box2: 'No',
-                                      ),
-                                      ListCard(
-                                        title: 'Range:',
-                                        val: snapshot.data[0]['userRange'],
-                                        type: 'checkbox',
-                                        column: 'userRange',
-                                        formId: formId,
-                                        from: from,
-                                        box1: 'Electric',
-                                        box2: 'Gas',
-                                      ),
-                                      ListCard(
-                                        title: 'Gas utility availble?:',
-                                        val: snapshot.data[0]
-                                            ['gasUtilityavail'],
-                                        type: 'checkbox',
-                                        column: 'gasUtilityavail',
-                                        formId: formId,
-                                        from: from,
-                                        box1: 'Yes',
-                                        box2: 'No',
-                                      ),
-                                      ListCard(
-                                          title: 'Water on?:',
-                                          val: snapshot.data[0]['waterOn'],
-                                          type: 'checkbox',
-                                          column: 'waterOn',
-                                          formId: formId,
-                                          from: from,
-                                          box1: 'City',
-                                          box2: 'Well'),
-                                      ListCard(
-                                          title: 'Sewer:',
-                                          val: snapshot.data[0]['sewer'],
-                                          type: 'checkbox',
-                                          column: 'sewer',
-                                          formId: formId,
-                                          from: from,
-                                          box1: 'City',
-                                          box2: 'Septic'),
-                                      ListCard(
-                                          title: 'Backed tax owed?:',
-                                          val: snapshot.data[0]
-                                              ['backedTaxowed'],
-                                          type: 'checkbox',
-                                          column: 'backedTaxowed',
-                                          formId: formId,
-                                          from: from,
-                                          box1: 'Yes',
-                                          box2: 'No'),
-                                      ListCard(
-                                          title: 'Leins on property?:',
-                                          val: snapshot.data[0]['lop'],
-                                          type: 'checkbox',
-                                          column: 'lop',
-                                          formId: formId,
-                                          from: from,
-                                          box1: 'Yes',
-                                          box2: 'No'),
-                                      ListCard(
-                                          title: 'Is property?:',
-                                          val: snapshot.data[0]['isProp'],
-                                          type: 'checkbox',
-                                          column: 'isProp',
-                                          formId: formId,
-                                          from: from,
-                                          box1: 'vecant',
-                                          box2: 'occupied'),
-                                      ListCard(
-                                          title:
-                                              'Is there a lockbox for inspections?:',
-                                          val: snapshot.data[0]['lockbox'],
-                                          type: 'checkbox',
-                                          column: 'lockbox',
-                                          formId: formId,
-                                          from: from,
-                                          box1: 'Yes',
-                                          box2: 'No'),
-                                      ListCard(
-                                          title: 'Open to owner financed?:',
-                                          val: snapshot.data[0]['owfinance'],
-                                          type: 'checkbox',
-                                          column: 'owfinance',
-                                          formId: formId,
-                                          from: from,
-                                          box1: 'Yes',
-                                          box2: 'No'),
-                                      ListCard(
-                                        title:
-                                            'Are you looking for a new primary home after selling current home?:',
-                                        val: snapshot.data[0]['newHome'],
-                                        column: 'newHome',
-                                        type: 'checkbox',
-                                        box1: 'Yes',
-                                        box2: 'No',
-                                        formId: formId,
-                                        from: from,
-                                      ),
-                                      ListCard(
-                                        title:
-                                            'Do you need assistance finding a new home?:',
-                                        val: snapshot.data[0]['assiteNewHome'],
-                                        type: 'checkbox',
-                                        column: 'assiteNewHome',
-                                        box1: 'Yes',
-                                        box2: 'No',
-                                        formId: formId,
-                                        from: from,
-                                      ),
-                                      ListCard(
-                                          title:
-                                              'Do you need help finding a morgage lender if your selling?:',
-                                          val: snapshot.data[0]['helpmorgage'],
-                                          type: 'checkbox',
-                                          column: 'helpmorgage',
-                                          formId: formId,
-                                          from: from,
-                                          box1: 'Yes',
-                                          box2: 'No'),
-                                      ListCard(
-                                          title: 'Foundation:',
-                                          val: snapshot.data[0]['foundation'],
-                                          type: 'checkbox',
-                                          column: 'foundation',
-                                          formId: formId,
-                                          from: from,
-                                          box1: 'pier & beam',
-                                          box2: 'slab'),
-                                      ListCard(
-                                          title: 'Have Basement:',
-                                          val: snapshot.data[0]['basement'],
-                                          type: 'checkbox',
-                                          column: 'basement',
-                                          formId: formId,
-                                          from: from,
-                                          box1: 'Yes',
-                                          box2: 'No'),
-                                    ],
-                                  ),
-                                );
-                              }
-                          }
-                        }),
-                  ),
-                ],
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                        return Container(
+                          height: MediaQuery.of(context).size.height * 0.30,
+                          width: double.infinity,
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(14.0),
+                              child: Image.asset(
+                                'assets/icons/defaultHouse.png',
+                                height: MediaQuery.of(context).size.height,
+                                fit: BoxFit.fill,
+                                width: double.infinity,
+                              ),
+                            ),
+                          ),
+                        );
+                    }
+                  }),
+              SizedBox(
+                height: 10,
               ),
-            ),
+              Visibility(
+                visible: true,
+                child: StreamBuilder<dynamic>(
+                    stream: _houseDetail.stream,
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.waiting:
+                          return Center(child: CircularProgressIndicator());
+                        default:
+                          if (snapshot.hasError) {
+                            return Center(child: CircularProgressIndicator());
+                          } else {
+                            return Column(
+                              children: [
+                                ListCard(
+                                  title: 'Title:',
+                                  val: snapshot.data[0]['title'],
+                                  type: 'text',
+                                  column: 'title',
+                                  formId: formId,
+                                  from: from,
+                                ),
+                                ListCard(
+                                  title: 'Address:',
+                                  val: snapshot.data[0]['location'],
+                                  type: 'text',
+                                  column: 'location',
+                                  formId: formId,
+                                  from: from,
+                                ),
+                                ListCard(
+                                  title: 'Date:',
+                                  val: snapshot.data[0]['date'],
+                                  type: 'date',
+                                  column: 'location',
+                                  formId: formId,
+                                  from: from,
+                                ),
+                                ListCard(
+                                  title: 'Name:',
+                                  val: snapshot.data[0]['ownerName'],
+                                  type: 'text',
+                                  column: 'location',
+                                  formId: formId,
+                                  from: from,
+                                ),
+                                ListCard(
+                                  title: 'Bedrooms',
+                                  type: 'text',
+                                  val: snapshot.data[0]['bedrooms'],
+                                  column: 'bedrooms',
+                                  formId: formId,
+                                  from: from,
+                                ),
+                                ListCard(
+                                  title: 'Bathrooms:',
+                                  val: snapshot.data[0]['bathrooms'],
+                                  type: 'text',
+                                  column: 'bathrooms',
+                                  formId: formId,
+                                  from: from,
+                                ),
+                                ListCard(
+                                  title: 'Stories:',
+                                  val: snapshot.data[0]['stories'],
+                                  type: 'text',
+                                  column: 'stories',
+                                  formId: formId,
+                                  from: from,
+                                ),
+                                ListCard(
+                                  title: 'Lot Size:',
+                                  val: snapshot.data[0]['areaSize'],
+                                  type: 'text',
+                                  column: 'areaSize',
+                                  formId: formId,
+                                  from: from,
+                                ),
+                                ListCard(
+                                  title: 'Square Footage:',
+                                  val: snapshot.data[0]['squarefootage'],
+                                  type: 'text',
+                                  column: 'squarefootage',
+                                  formId: formId,
+                                  from: from,
+                                ),
+                                ListCard(
+                                  title: 'Existing Moragage:',
+                                  val: snapshot.data[0]['existingMorgage'],
+                                  type: 'checkbox',
+                                  column: 'existingMorgage',
+                                  formId: formId,
+                                  from: from,
+                                  box1: 'Yes',
+                                  box2: 'No',
+                                ),
+                                ListCard(
+                                  title: 'Survey:',
+                                  val: snapshot.data[0]['survery'],
+                                  type: 'checkbox',
+                                  column: 'survery',
+                                  formId: formId,
+                                  from: from,
+                                  box1: 'Yes',
+                                  box2: 'No',
+                                ),
+                                ListCard(
+                                  title: 'Washer:',
+                                  val: snapshot.data[0]['washer'],
+                                  type: 'checkbox',
+                                  column: 'washer',
+                                  formId: formId,
+                                  from: from,
+                                  box1: 'Yes',
+                                  box2: 'No',
+                                ),
+                                ListCard(
+                                  title: 'Dryer:',
+                                  val: snapshot.data[0]['dryer'],
+                                  type: 'checkbox',
+                                  column: 'dryer',
+                                  formId: formId,
+                                  from: from,
+                                  box1: 'Yes',
+                                  box2: 'No',
+                                ),
+                                ListCard(
+                                  title: 'Range:',
+                                  val: snapshot.data[0]['userRange'],
+                                  type: 'checkbox',
+                                  column: 'userRange',
+                                  formId: formId,
+                                  from: from,
+                                  box1: 'Electric',
+                                  box2: 'Gas',
+                                ),
+                                ListCard(
+                                  title: 'Gas utility availble?:',
+                                  val: snapshot.data[0]['gasUtilityavail'],
+                                  type: 'checkbox',
+                                  column: 'gasUtilityavail',
+                                  formId: formId,
+                                  from: from,
+                                  box1: 'Yes',
+                                  box2: 'No',
+                                ),
+                                ListCard(
+                                    title: 'Water on?:',
+                                    val: snapshot.data[0]['waterOn'],
+                                    type: 'checkbox',
+                                    column: 'waterOn',
+                                    formId: formId,
+                                    from: from,
+                                    box1: 'City',
+                                    box2: 'Well'),
+                                ListCard(
+                                    title: 'Sewer:',
+                                    val: snapshot.data[0]['sewer'],
+                                    type: 'checkbox',
+                                    column: 'sewer',
+                                    formId: formId,
+                                    from: from,
+                                    box1: 'City',
+                                    box2: 'Septic'),
+                                ListCard(
+                                    title: 'Backed tax owed?:',
+                                    val: snapshot.data[0]['backedTaxowed'],
+                                    type: 'checkbox',
+                                    column: 'backedTaxowed',
+                                    formId: formId,
+                                    from: from,
+                                    box1: 'Yes',
+                                    box2: 'No'),
+                                ListCard(
+                                    title: 'Leins on property?:',
+                                    val: snapshot.data[0]['lop'],
+                                    type: 'checkbox',
+                                    column: 'lop',
+                                    formId: formId,
+                                    from: from,
+                                    box1: 'Yes',
+                                    box2: 'No'),
+                                ListCard(
+                                    title: 'Is property?:',
+                                    val: snapshot.data[0]['isProp'],
+                                    type: 'checkbox',
+                                    column: 'isProp',
+                                    formId: formId,
+                                    from: from,
+                                    box1: 'vecant',
+                                    box2: 'occupied'),
+                                ListCard(
+                                    title:
+                                        'Is there a lockbox for inspections?:',
+                                    val: snapshot.data[0]['lockbox'],
+                                    type: 'checkbox',
+                                    column: 'lockbox',
+                                    formId: formId,
+                                    from: from,
+                                    box1: 'Yes',
+                                    box2: 'No'),
+                                ListCard(
+                                    title: 'Open to owner financed?:',
+                                    val: snapshot.data[0]['owfinance'],
+                                    type: 'checkbox',
+                                    column: 'owfinance',
+                                    formId: formId,
+                                    from: from,
+                                    box1: 'Yes',
+                                    box2: 'No'),
+                                ListCard(
+                                  title:
+                                      'Are you looking for a new primary home after selling current home?:',
+                                  val: snapshot.data[0]['newHome'],
+                                  column: 'newHome',
+                                  type: 'checkbox',
+                                  box1: 'Yes',
+                                  box2: 'No',
+                                  formId: formId,
+                                  from: from,
+                                ),
+                                ListCard(
+                                  title:
+                                      'Do you need assistance finding a new home?:',
+                                  val: snapshot.data[0]['assiteNewHome'],
+                                  type: 'checkbox',
+                                  column: 'assiteNewHome',
+                                  box1: 'Yes',
+                                  box2: 'No',
+                                  formId: formId,
+                                  from: from,
+                                ),
+                                ListCard(
+                                    title:
+                                        'Do you need help finding a morgage lender if your selling?:',
+                                    val: snapshot.data[0]['helpmorgage'],
+                                    type: 'checkbox',
+                                    column: 'helpmorgage',
+                                    formId: formId,
+                                    from: from,
+                                    box1: 'Yes',
+                                    box2: 'No'),
+                                ListCard(
+                                    title: 'Foundation:',
+                                    val: snapshot.data[0]['foundation'],
+                                    type: 'checkbox',
+                                    column: 'foundation',
+                                    formId: formId,
+                                    from: from,
+                                    box1: 'pier & beam',
+                                    box2: 'slab'),
+                                ListCard(
+                                    title: 'Have Basement:',
+                                    val: snapshot.data[0]['basement'],
+                                    type: 'checkbox',
+                                    column: 'basement',
+                                    formId: formId,
+                                    from: from,
+                                    box1: 'Yes',
+                                    box2: 'No'),
+                              ],
+                            );
+                          }
+                      }
+                    }),
+              ),
+            ],
+            // mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.center,
           ),
         ),
       ),
@@ -650,35 +577,64 @@ class ListCard extends StatelessWidget {
           ),
           Expanded(
             flex: 2,
-            child: Text(
-              val,
-              style: TextStyle(
-                fontSize: 16,
-                color: Color(0xFF606060),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 12.0),
+              child: Text(
+                (type == 'checkbox'
+                    ? (val == '--'
+                        ? val
+                        : val == 'true'
+                            ? box1!
+                            : box2!)
+                    : val),
+                style: TextStyle(
+                  color: Color(0xFF606060),
+                  fontSize: 14,
+                ),
               ),
-            ).addPadding(left: 2),
+            ),
           ),
-          Expanded(
-              child: GestureDetector(
-            onTap: () async {
-              if (type == 'text') {
-                var res = await Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return TextEditPage(
-                      val: val,
-                      column: column,
-                      title: title,
-                      formid: formId,
-                    );
+          from == 'admin'
+              ? SizedBox.shrink()
+              : IconButton(
+                  onPressed: () async {
+                    if (type == 'text') {
+                      var res = await Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return TextEditPage(
+                            val: val,
+                            column: column,
+                            title: title,
+                            formid: formId,
+                          );
+                        },
+                      ));
+                      // ignore: unrelated_type_equality_checks
+                      if (res == 'success') getData(formId);
+                    } else {
+                      var res = await Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return checkBoxEditPage(
+                            val1: box1!,
+                            val2: box2!,
+                            val: val == '--' ? 'none' : val,
+                            column: column,
+                            title: title,
+                            formid: formId,
+                          );
+                        },
+                      ));
+                      print('my res $res');
+                      // ignore: unrelated_type_equality_checks
+                      if (res.toString() == 'success') getData(formId);
+                    }
                   },
-                ));
-                // ignore: unrelated_type_equality_checks
-                if (res == 'success') getData(formId);
-              }
-            },
-            child: SvgPicture.asset('assets/icons/edit_icon.svg')
-                .addPadding(right: 0),
-          )),
+                  icon: type == "date"
+                      ? Icon(
+                          Icons.calendar_month,
+                          color: AppThemes.primaryColor,
+                        )
+                      : SvgPicture.asset("assets/icons/edit_icon.svg"))
         ],
       ).addPadding(overall: 12),
     ).addPadding(overall: 12);

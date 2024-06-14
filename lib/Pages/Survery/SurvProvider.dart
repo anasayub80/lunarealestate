@@ -21,6 +21,11 @@ class SurvProvider with ChangeNotifier {
   double get getvalue => value;
 
   String get getFormId => formid!;
+  Future updateStepIndex(var activeStepIndex) async {
+    activeStepIndex = activeStepIndex;
+    notifyListeners();
+  }
+
   Future saveStepIndex(var activeStepIndex) async {
     final prefs = await SharedPreferences.getInstance();
     activeStepIndex = prefs.setInt('activeStepIndex', activeStepIndex);
@@ -30,6 +35,7 @@ class SurvProvider with ChangeNotifier {
   initStepIndex() async {
     final prefs = await SharedPreferences.getInstance();
     activeStepIndex = prefs.getInt('activeStepIndex') ?? 0;
+    debugPrint("activeStepIndex $activeStepIndex");
     stepperIndexStream.add('done');
     notifyListeners();
   }
@@ -271,7 +277,7 @@ class SurvProvider with ChangeNotifier {
               ? 'Check'
               : 'Wire Transfer',
       rating: value.toString(),
-                                            fastcash: fastcashY,
+      fastcash: fastcashY,
 
       taxAmount: backedTaxAmount.value.toString(),
       timeFrame: timeFrameofPro.value.toString(),

@@ -6,7 +6,8 @@ import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/SellHistory/fullDetail.dart';
 
-Widget getListView(List property, int dataLength, BuildContext context) {
+Widget getListView(List property, int dataLength, BuildContext context,
+    Function(int index)? onDelete) {
   return SizedBox(
     height: context.screenHeight,
     width: double.infinity,
@@ -122,31 +123,37 @@ Widget getListView(List property, int dataLength, BuildContext context) {
                       Row(
                         children: [
                           6.width,
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.trashCan,
-                                  color: Colors.white,
-                                  size: 12,
-                                ),
-                                Text(
-                                  "Delete",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12),
-                                )
-                              ],
+                          InkWell(
+                            onTap: () {
+                              onDelete!(index);
+                            },
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    FontAwesomeIcons.trashCan,
+                                    color: Colors.white,
+                                    size: 12,
+                                  ),
+                                  Text(
+                                    "Delete",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12),
+                                  )
+                                ],
+                              ),
+                              decoration: BoxDecoration(
+                                color: Color(0xffE10A0A),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              height: 22,
+                              width: 66,
                             ),
-                            decoration: BoxDecoration(
-                              color: Color(0xffE10A0A),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            height: 22,
-                            width: 66,
                           ),
                         ],
                       ),

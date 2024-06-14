@@ -1,6 +1,5 @@
 import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
-import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
@@ -59,11 +58,13 @@ class _TextEditPageState extends State<TextEditPage> {
             SizedBox(
               height: 40,
             ),
-            // Spacer(),
             textBox(
                     icon: Icons.edit,
-                    emailController: _textEditingController,
+                    controller: _textEditingController,
                     Ktype: TextInputType.name,
+                    validator: (p0) {
+                      return null;
+                    },
                     hint: 'Enter ${widget.title}')
                 .center()
                 .addPadding(horizontal: 12, vertical: 8),

@@ -16,7 +16,6 @@ import 'package:lunarestate/Widgets/Utils.dart';
 
 import '../../Service/UserData.dart';
 import '../../Service/sharedPref.dart';
-import '../../Widgets/global_appbar.dart';
 import '../../Widgets/roundbutton.dart';
 import '../../Widgets/textBox.dart';
 import 'package:provider/provider.dart';
@@ -120,7 +119,10 @@ class _AccountInfoState extends State<AccountInfo> {
                 ),
                 textBox(
                     icon: Icons.person,
-                    emailController: _name,
+                    controller: _name,
+                    validator: (p0) {
+                      return null;
+                    },
                     Ktype: TextInputType.name,
                     hint: 'Name'),
                 SizedBox(
@@ -129,7 +131,10 @@ class _AccountInfoState extends State<AccountInfo> {
                 textBox(
                     icon: Icons.email_outlined,
                     Ktype: TextInputType.emailAddress,
-                    emailController: _email,
+                    validator: (p0) {
+                      return null;
+                    },
+                    controller: _email,
                     hint: 'Email'),
                 SizedBox(
                   height: 15,
@@ -137,7 +142,10 @@ class _AccountInfoState extends State<AccountInfo> {
                 textBox(
                     icon: Icons.phone,
                     Ktype: TextInputType.number,
-                    emailController: _phone,
+                    validator: (p0) {
+                      return null;
+                    },
+                    controller: _phone,
                     hint: 'Phone'),
                 SizedBox(
                   height: 25,

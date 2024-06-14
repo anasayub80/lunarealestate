@@ -2,12 +2,16 @@ import 'dart:developer';
 
 import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
+import 'package:lunarestate/Config/spacing_ext.dart';
 
 import '../../Service/backend.dart';
 import '../../Widgets/Utils.dart';
 import '../../Widgets/choiceTile.dart';
 import '../../Widgets/customAppBar.dart';
+import '../../Widgets/global_appbar.dart';
+import '../../Widgets/header_text.dart';
 import '../../Widgets/roundbutton.dart';
+import '../Background/bg_one.dart';
 
 // ignore: must_be_immutable
 class checkBoxEditPage extends StatefulWidget {
@@ -46,121 +50,113 @@ class _checkBoxEditPageState extends State<checkBoxEditPage> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        body: Container(
-          height: size.height,
-          width: size.width,
-          decoration: BoxDecoration(
-              color: Colors.black,
-              image: DecorationImage(
-                opacity: 0.2,
-                image: AssetImage(
-                  'assets/images/tower.jpg',
-                ),
-                fit: BoxFit.cover,
-              )),
-          child: NestedScrollView(
-              headerSliverBuilder: (context, innerBoxIsScrolled) {
-                return [CustomAppBar('Edit Property')];
-              },
-              body: Column(
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 14.0),
-                    child: ChoiceTile(
-                        y: widget.val == 'none'
+        body: BgTwo(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              CustomAppBarWithCircleback().addPadding(overall: 8),
+              4.height,
+              GlobalAppBar().addPadding(overall: 8),
+              getHeader('Edit Property').addPadding(overall: 8),
+              SizedBox(
+                height: 40,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                child: ChoiceTileNew(
+                    y: widget.val == 'none'
+                        ? false
+                        : widget.val == 'true'
+                            ? true
+                            : false,
+                    n: widget.val == 'none'
+                        ? false
+                        : widget.val == 'true'
                             ? false
-                            : widget.val == 'true'
-                                ? true
-                                : false,
-                        n: widget.val == 'none'
-                            ? false
-                            : widget.val == 'true'
-                                ? false
-                                : true,
-                        index: '',
-                        bgColor: Colors.white.withOpacity(0.4),
-                        title: widget.title,
-                        onChange1: (newVal) {
-                          if (newVal!) {
-                            setState(() {
-                              widget.val = 'true';
-                            });
-                          } else {
-                            setState(() {
-                              widget.val = 'none';
-                            });
-                          }
-                        },
-                        onChange2: (newVal) {
-                          if (newVal!) {
-                            setState(() {
-                              widget.val = 'false';
-                            });
-                          } else {
-                            setState(() {
-                              widget.val = 'none';
-                            });
-                          }
-                          print(newVal);
-                        },
-                        box1: widget.val1,
-                        box2: widget.val2),
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  roundButton(
-                    onClick: (() async {
-                      FocusManager.instance.primaryFocus?.unfocus();
-
-                      FLoading.show(
-                        context,
-                        loading: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/icons/icon.png",
-                              width: 200,
-                              height: 200,
-                            ),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            CircularProgressIndicator()
-                          ],
-                        ),
-                        closable: false,
-                        color: Colors.black.withOpacity(0.7),
-                      );
-                      var res = await backend().update({
-                        'value': widget.val,
-                        'column': widget.column,
-                        'table': 'house_details',
-                        'id': widget.formid,
-                      });
-
-                      if (res['status'] == 'success') {
-                        debugPrint('success');
-                        FLoading.hide();
-                        // ignore: use_build_context_synchronously
-                        Navigator.pop(context, 'success');
+                            : true,
+                    index: '',
+                    bgColor: Colors.white.withOpacity(0.4),
+                    title: widget.title,
+                    onChange1: (newVal) {
+                      if (newVal!) {
+                        setState(() {
+                          widget.val = 'true';
+                        });
                       } else {
-                        FLoading.hide();
-                        debugPrint('fail');
-                        // ignore: use_build_context_synchronously
-                        Utils().showSnackbar(res['msg'], Colors.red, context);
+                        setState(() {
+                          widget.val = 'none';
+                        });
                       }
-                    }),
-                    text: 'UPDATE',
-                  ),
-                ],
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-              )),
+                    },
+                    onChange2: (newVal) {
+                      if (newVal!) {
+                        setState(() {
+                          widget.val = 'false';
+                        });
+                      } else {
+                        setState(() {
+                          widget.val = 'none';
+                        });
+                      }
+                      print(newVal);
+                    },
+                    box1: widget.val1,
+                    box2: widget.val2),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              roundButton(
+                onClick: (() async {
+                  FocusManager.instance.primaryFocus?.unfocus();
+
+                  FLoading.show(
+                    context,
+                    loading: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/icons/icon.png",
+                          width: 200,
+                          height: 200,
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        CircularProgressIndicator()
+                      ],
+                    ),
+                    closable: false,
+                    color: Colors.black.withOpacity(0.7),
+                  );
+                  var res = await backend().update({
+                    'value': widget.val,
+                    'column': widget.column,
+                    'table': 'house_details',
+                    'id': widget.formid,
+                  });
+
+                  if (res['status'] == 'success') {
+                    debugPrint('success');
+                    FLoading.hide();
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context, 'success');
+                  } else {
+                    FLoading.hide();
+                    debugPrint('fail');
+                    // ignore: use_build_context_synchronously
+                    Utils().showSnackbar(res['msg'], Colors.red, context);
+                  }
+                }),
+                text: 'UPDATE',
+              ),
+            ],
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+          ),
         ),
       ),
     );

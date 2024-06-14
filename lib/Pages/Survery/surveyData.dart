@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ StreamController stepperIndexStream = BehaviorSubject();
 List<String> peropertUnits = ['Sq. Ft.', 'Sq. M.', 'Sq. Yd']; // Option 2
 String selectedPropertyUnit = 'Sq. Ft.'; // Option 2
 String pLocation = '';
+List<XFile> images = <XFile>[];
 
 // ignore: must_be_immutable
 // class AllController {
@@ -39,7 +41,7 @@ TextEditingController stories = TextEditingController();
 TextEditingController locationController = TextEditingController();
 TextEditingController squarefootageController = TextEditingController();
 // survery checkbox bool
-TextEditingController timeFrameofPro = TextEditingController();
+TextEditingController timeFrameofPro = TextEditingController(text: '1');
 TextEditingController backedTaxAmount = TextEditingController();
 TextEditingController leanOnProp = TextEditingController();
 TextEditingController lockBoxPlaced = TextEditingController();

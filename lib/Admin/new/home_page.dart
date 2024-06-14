@@ -1,17 +1,17 @@
 // import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:lunarestate/Admin/new/purchase_property/purchase_proerty_view.dart';
 import 'package:lunarestate/Admin/new/seller_request/seller_request_page.dart';
 import 'package:lunarestate/Admin/new/users/users_view.dart';
-import 'package:lunarestate/Admin/widgets/app_bar_global.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/HomePage/Widgets/home_button.dart';
-import 'package:lunarestate/Pages/Survery/pages/children_widgets/basic_info.dart';
-import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 // import 'package:lunarestate/Widgets/customAppBar.dart';
 import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:page_transition/page_transition.dart';
+
+import '../../Widgets/global_appbar.dart';
 
 class HomePageAdmin extends StatefulWidget {
   HomePageAdmin({super.key});
@@ -52,9 +52,9 @@ class _HomePageAdminState extends State<HomePageAdmin> {
           // SafeArea(
           //   child: CustomAppBarWithCircleback(),
           // ).addPadding(horizontal: 21),
-          SafeArea(
-            child: GlobalAppBarAdmin().addPadding(overall: 12),
-          ),
+          10.height,
+          SafeArea(child: GlobalAppBar().addPadding(horizontal: 12)),
+
           18.height,
           Align(
             alignment: Alignment.centerRight,
@@ -135,9 +135,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                   PageTransition(
                     isIos: true,
                     duration: Duration(milliseconds: 700),
-                    child: SellHousePage(
-                      child: BasicInfo(),
-                    ),
+                    child: PurchaseProertyView(),
                     type: PageTransitionType.fade,
                   ));
             },

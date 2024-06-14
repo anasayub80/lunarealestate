@@ -105,21 +105,7 @@ class _GalleryPageState extends State<GalleryPage> {
                                   url: myList[index],
                                 );
                               },
-                              // childrenDelegate: SliverChildBuilderDelegate(
-                              //   (context, index) => GridChild(myList: myList),
-                              // ),
                             );
-                            // return MasonryGridView.builder(
-                            //   itemCount: myList.length,
-                            //   gridDelegate:
-                            //       SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                            //           crossAxisCount: 2),
-                            //   shrinkWrap: true,
-                            //   physics: NeverScrollableScrollPhysics(),
-                            //   itemBuilder: (context, index) {
-                            //     return GridChild(myList: myList);
-                            //   },
-                            // );
                           } else {
                             return Center(
                               child: Text(
@@ -167,6 +153,12 @@ class GridChild extends StatelessWidget {
         child: Image.network(
           url,
           fit: BoxFit.fill,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
         ),
       ),
     );

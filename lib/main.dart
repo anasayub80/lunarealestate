@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
-import 'package:lunarestate/Admin/new/users/user_detailed_View.dart';
-import 'package:lunarestate/Pages/Login/login_page.dart';
+import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +16,6 @@ import 'package:lunarestate/Config/config.dart';
 import 'package:lunarestate/Pages/Gallery/GalleryPage.dart';
 import 'package:lunarestate/Pages/SellHistory/SellHistory.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
-import 'package:lunarestate/Pages/Survery/SurveryPage.dart';
 import 'package:lunarestate/Service/UserData.dart';
 import 'package:ultimate_bottom_navbar/ultimate_bottom_navbar.dart';
 import 'Pages/HomePage/HomePage.dart';
@@ -25,6 +23,7 @@ import 'Pages/More/MorePage.dart';
 import 'Pages/Splash/SplashPage.dart';
 import 'l10n/l10n.dart';
 import 'provider/languageProvider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // SKU FOR APPSTORE DOTCLICK-LUNA-SKU
 Future<void> main() async {
@@ -82,7 +81,7 @@ class _MyAppState extends State<MyApp> {
           navigatorObservers: [BotToastNavigatorObserver()],
           supportedLocales: L10n.all,
           localizationsDelegates: [
-            // AppLocalizations.delegate,
+            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
@@ -119,8 +118,8 @@ class _MyAppState extends State<MyApp> {
                 ),
             primarySwatch: Colors.amber,
           ),
-          // home: SplashPage(),
-          home: LoginPage(),
+          home: SplashPage(),
+          // home: LoginPage(),
         ),
       );
     });
@@ -237,7 +236,7 @@ class _MyNavigationState extends State<MyNavigation> {
             Navigator.push(
                 context,
                 PageTransition(
-                    child: SuerveyPage(),
+                    child: InitializedSellHouse(),
                     type: PageTransitionType.bottomToTop));
           },
           child: Icon(

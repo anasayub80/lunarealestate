@@ -20,15 +20,19 @@ class sharedPref {
   // }
 
   void saveuserData(var res) {
-    UserModel model = UserModel(
-      email: res['email'],
-      id: res['id'],
-      name: res['name'],
-      phone: res['phone'],
-      profile: res['profile'],
-      role: res['role'],
-    );
-    String modelData = jsonEncode(model);
-    sharedPref().storeVal('userData', modelData);
+    try {
+      UserModel model = UserModel(
+        email: res['email'],
+        id: res['id'],
+        name: res['name'],
+        phone: res['phone'],
+        profile: res['profile'],
+        role: res['role'],
+      );
+      String modelData = jsonEncode(model);
+      sharedPref().storeVal('userData', modelData);
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }

@@ -76,13 +76,6 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
   @override
   Widget build(BuildContext context) {
     Provider.of<SurvProvider>(context, listen: false).getFormIdfrom();
-    // headerSliverBuilder: (context, innerBoxIsScrolled) {
-    //   return [
-    //     widget.from == 'btn'
-    //         ? CustomAppBarwithBackButton('My House')
-    //         : CustomAppBar('My House'),
-    //   ];
-    // },
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: BgTwo(
@@ -148,7 +141,9 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
                             } else if (snapshot.data != null) {
                               if (!isGrid) {
                                 return getListView(snapshot.data,
-                                    snapshot.data.length, context);
+                                    snapshot.data.length, context, (index) {
+                                  DeleteProperty(context, snapshot, index);
+                                });
                               } else
                                 return GridView.builder(
                                   itemCount: snapshot.data.length,
@@ -390,85 +385,10 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
                                                           child:
                                                               GestureDetector(
                                                             onTap: () async {
-                                                              AwesomeDialog(
-                                                                  context:
-                                                                      context,
-                                                                  dialogType:
-                                                                      DialogType
-                                                                          .warning,
-                                                                  headerAnimationLoop:
-                                                                      false,
-                                                                  animType: AnimType
-                                                                      .topSlide,
-                                                                  title:
-                                                                      'Delete Property',
-                                                                  desc:
-                                                                      'do you want to delete this property?',
-                                                                  btnCancelOnPress:
-                                                                      () {},
-                                                                  onDismissCallback:
-                                                                      (type) {
-                                                                    debugPrint(
-                                                                        'Dialog Dismiss from callback $type');
-                                                                  },
-                                                                  btnOkText:
-                                                                      'Yes',
-                                                                  btnOkOnPress:
-                                                                      () async {
-                                                                    FLoading
-                                                                        .show(
-                                                                      context,
-                                                                      loading:
-                                                                          Column(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.center,
-                                                                        children: [
-                                                                          Image
-                                                                              .asset(
-                                                                            "assets/icons/icon.png",
-                                                                            width:
-                                                                                200,
-                                                                            height:
-                                                                                200,
-                                                                          ),
-                                                                          SizedBox(
-                                                                            height:
-                                                                                25,
-                                                                          ),
-                                                                          CircularProgressIndicator()
-                                                                        ],
-                                                                      ),
-                                                                      closable:
-                                                                          false,
-                                                                      color: Colors
-                                                                          .black
-                                                                          .withOpacity(
-                                                                              0.7),
-                                                                    );
-                                                                    deleteSurveyOldData(
-                                                                        snapshot.data[index]
-                                                                            [
-                                                                            'id']);
-                                                                    var res =
-                                                                        await backend()
-                                                                            .deleteProperty({
-                                                                      'formid':
-                                                                          snapshot.data[index]
-                                                                              [
-                                                                              'id'],
-                                                                    });
-
-                                                                    if (res['status'] ==
-                                                                        'success') {
-                                                                      FLoading
-                                                                          .hide();
-
-                                                                      setState(
-                                                                          () {});
-                                                                    }
-                                                                  }).show();
+                                                              DeleteProperty(
+                                                                  context,
+                                                                  snapshot,
+                                                                  index);
                                                             },
                                                             child: Container(
                                                               child: Row(
@@ -596,5 +516,53 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
         ),
       ),
     );
+  }
+
+  void DeleteProperty(
+      BuildContext context, AsyncSnapshot<dynamic> snapshot, int index) {
+    AwesomeDialog(
+        context: context,
+        dialogType: DialogType.warning,
+        headerAnimationLoop: false,
+        animType: AnimType.topSlide,
+        title: 'Delete Property',
+        desc: 'do you want to delete this property?',
+        btnCancelOnPress: () {},
+        onDismissCallback: (type) {
+          debugPrint('Dialog Dismiss from callback $type');
+        },
+        btnOkText: 'Yes',
+        btnOkOnPress: () async {
+          FLoading.show(
+            context,
+            loading: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/icons/icon.png",
+                  width: 200,
+                  height: 200,
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                CircularProgressIndicator()
+              ],
+            ),
+            closable: false,
+            color: Colors.black.withOpacity(0.7),
+          );
+          deleteSurveyOldData(snapshot.data[index]['id']);
+          var res = await backend().deleteProperty({
+            'formid': snapshot.data[index]['id'],
+          });
+
+          if (res['status'] == 'success') {
+            FLoading.hide();
+
+            setState(() {});
+          }
+        }).show();
   }
 }

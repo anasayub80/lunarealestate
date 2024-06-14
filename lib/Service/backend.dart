@@ -10,6 +10,8 @@ import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
 
+import '../Pages/Survery/surveyData.dart';
+
 class backend {
   launchInBrowser(Uri url) async {
     if (!await launchUrl(
@@ -211,19 +213,17 @@ class backend {
     try {
       final formData = <String, dynamic>{};
       // TODO UnComment
-      // for (var i = 0; i < images.length; i++) {
-      //   final File file = File((await LecleFlutterAbsolutePath.getAbsolutePath(
-      //     uri: images[i].identifier!,
-      //   ))!);
-      //   String fileName = file.path.split('/').last;
-      //   formData.addAll({
-      //     "gallery[$i]": await MultipartFile.fromFile(
-      //       file.path,
-      //       filename: fileName,
-      //       contentType: MediaType("image", "jpeg"), //important
-      //     ),
-      //   });
-      // }
+      for (var i = 0; i < images.length; i++) {
+        final File file = File(images[i].path);
+        String fileName = file.path.split('/').last;
+        formData.addAll({
+          "gallery[$i]": await MultipartFile.fromFile(
+            file.path,
+            filename: fileName,
+            contentType: MediaType("image", "jpeg"), //important
+          ),
+        });
+      }
       formData.addAll({
         "tab": "image",
         // ignore: use_build_context_synchronously

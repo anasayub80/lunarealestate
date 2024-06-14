@@ -71,7 +71,10 @@ class SignUpPage extends StatelessWidget {
                   textBox(
                       icon: SvgPicture.asset("assets/icons/person_icon.svg"),
                       isSvg: true,
-                      emailController: _nameController,
+                      validator: (p0) {
+                        return null;
+                      },
+                      controller: _nameController,
                       Ktype: TextInputType.name,
                       hint: 'Username'),
                   SizedBox(
@@ -81,8 +84,11 @@ class SignUpPage extends StatelessWidget {
                       // icon: Icons.email_outlined,
                       icon: SvgPicture.asset('assets/icons/email_icon.svg'),
                       isSvg: true,
+                      validator: (p0) {
+                        return null;
+                      },
                       Ktype: TextInputType.emailAddress,
-                      emailController: _emailController,
+                      controller: _emailController,
                       hint: 'Email here'),
                   SizedBox(
                     height: 25,
@@ -91,7 +97,10 @@ class SignUpPage extends StatelessWidget {
                       // icon: Icons.numbers,
                       isSvg: true,
                       icon: SvgPicture.asset('assets/icons/phone_icon.svg'),
-                      emailController: _number,
+                      controller: _number,
+                      validator: (p0) {
+                        return null;
+                      },
                       Ktype: TextInputType.number,
                       hint: 'Phone number'),
                   SizedBox(
