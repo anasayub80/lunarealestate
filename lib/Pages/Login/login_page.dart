@@ -218,14 +218,14 @@ class _LoginPageState extends State<LoginPage> {
                                     break;
                                   default:
                                     Navigator.pushReplacement(
-                                        context,
-                                        PageTransition(
-                                            child: MyNavigation(),
-                                            isIos: true,
-                                            duration:
-                                                Duration(milliseconds: 600),
-                                            type: PageTransitionType
-                                                .bottomToTop));
+                                      context,
+                                      PageTransition(
+                                        child: MyNavigation(),
+                                        isIos: true,
+                                        duration: Duration(milliseconds: 600),
+                                        type: PageTransitionType.bottomToTop,
+                                      ),
+                                    );
                                 }
                               } else {
                                 FLoading.hide();
@@ -234,7 +234,6 @@ class _LoginPageState extends State<LoginPage> {
                               }
                             } catch (e) {
                               debugPrint("Login Error: $e");
-
                               FLoading.hide();
                               Utils().showSnackbar(
                                   e.toString(), Colors.red, context);

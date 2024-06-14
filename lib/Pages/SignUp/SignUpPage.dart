@@ -6,8 +6,11 @@ import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
+import 'package:lunarestate/Pages/OTPVerification/verify_phone.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:floading/floading.dart';
+import 'package:lunarestate/repositry/authentication_repositry.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../Config/config.dart';
 import '../../Service/backend.dart';
@@ -149,26 +152,41 @@ class SignUpPage extends StatelessWidget {
                           closable: false,
                           color: Colors.black.withOpacity(0.7),
                         );
+
                         var res = await backend().signUpAccount({
                           'email': _emailController.text,
                           'password': _passwordController.text,
-                          'phone': _number.text,
+                          'phone': _number.text.trim(),
                           'name': _nameController.text,
                           'token': TOKEN,
                         });
-
-                        if (res['status'] == 'success') {
-                          // List<dynamic> data = res["user"];
-                          sharedPref().storeVal('email', _emailController.text);
-                          FLoading.hide();
-                          Utils()
-                              .showSnackbar(res['res'], Colors.green, context);
-                          Navigator.pop(context, _emailController.text);
-                        } else {
-                          FLoading.hide();
-                          Utils().showSnackbar(res['res'], Colors.red, context);
+                        FLoading.hide();
+                        try {
+                          if (res['status'] == 'success') {
+                            debugPrint("success");
+                            sharedPref()
+                                .storeVal('email', _emailController.text);
+                            Utils().showSnackbar(
+                                res['res'], Colors.green, context);
+                            debugPrint("success 22222");
+                            Navigator.pushReplacement(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: VerifyPhoneNumber(),
+                                // isIos: true,
+                                duration: Duration(milliseconds: 800),
+                              ),
+                            );
+                          } else {
+                            Utils()
+                                .showSnackbar(res['res'], Colors.red, context);
+                          }
+                        } catch (e) {
+                          debugPrint("ERRROR ${e.toString()}");
                         }
                       }
+                      FLoading.hide();
                     }),
                     text: 'SIGN UP',
                   ),

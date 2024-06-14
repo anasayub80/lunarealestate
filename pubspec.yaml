@@ -22,6 +22,8 @@ dependencies:
   dio: ^4.0.6
   dotted_border: ^2.1.0
   eva_icons_flutter: ^3.1.0
+  firebase_auth: ^5.1.0
+  firebase_core: ^3.1.0
   floading: ^2.0.0
   flutter:
     sdk: flutter

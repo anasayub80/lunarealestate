@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
+import 'package:lunarestate/firebase_options.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -28,6 +30,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // SKU FOR APPSTORE DOTCLICK-LUNA-SKU
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 

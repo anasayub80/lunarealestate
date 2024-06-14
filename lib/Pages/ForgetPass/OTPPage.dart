@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/ForgetPass/CreatenewPassPage.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
+import 'package:lunarestate/repositry/authentication_repositry.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rxdart/rxdart.dart';
@@ -18,7 +20,12 @@ class OTPPage extends StatefulWidget {
   String email;
   String otp;
   String res;
-  OTPPage({required this.email, required this.otp, required this.res});
+  String phoneNumber;
+  OTPPage(
+      {required this.email,
+      required this.otp,
+      required this.res,
+      required this.phoneNumber});
 
   @override
   State<OTPPage> createState() => _OTPPageState();
@@ -28,6 +35,24 @@ class _OTPPageState extends State<OTPPage> {
   StreamController<ErrorAnimationType> errorController = BehaviorSubject();
 
   final textEditingController = TextEditingController();
+  int _counter = 30;
+  Timer? _timer;
+
+  void _startTimer() {
+    if (_timer != null) {
+      _timer!.cancel();
+    }
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_counter > 0) {
+          _counter--;
+        } else {
+          _timer!.cancel();
+        }
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -37,6 +62,15 @@ class _OTPPageState extends State<OTPPage> {
         Utils().showSnackbar(widget.res, Colors.green, context);
       },
     );
+    _startTimer();
+  }
+
+  @override
+  void dispose() {
+    if (_timer != null) {
+      _timer!.cancel();
+    }
+    super.dispose();
   }
 
   @override
@@ -85,7 +119,7 @@ class _OTPPageState extends State<OTPPage> {
                           text: 'Enter the code from the SMS we sent to',
                           children: [
                             TextSpan(
-                              text: ' +8801774280847',
+                              text: widget.phoneNumber,
                               children: [],
                               style: TextStyle(
                                 color: AppThemes.primaryColor,
@@ -102,13 +136,31 @@ class _OTPPageState extends State<OTPPage> {
                         ),
                       ),
                       40.height,
-                      Center(
-                        child: Text(
-                          "02:32",
-                          style: TextStyle(
-                            color: AppThemes.primaryColor,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
+                      Visibility(
+                        visible: _counter != 0,
+                        replacement: Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              _startTimer();
+                            },
+                            child: Text(
+                              "Resend",
+                              style: TextStyle(
+                                color: AppThemes.primaryColor,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "02:32",
+                            style: TextStyle(
+                              color: AppThemes.primaryColor,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -175,21 +227,18 @@ class _OTPPageState extends State<OTPPage> {
                 ],
               ),
               roundButton(
+                      horizontalPadding: 0.0,
+                      buttonWidth: context.screenWidth * 0.9,
                       onClick: () {
-                        if (widget.otp == textEditingController.text.trim()) {
-                          Navigator.push(
-                              context,
-                              PageTransition(
-                                  child: CreatenewPassPage(),
-                                  isIos: true,
-                                  type: PageTransitionType.fade));
-                        } else {
-                          Utils()
-                              .showSnackbar('Wrong Code', Colors.red, context);
-                        }
+                        AuthenticationRepositry().submitOtp(
+                            context,
+                            textEditingController.text,
+                            TextEditingController());
+                        try {} catch (e) {
+                        } finally {}
                       },
                       text: 'VERIFY')
-                  .addPadding(bottom: 10),
+                  .addPadding(bottom: 21),
             ],
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,

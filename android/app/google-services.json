@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "872097734544",
+    "project_id": "testotp-57a8a",
+    "storage_bucket": "testotp-57a8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872097734544:android:376539e76e586255c55d15",
+        "android_client_info": {
+          "package_name": "com.lunaenterprises"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIcE7J9ZP83xmMXlgSWqBdAnRogPFrQuI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

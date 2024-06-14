@@ -6,6 +6,7 @@ import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/ForgetPass/OTPPage.dart';
 import 'package:lunarestate/Widgets/Utils.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
+import 'package:lunarestate/repositry/authentication_repositry.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../Admin/AppTheme.dart';
 import '../../Widgets/textBox.dart';
@@ -17,10 +18,10 @@ class VerifyPhoneNumber extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        body: BgOne(
+    return Scaffold(
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: BgOne(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -122,20 +123,23 @@ class VerifyPhoneNumber extends StatelessWidget {
                             color: Colors.black.withOpacity(0.7),
                           );
 
+                          AuthenticationRepositry().sendOTP(
+                            context,
+                            _phone.text.trim(),
+                          );
                           // var res = await backend().forgotPassword({
                           //   'email': _phone.text.trim(),
                           // });
                           // if (res['status'] == 'success') {
-                          FLoading.hide();
-                          Navigator.push(
+
+                          Navigator.pushReplacement(
                               context,
                               PageTransition(
                                   child: OTPPage(
                                     email: _phone.text,
-                                    // otp: res['code'],
-                                    // res: res['msg'],
                                     otp: '12321',
-                                    res: 'msg',
+                                    res: 'OTP Sent successfully',
+                                    phoneNumber: _phone.text,
                                   ),
                                   isIos: true,
                                   duration: Duration(milliseconds: 600),
@@ -148,6 +152,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                             context,
                           );
                         }
+                        FLoading.hide();
                       },
                       text: 'GET CODE')
                   .addPadding(bottom: 25)

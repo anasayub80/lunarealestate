@@ -92,17 +92,18 @@ class ForgetMyPass extends StatelessWidget {
                             });
                             if (res['status'] == 'success') {
                               FLoading.hide();
-                              Navigator.push(
-                                  context,
-                                  PageTransition(
-                                      child: OTPPage(
-                                        email: _email.text,
-                                        otp: res['code'],
-                                        res: res['msg'],
-                                      ),
-                                      isIos: true,
-                                      duration: Duration(milliseconds: 600),
-                                      type: PageTransitionType.fade));
+                              // Navigator.push(
+                              //     context,
+                              //     PageTransition(
+                              //         child: OTPPage(
+                              //           email: _email.text,
+                              //           otp: res['code'],
+                              //           res: res['msg'],
+
+                              //         ),
+                              //         isIos: true,
+                              //         duration: Duration(milliseconds: 600),
+                              //         type: PageTransitionType.fade));
                             }
                           } else {
                             Utils().showSnackbar(

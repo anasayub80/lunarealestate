@@ -27,8 +27,19 @@ class _SplashPageState extends State<SplashPage> {
     // TODO: implement initState
     super.initState();
     checkLogin();
-    runAnimate();
-    enterFullScreen();
+    // Future.delayed(Duration.zero, () {
+    //   Navigator.pushReplacement(
+    //     context,
+    //     PageTransition(
+    //       type: PageTransitionType.bottomToTop,
+    //       child: LoginPage(),
+    //       isIos: true,
+    //       duration: Duration(milliseconds: 800),
+    //     ),
+    //   );
+    // });
+    // runAnimate();
+    // enterFullScreen();
   }
 
   @override
