@@ -42,9 +42,9 @@
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
 		<key>LSApplicationQueriesSchemes</key>
-				<array>
- 				<string>tel</string>
-				</array>
+		<array>
+ 			<string>tel</string>
+		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
 		<key>NSCameraUsageDescription</key>
@@ -57,5 +57,21 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+
+		<!-- Add this section for REVERSED_CLIENT_ID -->
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleIdentifier</key>
+				<string></string>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.googleusercontent.apps.465370197171-9vgd73go8jnp3ae00cn29009u8fee5du</string>
+				</array>
+			</dict>
+		</array>
+
 	</dict>
 </plist>
