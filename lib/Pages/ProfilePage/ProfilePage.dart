@@ -30,7 +30,7 @@ class ProfilePage extends StatelessWidget {
             children: [
               30.height,
               CustomAppBarWithCircleback().addPadding(horizontal: 20),
-              GlobalAppBar().addPadding(horizontal: 20, top: 25),
+              // GlobalAppBar().addPadding(horizontal: 20, top: 25),
               30.height,
               SizedBox(
                 child: Hero(

@@ -75,18 +75,23 @@ class GlobalAppBar extends StatelessWidget {
                       child: ProfilePage(),
                       type: PageTransitionType.fade));
             },
-            child: CircleAvatar(
-              radius: 41,
-              backgroundImage: NetworkImage(
-                Provider.of<UserData>(context, listen: true).profile.toString(),
+            child: Hero(
+              tag: "profileImage",
+              child: CircleAvatar(
+                radius: 41,
+                backgroundImage: NetworkImage(
+                  Provider.of<UserData>(context, listen: true)
+                      .profile
+                      .toString(),
+                ),
+                onBackgroundImageError: (exception, stackTrace) {
+                  Icon(
+                    Icons.broken_image,
+                    color: Colors.red,
+                    size: 30,
+                  );
+                },
               ),
-              onBackgroundImageError: (exception, stackTrace) {
-                Icon(
-                  Icons.broken_image,
-                  color: Colors.red,
-                  size: 30,
-                );
-              },
             ),
           ),
         ],

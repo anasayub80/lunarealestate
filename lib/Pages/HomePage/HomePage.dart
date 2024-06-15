@@ -9,6 +9,7 @@ import 'package:lunarestate/Widgets/global_appbar.dart';
 import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:video_player/video_player.dart';
+import '../Gallery/ImageView.dart';
 import '../SellHistory/SellHistory.dart';
 import 'Widgets/benefits_wid.dart';
 import 'Widgets/home_button.dart';
@@ -45,9 +46,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List img = [
-    'https://picsum.photos/200/300',
-    'https://picsum.photos/200/300',
-    'https://picsum.photos/200/300',
+    'https://lunaenterprises.info/wp-content/uploads/2022/09/688e32cd90dbb711edc5812f7d05975d.jpg',
+    'https://lunaenterprises.info/wp-content/uploads/2022/09/Cat-Mountain-Residence_2.jpg',
+    'https://lunaenterprises.info/wp-content/uploads/2022/09/Far-Pond-House_1.jpg',
+    'https://lunaenterprises.info/wp-content/uploads/2022/09/688e32cd90dbb711edc5812f7d05975d.jpg',
   ];
   int currentPage = 0;
   void updateCurrentPageTop(int page) {
@@ -106,9 +108,26 @@ class _MyHomePageState extends State<MyHomePage> {
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(16.0),
                                   ),
-                                  child: Image.network(
-                                    item,
-                                    fit: BoxFit.cover,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              child: ImageView(url: item),
+                                              type: PageTransitionType.fade));
+                                    },
+                                    child: Image.network(
+                                      item,
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null)
+                                          return child;
+                                        return Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      },
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ).addPadding(overall: 8),

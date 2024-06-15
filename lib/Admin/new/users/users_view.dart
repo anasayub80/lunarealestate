@@ -10,7 +10,6 @@ import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Widgets/customAppBar.dart';
 import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../Service/backend.dart';
 import '../../../Widgets/global_appbar.dart';
 
