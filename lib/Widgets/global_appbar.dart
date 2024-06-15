@@ -30,8 +30,9 @@ class GlobalAppBar extends StatelessWidget {
                   children: [
                     Text(
                       Provider.of<UserData>(context, listen: false)
-                          .name!
-                          .capitalize(),
+                              .name
+                              ?.capitalize() ??
+                          'John Doe',
                       style: TextStyle(
                           color: AppThemes.whiteColor,
                           fontSize: 18.0,

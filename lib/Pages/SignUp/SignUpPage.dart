@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
@@ -161,6 +163,7 @@ class SignUpPage extends StatelessWidget {
                           'token': TOKEN,
                         });
                         FLoading.hide();
+                        log('Response $res');
                         try {
                           if (res['status'] == 'success') {
                             debugPrint("success");
@@ -173,7 +176,9 @@ class SignUpPage extends StatelessWidget {
                               context,
                               PageTransition(
                                 type: PageTransitionType.rightToLeft,
-                                child: VerifyPhoneNumber(),
+                                child: VerifyPhoneNumber(
+                                  phoneNumber: _number.text.trim(),
+                                ),
                                 // isIos: true,
                                 duration: Duration(milliseconds: 800),
                               ),

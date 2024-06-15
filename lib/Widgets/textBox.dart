@@ -9,12 +9,14 @@ class textBox extends StatelessWidget {
   TextInputType Ktype;
   var icon;
   final bool isSvg;
+  final bool readOnly;
   String? Function(String?) validator;
   void Function(String)? onFieldSubmitted;
   textBox({
     Key? key,
     required TextEditingController controller,
     required this.hint,
+    this.readOnly = false,
     required this.icon,
     required this.validator,
     required this.Ktype,
@@ -41,6 +43,7 @@ class textBox extends StatelessWidget {
           onFieldSubmitted: onFieldSubmitted,
           cursorColor: AppThemes.primaryColor,
           autofocus: false,
+          readOnly: readOnly,
           validator: validator,
           style: TextStyle(color: Colors.white),
           keyboardType: Ktype,

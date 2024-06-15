@@ -83,7 +83,7 @@ class _PurchaseProertyViewState extends State<PurchaseProertyView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  getHeader('Seller Request'),
+                  getHeader('Purchase Property'),
                   Row(
                     children: [
                       GestureDetector(

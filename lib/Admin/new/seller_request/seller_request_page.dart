@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lunarestate/Admin/new/seller_request/widgets/grid_view.dart';
+import 'package:lunarestate/Admin/new/seller_request/widgets/list_view.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Service/backend.dart';
@@ -140,7 +141,9 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
               //   ),
               // ).center(),
               // Spacer(),
-              getGridViewAdmin(context, {}, 6),
+              isGrid
+                  ? getGridViewAdmin(context, {}, 6)
+                  : getListViewAdmin(context, {}, 6),
             ],
           ),
         ),

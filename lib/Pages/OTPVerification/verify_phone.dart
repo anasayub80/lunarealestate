@@ -8,16 +8,18 @@ import 'package:lunarestate/Widgets/Utils.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:lunarestate/repositry/authentication_repositry.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import '../../Admin/AppTheme.dart';
 import '../../Widgets/textBox.dart';
 
 class VerifyPhoneNumber extends StatelessWidget {
-  VerifyPhoneNumber({super.key});
+  VerifyPhoneNumber({super.key, required this.phoneNumber}) {
+    _phone.text = phoneNumber;
+  }
   final _phone = TextEditingController();
-
+  final String phoneNumber;
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -87,6 +89,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                       ),
                       40.height,
                       textBox(
+                          readOnly: true,
                           icon: Icons.phone,
                           controller: _phone,
                           Ktype: TextInputType.phone,

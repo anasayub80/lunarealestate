@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
@@ -8,6 +10,7 @@ import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/config.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/ForgetPass/ForgetPass.dart';
+import 'package:lunarestate/Pages/OTPVerification/verify_phone.dart';
 import 'package:lunarestate/Pages/SignUp/SignUpPage.dart';
 import 'package:floading/floading.dart';
 import 'package:lunarestate/main.dart';
@@ -35,6 +38,13 @@ class _LoginPageState extends State<LoginPage> {
 
   TextEditingController _passwordController = TextEditingController();
   bool isRememberMe = false;
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -186,6 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                                 'token': TOKEN,
                               });
 
+                              log('Response ${res['user']['phone']}');
                               if (res['status'] == 'success') {
                                 debugPrint(res['user']["name"]);
                                 if (isRememberMe) {
@@ -217,15 +228,18 @@ class _LoginPageState extends State<LoginPage> {
                                                 .bottomToTop));
                                     break;
                                   default:
-                                    Navigator.pushReplacement(
-                                      context,
-                                      PageTransition(
-                                        child: MyNavigation(),
-                                        isIos: true,
-                                        duration: Duration(milliseconds: 600),
-                                        type: PageTransitionType.bottomToTop,
-                                      ),
-                                    );
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            child: VerifyPhoneNumber(
+                                              phoneNumber: res['user']['phone']
+                                                  .toString(),
+                                            ),
+                                            isIos: true,
+                                            duration:
+                                                Duration(milliseconds: 600),
+                                            type: PageTransitionType
+                                                .bottomToTop));
                                 }
                               } else {
                                 FLoading.hide();
