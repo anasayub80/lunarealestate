@@ -1,25 +1,42 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
+import 'package:lunarestate/Admin/new/seller_request/seller_request_page.dart';
 // import 'package:lunarestate/Admin/widgets/app_bar_global.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-Widget getGridViewAdmin(BuildContext context, Map property, int dataLength) {
+import '../../../../Pages/SellHistory/fullDetail.dart';
+
+Widget getGridViewAdmin(
+    BuildContext context, List property, Function? refresh) {
   return SizedBox(
     height: context.screenHeight,
     width: double.infinity,
     child: GridView.builder(
-      itemCount: dataLength,
+      itemCount: property.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 5.0,
         mainAxisSpacing: 5.0,
       ),
+      physics: NeverScrollableScrollPhysics(),
       padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
+        final prop = property[index];
         return InkWell(
-          onTap: () {},
+          onTap: () async {
+            var res = await Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return FullDetail(formId: prop['id'], from: 'admin');
+              },
+            ));
+            if (res == 'success') {
+              refresh;
+            }
+          },
           child: Container(
             width: double.infinity,
             decoration: AppThemes.commonBoxDecoration,
@@ -29,11 +46,20 @@ Widget getGridViewAdmin(BuildContext context, Map property, int dataLength) {
                   flex: 2,
                   child: Stack(
                     children: [
-                      Image.network(
-                        'https://picsum.photos/200/300',
-                        // height: context.screenHeight * 0.1,
+                      // Image.network(
+                      //   property![index]['image'],
+                      //   // height: context.screenHeight * 0.1,
+                      //   fit: BoxFit.fill,
+                      //   width: double.infinity,
+                      // ),
+                      CachedNetworkImage(
+                        imageUrl: prop['image'],
                         fit: BoxFit.fill,
                         width: double.infinity,
+                        height: double.infinity,
+                        placeholder: (context, url) =>
+                            Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
                       Align(
                         alignment: Alignment.topLeft,
@@ -70,7 +96,7 @@ Widget getGridViewAdmin(BuildContext context, Map property, int dataLength) {
                         children: [
                           6.width,
                           Text(
-                            'Arcade X',
+                            prop['title'],
                             style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,
@@ -86,12 +112,14 @@ Widget getGridViewAdmin(BuildContext context, Map property, int dataLength) {
                             Icons.location_on_outlined,
                             color: AppThemes.secondarycolor,
                           ),
-                          Text(
-                            'Larachi se thora bahir',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: AppThemes.secondarycolor,
-                              fontWeight: FontWeight.w500,
+                          Expanded(
+                            child: Text(
+                              prop['location'],
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: AppThemes.secondarycolor,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ],
@@ -101,7 +129,7 @@ Widget getGridViewAdmin(BuildContext context, Map property, int dataLength) {
                         children: [
                           6.width,
                           Text(
-                            '12 May 2023',
+                            prop['date'],
                             style: TextStyle(
                               fontSize: 10,
                               color: Color(0xFFBEB8B8),
@@ -115,59 +143,71 @@ Widget getGridViewAdmin(BuildContext context, Map property, int dataLength) {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           6.width,
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.email,
-                                  color: Colors.white,
-                                  size: 12,
-                                ),
-                                Text(
-                                  "Call",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12),
-                                )
-                              ],
+                          GestureDetector(
+                            onTap: () {
+                              launchUrl(Uri.parse('mailto:${prop['email']}'));
+                            },
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.email,
+                                    color: Colors.white,
+                                    size: 12,
+                                  ),
+                                  Text(
+                                    "Email",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12),
+                                  )
+                                ],
+                              ),
+                              decoration: BoxDecoration(
+                                  color: Color(0xff3A3D41),
+                                  borderRadius: BorderRadius.circular(4),
+                                  border: Border.all(
+                                      color: Colors.white, width: 2)),
+                              height: 22,
+                              width: 66,
                             ),
-                            decoration: BoxDecoration(
-                                color: Color(0xff3A3D41),
-                                borderRadius: BorderRadius.circular(4),
-                                border:
-                                    Border.all(color: Colors.white, width: 2)),
-                            height: 22,
-                            width: 66,
                           ),
                           20.width,
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.phone,
-                                  color: Colors.white,
-                                  size: 12,
-                                ),
-                                Text(
-                                  "Call",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12),
-                                )
-                              ],
+                          GestureDetector(
+                            onTap: () {
+                              makePhoneCall(prop['phone']);
+                            },
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.phone,
+                                    color: Colors.white,
+                                    size: 12,
+                                  ),
+                                  Text(
+                                    "Call",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12),
+                                  )
+                                ],
+                              ),
+                              decoration: BoxDecoration(
+                                color: Color(0xff4ABE5D),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              height: 22,
+                              width: 66,
                             ),
-                            decoration: BoxDecoration(
-                              color: Color(0xff4ABE5D),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            height: 22,
-                            width: 66,
                           ),
                         ],
                       ),

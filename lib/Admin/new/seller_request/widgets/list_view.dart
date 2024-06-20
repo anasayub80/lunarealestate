@@ -4,113 +4,133 @@ import 'package:lunarestate/Config/bc_ext.dart';
 
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-Widget getListViewAdmin(BuildContext context, Map property, int dataLength) {
-  return SizedBox(
-    height: context.screenHeight,
-    width: double.infinity,
-    child: ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: dataLength,
-      itemBuilder: (context, index) {
-        return InkWell(
-          onTap: () {},
-          child: Container(
-            height: context.screenHeight * 0.14,
-            width: double.infinity,
-            decoration: AppThemes.commonBoxDecoration,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Stack(
-                    children: [
-                      Image.network(
-                        'https://picsum.photos/200/300',
-                        height: context.screenHeight * 0.14,
-                        fit: BoxFit.fill,
-                        width: context.screenWidth,
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: 'Complete' == 'Complete'
-                            ? SizedBox.shrink()
-                            : Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, right: 8),
-                                  child: Text(
-                                    'Complete',
-                                    style: TextStyle(
-                                      color: 'Complete' == 'Complete'
-                                          ? Colors.green
-                                          : Colors.white,
-                                      fontSize: 12,
-                                    ),
+import '../../../../Pages/SellHistory/fullDetail.dart';
+import '../seller_request_page.dart';
+
+Widget getListViewAdmin(
+    BuildContext context, List property, Function? refresh) {
+  return ListView.builder(
+    itemCount: property.length,
+    padding: EdgeInsets.zero,
+    physics: NeverScrollableScrollPhysics(),
+    shrinkWrap: true,
+    itemBuilder: (context, index) {
+      final prop = property[index];
+      return InkWell(
+        onTap: () async {
+          var res = await Navigator.push(context, MaterialPageRoute(
+            builder: (context) {
+              return FullDetail(formId: prop['id'], from: 'admin');
+            },
+          ));
+          if (res == 'success') {
+            refresh;
+          }
+        },
+        child: Container(
+          height: context.screenHeight * 0.15,
+          width: double.infinity,
+          decoration: AppThemes.commonBoxDecoration,
+          child: Row(
+            children: [
+              Expanded(
+                child: Stack(
+                  children: [
+                    Image.network(
+                      prop['image'],
+                      height: context.screenHeight * 0.15,
+                      fit: BoxFit.fill,
+                      width: context.screenWidth,
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: 'Complete' == 'Complete'
+                          ? SizedBox.shrink()
+                          : Container(
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 8.0, right: 8),
+                                child: Text(
+                                  'Complete',
+                                  style: TextStyle(
+                                    color: 'Complete' == 'Complete'
+                                        ? Colors.green
+                                        : Colors.white,
+                                    fontSize: 12,
                                   ),
                                 ),
                               ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          6.width,
-                          Text(
-                            'Arcade X',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
                             ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        6.width,
+                        Text(
+                          prop['title'],
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
                           ),
-                        ],
-                      ),
-                      4.height,
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.location_on_outlined,
-                            color: AppThemes.secondarycolor,
-                          ),
-                          Text(
-                            'Larachi se thora bahir',
+                        ),
+                      ],
+                    ),
+                    4.height,
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          color: AppThemes.secondarycolor,
+                        ),
+                        Expanded(
+                          child: Text(
+                            prop['location'],
                             style: TextStyle(
                               fontSize: 12,
                               color: AppThemes.secondarycolor,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ],
-                      ),
-                      4.height,
-                      Row(
-                        children: [
-                          6.width,
-                          Text(
-                            '12 May 2023',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Color(0xFFBEB8B8),
-                              fontWeight: FontWeight.w500,
-                            ),
+                        ),
+                      ],
+                    ),
+                    4.height,
+                    Row(
+                      children: [
+                        6.width,
+                        Text(
+                          prop['date'],
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Color(0xFFBEB8B8),
+                            fontWeight: FontWeight.w500,
                           ),
-                        ],
-                      ),
-                      6.height,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          6.width,
-                          Container(
+                        ),
+                      ],
+                    ),
+                    6.height,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        6.width,
+                        GestureDetector(
+                          onTap: () {
+                            launchUrl(Uri.parse('mailto:${prop['email']}'));
+                          },
+                          child: Container(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -121,7 +141,7 @@ Widget getListViewAdmin(BuildContext context, Map property, int dataLength) {
                                   size: 12,
                                 ),
                                 Text(
-                                  "Call",
+                                  "Email",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w400,
@@ -137,8 +157,13 @@ Widget getListViewAdmin(BuildContext context, Map property, int dataLength) {
                             height: 22,
                             width: 66,
                           ),
-                          20.width,
-                          Container(
+                        ),
+                        20.width,
+                        GestureDetector(
+                          onTap: () {
+                            makePhoneCall(prop['phone']);
+                          },
+                          child: Container(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -164,16 +189,16 @@ Widget getListViewAdmin(BuildContext context, Map property, int dataLength) {
                             height: 22,
                             width: 66,
                           ),
-                        ],
-                      ),
-                    ],
-                  ).addPadding(overall: 6),
-                ),
-              ],
-            ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ).addPadding(overall: 6),
+              ),
+            ],
           ),
-        ).addPadding(horizontal: 20, vertical: 14);
-      },
-    ),
+        ),
+      ).addPadding(horizontal: 20, vertical: 14);
+    },
   );
 }

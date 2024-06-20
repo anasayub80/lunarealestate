@@ -13,11 +13,17 @@ import '../../Admin/AppTheme.dart';
 import '../../Widgets/textBox.dart';
 
 class VerifyPhoneNumber extends StatelessWidget {
-  VerifyPhoneNumber({super.key, required this.phoneNumber}) {
+  VerifyPhoneNumber(
+      {super.key,
+      required this.phoneNumber,
+      required this.Userid,
+      required this.email}) {
     _phone.text = phoneNumber;
   }
   final _phone = TextEditingController();
+  final String Userid;
   final String phoneNumber;
+  final String email;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,8 +145,9 @@ class VerifyPhoneNumber extends StatelessWidget {
                               context,
                               PageTransition(
                                   child: OTPPage(
-                                    email: _phone.text,
+                                    email: email,
                                     otp: '12321',
+                                    Userid: Userid,
                                     res: 'OTP Sent successfully',
                                     phoneNumber: _phone.text,
                                   ),

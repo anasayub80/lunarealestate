@@ -41,6 +41,7 @@ class textBox extends StatelessWidget {
       child: Center(
         child: TextFormField(
           onFieldSubmitted: onFieldSubmitted,
+          
           cursorColor: AppThemes.primaryColor,
           autofocus: false,
           readOnly: readOnly,

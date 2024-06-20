@@ -13,6 +13,7 @@ import 'package:lunarestate/Pages/ForgetPass/ForgetPass.dart';
 import 'package:lunarestate/Pages/OTPVerification/verify_phone.dart';
 import 'package:lunarestate/Pages/SignUp/SignUpPage.dart';
 import 'package:floading/floading.dart';
+import 'package:lunarestate/Pages/Splash/SplashPage.dart';
 import 'package:lunarestate/main.dart';
 import 'package:provider/provider.dart';
 import 'package:lunarestate/Service/sharedPref.dart';
@@ -196,50 +197,77 @@ class _LoginPageState extends State<LoginPage> {
                                 'token': TOKEN,
                               });
 
-                              log('Response ${res['user']['phone']}');
+                              log('Response ${res['user']}');
                               if (res['status'] == 'success') {
                                 debugPrint(res['user']["name"]);
-                                if (isRememberMe) {
-                                  sharedPref().saveuserData(res['user']);
-                                  debugPrint(
-                                      "save Email ${_emailController.text}");
-                                  sharedPref()
-                                      .storeVal('email', _emailController.text);
-                                }
+
                                 Utils().showSnackbar(
                                     res['msg'], Colors.green, context);
                                 await Provider.of<UserData>(context,
                                         listen: false)
                                     .initUserData();
                                 FLoading.hide();
-
-                                switch (res['user']['role']) {
-                                  case 'admin':
-                                    Navigator.of(context)
-                                        .popUntil((route) => route.isFirst);
-                                    Navigator.pushReplacement(
-                                        context,
-                                        PageTransition(
-                                            child: HomePageAdmin(),
-                                            isIos: true,
-                                            duration:
-                                                Duration(milliseconds: 600),
-                                            type: PageTransitionType
-                                                .bottomToTop));
-                                    break;
-                                  default:
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            child: VerifyPhoneNumber(
-                                              phoneNumber: res['user']['phone']
-                                                  .toString(),
-                                            ),
-                                            isIos: true,
-                                            duration:
-                                                Duration(milliseconds: 600),
-                                            type: PageTransitionType
-                                                .bottomToTop));
+                                if (res['user']['phone_verified'].toString() ==
+                                    '0') {
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          child: VerifyPhoneNumber(
+                                            phoneNumber:
+                                                res['user']['phone'].toString(),
+                                            Userid:
+                                                res['user']['id'].toString(),
+                                            email: _emailController.text,
+                                          ),
+                                          isIos: true,
+                                          duration: Duration(milliseconds: 600),
+                                          type:
+                                              PageTransitionType.bottomToTop));
+                                } else {
+                                  if (isRememberMe) {
+                                    sharedPref().saveuserData(res['user']);
+                                    debugPrint(
+                                        "save Email ${_emailController.text}");
+                                    sharedPref().storeVal(
+                                        'email', _emailController.text);
+                                  }
+                                  Navigator.pushReplacement(
+                                      context,
+                                      PageTransition(
+                                        child: SplashPage(),
+                                        isIos: true,
+                                        duration: Duration(milliseconds: 600),
+                                        type: PageTransitionType.bottomToTop,
+                                      ));
+                                  // switch (res['user']['role']) {
+                                  //   case 'admin':
+                                  //     Navigator.of(context)
+                                  //         .popUntil((route) => route.isFirst);
+                                  //     Navigator.pushReplacement(
+                                  //         context,
+                                  //         PageTransition(
+                                  //             child: HomePageAdmin(),
+                                  //             isIos: true,
+                                  //             duration:
+                                  //                 Duration(milliseconds: 600),
+                                  //             type: PageTransitionType
+                                  //                 .bottomToTop));
+                                  //     break;
+                                  //   case 'user':
+                                  //     Navigator.pushReplacement(
+                                  //       context,
+                                  //       PageTransition(
+                                  //         child: SplashPage(),
+                                  //         isIos: true,
+                                  //         duration: Duration(milliseconds: 600),
+                                  //         type: PageTransitionType.bottomToTop,
+                                  //       ),
+                                  //     );
+                                  //     break;
+                                  //   default:
+                                  //     Utils().showSnackbar(
+                                  //         "Invalid Role", Colors.red, context);
+                                  // }
                                 }
                               } else {
                                 FLoading.hide();

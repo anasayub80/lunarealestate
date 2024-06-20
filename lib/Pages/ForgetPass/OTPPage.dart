@@ -20,10 +20,12 @@ class OTPPage extends StatefulWidget {
   String email;
   String otp;
   String res;
+  String Userid;
   String phoneNumber;
   OTPPage(
       {required this.email,
       required this.otp,
+      required this.Userid,
       required this.res,
       required this.phoneNumber});
 
@@ -39,6 +41,7 @@ class _OTPPageState extends State<OTPPage> {
   Timer? _timer;
 
   void _startTimer() {
+    _counter = 30;
     if (_timer != null) {
       _timer!.cancel();
     }
@@ -116,7 +119,7 @@ class _OTPPageState extends State<OTPPage> {
                       10.height,
                       RichText(
                         text: TextSpan(
-                          text: 'Enter the code from the SMS we sent to',
+                          text: 'Enter the code from the SMS we sent to ',
                           children: [
                             TextSpan(
                               text: widget.phoneNumber,
@@ -139,23 +142,18 @@ class _OTPPageState extends State<OTPPage> {
                       Visibility(
                         visible: _counter != 0,
                         replacement: Center(
-                          child: GestureDetector(
-                            onTap: () {
-                              _startTimer();
-                            },
-                            child: Text(
-                              "Resend",
-                              style: TextStyle(
-                                color: AppThemes.primaryColor,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          child: Text(
+                            "Resend",
+                            style: TextStyle(
+                              color: AppThemes.primaryColor,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                         child: Center(
                           child: Text(
-                            "02:32",
+                            _counter.toString(),
                             style: TextStyle(
                               color: AppThemes.primaryColor,
                               fontSize: 18.0,
@@ -209,19 +207,31 @@ class _OTPPageState extends State<OTPPage> {
                         ),
                       ),
                       20.height,
-                      RichText(
-                          text: TextSpan(children: [
-                        TextSpan(
-                          text: "Didn't receive the code? ",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        TextSpan(
-                            text: 'Resend',
-                            style: TextStyle(
-                              color: Colors.amber,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ])),
+                      GestureDetector(
+                        onTap: () {
+                          if (_counter > 0) {
+                            return;
+                          }
+                          AuthenticationRepositry().sendOTP(
+                            context,
+                            widget.phoneNumber,
+                          );
+                          _startTimer();
+                        },
+                        child: RichText(
+                            text: TextSpan(children: [
+                          TextSpan(
+                            text: "Didn't receive the code? ",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          TextSpan(
+                              text: 'Resend',
+                              style: TextStyle(
+                                color: Colors.amber,
+                                fontWeight: FontWeight.bold,
+                              )),
+                        ])),
+                      ),
                     ],
                   ).addPadding(horizontal: 25),
                 ],
@@ -231,9 +241,11 @@ class _OTPPageState extends State<OTPPage> {
                       buttonWidth: context.screenWidth * 0.9,
                       onClick: () {
                         AuthenticationRepositry().submitOtp(
-                            context,
-                            textEditingController.text,
-                            TextEditingController());
+                          context,
+                          textEditingController.text,
+                          widget.Userid,
+                          widget.email,
+                        );
                         try {} catch (e) {
                         } finally {}
                       },

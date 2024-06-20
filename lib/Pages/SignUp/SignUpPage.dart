@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
@@ -21,13 +22,24 @@ import '../../Widgets/Utils.dart';
 import '../../Widgets/textBox.dart';
 
 // ignore: must_be_immutable
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _emailController = TextEditingController();
+
   TextEditingController _passwordController = TextEditingController();
+
   TextEditingController _confirmPasswordController = TextEditingController();
+
   TextEditingController _nameController = TextEditingController();
+
   TextEditingController _number = TextEditingController();
+  String countryCode = '+1';
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
@@ -101,7 +113,25 @@ class SignUpPage extends StatelessWidget {
                   textBox(
                       // icon: Icons.numbers,
                       isSvg: true,
-                      icon: SvgPicture.asset('assets/icons/phone_icon.svg'),
+                      icon: CountryCodePicker(
+                        onChanged: (c) {
+                          setState(() {
+                            countryCode = c.dialCode!;
+                          });
+                        },
+                        // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                        initialSelection: 'US',
+                        textStyle: TextStyle(
+                          color: Colors.white,
+                        ),
+                        padding: EdgeInsets.zero,
+                        // optional. Shows only country name and flag
+                        showCountryOnly: false,
+                        // optional. Shows only country name and flag when popup is closed.
+                        showOnlyCountryWhenClosed: false,
+                        // optional. aligns the flag and the Text left
+                        alignLeft: false,
+                      ),
                       controller: _number,
                       validator: (p0) {
                         return null;
@@ -158,7 +188,7 @@ class SignUpPage extends StatelessWidget {
                         var res = await backend().signUpAccount({
                           'email': _emailController.text,
                           'password': _passwordController.text,
-                          'phone': _number.text.trim(),
+                          'phone': "$countryCode ${_number.text.trim()}",
                           'name': _nameController.text,
                           'token': TOKEN,
                         });
@@ -167,17 +197,19 @@ class SignUpPage extends StatelessWidget {
                         try {
                           if (res['status'] == 'success') {
                             debugPrint("success");
-                            sharedPref()
-                                .storeVal('email', _emailController.text);
+
                             Utils().showSnackbar(
-                                res['res'], Colors.green, context);
+                                res['msg'], Colors.green, context);
                             debugPrint("success 22222");
                             Navigator.pushReplacement(
                               context,
                               PageTransition(
                                 type: PageTransitionType.rightToLeft,
                                 child: VerifyPhoneNumber(
-                                  phoneNumber: _number.text.trim(),
+                                  phoneNumber:
+                                      "$countryCode ${_number.text.trim()}",
+                                  Userid: res['user']['id'].toString(),
+                                  email: _emailController.text,
                                 ),
                                 // isIos: true,
                                 duration: Duration(milliseconds: 800),

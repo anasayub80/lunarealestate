@@ -411,7 +411,7 @@ class FullDetail extends StatelessWidget {
       ),
       bottomNavigationBar: from == 'admin'
           ? Container(
-              color: Colors.black,
+              color: AppThemes.bgColor,
               child: Row(
                 children: [
                   Expanded(
@@ -455,7 +455,12 @@ class FullDetail extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
                         ),
-                        child: Text('Purchased'),
+                        child: Text(
+                          'Purchased',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -513,7 +518,12 @@ class FullDetail extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
                         ),
-                        child: Text('Delete'),
+                        child: Text(
+                          'Delete',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                   ),
