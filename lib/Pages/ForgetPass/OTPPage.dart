@@ -1,15 +1,12 @@
 import 'dart:async';
 
-import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
-import 'package:lunarestate/Pages/ForgetPass/CreatenewPassPage.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:lunarestate/repositry/authentication_repositry.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../Admin/AppTheme.dart';

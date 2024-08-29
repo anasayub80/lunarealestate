@@ -212,7 +212,6 @@ class backend {
   Future uploadImageToServer(BuildContext context) async {
     try {
       final formData = <String, dynamic>{};
-      // TODO UnComment
       for (var i = 0; i < images.length; i++) {
         final File file = File(images[i].path);
         String fileName = file.path.split('/').last;

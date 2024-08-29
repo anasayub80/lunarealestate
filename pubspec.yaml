@@ -31,7 +31,6 @@ dependencies:
   flutter_lints: ^2.0.0
   flutter_localizations:
     sdk: flutter
-  flutter_native_splash: ^2.2.11
   flutter_rating_bar: ^4.0.1
   flutter_rating_stars: ^1.0.3+4
   flutter_staggered_grid_view: ^0.7.0
@@ -43,7 +42,6 @@ dependencies:
   http_parser: ^4.0.2
   image_picker: ^0.8.6
   intl: ^0.19.0
-  lecle_flutter_absolute_path: ^0.0.2+1
   multi_image_picker_view: ^1.0.2
   page_transition: ^2.0.9
   photo_view: ^0.14.0
@@ -54,8 +52,8 @@ dependencies:
   shimmer: ^2.0.0
   sizer: ^2.0.15
   ultimate_bottom_navbar: ^0.0.7
-  url_launcher: ^6.1.6
-  video_player: ^2.4.7
+  url_launcher: ^6.3.0
+  video_player: ^2.9.1
 dev_dependencies:
   build_runner: null
   flutter_gen_runner: null
@@ -65,10 +63,10 @@ flutter_icons:
   android: "ic_launcher"
   ios: true
   image_path: "assets/icons/appIcon.jpg"
-flutter_native_splash:
-  image: "assets/images/tower.jpg"
-  android: true
-  ios: true
+# flutter_native_splash:
+#   image: "assets/images/tower.jpg"
+#   android: true
+#   ios: true
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.

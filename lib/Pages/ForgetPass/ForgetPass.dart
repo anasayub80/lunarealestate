@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
-import 'package:lunarestate/Pages/ForgetPass/OTPPage.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Widgets/Utils.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
-import 'package:page_transition/page_transition.dart';
 import '../../Widgets/textBox.dart';
 
 // ignore: must_be_immutable

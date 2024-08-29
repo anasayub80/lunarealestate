@@ -43,7 +43,6 @@ class _checkBoxEditPageState extends State<checkBoxEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     log(widget.val);
     return GestureDetector(
       onTap: () {

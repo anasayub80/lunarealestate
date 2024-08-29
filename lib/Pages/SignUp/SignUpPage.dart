@@ -12,12 +12,9 @@ import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/OTPVerification/verify_phone.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:floading/floading.dart';
-import 'package:lunarestate/repositry/authentication_repositry.dart';
 import 'package:page_transition/page_transition.dart';
-
 import '../../Config/config.dart';
 import '../../Service/backend.dart';
-import '../../Service/sharedPref.dart';
 import '../../Widgets/Utils.dart';
 import '../../Widgets/textBox.dart';
 

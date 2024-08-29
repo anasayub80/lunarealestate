@@ -20,6 +20,7 @@ class FirebaseAuthenticationInstance {
   Future<bool> verifyOtp(String otpCode) async {
     debugPrint("=====> OTP Code $verificationID & $otpCode");
     try {
+      // ignore: unused_local_variable
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationID,
         smsCode: otpCode.trim(),

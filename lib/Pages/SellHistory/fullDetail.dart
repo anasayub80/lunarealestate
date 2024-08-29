@@ -51,7 +51,7 @@ class FullDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     getData(formId);
     return Scaffold(
       body: BgTwo(
