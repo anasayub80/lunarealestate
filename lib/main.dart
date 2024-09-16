@@ -105,10 +105,6 @@ class _MyAppState extends State<MyApp> {
               primaryColor: AppThemes.primaryColor,
             ),
             checkboxTheme: CheckboxThemeData(
-              // checkColor: Colors.white,
-              // fillColor: WidgetStateColor.resolveWith((s) {
-              //   // if(MaterialState.)
-              // }),
               fillColor: WidgetStateProperty.resolveWith((states) {
                 if (states.contains(WidgetState.selected)) {
                   return mainColor;

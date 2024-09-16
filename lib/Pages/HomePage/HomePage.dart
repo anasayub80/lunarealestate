@@ -58,7 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  final CarouselController _carouselController = CarouselController();
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;

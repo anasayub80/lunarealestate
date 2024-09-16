@@ -19,7 +19,7 @@ class BenefitsWidget extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Center(
             child: Text(
-              'The Benefits of Selling To Lana Enterprises',
+              'The Benefits of Selling To Luna Enterprises',
               style: TextStyle(
                 color: AppThemes.whiteColor,
                 fontWeight: FontWeight.w500,

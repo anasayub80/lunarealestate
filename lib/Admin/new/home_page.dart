@@ -45,7 +45,8 @@ class _HomePageAdminState extends State<HomePageAdmin> {
     });
   }
 
-  final CarouselController _carouselController = CarouselController();
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
 
   @override
   Widget build(BuildContext context) {
