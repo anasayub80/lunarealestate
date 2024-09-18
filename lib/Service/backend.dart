@@ -306,7 +306,15 @@ class backend {
         await http.post(Uri.parse(SET_NEW_PASSWORD), body: data);
     if (res.statusCode == 200) {
       debugPrint('done');
-      return '1';
+      if (res.body.isNotEmpty) {
+        var response = jsonDecode(res.body);
+        if (response['status'] == 'success') {
+          return "1";
+        } else {
+          return "0";
+        }
+      }
+      // return '1';
     }
   }
 }

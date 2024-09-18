@@ -137,14 +137,14 @@ class _LoginPageState extends State<LoginPage> {
                                 context,
                                 PageTransition(
                                   type: PageTransitionType.rightToLeft,
-                                  child: ForgetMyPass(title: 'Forget Password'),
+                                  child: ForgetMyPass(title: 'Forgot Password'),
                                   isIos: true,
                                   duration: Duration(milliseconds: 800),
                                 ),
                               );
                             },
                             child: Text(
-                              'Forget Password?',
+                              'trouble signing in?',
                               style: TextStyle(
                                 color: Color(0xFFE2BC81),
                                 fontWeight: FontWeight.w200,

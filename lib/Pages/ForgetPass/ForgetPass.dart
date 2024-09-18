@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
+import 'package:lunarestate/Pages/ForgetPass/OTPPage.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Widgets/Utils.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../Widgets/textBox.dart';
 
 // ignore: must_be_immutable
@@ -90,18 +92,19 @@ class ForgetMyPass extends StatelessWidget {
                             });
                             if (res['status'] == 'success') {
                               FLoading.hide();
-                              // Navigator.push(
-                              //     context,
-                              //     PageTransition(
-                              //         child: OTPPage(
-                              //           email: _email.text,
-                              //           otp: res['code'],
-                              //           res: res['msg'],
-
-                              //         ),
-                              //         isIos: true,
-                              //         duration: Duration(milliseconds: 600),
-                              //         type: PageTransitionType.fade));
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      child: ForgotPassOTP(
+                                        email: _email.text,
+                                        otp: res['code'],
+                                        res: res['msg'],
+                                        userid: res['uid'],
+                                        phoneNumber: res['phone'],
+                                      ),
+                                      isIos: true,
+                                      duration: Duration(milliseconds: 600),
+                                      type: PageTransitionType.fade));
                             }
                           } else {
                             Utils().showSnackbar(

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:lunarestate/Pages/Splash/SplashPage.dart';
 import 'package:lunarestate/Widgets/Utils.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:floading/floading.dart';
@@ -10,7 +11,8 @@ import '../../Widgets/customAppBar.dart';
 
 // ignore: must_be_immutable
 class CreatenewPassPage extends StatelessWidget {
-  CreatenewPassPage({super.key});
+  String email;
+  CreatenewPassPage({super.key, required this.email});
   TextEditingController _pass1 = TextEditingController();
   TextEditingController _pass2 = TextEditingController();
   @override
@@ -85,11 +87,22 @@ class CreatenewPassPage extends StatelessWidget {
                                 color: Colors.black.withOpacity(0.7),
                               );
                               var res = await backend().setNewAccount({
-                                'pass': _pass1.text,
+                                'newpswd': _pass1.text,
+                                "email": email,
                               });
 
                               if (res == '1') {
                                 FLoading.hide();
+                                Utils().showSnackbar(
+                                    'Password Change Successfully',
+                                    Colors.green,
+                                    context);
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(
+                                  builder: (context) {
+                                    return SplashPage();
+                                  },
+                                ));
                               } else {
                                 Utils().showSnackbar(
                                     'Invalid Details!', Colors.red, context);

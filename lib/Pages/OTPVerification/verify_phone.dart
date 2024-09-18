@@ -143,10 +143,10 @@ class VerifyPhoneNumber extends StatelessWidget {
                           Navigator.pushReplacement(
                               context,
                               PageTransition(
-                                  child: OTPPage(
+                                  child: VerifyAccountOTPPage(
                                     email: email,
                                     otp: '12321',
-                                    Userid: Userid,
+                                    userid: Userid,
                                     res: 'OTP Sent successfully',
                                     phoneNumber: _phone.text,
                                   ),

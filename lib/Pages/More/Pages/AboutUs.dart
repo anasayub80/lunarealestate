@@ -58,7 +58,7 @@ class AboutUsPage extends StatelessWidget {
             ),
             10.height,
             paragraphText(
-                'Real estate is property consisting of land and the buildings on it, along with its natural resources such as crops, minerals, or water; immovable property of this nature; an interest vested in this an item of real property;'),
+                'Luna Enterprises is a focused real estate investment firm specializing in short-term purchasing through multi-level investment acquisition. With 13 strategic approaches tailored for diverse asset types—including residential,multi family, land, and commercial—we are committed to maximizing returns for our investors. Our expertise in identifying high-potential opportunities ensures that your investments not only grow but thrive in a dynamic market. Partner with us to leverage our insights and drive profitability.'),
             bSpace(),
             Card(
               surfaceTintColor: AppThemes.cardColornew,
@@ -68,25 +68,25 @@ class AboutUsPage extends StatelessWidget {
                   children: [
                     nSpace(),
                     headingText('Contact Details'),
-                    ListTile(
-                      leading: Icon(
-                        EvaIcons.phoneCallOutline,
-                        color: AppThemes.primaryColor,
-                      ),
-                      title: Text(
-                        '8175011462',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                    // ListTile(
+                    //   leading: Icon(
+                    //     EvaIcons.phoneCallOutline,
+                    //     color: AppThemes.primaryColor,
+                    //   ),
+                    //   title: Text(
+                    //     '8175011462',
+                    //     style: TextStyle(
+                    //       color: Colors.white,
+                    //     ),
+                    //   ),
+                    // ),
                     ListTile(
                       leading: Icon(
                         EvaIcons.emailOutline,
                         color: AppThemes.primaryColor,
                       ),
                       title: Text(
-                        'Lunaenterprises.jl@gmail.com',
+                        'luna@lunaent.io',
                         style: TextStyle(
                           color: Colors.white,
                         ),

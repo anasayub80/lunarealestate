@@ -315,132 +315,132 @@ class _SurveyPage2State extends State<SurveyPage2> {
           height: 10,
         ), // PaymentWidgetSurveyPage(),
 
-        Container(
-          height: context.screenHeight * 0.08,
-          width: double.infinity,
-          decoration: AppThemes.commonBoxDecoration,
-          child: Row(
-            children: [
-              SvgPicture.asset("assets/icons/payment_card_icon.svg").addPadding(
-                horizontal: 12,
-              ),
-              6.height,
-              Text(
-                langloc.payment,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-        ),
-        8.height,
-        Container(
-          decoration: AppThemes.commonBoxDecoration,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    langloc.cash,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ).addPadding(left: 4),
-                  Checkbox(
-                      activeColor: Colors.amber,
-                      value: cash,
-                      onChanged: (newVal) {
-                        if (cash) {
-                          setState(() {
-                            cash = newVal!;
-                          });
-                        } else {
-                          setState(() {
-                            cash = newVal!;
-                            check = false;
-                            wire = false;
-                          });
-                        }
+        // Container(
+        //   height: context.screenHeight * 0.08,
+        //   width: double.infinity,
+        //   decoration: AppThemes.commonBoxDecoration,
+        //   child: Row(
+        //     children: [
+        //       SvgPicture.asset("assets/icons/payment_card_icon.svg").addPadding(
+        //         horizontal: 12,
+        //       ),
+        //       6.height,
+        //       Text(
+        //         langloc.payment,
+        //         style: TextStyle(
+        //           fontWeight: FontWeight.w500,
+        //           color: Colors.white,
+        //           fontSize: 16,
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        // 8.height,
+        // Container(
+        //   decoration: AppThemes.commonBoxDecoration,
+        //   child: Column(
+        //     children: [
+        //       Row(
+        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //         children: [
+        //           Text(
+        //             langloc.cash,
+        //             style: TextStyle(
+        //               color: Colors.white,
+        //               fontSize: 18,
+        //             ),
+        //           ).addPadding(left: 4),
+        //           Checkbox(
+        //               activeColor: Colors.amber,
+        //               value: cash,
+        //               onChanged: (newVal) {
+        //                 if (cash) {
+        //                   setState(() {
+        //                     cash = newVal!;
+        //                   });
+        //                 } else {
+        //                   setState(() {
+        //                     cash = newVal!;
+        //                     check = false;
+        //                     wire = false;
+        //                   });
+        //                 }
 
-                        Provider.of<SurvProvider>(context, listen: false)
-                            .saveSurveyMoreData(
-                                Provider.of<UserData>(context, listen: false)
-                                    .id!);
-                      }),
-                ],
-              ).addPadding(overall: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    langloc.check,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ).addPadding(left: 4),
-                  Checkbox(
-                      value: check,
-                      activeColor: Colors.amber,
-                      onChanged: (newVal) {
-                        if (check) {
-                          setState(() {
-                            check = newVal!;
-                          });
-                        } else {
-                          setState(() {
-                            cash = false;
-                            check = newVal!;
-                            wire = false;
-                          });
-                        }
-                        Provider.of<SurvProvider>(context, listen: false)
-                            .saveSurveyMoreData(
-                                Provider.of<UserData>(context, listen: false)
-                                    .id!);
-                      }),
-                ],
-              ).addPadding(overall: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    langloc.wiredep,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ).addPadding(left: 4),
-                  Checkbox(
-                      value: wire,
-                      activeColor: Colors.amber,
-                      onChanged: (newVal) {
-                        if (wire) {
-                          setState(() {
-                            wire = newVal!;
-                          });
-                        } else {
-                          setState(() {
-                            cash = false;
-                            wire = newVal!;
-                            check = false;
-                          });
-                        }
-                        Provider.of<SurvProvider>(context, listen: false)
-                            .saveSurveyMoreData(
-                                Provider.of<UserData>(context, listen: false)
-                                    .id!);
-                      }),
-                ],
-              ).addPadding(overall: 8),
-            ],
-          ),
-        ),
+        //                 Provider.of<SurvProvider>(context, listen: false)
+        //                     .saveSurveyMoreData(
+        //                         Provider.of<UserData>(context, listen: false)
+        //                             .id!);
+        //               }),
+        //         ],
+        //       ).addPadding(overall: 8),
+        //       Row(
+        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //         children: [
+        //           Text(
+        //             langloc.check,
+        //             style: TextStyle(
+        //               color: Colors.white,
+        //               fontSize: 18,
+        //             ),
+        //           ).addPadding(left: 4),
+        //           Checkbox(
+        //               value: check,
+        //               activeColor: Colors.amber,
+        //               onChanged: (newVal) {
+        //                 if (check) {
+        //                   setState(() {
+        //                     check = newVal!;
+        //                   });
+        //                 } else {
+        //                   setState(() {
+        //                     cash = false;
+        //                     check = newVal!;
+        //                     wire = false;
+        //                   });
+        //                 }
+        //                 Provider.of<SurvProvider>(context, listen: false)
+        //                     .saveSurveyMoreData(
+        //                         Provider.of<UserData>(context, listen: false)
+        //                             .id!);
+        //               }),
+        //         ],
+        //       ).addPadding(overall: 8),
+        //       Row(
+        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //         children: [
+        //           Text(
+        //             langloc.wiredep,
+        //             style: TextStyle(
+        //               color: Colors.white,
+        //               fontSize: 18,
+        //             ),
+        //           ).addPadding(left: 4),
+        //           Checkbox(
+        //               value: wire,
+        //               activeColor: Colors.amber,
+        //               onChanged: (newVal) {
+        //                 if (wire) {
+        //                   setState(() {
+        //                     wire = newVal!;
+        //                   });
+        //                 } else {
+        //                   setState(() {
+        //                     cash = false;
+        //                     wire = newVal!;
+        //                     check = false;
+        //                   });
+        //                 }
+        //                 Provider.of<SurvProvider>(context, listen: false)
+        //                     .saveSurveyMoreData(
+        //                         Provider.of<UserData>(context, listen: false)
+        //                             .id!);
+        //               }),
+        //         ],
+        //       ).addPadding(overall: 8),
+        //     ],
+        //   ),
+        // ),
         18.height,
         roundButton(
           horizontalPadding: 8,

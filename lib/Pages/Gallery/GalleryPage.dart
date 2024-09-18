@@ -5,7 +5,6 @@ import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/Gallery/ImageView.dart';
 import 'package:lunarestate/Widgets/customAppBar.dart';
 import 'package:page_transition/page_transition.dart';
-
 import '../../Admin/AppTheme.dart';
 
 // ignore: must_be_immutable
@@ -123,6 +122,9 @@ class _GalleryPageState extends State<GalleryPage> {
                   ),
                 ],
               ).addPadding(horizontal: 25),
+            ),
+            SizedBox(
+              height: 50,
             ),
           ],
         ),

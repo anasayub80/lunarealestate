@@ -9,16 +9,19 @@ class ImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      color: Color(0xff141414),
-      child: Center(
-        child: PhotoView(
-          backgroundDecoration: BoxDecoration(
-            color: Color(0xff090C1D),
-          ),
-          imageProvider: NetworkImage(url),
+        appBar: AppBar(
+          backgroundColor: Color(0xff090C1D),
         ),
-      ),
-    ));
+        body: Container(
+          color: Color(0xff141414),
+          child: Center(
+            child: PhotoView(
+              backgroundDecoration: BoxDecoration(
+                color: Color(0xff090C1D),
+              ),
+              imageProvider: NetworkImage(url),
+            ),
+          ),
+        ));
   }
 }

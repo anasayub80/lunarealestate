@@ -50,7 +50,7 @@ class _PropertyInfoState extends State<PropertyInfo> {
               else
                 return 'Enter areasize';
             },
-            hint: 'Area Size',
+            hint: 'Lot Size',
             icon: SvgPicture.asset(
               'assets/icons/lot_size_icon.svg',
             ),
@@ -131,13 +131,13 @@ class _PropertyInfoState extends State<PropertyInfo> {
               if (squarefootageController.text.isNotEmpty)
                 return null;
               else
-                return 'Enter square footage';
+                return 'Interior Sq Ft';
             },
             onFieldSubmitted: (value) {
               Provider.of<SurvProvider>(context, listen: false)
                   .savePropInfoData(context);
             },
-            hint: 'Enter Square Footage?',
+            hint: 'Interior Sq Ft',
             icon: SvgPicture.asset(
               'assets/icons/ft_icon.svg',
             ),
