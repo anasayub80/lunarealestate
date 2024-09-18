@@ -548,6 +548,7 @@ switch ($_GET['page']) {
             $emailuser = $fetch['email'];
             $name = $fetch['name'];
             $userid = $fetch['id'];
+            $phone = $fetch['phone'];
             $userid_enc = base64_encode($fetch['id']);
             $rand = random_int(100000, 999999);
             $logo = $url.'uploads/setting/'.$settinginfo['website_logo'];
@@ -561,7 +562,7 @@ switch ($_GET['page']) {
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Fogetten Password</title>
+    <title>Forgot Password</title>
     <style>
     .text-center {
         text-align: center !important;
@@ -697,19 +698,34 @@ switch ($_GET['page']) {
                 'X-Mailer: PHP/' . phpversion();
             $to = $emailuser;
             if(mail($to, $subject, $message, $headers)) {
-                $files = array('status' => "success",'msg' => "Email Successfully Sent Check your Mail and forget the password",'code' => "$rand");
+                $files = array('status' => "success",'msg' => "Email Successfully Sent Check your Mail and change the password",'code' => "$rand",'uid'=>"$userid",'phone'=>"$phone");
             } else {
                 $files = array('status' => "error",'msg' => "There is something error on Application please contact to admin");
             }
-            
             }else {
             $files["data"] = array(
                 'status' => "error",
-                'msg' => "This email not found please contact the ABS Shipping & Logistics"
+                'msg' => "This email not found please contact the support"
             );
         }
             echo json_encode($files);
         break;
+        case 'changePassword':
+            $email = htmlspecialchars($_POST['email']);
+            $newpswd = htmlspecialchars(md5($_POST['newpswd']));
+             $update = mysqli_query($con, "UPDATE `users` SET `password`='$newpswd' WHERE  email='$email'");
+            if($update){
+            echo json_encode(array(
+                            "status" => "success",
+                            'msg' => "Password Reset Successfully"
+                        ));
+            }else{
+            echo json_encode(array(
+                            "status" => "warning",
+                            'msg' => "Failed to Reset the password"
+                        ));
+            }
+            break;
     case 'deleteAccount':
         $userId = $_POST['id'];
         $HouseDetails = mysqli_query($con,"SELECT * FROM `house_details` WHERE `user_id` = '$userId'");
