@@ -13,7 +13,7 @@ import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
 import 'package:lunarestate/firebase_options.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:sizer/sizer.dart';
+import 'package:sizer/sizer.dart' as sizer;
 import 'package:lunarestate/Config/config.dart';
 import 'package:lunarestate/Pages/Gallery/GalleryPage.dart';
 import 'package:lunarestate/Pages/SellHistory/SellHistory.dart';
@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
-    return Sizer(builder: (context, orientation, deviceType) {
+    return sizer.ResponsiveSizer(builder: (context, or, d) {
       return MultiProvider(
         providers: [
           ChangeNotifierProvider(

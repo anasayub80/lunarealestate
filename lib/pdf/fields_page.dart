@@ -162,14 +162,13 @@ class _FormFieldsState extends State<FormFields> {
                 Uint8List? bytes = await _controller.toPngBytes();
 
                 generatePdf(
-                  nameController.text.trim(),
-                  emailAddressController.text.trim(),
-                  phoneNumberController.text.trim(),
-                  addressController.text.trim(),
-                  true,
-                  '12-21-2024',
-                  bytes ?? Uint8List(0),
-                );
+                    nameController.text.trim(),
+                    emailAddressController.text.trim(),
+                    phoneNumberController.text.trim(),
+                    addressController.text.trim(),
+                    true,
+                    '12-21-2024',
+                    _controller.toRawSVG() ?? '');
               },
               text: "Submit Form",
             ),

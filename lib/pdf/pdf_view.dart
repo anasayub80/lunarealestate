@@ -1,12 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-
-import 'package:flutter/services.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:printing/printing.dart';
 // import 'package:printing/printing.dart'; // Optional for newer Android SDK versions
 
 Future generatePdf(
@@ -16,9 +12,9 @@ Future generatePdf(
   String address,
   bool isEnglish,
   String todayDate,
-  Uint8List image,
+  String svg,
 ) async {
-  final imagea = pw.MemoryImage(image);
+  final svgImage = pw.SvgImage(svg: svg);
 
   final pdf = pw.Document(
       // pageMode: Pagemod
@@ -50,7 +46,7 @@ Future generatePdf(
             ),
             pw.SizedBox(height: 12),
             pw.Text(
-              isEnglish ? 'Property Owner(s):' : "Property Owner(s):",
+              isEnglish ? 'Property Owner(s): ' : "Property Owner(s): ",
               style: pw.TextStyle(
                 fontSize: 18,
                 fontWeight: pw.FontWeight.bold,
@@ -59,7 +55,7 @@ Future generatePdf(
             pw.SizedBox(height: 12),
             pw.Row(children: [
               pw.Text(
-                isEnglish ? 'Name/Company Name' : "Name/Company Name",
+                isEnglish ? 'Name/Company Name: ' : "Name/Company Name: ",
                 style: pw.TextStyle(
                   fontSize: 18,
                   fontWeight: pw.FontWeight.bold,
@@ -69,14 +65,14 @@ Future generatePdf(
                 name,
                 style: pw.TextStyle(
                   fontSize: 18,
-                  fontWeight: pw.FontWeight.bold,
+                  fontWeight: pw.FontWeight.normal,
                 ),
               ),
             ]),
             pw.SizedBox(height: 12),
             pw.Row(children: [
               pw.Text(
-                isEnglish ? 'Address' : "Address",
+                isEnglish ? 'Address: ' : "Address: ",
                 style: pw.TextStyle(
                   fontSize: 18,
                   fontWeight: pw.FontWeight.bold,
@@ -86,14 +82,14 @@ Future generatePdf(
                 address,
                 style: pw.TextStyle(
                   fontSize: 18,
-                  fontWeight: pw.FontWeight.bold,
+                  fontWeight: pw.FontWeight.normal,
                 ),
               ),
             ]),
             pw.SizedBox(height: 12),
             pw.Row(children: [
               pw.Text(
-                isEnglish ? 'Phone Number' : "Phone Number",
+                isEnglish ? 'Phone Number: ' : "Phone Number: ",
                 style: pw.TextStyle(
                   fontSize: 18,
                   fontWeight: pw.FontWeight.bold,
@@ -103,17 +99,17 @@ Future generatePdf(
                 phone,
                 style: pw.TextStyle(
                   fontSize: 18,
-                  fontWeight: pw.FontWeight.bold,
+                  fontWeight: pw.FontWeight.normal,
                 ),
               ),
             ]),
             pw.SizedBox(height: 12),
             pw.Row(children: [
               pw.Text(
-                isEnglish ? 'Email Address' : "Email Address",
+                isEnglish ? 'Email Address: ' : "Email Address: ",
                 style: pw.TextStyle(
                   fontSize: 18,
-                  fontWeight: pw.FontWeight.bold,
+                  fontWeight: pw.FontWeight.normal,
                 ),
               ),
               pw.Text(
@@ -125,12 +121,11 @@ Future generatePdf(
               ),
             ]),
             pw.SizedBox(height: 12),
-            pw.Text(
-              isEnglish ? 'and' : 'and',
-              style: pw.TextStyle(
-                fontSize: 18,
-                fontWeight: pw.FontWeight.bold,
-              ),
+            pw.Container(
+              height: 2,
+              width: double.infinity,
+              color: const PdfColor.fromInt(0xffE0E0E0),
+              padding: const pw.EdgeInsets.all(4),
             ),
             pw.SizedBox(height: 12),
             pw.Text(
@@ -233,148 +228,125 @@ Future generatePdf(
                 fontWeight: pw.FontWeight.normal,
               ),
             ),
-            pw.SizedBox(height: 12),
-            pw.Text(
-              isEnglish
-                  ? '5. Not a Sales Contract:'
-                  : '5. Not a Sales Contract:',
-              style: pw.TextStyle(
-                fontSize: 18,
-                fontWeight: pw.FontWeight.bold,
-              ),
-            ),
-            pw.SizedBox(height: 4),
-            pw.Text(
-              isEnglish
-                  ? 'This Agreement does not constitute a sales contract or any offer to sell the property. The purpose is to conduct preliminary research on the property to verify correct information regarding its status and details'
-                  : 'This Agreement does not constitute a sales contract or any offer to sell the property. The purpose is to conduct preliminary research on the property to verify correct information regarding its status and details',
-              style: pw.TextStyle(
-                fontSize: 14,
-                fontWeight: pw.FontWeight.normal,
-              ),
-            ),
-            pw.SizedBox(height: 12),
-            pw.Text(
-              isEnglish
-                  ? '6. Approximate Asking Price:'
-                  : '6. Approximate Asking Price:',
-              style: pw.TextStyle(
-                fontSize: 18,
-                fontWeight: pw.FontWeight.bold,
-              ),
-            ),
-            pw.SizedBox(height: 4),
-            pw.Text(
-              'Asking Price',
-              style: pw.TextStyle(
-                fontSize: 14,
-                fontWeight: pw.FontWeight.normal,
-              ),
-            ),
-            pw.SizedBox(height: 12),
-            pw.Text(
-              isEnglish ? '7. Confidentiality' : '7. Confidentiality',
-              style: pw.TextStyle(
-                fontSize: 18,
-                fontWeight: pw.FontWeight.bold,
-              ),
-            ),
-            pw.SizedBox(height: 4),
-            pw.Text(
-              isEnglish
-                  ? 'Both parties agree to keep all information exchanged during this period confidential.'
-                  : 'Both parties agree to keep all information exchanged during this period confidential.',
-              style: pw.TextStyle(
-                fontSize: 14,
-                fontWeight: pw.FontWeight.normal,
-              ),
-            ),
-            pw.SizedBox(height: 12),
-            pw.Text(
-              isEnglish ? '8. Governing Law:' : '8. Governing Law:',
-              style: pw.TextStyle(
-                fontSize: 18,
-                fontWeight: pw.FontWeight.bold,
-              ),
-            ),
-            pw.SizedBox(height: 4),
-            pw.Text(
-              isEnglish
-                  ? 'This Agreement shall be governed by the laws of [Your State]'
-                  : 'This Agreement shall be governed by the laws of [Your State]',
-              style: pw.TextStyle(
-                fontSize: 14,
-                fontWeight: pw.FontWeight.normal,
-              ),
-            ),
-            pw.SizedBox(height: 12),
-            pw.Text(
-              isEnglish
-                  ? 'Signing Authority, the property owner have executed this Agreement as of the date first above written.'
-                  : 'Signing Authority, the property owner have executed this Agreement as of the date first above written.',
-              style: pw.TextStyle(
-                fontSize: 14,
-                fontWeight: pw.FontWeight.normal,
-              ),
-            ),
-            pw.Container(
-              height: 2,
-              width: double.infinity,
-              color: const PdfColor.fromInt(0xffE0E0E0),
-              padding: const pw.EdgeInsets.all(4),
-            ),
-            // pw.SvgImage(
-            //   svg: svgPackage.SvgPicture(pictureProvider),
-            // ),
-            pw.Image(imagea),
           ],
         );
       },
     ),
   );
+
+  pdf.addPage(pw.Page(build: (c) {
+    return pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          pw.SizedBox(height: 12),
+          pw.Text(
+            isEnglish ? '5. Not a Sales Contract:' : '5. Not a Sales Contract:',
+            style: pw.TextStyle(
+              fontSize: 18,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+          pw.SizedBox(height: 4),
+          pw.Text(
+            isEnglish
+                ? 'This Agreement does not constitute a sales contract or any offer to sell the property. The purpose is to conduct preliminary research on the property to verify correct information regarding its status and details'
+                : 'This Agreement does not constitute a sales contract or any offer to sell the property. The purpose is to conduct preliminary research on the property to verify correct information regarding its status and details',
+            style: pw.TextStyle(
+              fontSize: 14,
+              fontWeight: pw.FontWeight.normal,
+            ),
+          ),
+          pw.SizedBox(height: 12),
+          pw.Text(
+            isEnglish
+                ? '6. Approximate Asking Price:'
+                : '6. Approximate Asking Price:',
+            style: pw.TextStyle(
+              fontSize: 18,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+          pw.SizedBox(height: 4),
+          pw.Text(
+            'Asking Price',
+            style: pw.TextStyle(
+              fontSize: 14,
+              fontWeight: pw.FontWeight.normal,
+            ),
+          ),
+          pw.SizedBox(height: 12),
+          pw.Text(
+            isEnglish ? '7. Confidentiality' : '7. Confidentiality',
+            style: pw.TextStyle(
+              fontSize: 18,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+          pw.SizedBox(height: 4),
+          pw.Text(
+            isEnglish
+                ? 'Both parties agree to keep all information exchanged during this period confidential.'
+                : 'Both parties agree to keep all information exchanged during this period confidential.',
+            style: pw.TextStyle(
+              fontSize: 14,
+              fontWeight: pw.FontWeight.normal,
+            ),
+          ),
+          pw.SizedBox(height: 12),
+          pw.Text(
+            isEnglish ? '8. Governing Law:' : '8. Governing Law:',
+            style: pw.TextStyle(
+              fontSize: 18,
+              fontWeight: pw.FontWeight.bold,
+            ),
+          ),
+          pw.SizedBox(height: 4),
+          pw.Text(
+            isEnglish
+                ? 'This Agreement shall be governed by the laws of [Your State]'
+                : 'This Agreement shall be governed by the laws of [Your State]',
+            style: pw.TextStyle(
+              fontSize: 14,
+              fontWeight: pw.FontWeight.normal,
+            ),
+          ),
+          pw.SizedBox(height: 12),
+          pw.Text(
+            isEnglish
+                ? 'Signing Authority, the property owner have executed this Agreement as of the date first above written.'
+                : 'Signing Authority, the property owner have executed this Agreement as of the date first above written.',
+            style: pw.TextStyle(
+              fontSize: 14,
+              fontWeight: pw.FontWeight.normal,
+            ),
+          ),
+          pw.SizedBox(height: 12),
+          pw.Container(
+            height: 2,
+            width: double.infinity,
+            color: const PdfColor.fromInt(0xffE0E0E0),
+            padding: const pw.EdgeInsets.all(4),
+          ),
+          pw.Text(
+            'Signature: ',
+            style: pw.TextStyle(
+              fontSize: 18,
+              fontWeight: pw.FontWeight.normal,
+            ),
+          ),
+          // pw.SvgImage(
+          //   svg: svgPackage.SvgPicture(pictureProvider),
+          // ),
+          pw.SizedBox(child: svgImage),
+        ]);
+  }));
   final output = await getTemporaryDirectory();
   final file = File("${output.path}/Invoice.pdf");
   await file.writeAsBytes(await pdf.save());
   // debugPrint("Invoice PDF saved to ${file.path}");
 
   // await FileSaver.instance.saveFile(name: 'name${DateTime.now().millisecond}', bytes: file.readAsBytesSync());
-  // await Printing.layoutPdf(
-  //   onLayout: (format) async => pdf.save(),
-  // );
-}
-
-Future<void> savePdf(
-  String name,
-  String email,
-  String phone,
-  String address,
-  bool isEnglish,
-  String todayDate,
-  Uint8List image,
-) async {
-  // Request storage permission (needed for Android SDK 30+)
-  var status = await Permission.storage.request();
-  if (!status.isGranted) {
-    return; // Permission not granted
-  }
-
-  // Generate the PDF file (use your existing pdf generation code here)
-  final pdf = await generatePdf(name, email, phone, address, isEnglish,
-      todayDate, image); // Assuming this function generates your PDF
-
-  // Get the directory to save the file
-  final directory = await getExternalStorageDirectory();
-
-  // Save to "Downloads" folder
-  final downloadPath = Directory('${directory!.path}/Download');
-  if (!await downloadPath.exists()) {
-    await downloadPath.create(
-        recursive: true); // Create downloads directory if not exists
-  }
-
-  // Define the file path and write the PDF file
-  final file = File('${downloadPath.path}/Invoice.pdf');
-  await file.writeAsBytes(await pdf.save());
-
-  print("PDF saved to: ${file.path}");
+  await Printing.layoutPdf(
+    onLayout: (format) async => pdf.save(),
+  );
 }
