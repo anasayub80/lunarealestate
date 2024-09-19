@@ -27,16 +27,19 @@ import 'l10n/l10n.dart';
 import 'provider/languageProvider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-// SKU FOR APPSTORE DOTCLICK-LUNA-SKU
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  // WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+import 'package:flutter/material.dart';
+import 'package:lunarestate/pdf/fields_page.dart';
 
-  runApp(const MyApp());
-}
+// // SKU FOR APPSTORE DOTCLICK-LUNA-SKU
+// Future<void> main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   // WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform,
+//   );
+
+//   runApp(const MyApp());
+// }
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -273,4 +276,8 @@ class _MyNavigationState extends State<MyNavigation> {
       ),
     );
   }
+}
+
+void main(List<String> args) {
+  runApp(MaterialApp(home: FormFields()));
 }
