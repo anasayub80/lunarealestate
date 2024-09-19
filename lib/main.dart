@@ -121,6 +121,9 @@ class _MyAppState extends State<MyApp> {
                 ),
             primarySwatch: Colors.amber,
           ),
+          // home: CreatenewPassPage(
+          //   email: 'Forgot',
+          // ),
           home: SplashPage(),
           // home: LoginPage(),
         ),
@@ -209,8 +212,9 @@ class _MyNavigationState extends State<MyNavigation> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
+      canPop: false,
       // onWillPop: onWillPop,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (b, didPop) {
         DateTime now = DateTime.now();
         if (currentBackPressTime == null ||
             now.difference(currentBackPressTime!) > Duration(seconds: 2)) {

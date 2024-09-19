@@ -1,4 +1,3 @@
-// import 'package:flutter/cupertino.dart';
 import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -115,8 +114,8 @@ class UploadPhotos extends StatelessWidget {
                 //     ));
                 if (images.isEmpty) {
                   Utils().showSnackbar(
-                      'Select at least 4 Image', Colors.red, context);
-                } else if (images.length >= 4) {
+                      'Select at least 10 Image', Colors.red, context);
+                } else if (images.length >= 10) {
                   // ignore: use_build_context_synchronously
                   var res = await submitMultipleImages(context);
                   if (res == '1') {
@@ -127,7 +126,7 @@ class UploadPhotos extends StatelessWidget {
                   }
                 } else {
                   Utils().showSnackbar(
-                      'Select at least 4 Image', Colors.red, context);
+                      'Select at least 10 Image', Colors.red, context);
                 }
               },
               text: 'NEXT',
@@ -179,7 +178,7 @@ class ImagePickWidget extends StatelessWidget {
                   text: 'Upload atleast',
                   children: [
                     TextSpan(
-                        text: ' 4 ',
+                        text: ' 10 ',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         )),
