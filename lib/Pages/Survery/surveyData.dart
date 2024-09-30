@@ -19,6 +19,13 @@ import '../../main.dart';
 final basicInfoFormKey = GlobalKey<FormState>();
 final propInfoFormKey = GlobalKey<FormState>();
 
+// agreement info fields
+TextEditingController agreementNameController = TextEditingController();
+TextEditingController agreementAddressController = TextEditingController();
+TextEditingController agreementphoneController = TextEditingController();
+TextEditingController agreementemailController = TextEditingController();
+// agreement info fields
+
 StreamController stepperIndexStream = BehaviorSubject();
 
 List<String> peropertUnits = ['Sq. Ft.', 'Sq. M.', 'Sq. Yd']; // Option 2
@@ -114,6 +121,7 @@ Future submitpropertyInfo(
             .saveFormId(res['formid'], context);
         log('Data Submitted');
         break;
+
       case "1":
         log('case 1');
         SharedPreferences pref = await SharedPreferences.getInstance();
@@ -127,12 +135,14 @@ Future submitpropertyInfo(
         Utils().showSnackbar('Property Submitted', Colors.green, context);
         Navigator.of(context).popUntil((route) => route.isFirst);
         Navigator.pushReplacement(
-            context,
-            PageTransition(
-                child: MyNavigation(),
-                isIos: true,
-                duration: Duration(milliseconds: 600),
-                type: PageTransitionType.bottomToTop));
+          context,
+          PageTransition(
+            child: MyNavigation(),
+            isIos: true,
+            duration: Duration(milliseconds: 600),
+            type: PageTransitionType.bottomToTop,
+          ),
+        );
         break;
       default:
     }
@@ -169,3 +179,23 @@ Future submitMultipleImages(BuildContext context) async {
   FLoading.hide();
   return '1';
 }
+// FLoading.show(
+//     context,
+//     loading: Column(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       crossAxisAlignment: CrossAxisAlignment.center,
+//       children: [
+//         Image.asset(
+//           "assets/icons/icon.png",
+//           width: 200,
+//           height: 200,
+//         ),
+//         SizedBox(
+//           height: 25,
+//         ),
+//         CircularProgressIndicator()
+//       ],
+//     ),
+//     closable: false,
+//     color: Colors.black.withOpacity(0.7),
+//   );

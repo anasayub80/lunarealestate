@@ -126,14 +126,16 @@ class _BasicInfoState extends State<BasicInfo> {
                 Provider.of<SurvProvider>(context, listen: false)
                     .savedbasicData(context);
                 BasicInfoModel basicInfomodel = BasicInfoModel(
-                    title: title.text,
-                    phone: ownerNumber.text,
-                    name: ownerName.text,
-                    location: locationController.text,
-                    userid: Provider.of<UserData>(context, listen: false).id!,
-                    tab: 'basic_info');
+                  title: title.text,
+                  phone: ownerNumber.text,
+                  name: ownerName.text,
+                  location: locationController.text,
+                  userid: Provider.of<UserData>(context, listen: false).id!,
+                  tab: 'basic_info',
+                );
                 var res = await submitpropertyInfo(
                     true, basicInfomodel.toJson(), context);
+                debugPrint('response $res');
                 if (res == '1') {
                   // setState((() {
                   prov.activeStepIndex += 1;

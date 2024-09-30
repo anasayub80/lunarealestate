@@ -16,113 +16,109 @@ class CreatenewPassPage extends StatelessWidget {
   final TextEditingController _pass2 = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        body: BgOne(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                50.height,
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                      onPressed: () {
-                        context.popFromScreen();
-                      },
-                      icon: Icon(
-                        Icons.keyboard_arrow_left,
-                        size: 35,
-                        color: Colors.white,
-                      )),
+    return Scaffold(
+      body: BgOne(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              50.height,
+              Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                    onPressed: () {
+                      context.popFromScreen();
+                    },
+                    icon: Icon(
+                      Icons.keyboard_arrow_left,
+                      size: 35,
+                      color: Colors.white,
+                    )),
+              ),
+              30.height,
+              Image.asset(
+                'assets/images/otp.gif',
+                fit: BoxFit.fill,
+                height: 200,
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Text(
+                'Create New Password',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
                 ),
-                30.height,
-                Image.asset(
-                  'assets/images/otp.gif',
-                  fit: BoxFit.fill,
-                  height: 200,
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Text(
-                  'Create New Password',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                passTextBox(
-                    passwordController: _pass1, hint: 'Enter new password'),
-                SizedBox(
-                  height: 20,
-                ),
-                passTextBox(
-                    passwordController: _pass2, hint: "Re enter password"),
-                SizedBox(
-                  height: 25,
-                ),
-                roundButton(
-                    onClick: () async {
-                      if (_pass1.text.trim().isNotEmpty ||
-                          _pass2.text.trim().isNotEmpty) {
-                        if (_pass1.text == _pass2.text) {
-                          FLoading.show(
-                            context,
-                            loading: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  "assets/icons/icon.png",
-                                  width: 200,
-                                  height: 200,
-                                ),
-                                SizedBox(
-                                  height: 25,
-                                ),
-                                CircularProgressIndicator()
-                              ],
-                            ),
-                            closable: false,
-                            color: Colors.black.withOpacity(0.7),
-                          );
-                          var res = await backend().setNewAccount({
-                            'newpswd': _pass1.text,
-                            "email": email,
-                          });
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              PassTextBox(
+                  passwordController: _pass1, hint: 'Enter new password'),
+              SizedBox(
+                height: 20,
+              ),
+              PassTextBox(
+                  passwordController: _pass2, hint: "Re enter password"),
+              SizedBox(
+                height: 25,
+              ),
+              roundButton(
+                  onClick: () async {
+                    if (_pass1.text.trim().isNotEmpty ||
+                        _pass2.text.trim().isNotEmpty) {
+                      if (_pass1.text == _pass2.text) {
+                        FLoading.show(
+                          context,
+                          loading: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/icons/icon.png",
+                                width: 200,
+                                height: 200,
+                              ),
+                              SizedBox(
+                                height: 25,
+                              ),
+                              CircularProgressIndicator()
+                            ],
+                          ),
+                          closable: false,
+                          color: Colors.black.withOpacity(0.7),
+                        );
+                        var res = await backend().setNewAccount({
+                          'newpswd': _pass1.text,
+                          "email": email,
+                        });
 
-                          if (res == '1') {
-                            FLoading.hide();
-                            Utils().showSnackbar('Password Change Successfully',
-                                Colors.green, context);
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(
-                              builder: (context) {
-                                return SplashPage();
-                              },
-                            ));
-                          } else {
-                            Utils().showSnackbar(
-                                'Invalid Details!', Colors.red, context);
-                          }
+                        if (res == '1') {
+                          FLoading.hide();
+                          Utils().showSnackbar('Password Change Successfully',
+                              Colors.green, context);
+                          Navigator.pushReplacement(context, MaterialPageRoute(
+                            builder: (context) {
+                              return SplashPage();
+                            },
+                          ));
                         } else {
                           Utils().showSnackbar(
-                              'Password Not Match!', Colors.red, context);
+                              'Invalid Details!', Colors.red, context);
                         }
                       } else {
                         Utils().showSnackbar(
-                            'Enter Password', Colors.red, context);
+                            'Password Not Match!', Colors.red, context);
                       }
-                    },
-                    text: 'Confirm Password')
-              ],
-            ).addPadding(horizontal: 25),
-          ),
+                    } else {
+                      Utils()
+                          .showSnackbar('Enter Password', Colors.red, context);
+                    }
+                  },
+                  text: 'Confirm Password')
+            ],
+          ).addPadding(horizontal: 25),
         ),
       ),
     );

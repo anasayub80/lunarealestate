@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(
                         height: 25,
                       ),
-                      passTextBox(
+                      PassTextBox(
                           passwordController: _passwordController,
                           hint: 'Enter Password'),
                       SizedBox(

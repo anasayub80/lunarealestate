@@ -87,7 +87,9 @@ class UploadPhotos extends StatelessWidget {
                         );
                       },
                     ),
-                    ImagePickWidget(provider: provider),
+                    Visibility(
+                        visible: images.length != 10,
+                        child: ImagePickWidget(provider: provider)),
                   ],
                 ),
                 child: ImagePickWidget(provider: provider));
@@ -101,28 +103,17 @@ class UploadPhotos extends StatelessWidget {
               height: 55,
               circleBorder: 30,
               onClick: () async {
-                // Navigator.push(context, route);
-                // Navigator.push(
-                //     context,
-                //     PageTransition(
-                //       isIos: true,
-                //       duration: Duration(milliseconds: 700),
-                //       child: SellHousePage(
-                //         child: SurveryWidget(),
-                //       ),a
-                //       type: PageTransitionType.fade,
-                //     ));
                 if (images.isEmpty) {
                   Utils().showSnackbar(
-                      'Select at least 10 Image', Colors.red, context);
+                    'Select at least 10 Image',
+                    Colors.red,
+                    context,
+                  );
                 } else if (images.length >= 10) {
-                  // ignore: use_build_context_synchronously
                   var res = await submitMultipleImages(context);
                   if (res == '1') {
-                    // setState((() {
                     prov.activeStepIndex += 1;
                     prov.saveStepIndex(prov.activeStepIndex);
-                    // }));
                   }
                 } else {
                   Utils().showSnackbar(

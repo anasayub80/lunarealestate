@@ -3,6 +3,7 @@ import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
+import 'package:lunarestate/Pages/Survery/pages/children_widgets/agreement_info.dart';
 import 'package:lunarestate/Pages/Survery/pages/children_widgets/basic_info.dart';
 import 'package:lunarestate/Pages/Survery/pages/children_widgets/property_info.dart';
 import 'package:lunarestate/Pages/Survery/pages/children_widgets/survey_page.dart';
@@ -124,8 +125,14 @@ class InitializedSellHouse extends StatelessWidget {
                           return SellHousePage(child: SurveyPageOne());
                         case 4:
                           return SellHousePage(child: SurveyPage2());
+                        case 5:
+                          return SellHousePage(
+                            child: AgreementInfo(),
+                          );
                         default:
-                          return SellHousePage(child: BasicInfo());
+                          return SellHousePage(
+                            child: BasicInfo(),
+                          );
                       }
                     },
                   );

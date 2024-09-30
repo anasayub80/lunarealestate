@@ -117,7 +117,9 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
                           },
                           child: SvgPicture.asset(
                             'assets/icons/grid_icon.svg',
-                            color: !isGrid ? Colors.white : Color(0xFFD3A45C),
+                            colorFilter: ColorFilter.mode(
+                                !isGrid ? Colors.white : Color(0xFFD3A45C),
+                                BlendMode.srcIn),
                           ),
                         ),
                         12.width,
@@ -127,7 +129,9 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
                           },
                           child: SvgPicture.asset(
                             'assets/icons/list_icon.svg',
-                            color: isGrid ? Colors.white : Color(0xFFD3A45C),
+                            colorFilter: ColorFilter.mode(
+                                !isGrid ? Colors.white : Color(0xFFD3A45C),
+                                BlendMode.srcIn),
                           ),
                         ),
                       ],

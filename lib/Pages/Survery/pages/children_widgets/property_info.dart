@@ -181,7 +181,7 @@ class _PropertyInfoState extends State<PropertyInfo> {
                 var res = await submitpropertyInfo(
                     false, propInfoModel.toJson(), context);
                 if (res == '1') {
-                  prov.activeStepIndex += 1;
+                  prov.activeStepIndex++;
                   prov.saveStepIndex(prov.activeStepIndex);
                 } else {
                   Utils().showSnackbar('Something Wrong', Colors.red, context);

@@ -138,13 +138,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   SizedBox(
                     height: 25,
                   ),
-                  passTextBox(
+                  PassTextBox(
                       passwordController: _passwordController,
                       hint: 'Enter Password'),
                   SizedBox(
                     height: 25,
                   ),
-                  passTextBox(
+                  PassTextBox(
                       passwordController: _confirmPasswordController,
                       hint: 'Confirm Password'),
                   SizedBox(

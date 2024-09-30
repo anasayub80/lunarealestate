@@ -8,7 +8,6 @@ import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Widgets/choiceTile.dart';
 import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:provider/provider.dart';
-import '../../../../Models/SurveyModelMore.dart';
 import '../../../../Service/UserData.dart';
 import '../../../../Widgets/roundbutton.dart';
 import '../../SurvProvider.dart';
@@ -448,21 +447,24 @@ class _SurveyPage2State extends State<SurveyPage2> {
           height: 55,
           circleBorder: 30,
           onClick: () async {
-            prov.saveSurveyData(
-                Provider.of<UserData>(context, listen: false).id!);
-            SurveyMoreModel surveyMoreData = SurveyMoreModel(
-              userid: Provider.of<UserData>(context, listen: false).id!,
-              taxAmount: backedTaxAmount.text,
-              lopExplain: leanOnProp.text,
-              lockboxPlace: lockBoxPlaced.text,
-              rating: prov.value.toString(),
-              fastcash: fastcashY,
-              paymethod: 'autoget',
-              timeFrame: timeFrameofPro.text,
-              tab: 'survey_more',
-              formid: prov.formid,
-            );
-            await submitpropertyInfo(false, surveyMoreData.toJson(), context);
+            // prov.saveSurveyData(
+            //     Provider.of<UserData>(context, listen: false).id!);
+            // SurveyMoreModel surveyMoreData = SurveyMoreModel(
+            //   userid: Provider.of<UserData>(context, listen: false).id!,
+            //   taxAmount: backedTaxAmount.text,
+            //   lopExplain: leanOnProp.text,
+            //   lockboxPlace: lockBoxPlaced.text,
+            //   rating: prov.value.toString(),
+            //   fastcash: fastcashY,
+            //   paymethod: 'autoget',
+            //   timeFrame: timeFrameofPro.text,
+            //   tab: 'survey_more',
+            //   formid: prov.formid,
+            // );
+            // await submitpropertyInfo(false, surveyMoreData.toJson(), context);
+            prov.activeStepIndex += 1;
+                  prov.saveStepIndex(prov.activeStepIndex);
+              
           },
           text: 'SUBMITED',
         ),

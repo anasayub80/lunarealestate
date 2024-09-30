@@ -41,7 +41,6 @@ class textBox extends StatelessWidget {
       child: Center(
         child: TextFormField(
           onFieldSubmitted: onFieldSubmitted,
-          
           cursorColor: AppThemes.primaryColor,
           autofocus: false,
           readOnly: readOnly,
@@ -76,125 +75,71 @@ class textBox extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
-class passTextBox extends StatefulWidget {
-  String hint;
-  passTextBox({
-    Key? key,
-    required TextEditingController passwordController,
-    required this.hint,
-  })  : _passwordController = passwordController,
-        super(key: key);
+class PassTextBox extends StatefulWidget {
+  final String hint;
+  final TextEditingController passwordController;
 
-  final TextEditingController _passwordController;
+  PassTextBox({
+    Key? key,
+    required this.passwordController,
+    required this.hint,
+  }) : super(key: key);
 
   @override
-  State<passTextBox> createState() => _passTextBoxState();
+  State<PassTextBox> createState() => _PassTextBoxState();
 }
 
-class _passTextBoxState extends State<passTextBox> {
+class _PassTextBoxState extends State<PassTextBox> {
   bool _passwordVisible = false;
-// Container(
 
-//       child: Center(
-//         child: TextFormField(
-//           cursorColor: AppThemes.primaryColor,
-//           autofocus: false,
-//           style: TextStyle(color: Colors.white),
-//           keyboardType: Ktype,
-//           controller: _emailController,
-//           decoration: InputDecoration(
-//               hintText: hint,
-//               icon: Icon(icon, color: AppThemes.primaryColor),
-//               // focusColor: AppThemes.primaryColor,
-//               focusedBorder: InputBorder.none,
-//               labelStyle: TextStyle(
-//                 fontSize: 15,
-//                 color: Colors.grey,
-//                 fontWeight: FontWeight.normal,
-//               ),
-//               enabledBorder: InputBorder.none,
-//               fillColor: Colors.white,
-//               hintStyle: TextStyle(
-//                 color: Colors.grey,
-//               )),
-//         ).addPadding(left: 20),
-//       ),
-//     );
+  @override
+  void initState() {
+    super.initState();
+    // Initialize password visibility
+    _passwordVisible = false;
+  }
+
+  @override
+  void dispose() {
+    // If the controller was initialized here, dispose of it.
+    // However, in this case, it's passed from outside, so do not dispose it.
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Color(0xff22252A),
-          borderRadius: BorderRadius.circular(36),
-          border: Border.all(color: Color(0xff494748))),
+        color: Color(0xff22252A),
+        borderRadius: BorderRadius.circular(36),
+        border: Border.all(color: Color(0xff494748)),
+      ),
       height: 55,
       child: Center(
         child: TextFormField(
-          autofocus: false,
+          controller: widget.passwordController, // Passed controller is used
           cursorColor: AppThemes.primaryColor,
           style: TextStyle(color: Colors.white),
-          controller: widget._passwordController,
           keyboardType: TextInputType.visiblePassword,
-          obscureText: !_passwordVisible,
+          obscureText: !_passwordVisible, // Manage password visibility
           decoration: InputDecoration(
-              hintText: widget.hint,
-              // icon: Icon(Icons.lock_outlined, color: AppThemes.primaryColor),
-              icon: SvgPicture.asset('assets/icons/password_icon.svg'),
-              suffixIcon: IconButton(
-                icon: Icon(
-                  // Based on passwordVisible state choose the icon
-                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                  color: Colors.grey,
-                ),
-                onPressed: () {
-                  // Update the state i.e. toogle the state of passwordVisible variable
-                  setState(() {
-                    _passwordVisible = !_passwordVisible;
-                  });
-                },
-              ),
-              // focusColor: AppThemes.primaryColor,
-              focusedBorder: InputBorder.none,
-              labelStyle: TextStyle(
-                fontSize: 15,
+            hintText: widget.hint,
+            icon: SvgPicture.asset('assets/icons/password_icon.svg'),
+            suffixIcon: IconButton(
+              icon: Icon(
+                _passwordVisible ? Icons.visibility : Icons.visibility_off,
                 color: Colors.grey,
-                fontWeight: FontWeight.normal,
               ),
-              enabledBorder: InputBorder.none,
-              fillColor: Colors.white,
-              hintStyle: TextStyle(
-                color: Colors.grey,
-              )),
-
-          // decoration: InputDecoration(
-          //     label: Text(widget.hint, selectionColor: Colors.white),
-          //     icon: Icon(Icons.lock_outlined, color: Colors.white),
-          //     focusColor: Colors.amber,
-          //     labelStyle: TextStyle(
-          //       color: Colors.amber,
-          //       fontSize: 15,
-          //     ),
-          //     suffixIcon: IconButton(
-          //       icon: Icon(
-          //         // Based on passwordVisible state choose the icon
-          //         _passwordVisible ? Icons.visibility : Icons.visibility_off,
-          //         color: Theme.of(context).primaryColorDark,
-          //       ),
-          //       onPressed: () {
-          //         // Update the state i.e. toogle the state of passwordVisible variable
-          //         setState(() {
-          //           _passwordVisible = !_passwordVisible;
-          //         });
-          //       },
-          //     ),
-          //     enabledBorder: UnderlineInputBorder(
-          //       borderSide: BorderSide(color: Colors.white),
-          //     ),
-          //     fillColor: Colors.white,
-          //     hintStyle: TextStyle(
-          //       color: Colors.white,
-          //     )),
+              onPressed: () {
+                setState(() {
+                  _passwordVisible = !_passwordVisible;
+                });
+              },
+            ),
+            focusedBorder: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            hintStyle: TextStyle(color: Colors.grey),
+          ),
         ).addPadding(left: 20, top: 5, right: 10, bottom: 5),
       ),
     );

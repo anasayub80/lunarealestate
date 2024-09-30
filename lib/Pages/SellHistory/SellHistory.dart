@@ -20,9 +20,8 @@ import 'package:floading/floading.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../Survery/SurvProvider.dart';
 
-// ignore: must_be_immutable
 class SellHistoryPage extends StatefulWidget {
-  String from;
+  final String from;
   SellHistoryPage({required this.from});
 
   @override
@@ -110,7 +109,9 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
                             },
                             child: SvgPicture.asset(
                               'assets/icons/grid_icon.svg',
-                              color: !isGrid ? Colors.white : Color(0xFFD3A45C),
+                              colorFilter: ColorFilter.mode(
+                                  !isGrid ? Colors.white : Color(0xFFD3A45C),
+                                  BlendMode.srcIn),
                             ),
                           ),
                           12.width,
@@ -120,7 +121,9 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
                             },
                             child: SvgPicture.asset(
                               'assets/icons/list_icon.svg',
-                              color: isGrid ? Colors.white : Color(0xFFD3A45C),
+                              colorFilter: ColorFilter.mode(
+                                  !isGrid ? Colors.white : Color(0xFFD3A45C),
+                                  BlendMode.srcIn),
                             ),
                           ),
                         ],

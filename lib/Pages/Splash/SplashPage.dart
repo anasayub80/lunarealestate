@@ -7,7 +7,6 @@ import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/Login/login_page.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:fullscreen/fullscreen.dart';
 import 'package:provider/provider.dart';
 import '../../Service/UserData.dart';
 import '../../main.dart';
