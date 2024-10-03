@@ -161,7 +161,7 @@ List askWhenBuyingLand = [
     ],
   ),
 ];
-List newSurveyQuestions = [
+List<SurveyQuestions> newSurveyQuestions = [
   SurveyQuestions(
     question: 'What class is the property?',
     answers: [
