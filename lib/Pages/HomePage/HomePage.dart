@@ -46,10 +46,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List img = [
-    'https://lunaenterprises.info/wp-content/uploads/2022/09/688e32cd90dbb711edc5812f7d05975d.jpg',
-    'https://lunaenterprises.info/wp-content/uploads/2022/09/Cat-Mountain-Residence_2.jpg',
-    'https://lunaenterprises.info/wp-content/uploads/2022/09/Far-Pond-House_1.jpg',
-    'https://lunaenterprises.info/wp-content/uploads/2022/09/688e32cd90dbb711edc5812f7d05975d.jpg',
+    "20230313_153002.jpg",
+    "20230412_115009.jpg",
+    "20230718_151310.jpg",
+    "20240907_125548.jpg",
+    "Resized_20210320_132531_629897463582730.jpeg",
+    "20230616_172333.jpg",
+    "Back Left.JPG",
   ];
   int currentPage = 0;
   void updateCurrentPageTop(int page) {
@@ -117,16 +120,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                               child: ImageView(url: item),
                                               type: PageTransitionType.fade));
                                     },
-                                    child: Image.network(
-                                      item,
-                                      loadingBuilder:
-                                          (context, child, loadingProgress) {
-                                        if (loadingProgress == null)
-                                          return child;
-                                        return Center(
-                                          child: CircularProgressIndicator(),
-                                        );
-                                      },
+                                    child: Image.asset(
+                                      "assets/house_images/${item}",
+                                      // loadingBuilder:
+                                      //     (context, child, loadingProgress) {
+                                      //   if (loadingProgress == null)
+                                      //     return child;
+                                      //   return Center(
+                                      //     child: CircularProgressIndicator(),
+                                      //   );
+                                      // },
                                       fit: BoxFit.cover,
                                     ),
                                   ),
