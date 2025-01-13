@@ -17,7 +17,7 @@ class SurveryAnswer {
   });
 }
 
-List askWhenBuyingLand = [
+List<SurveyQuestions> askWhenBuyingLand = [
   SurveyQuestions(
     question:
         "Is the land currently zoned for the use you intend (residential, commercial, agricultural, etc.)?",

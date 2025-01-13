@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
+import 'package:lunarestate/Pages/HomePage/ChooseType.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
 import 'package:page_transition/page_transition.dart';
@@ -24,7 +25,6 @@ import 'Pages/Splash/SplashPage.dart';
 import 'l10n/l10n.dart';
 import 'provider/languageProvider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 // // SKU FOR APPSTORE DOTCLICK-LUNA-SKU
 // Future<void> main() async {
@@ -168,9 +168,11 @@ class _MyNavigationState extends State<MyNavigation> {
   List<Widget> children = <Widget>[
     MyHomePage(),
     SellHistoryPage(from: 'nav'),
-    GalleryPage(
-      from: 'nav',
-    ),
+    ChooseType(),
+    // Container(),
+    // GalleryPage(
+    //   from: 'nav',
+    // ),
     MorePage(),
   ];
   final iconList = <IconData>[

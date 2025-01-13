@@ -122,7 +122,10 @@ class InitializedSellHouse extends StatelessWidget {
                         case 2:
                           return SellHousePage(child: UploadPhotos());
                         case 3:
-                          return SellHousePage(child: SurveyPageOne());
+                          return SellHousePage(
+                              child: SurveyPageOne(
+                            surveyQuestions: null,
+                          ));
                         case 4:
                           return SellHousePage(child: SurveyPage2());
                         case 5:

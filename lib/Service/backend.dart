@@ -295,6 +295,7 @@ class backend {
           return 'error';
         }
       }
+      log("response ${res.body}", name: "Response");
     } catch (e) {
       log(e.toString());
       return 'error';

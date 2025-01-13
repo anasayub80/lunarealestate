@@ -6,11 +6,13 @@ class roundButton extends StatelessWidget {
   final double horizontalPadding;
   final double buttonWidth;
   final double height;
+  final Color? textColor;
   final double circleBorder;
   roundButton({
     required this.onClick,
     required this.text,
     this.horizontalPadding = 55,
+    this.textColor,
     this.buttonWidth = double.infinity,
     this.height = 40,
     this.circleBorder = 18,
@@ -49,7 +51,7 @@ class roundButton extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xff25272A),
+                color: textColor ?? Color(0xff25272A),
               ),
             ),
           ),

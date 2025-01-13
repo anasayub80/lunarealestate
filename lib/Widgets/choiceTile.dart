@@ -223,7 +223,7 @@ class _ChoiceTileNewVState extends State<ChoiceTileNewV> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120,
+      height: 130,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Color(0xFF22252A),
