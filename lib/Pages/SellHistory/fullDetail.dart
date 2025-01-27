@@ -447,7 +447,7 @@ class FullDetail extends StatelessWidget {
                                 } else {
                                   FLoading.hide();
                                   debugPrint('fail');
-                                  Utils().showSnackbar(
+                                  Utils.showSnackbar(
                                       res['msg'], Colors.red, context);
                                 }
                               }).show();

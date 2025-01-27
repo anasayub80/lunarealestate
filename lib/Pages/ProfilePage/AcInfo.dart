@@ -153,7 +153,7 @@ class _AccountInfoState extends State<AccountInfo> {
                     if (_name.text == '' ||
                         _phone.text == '' ||
                         _email.text == '') {
-                      Utils().showSnackbar('Enter Value', Colors.red, context);
+                      Utils.showSnackbar('Enter Value', Colors.red, context);
                     } else {
                       FLoading.show(
                         context,
@@ -201,7 +201,7 @@ class _AccountInfoState extends State<AccountInfo> {
                         prefs.setString('email', _email.text);
                         sharedPref().saveuserData(res['user']);
                         FLoading.hide();
-                        Utils().showSnackbar(
+                        Utils.showSnackbar(
                             'Changes Saved!', Colors.green, context);
 
                         await Provider.of<UserData>(context, listen: false)
@@ -209,7 +209,7 @@ class _AccountInfoState extends State<AccountInfo> {
                         Navigator.pop(context);
                       } else {
                         FLoading.hide();
-                        Utils().showSnackbar(res['msg'], Colors.red, context);
+                        Utils.showSnackbar(res['msg'], Colors.red, context);
                       }
                     }
                   }),

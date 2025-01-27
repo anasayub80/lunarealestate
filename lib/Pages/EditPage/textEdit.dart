@@ -75,7 +75,7 @@ class _TextEditPageState extends State<TextEditPage> {
               onClick: (() async {
                 FocusManager.instance.primaryFocus?.unfocus();
                 if (_textEditingController.text.trim().isEmpty) {
-                  Utils().showSnackbar('Enter Details!', Colors.red, context);
+                  Utils.showSnackbar('Enter Details!', Colors.red, context);
                 } else {
                   FLoading.show(
                     context,
@@ -113,7 +113,7 @@ class _TextEditPageState extends State<TextEditPage> {
                     FLoading.hide();
                     debugPrint('fail');
                     // ignore: use_build_context_synchronously
-                    Utils().showSnackbar(res['msg'], Colors.red, context);
+                    Utils.showSnackbar(res['msg'], Colors.red, context);
                   }
                 }
               }),

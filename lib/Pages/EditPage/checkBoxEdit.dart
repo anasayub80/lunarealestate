@@ -147,7 +147,7 @@ class _checkBoxEditPageState extends State<checkBoxEditPage> {
                     FLoading.hide();
                     debugPrint('fail');
                     // ignore: use_build_context_synchronously
-                    Utils().showSnackbar(res['msg'], Colors.red, context);
+                    Utils.showSnackbar(res['msg'], Colors.red, context);
                   }
                 }),
                 text: 'UPDATE',

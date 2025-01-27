@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
-import 'package:lunarestate/Pages/Survery/pages/children_widgets/survey_page.dart';
-import 'package:lunarestate/Pages/Survery/pages/children_widgets/survey_page_2.dart';
 import 'package:lunarestate/Pages/Survery/survey_page_new.dart';
 import 'package:lunarestate/Pages/Survery/survey_questions.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';

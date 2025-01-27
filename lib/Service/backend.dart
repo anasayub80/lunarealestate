@@ -295,7 +295,27 @@ class backend {
           return 'error';
         }
       }
-      log("response ${res.body}", name: "Response");
+      log("response ${res.body} & statusCode ${res.statusCode}",
+          name: "Response&StatusCode");
+    } catch (e) {
+      log(e.toString());
+      return 'error';
+    }
+  }
+
+  submitsurvery(dynamic data) async {
+    try {
+      http.Response res = await http.post(Uri.parse(SAVE_SURVEY),
+          body: data, headers: {"Accept": "application/json"});
+      if (res.statusCode == 200) {
+        // log("response:: ${res.body}", name: "SAVE_SURVEY Response");
+        if (res.body.isNotEmpty) {
+          var response = jsonDecode(res.body);
+          return response;
+        } else {
+          return 'error';
+        }
+      }
     } catch (e) {
       log(e.toString());
       return 'error';

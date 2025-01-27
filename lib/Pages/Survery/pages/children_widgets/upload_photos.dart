@@ -104,7 +104,7 @@ class UploadPhotos extends StatelessWidget {
               circleBorder: 30,
               onClick: () async {
                 if (images.isEmpty) {
-                  Utils().showSnackbar(
+                  Utils.showSnackbar(
                     'Select at least 10 Image',
                     Colors.red,
                     context,
@@ -116,7 +116,7 @@ class UploadPhotos extends StatelessWidget {
                     prov.saveStepIndex(prov.activeStepIndex);
                   }
                 } else {
-                  Utils().showSnackbar(
+                  Utils.showSnackbar(
                       'Select at least 10 Image', Colors.red, context);
                 }
               },

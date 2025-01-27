@@ -14,7 +14,6 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart' as sizer;
 import 'package:lunarestate/Config/config.dart';
-import 'package:lunarestate/Pages/Gallery/GalleryPage.dart';
 import 'package:lunarestate/Pages/SellHistory/SellHistory.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
 import 'package:lunarestate/Service/UserData.dart';
@@ -61,7 +60,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
-    return sizer.ResponsiveSizer(builder: (context, or, d) {
+    return sizer.Sizer(builder: (context, or, d) {
       return MultiProvider(
         providers: [
           ChangeNotifierProvider(
@@ -96,6 +95,7 @@ class _MyAppState extends State<MyApp> {
             // cupertinoOverrideTheme: TextSelectionTheme(data: data, child: child),
             textSelectionTheme: TextSelectionThemeData(
               cursorColor: AppThemes.primaryColor,
+              // ignore: deprecated_member_use
               selectionColor: AppThemes.primaryColor.withOpacity(.1),
               selectionHandleColor: AppThemes.primaryColor,
             ),
@@ -248,7 +248,8 @@ class _MyNavigationState extends State<MyNavigation> {
                     type: PageTransitionType.bottomToTop));
           },
           child: Icon(
-            Icons.sell_outlined,
+            // Icons.sell_outlined,
+            EvaIcons.home,
             color: Colors.white,
           ),
           shape:

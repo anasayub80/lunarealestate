@@ -184,7 +184,7 @@ class _PropertyInfoState extends State<PropertyInfo> {
                   prov.activeStepIndex++;
                   prov.saveStepIndex(prov.activeStepIndex);
                 } else {
-                  Utils().showSnackbar('Something Wrong', Colors.red, context);
+                  Utils.showSnackbar('Something Wrong', Colors.red, context);
                 }
               }
             },

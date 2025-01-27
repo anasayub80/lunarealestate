@@ -11,6 +11,7 @@ var DELETE = '${Base_URL}delete'.trim();
 var UPDATE_PROFILE_URL = '${Base_URL}profile'.trim();
 var SIGNUP_URL = '${Base_URL}signup'.trim();
 var FORM_URL = '${Base_URL}addProperty'.trim();
+var SAVE_SURVEY = '${Base_URL}saveSurvey'.trim();
 var GET_IMAGES_URL = '${Base_URL}propgallery'.trim();
 var UPDATE = '${Base_URL}update'.trim();
 var FORGOT = '${Base_URL}forgot'.trim();

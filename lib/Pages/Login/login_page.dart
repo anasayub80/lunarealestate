@@ -165,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                           FocusManager.instance.primaryFocus?.unfocus();
                           if (_emailController.text.trim().isEmpty ||
                               _passwordController.text.trim().isEmpty) {
-                            Utils().showSnackbar(
+                            Utils.showSnackbar(
                                 'Enter Details!', Colors.red, context);
                           } else {
                             FLoading.show(
@@ -199,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                               if (res['status'] == 'success') {
                                 debugPrint(res['user']["name"]);
 
-                                Utils().showSnackbar(
+                                Utils.showSnackbar(
                                     res['msg'], Colors.green, context);
                                 await Provider.of<UserData>(context,
                                         listen: false)
@@ -263,19 +263,19 @@ class _LoginPageState extends State<LoginPage> {
                                   //     );
                                   //     break;
                                   //   default:
-                                  //     Utils().showSnackbar(
+                                  //     Utils.showSnackbar(
                                   //         "Invalid Role", Colors.red, context);
                                   // }
                                 }
                               } else {
                                 FLoading.hide();
-                                Utils().showSnackbar(
+                                Utils.showSnackbar(
                                     res['msg'], Colors.red, context);
                               }
                             } catch (e) {
                               debugPrint("Login Error: $e");
                               FLoading.hide();
-                              Utils().showSnackbar(
+                              Utils.showSnackbar(
                                   e.toString(), Colors.red, context);
                             }
                           }

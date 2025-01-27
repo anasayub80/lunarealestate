@@ -107,7 +107,7 @@ class ForgetMyPass extends StatelessWidget {
                                       type: PageTransitionType.fade));
                             }
                           } else {
-                            Utils().showSnackbar(
+                            Utils.showSnackbar(
                                 'Enter Email', Colors.red, context);
                           }
                         },

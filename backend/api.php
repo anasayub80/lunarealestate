@@ -29,7 +29,6 @@ function imagecheck($imagetype)
 }
 //usage
 switch ($_GET['page']) {
-
         // Insert Property Data 
     case 'addProperty':
         $files = array();
@@ -89,8 +88,7 @@ switch ($_GET['page']) {
                     echo json_encode(array('status' => "warning", 'msg' => "Database Error"));
                 }
                 break;
-            
-            case "survey_info":
+              case "survey_info":
                 $formid =     htmlentities(mysqli_real_escape_string($con, $_POST['formid']));
                 $assiteNewHome =  htmlentities(mysqli_real_escape_string($con, $_POST['assitnewhome']));
                 $backedTaxowed =  htmlentities(mysqli_real_escape_string($con, $_POST['backedtaxowed']));
@@ -122,7 +120,7 @@ switch ($_GET['page']) {
                     echo json_encode(array('status' => "warning", 'msg' => "Database Error"));
                 }
 
-                break;
+                break;    
             case 'image':
                     $formid = htmlentities(mysqli_real_escape_string($con, $_POST['formid']));
                      $select = mysqli_query($con, "SELECT * FROM `form_images` where `form_id` = '$formid'");
@@ -198,6 +196,82 @@ switch ($_GET['page']) {
             break;
         }
 
+    break;
+ case "saveSurvey":
+    // Receive and decode the JSON from Flutter app
+    $json = file_get_contents('php://input');
+    $data = json_decode($json, true); // Decode JSON into an associative array
+
+    // Check if the necessary data exists
+    if (isset($data['formid']) && isset($data['userid']) && isset($data['questions_and_answers'])) {
+        // Sanitize and escape input data
+        $formid = htmlentities(mysqli_real_escape_string($con, $data['formid']));
+        $userid = htmlentities(mysqli_real_escape_string($con, $data['userid']));
+
+        // Insert general survey info into `survey_info` table
+        $survey_query = mysqli_query($con, "INSERT INTO survey_info (formid, userid) 
+                                            VALUES ('$formid', '$userid')");
+
+        if ($survey_query) {
+            // Get the survey_info_id after inserting
+            $survey_info_id = mysqli_insert_id($con);
+
+            // Loop through questions and insert them into `survey_questions` and `survey_answers`
+            foreach ($data['questions_and_answers'] as $question_data) {
+                // Check if question and answers are present
+                if (isset($question_data['question']) && isset($question_data['answers'])) {
+                    $question = htmlentities(mysqli_real_escape_string($con, $question_data['question']));
+
+                    // Insert the question into `survey_questions`
+                    $insert_question = mysqli_query($con, "INSERT INTO survey_questions (survey_info_id, question) 
+                                                           VALUES ('$survey_info_id', '$question')");
+
+                    if ($insert_question) {
+                        $survey_question_id = mysqli_insert_id($con);  // Get the ID of the inserted question
+
+                        // Loop through the answers and insert them into `survey_answers`
+                        foreach ($question_data['answers'] as $answer_data) {
+                            // Check if 'answer' and 'selectedAnswer' are present in answer data
+                            if (isset($answer_data['answer']) && isset($answer_data['selectedAnswer'])) {
+                                $answer = htmlentities(mysqli_real_escape_string($con, $answer_data['answer']));
+                                $selected_answer = $answer_data['selectedAnswer'] ? 1 : 0;  // Convert boolean to 1 or 0
+
+                                // Insert the answer into `survey_answers`
+                                $insert_answer = mysqli_query($con, "INSERT INTO survey_answers (survey_question_id, answer, selectedAnswer) 
+                                                                     VALUES ('$survey_question_id', '$answer', '$selected_answer')");
+                            } else {
+                                echo json_encode(array('status' => "warning", 'msg' => "Missing 'answer' or 'selectedAnswer' for one of the answers"));
+                                exit;
+                            }
+                        }
+                    }
+                } else {
+                    echo json_encode(array('status' => "warning", 'msg' => "Missing 'question' or 'answers' for one of the questions"));
+                    exit;
+                }
+            }
+
+            // Check if everything was inserted correctly
+            if (isset($insert_answer) && $insert_answer) {
+                // Fetch the survey info details
+                $select = mysqli_query($con, "SELECT * FROM survey_info WHERE formid = '$formid'");
+                $fetch = mysqli_fetch_array($select);
+
+                echo json_encode(array(
+                    'status' => "success", 
+                    'msg' => "Successfully Inserted", 
+                    'formid' => $formid,
+                    // 'detailType' => $fetch['detailType']
+                ));
+            } else {
+                echo json_encode(array('status' => "warning", 'msg' => "Error inserting answers"));
+            }
+        } else {
+            echo json_encode(array('status' => "warning", 'msg' => "Error inserting survey info"));
+        }
+    } else {
+        echo json_encode(array('status' => "error", 'msg' => "Missing required data: formid, userid, or questions_and_answers"));
+    }
     break;
 
     case 'deleteProperty':

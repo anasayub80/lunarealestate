@@ -155,7 +155,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                                   type: PageTransitionType.fade));
                           // }
                         } else {
-                          Utils().showSnackbar(
+                          Utils.showSnackbar(
                             'Enter Phone Number',
                             Colors.red,
                             context,

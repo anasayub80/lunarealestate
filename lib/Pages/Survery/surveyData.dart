@@ -1,6 +1,7 @@
 // ignore_for_file: unused_element, use_build_context_synchronously
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -132,7 +133,7 @@ Future submitpropertyInfo(
         await pref.remove('PropInfoData');
         await pref.remove('PropInfoData');
         FLoading.hide();
-        Utils().showSnackbar('Property Submitted', Colors.green, context);
+        Utils.showSnackbar('Property Submitted', Colors.green, context);
         Navigator.of(context).popUntil((route) => route.isFirst);
         Navigator.pushReplacement(
           context,
@@ -150,6 +151,52 @@ Future submitpropertyInfo(
   } else {
     FLoading.hide();
     return '0';
+  }
+}
+
+Future submitSurvey(dynamic data, BuildContext context) async {
+  try {
+    FLoading.show(
+      context,
+      loading: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            "assets/icons/icon.png",
+            width: 200,
+            height: 200,
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          CircularProgressIndicator()
+        ],
+      ),
+      closable: false,
+      color: Colors.black.withOpacity(0.7),
+    );
+    // await Future.delayed(
+    //   Duration(seconds: 2),
+    //   () {
+    //     FLoading.hide();
+    //     return '1';
+    //   },
+    // );
+    var res = await backend().submitsurvery(json.encode(data));
+    // var res = await backend().submitsurvery(data);
+    log("APIResponse: ${res.toString()}");
+    if (res['status'] == 'success') {
+      log('Detail type ${res['detailType']}');
+      return '1';
+    } else {
+      FLoading.hide();
+      return '0';
+    }
+  } catch (e) {
+    FLoading.hide();
+    return '0';
+    // throw Exception(e);
   }
 }
 

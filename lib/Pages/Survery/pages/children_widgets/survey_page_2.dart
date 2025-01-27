@@ -463,8 +463,7 @@ class _SurveyPage2State extends State<SurveyPage2> {
             // );
             // await submitpropertyInfo(false, surveyMoreData.toJson(), context);
             prov.activeStepIndex += 1;
-                  prov.saveStepIndex(prov.activeStepIndex);
-              
+            prov.saveStepIndex(prov.activeStepIndex);
           },
           text: 'SUBMITED',
         ),

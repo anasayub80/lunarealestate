@@ -60,7 +60,7 @@ class _VerifyAccountOTPPageState extends State<VerifyAccountOTPPage> {
     Future.delayed(
       Duration.zero,
       () {
-        Utils().showSnackbar(widget.res, Colors.green, context);
+        Utils.showSnackbar(widget.res, Colors.green, context);
       },
     );
     _startTimer();
@@ -304,7 +304,7 @@ class _ForgotPassOTPState extends State<ForgotPassOTP> {
     Future.delayed(
       Duration.zero,
       () {
-        Utils().showSnackbar(widget.res, Colors.green, context);
+        Utils.showSnackbar(widget.res, Colors.green, context);
       },
     );
     _startTimer();

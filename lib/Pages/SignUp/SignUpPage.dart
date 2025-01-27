@@ -158,7 +158,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       if (_emailController.text.trim().isEmpty ||
                           _passwordController.text.trim().isEmpty ||
                           _nameController.text.trim().isEmpty) {
-                        Utils().showSnackbar(
+                        Utils.showSnackbar(
                             'Enter Details!', Colors.red, context);
                       } else {
                         FLoading.show(
@@ -195,7 +195,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           if (res['status'] == 'success') {
                             debugPrint("success");
 
-                            Utils().showSnackbar(
+                            Utils.showSnackbar(
                                 res['msg'], Colors.green, context);
                             debugPrint("success 22222");
                             Navigator.pushReplacement(
@@ -213,8 +213,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                             );
                           } else {
-                            Utils()
-                                .showSnackbar(res['res'], Colors.red, context);
+                            Utils.showSnackbar(res['res'], Colors.red, context);
                           }
                         } catch (e) {
                           debugPrint("ERRROR ${e.toString()}");

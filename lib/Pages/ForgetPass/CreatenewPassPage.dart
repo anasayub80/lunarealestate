@@ -96,7 +96,7 @@ class CreatenewPassPage extends StatelessWidget {
 
                         if (res == '1') {
                           FLoading.hide();
-                          Utils().showSnackbar('Password Change Successfully',
+                          Utils.showSnackbar('Password Change Successfully',
                               Colors.green, context);
                           Navigator.pushReplacement(context, MaterialPageRoute(
                             builder: (context) {
@@ -104,16 +104,15 @@ class CreatenewPassPage extends StatelessWidget {
                             },
                           ));
                         } else {
-                          Utils().showSnackbar(
+                          Utils.showSnackbar(
                               'Invalid Details!', Colors.red, context);
                         }
                       } else {
-                        Utils().showSnackbar(
+                        Utils.showSnackbar(
                             'Password Not Match!', Colors.red, context);
                       }
                     } else {
-                      Utils()
-                          .showSnackbar('Enter Password', Colors.red, context);
+                      Utils.showSnackbar('Enter Password', Colors.red, context);
                     }
                   },
                   text: 'Confirm Password')

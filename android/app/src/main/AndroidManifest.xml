@@ -15,6 +15,7 @@
                 </queries>
    <application
         android:label="Luna E"
+        android:extractNativeLibs="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

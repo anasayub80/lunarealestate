@@ -1,20 +1,16 @@
+import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
-import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
-import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
 import 'package:lunarestate/Pages/Survery/surveyData.dart';
 import 'package:lunarestate/Pages/Survery/survey_questions.dart';
 import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../../Models/SurveyModel.dart';
 import '../../../../Service/UserData.dart';
 import '../../../../Widgets/Utils.dart';
 import '../../../../Widgets/choiceTile.dart';
-import '../../../../Widgets/langChoicedialog.dart';
-import '../../../../main.dart';
-import '../../../../provider/languageProvider.dart';
+import '../../main.dart';
 
 // import '../../SurvProvider.dart';
 // import '../../surveyData.dart';
@@ -29,10 +25,10 @@ class SurveyPageNew extends StatefulWidget {
 class _SurveyPageNewState extends State<SurveyPageNew> {
   @override
   Widget build(BuildContext context) {
-    var singleNotifier = Provider.of<SingleNotifier>(context, listen: false);
-    var langloc = AppLocalizations.of(context)!;
-    var userProv = Provider.of<UserData>(context, listen: false);
-    var prov = Provider.of<SurvProvider>(context, listen: false);
+    // var singleNotifier = Provider.of<SingleNotifier>(context, listen: false);
+    // var langloc = AppLocalizations.of(context)!;
+    // var userProv = Provider.of<UserData>(context, listen: false);
+    // var prov = Provider.of<SurvProvider>(context, listen: false);
 
     return Column(
       children: [
@@ -45,61 +41,60 @@ class _SurveyPageNewState extends State<SurveyPageNew> {
             title: toElement.question,
             surveryAnswer: toElement.answers,
             index: 'index',
-            onChange: (po) {},
+            onChange: (po) {
+              debugPrint(
+                  "ChoiceTileNewV \n ${toElement.question} \n ${toElement.answers}");
+            },
           );
         }).toList(),
-        12.height,
+        10.height,
         roundButton(
           horizontalPadding: 15,
           buttonWidth: double.infinity,
           height: 55,
           circleBorder: 30,
           onClick: () async {
-            // Navigator.push(
-            //     context,
-            //     PageTransition(
-            //       isIos: true,
-            //       duration: Duration(milliseconds: 700),
-            //       child: SellHousePage(
-            //         child: SurveyPage2(),
-            //       ),
-            //       type: PageTransitionType.fade,
-            //     ));
-            SurveyModel surveyModel = SurveyModel(
-              assitnewhome: assistfornewHomeValY,
-              backedtaxowed: backtaxValY,
-              basement: basementValY,
-              dryer: dryerValY,
-              existingMorgage: exmValY,
-              foundation: FoundationValY,
-              gasUtilityavail: guaValY,
-              helpmorgage: morghelpValY,
-              isProp: isPropValY,
-              lockbox: lockBoxValY,
-              lop: lopValY,
-              newhome: newHomeValY,
-              owfinance: ownerFinanaceValY,
-              range: rangeValY,
-              sewer: sewerValY,
-              survery: surveryValY,
-              washer: washerValY,
-              waterOn: washerValY,
-              tab: 'survey_info',
-              formid: prov.formid,
-              userid: Provider.of<UserData>(context, listen: false).id!,
-            );
-            var res =
-                await submitpropertyInfo(false, surveyModel.toJson(), context);
+            List<Map<String, dynamic>> questionsAndAnswers =
+                widget.surveyQuestions!.map((surveyQuestion) {
+              return {
+                "question": surveyQuestion.question,
+                "answers": surveyQuestion.answers.map((answer) {
+                  return {
+                    "answer": answer.answer,
+                    "selectedAnswer": answer.selectedAnswer,
+                  };
+                }).toList(),
+              };
+            }).toList();
+
+            var surveyData = {
+              "formid": "formID${DateTime.now().microsecondsSinceEpoch}",
+              "userid": Provider.of<UserData>(context, listen: false).id,
+              "questions_and_answers": questionsAndAnswers,
+            };
+
+            var res = await submitSurvey(surveyData, context);
             if (res == '1') {
-              // setState((() {
-              prov.activeStepIndex += 1;
-              prov.saveStepIndex(prov.activeStepIndex);
+              FLoading.hide();
+              Utils.showSnackbar('Survey Submitted', Colors.green, context);
+              Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.pushReplacement(
+                context,
+                PageTransition(
+                  child: MyNavigation(),
+                  isIos: true,
+                  duration: Duration(milliseconds: 600),
+                  type: PageTransitionType.bottomToTop,
+                ),
+              );
             } else {
-              Utils().showSnackbar('Something Wrong', Colors.red, context);
+              FLoading.hide();
+              Utils.showSnackbar('Something Wrong', Colors.red, context);
             }
           },
           text: 'NEXT',
         ),
+        50.height,
       ],
     );
   }

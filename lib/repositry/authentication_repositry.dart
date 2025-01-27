@@ -19,12 +19,11 @@ class AuthenticationRepositry {
       phoneNumber,
       (String message) {
         log("send otp on error: $message");
-        Utils()
-            .showSnackbar('Error sending OTP. $message', Colors.red, context);
+        Utils.showSnackbar('Error sending OTP. $message', Colors.red, context);
       },
       () {},
       () {
-        Utils().showSnackbar(
+        Utils.showSnackbar(
             'OTP sent successfully!', Colors.green.shade300, context);
       },
     );
@@ -70,7 +69,7 @@ class AuthenticationRepositry {
         } else {
           FLoading.hide();
           // ignore: use_build_context_synchronously
-          Utils().showSnackbar(res['msg'], Colors.red, context);
+          Utils.showSnackbar(res['msg'], Colors.red, context);
         }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

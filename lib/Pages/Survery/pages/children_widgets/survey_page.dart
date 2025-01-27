@@ -870,7 +870,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
               prov.activeStepIndex += 1;
               prov.saveStepIndex(prov.activeStepIndex);
             } else {
-              Utils().showSnackbar('Something Wrong', Colors.red, context);
+              Utils.showSnackbar('Something Wrong', Colors.red, context);
             }
           },
           text: 'NEXT',
