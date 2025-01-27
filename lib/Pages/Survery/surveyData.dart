@@ -187,7 +187,7 @@ Future submitSurvey(dynamic data, BuildContext context) async {
     // var res = await backend().submitsurvery(data);
     log("APIResponse: ${res.toString()}");
     if (res['status'] == 'success') {
-      log('Detail type ${res['detailType']}');
+      // log('Detail type ${res['detailType']}');
       return '1';
     } else {
       FLoading.hide();
