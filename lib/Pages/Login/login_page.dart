@@ -222,50 +222,24 @@ class _LoginPageState extends State<LoginPage> {
                                           type:
                                               PageTransitionType.bottomToTop));
                                 } else {
+                                  sharedPref().saveuserData(res['user']);
+                                  debugPrint(
+                                      "save Email ${_emailController.text}");
+                                  sharedPref()
+                                      .storeVal('email', _emailController.text);
                                   if (isRememberMe) {
-                                    sharedPref().saveuserData(res['user']);
-                                    debugPrint(
-                                        "save Email ${_emailController.text}");
-                                    sharedPref().storeVal(
-                                        'email', _emailController.text);
+                                    sharedPref().storeBool('isLogin', true);
                                   }
                                   Navigator.pushReplacement(
                                       context,
                                       PageTransition(
-                                        child: SplashPage(),
+                                        child: SplashPage(
+                                          isFromLogin: true,
+                                        ),
                                         isIos: true,
                                         duration: Duration(milliseconds: 600),
                                         type: PageTransitionType.bottomToTop,
                                       ));
-                                  // switch (res['user']['role']) {
-                                  //   case 'admin':
-                                  //     Navigator.of(context)
-                                  //         .popUntil((route) => route.isFirst);
-                                  //     Navigator.pushReplacement(
-                                  //         context,
-                                  //         PageTransition(
-                                  //             child: HomePageAdmin(),
-                                  //             isIos: true,
-                                  //             duration:
-                                  //                 Duration(milliseconds: 600),
-                                  //             type: PageTransitionType
-                                  //                 .bottomToTop));
-                                  //     break;
-                                  //   case 'user':
-                                  //     Navigator.pushReplacement(
-                                  //       context,
-                                  //       PageTransition(
-                                  //         child: SplashPage(),
-                                  //         isIos: true,
-                                  //         duration: Duration(milliseconds: 600),
-                                  //         type: PageTransitionType.bottomToTop,
-                                  //       ),
-                                  //     );
-                                  //     break;
-                                  //   default:
-                                  //     Utils.showSnackbar(
-                                  //         "Invalid Role", Colors.red, context);
-                                  // }
                                 }
                               } else {
                                 FLoading.hide();

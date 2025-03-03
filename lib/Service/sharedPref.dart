@@ -3,6 +3,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../Models/UserModel.dart';
 
 class sharedPref {
+  void storeBool(String key, bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(key, value);
+  }
+
   void storeVal(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(key, value);

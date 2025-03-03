@@ -1,4 +1,3 @@
-
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
@@ -14,7 +13,8 @@ import '../../main.dart';
 import 'dart:io' show Platform;
 
 class SplashPage extends StatefulWidget {
-  const SplashPage({super.key});
+  final bool? isFromLogin;
+  const SplashPage({super.key, this.isFromLogin = false});
 
   @override
   State<SplashPage> createState() => _SplashPageState();
@@ -72,9 +72,10 @@ class _SplashPageState extends State<SplashPage> {
     debugPrint("checkLogin Email");
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var displayName = prefs.getString('email');
-    debugPrint("get saved Email ${displayName}");
-    if (displayName != null) {
+    var email = prefs.getString('email');
+    bool isLogin = prefs.getBool('isLogin') ?? false;
+    debugPrint("get saved Email ${email}");
+    if (isLogin || widget.isFromLogin!) {
       Provider.of<UserData>(context, listen: false).initUserData();
 
       Future.delayed(

@@ -20,7 +20,7 @@ class UserData with ChangeNotifier {
       id = uModel.id;
       name = uModel.name;
       email = uModel.email;
-      log('User id $id');
+      log('initUserData User id $id');
       phone = uModel.phone;
       profile = uModel.profile;
       role = uModel.role;
