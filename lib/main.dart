@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +11,7 @@ import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Pages/HomePage/ChooseType.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
+import 'package:lunarestate/firebase_options.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart' as sizer;
@@ -26,15 +28,15 @@ import 'provider/languageProvider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // SKU FOR APPSTORE DOTCLICK-LUNA-SKU
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-// WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp(
-//     options: DefaultFirebaseOptions.currentPlatform,
-//   );
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-//   runApp(const MyApp());
-// }
+  runApp(const MyApp());
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -275,9 +277,4 @@ class _MyNavigationState extends State<MyNavigation> {
       ),
     );
   }
-}
-
-void main(List<String> args) {
-  runApp(MyApp());
-  // runApp(MaterialApp(home: FormFields()));
 }

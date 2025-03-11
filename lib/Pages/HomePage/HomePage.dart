@@ -117,7 +117,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                       Navigator.push(
                                           context,
                                           PageTransition(
-                                              child: ImageView(url: item),
+                                              child: ImageView(
+                                                url: item,
+                                                isLocal: true,
+                                              ),
                                               type: PageTransitionType.fade));
                                     },
                                     child: Image.asset(

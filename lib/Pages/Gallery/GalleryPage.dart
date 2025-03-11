@@ -17,12 +17,6 @@ class GalleryPage extends StatefulWidget {
 }
 
 class _GalleryPageState extends State<GalleryPage> {
-  getData() {
-    Future.delayed(Duration(seconds: 3), () {
-      return myList;
-    });
-  }
-
   @override
   void initState() {
     // ignore: todo
@@ -30,18 +24,26 @@ class _GalleryPageState extends State<GalleryPage> {
     super.initState();
   }
 
-  List myList = [
-    'https://lunaenterprises.info/wp-content/uploads/2022/09/688e32cd90dbb711edc5812f7d05975d.jpg',
-    'https://lunaenterprises.info/wp-content/uploads/2022/09/Cat-Mountain-Residence_2.jpg',
-    'https://lunaenterprises.info/wp-content/uploads/2022/09/Far-Pond-House_1.jpg',
-    'https://lunaenterprises.info/wp-content/uploads/2022/09/688e32cd90dbb711edc5812f7d05975d.jpg',
-    'https://lunaenterprises.info/wp-content/uploads/2022/09/Cat-Mountain-Residence_2.jpg',
-    'https://lunaenterprises.info/wp-content/uploads/2022/09/Far-Pond-House_1.jpg',
-    'https://lunaenterprises.info/wp-content/uploads/2022/09/688e32cd90dbb711edc5812f7d05975d.jpg',
-    'https://lunaenterprises.info/wp-content/uploads/2022/09/Cat-Mountain-Residence_2.jpg',
-    'https://lunaenterprises.info/wp-content/uploads/2022/09/Far-Pond-House_1.jpg',
+  List img = [
+    "20230313_153002.jpg",
+    "20230412_115009.jpg",
+    "20230412_115036.jpg",
+    "20230417_173334.jpg",
+    "20230428_110118.jpg",
+    "20230517_130221.jpg",
+    "20230616_171851.jpg",
+    "20240206_093946.jpg",
+    "20230718_151310.jpg",
+    "20230828_111032.jpg",
+    "Front Right.JPG",
+    "20240907_125548.jpg",
+    "inline-909ddc952569738a28be9e9895995a95.jpg",
+    "20230828_111147.jpg",
+    "20240130_110505.jpg",
+    "Resized_20210320_132531_629897463582730.jpeg",
+    "20230616_172333.jpg",
+    "Back Left.JPG",
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,68 +59,40 @@ class _GalleryPageState extends State<GalleryPage> {
             Expanded(
               child: ListView(
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Gallery',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          decorationColor: AppThemes.primaryColor,
-                          color: AppThemes.whiteColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
+                  Text(
+                    'Gallery',
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      decorationColor: AppThemes.primaryColor,
+                      color: AppThemes.whiteColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  20.height,
+                  GridView.builder(
+                    padding: EdgeInsets.zero,
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: img.length,
+                    gridDelegate: SliverWovenGridDelegate.count(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
+                      pattern: [
+                        WovenGridTile(1),
+                        WovenGridTile(
+                          5 / 7,
+                          crossAxisRatio: 0.9,
+                          alignment: AlignmentDirectional.centerEnd,
                         ),
-                      ),
-                      20.height,
-                      FutureBuilder<dynamic>(
-                        future: getData(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else if (snapshot.data != '0') {
-                            return GridView.builder(
-                              padding: EdgeInsets.zero,
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: myList.length,
-                              gridDelegate: SliverWovenGridDelegate.count(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 8,
-                                crossAxisSpacing: 8,
-                                pattern: [
-                                  WovenGridTile(1),
-                                  WovenGridTile(
-                                    5 / 7,
-                                    crossAxisRatio: 0.9,
-                                    alignment: AlignmentDirectional.centerEnd,
-                                  ),
-                                ],
-                              ),
-                              itemBuilder: (context, index) {
-                                return GridChild(
-                                  url: myList[index],
-                                );
-                              },
-                            );
-                          } else {
-                            return Center(
-                              child: Text(
-                                '...',
-                                style: TextStyle(
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                    ],
+                      ],
+                    ),
+                    itemBuilder: (context, index) {
+                      return GridChild(
+                        url: "assets/house_images/${img[index]}",
+                      );
+                    },
                   ),
                 ],
               ).addPadding(horizontal: 25),
@@ -148,19 +122,23 @@ class GridChild extends StatelessWidget {
         Navigator.push(
             context,
             PageTransition(
-                child: ImageView(url: url), type: PageTransitionType.fade));
+                child: ImageView(
+                  url: url,
+                  isLocal: true,
+                ),
+                type: PageTransitionType.fade));
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
-        child: Image.network(
+        child: Image.asset(
           url,
           fit: BoxFit.fill,
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) return child;
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          },
+          // loadingBuilder: (context, child, loadingProgress) {
+          //   if (loadingProgress == null) return child;
+          //   return Center(
+          //     child: CircularProgressIndicator(),
+          //   );
+          // },
         ),
       ),
     );

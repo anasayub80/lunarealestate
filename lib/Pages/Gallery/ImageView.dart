@@ -3,8 +3,10 @@ import 'package:photo_view/photo_view.dart';
 
 // ignore: must_be_immutable
 class ImageView extends StatelessWidget {
+  final bool? isLocal;
   String url;
-  ImageView({Key? key, required this.url}) : super(key: key);
+  ImageView({Key? key, required this.url, this.isLocal = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,9 @@ class ImageView extends StatelessWidget {
               backgroundDecoration: BoxDecoration(
                 color: Color(0xff090C1D),
               ),
-              imageProvider: NetworkImage(url),
+              imageProvider: isLocal!
+                  ? AssetImage(url) as ImageProvider<Object>
+                  : NetworkImage(url) as ImageProvider<Object>,
             ),
           ),
         ));
