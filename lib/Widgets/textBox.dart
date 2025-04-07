@@ -31,10 +31,10 @@ class textBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xff22252A),
-        borderRadius: BorderRadius.circular(36),
+        color: Color(0xff3B3C3E),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: Color(0xff494748),
+          color: Color(0xff646566),
         ),
       ),
       height: 55,
@@ -56,7 +56,7 @@ class textBox extends StatelessWidget {
                   ? isSvg
                       ? icon
                       : Icon(icon, color: AppThemes.primaryColor)
-                  : SizedBox.shrink(),
+                  : null,
               // focusColor: AppThemes.primaryColor,
               focusedBorder: InputBorder.none,
               labelStyle: TextStyle(
@@ -110,9 +110,9 @@ class _PassTextBoxState extends State<PassTextBox> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xff22252A),
-        borderRadius: BorderRadius.circular(36),
-        border: Border.all(color: Color(0xff494748)),
+        color: Color(0xff3B3C3E),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Color(0xff646566)),
       ),
       height: 55,
       child: Center(
@@ -124,11 +124,10 @@ class _PassTextBoxState extends State<PassTextBox> {
           obscureText: !_passwordVisible, // Manage password visibility
           decoration: InputDecoration(
             hintText: widget.hint,
-            icon: SvgPicture.asset('assets/icons/password_icon.svg'),
             suffixIcon: IconButton(
               icon: Icon(
                 _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                color: Colors.grey,
+                color: AppThemes.secondarycolor,
               ),
               onPressed: () {
                 setState(() {

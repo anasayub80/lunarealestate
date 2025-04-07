@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/ProfilePage/ProfilePage.dart';
@@ -20,49 +21,18 @@ class GlobalAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      Provider.of<UserData>(context, listen: false)
-                              .name
-                              ?.capitalize() ??
-                          'John Doe',
-                      style: TextStyle(
-                          color: AppThemes.whiteColor,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w600,
-                          wordSpacing: 3.1),
-                    ),
-                    // 4.height,
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.email,
-                          color: AppThemes.secondarycolor,
-                          size: 20,
-                        ),
-                        4.width,
-                        Text(
-                          Provider.of<UserData>(context, listen: false)
-                              .email
-                              .toString(),
-                          style: TextStyle(
-                            color: AppThemes.whiteColor,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+          SizedBox(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // 4.height,
+                SvgPicture.asset(
+                  'assets/icons/menu.svg',
+                  height: 19,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Spacer(),
           InkWell(

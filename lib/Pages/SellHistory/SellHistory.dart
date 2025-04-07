@@ -81,6 +81,7 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              10.height,
               Visibility(
                   visible: widget.from != 'nav',
                   replacement: SizedBox(
@@ -92,44 +93,6 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  20.height,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      getHeader(
-                        'My Houses',
-                        horizontalPadding: 8,
-                      ),
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              togglegrid();
-                            },
-                            child: SvgPicture.asset(
-                              'assets/icons/grid_icon.svg',
-                              colorFilter: ColorFilter.mode(
-                                  !isGrid ? Colors.white : Color(0xFFD3A45C),
-                                  BlendMode.srcIn),
-                            ),
-                          ),
-                          12.width,
-                          GestureDetector(
-                            onTap: () {
-                              togglegrid();
-                            },
-                            child: SvgPicture.asset(
-                              'assets/icons/list_icon.svg',
-                              colorFilter: ColorFilter.mode(
-                                  !isGrid ? Colors.white : Color(0xFFD3A45C),
-                                  BlendMode.srcIn),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
                   20.height,
                   FutureBuilder(
                       future: backend().fetchProperty(

@@ -129,7 +129,7 @@ class GridChild extends StatelessWidget {
                 type: PageTransitionType.fade));
       },
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(15.0),
         child: Image.asset(
           url,
           fit: BoxFit.fill,

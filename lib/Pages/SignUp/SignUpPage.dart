@@ -9,6 +9,7 @@ import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
+import 'package:lunarestate/Pages/Login/login_page.dart';
 import 'package:lunarestate/Pages/OTPVerification/verify_phone.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:floading/floading.dart';
@@ -49,14 +50,13 @@ class _SignUpPageState extends State<SignUpPage> {
             // mainAxisAlignment: MainAxisAlignment.start,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              75.height,
               Container(
                 child: Image.asset(
-                  'assets/icons/homeLogo.png',
+                  'assets/icons/logo.png',
                   fit: BoxFit.contain,
                 ),
-                width: 175,
-                height: 106,
+                width: 220,
+                height: 220,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -66,11 +66,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   Text(
                     'SIGN UP',
                     style: TextStyle(
-                      color: AppThemes.primaryColor,
-                      fontSize: 18.0,
+                      color: AppThemes.secondarycolor,
+                      fontSize: 22.0,
                       fontWeight: FontWeight.w600,
                       // letterSpacing:
-                      letterSpacing: 3.2,
                     ),
                   ),
                   Text(
@@ -82,9 +81,17 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   40.height,
+                  Text(
+                    'User Info',
+                    style: TextStyle(
+                      color: AppThemes.whiteColor,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  10.height,
                   textBox(
-                      icon: SvgPicture.asset("assets/icons/person_icon.svg"),
-                      isSvg: true,
+                      icon: null,
                       validator: (p0) {
                         return null;
                       },
@@ -96,7 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   textBox(
                       // icon: Icons.email_outlined,
-                      icon: SvgPicture.asset('assets/icons/email_icon.svg'),
+                      icon: null,
                       isSvg: true,
                       validator: (p0) {
                         return null;
@@ -136,7 +143,17 @@ class _SignUpPageState extends State<SignUpPage> {
                       Ktype: TextInputType.number,
                       hint: 'Phone number'),
                   SizedBox(
-                    height: 25,
+                    height: 40,
+                  ),
+                  Text(
+                    'Set Your Credential',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white),
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   PassTextBox(
                       passwordController: _passwordController,
@@ -151,9 +168,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 25,
                   ),
                   roundButton(
-                    height: context.screenHeight * 0.057,
+                    height: 64,
+                    // height: context.screenHeight * 0.057,
                     horizontalPadding: 0,
-                    circleBorder: 31,
+                    circleBorder: 12,
                     onClick: (() async {
                       if (_emailController.text.trim().isEmpty ||
                           _passwordController.text.trim().isEmpty ||
@@ -227,7 +245,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   GestureDetector(
                     onTap: () async {
                       FocusManager.instance.primaryFocus?.unfocus();
-                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              child: LoginPage(),
+                              isIos: true,
+                              duration: Duration(milliseconds: 700),
+                              type: PageTransitionType.bottomToTop));
                     },
                     child: Center(
                       child: RichText(
@@ -242,7 +266,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   text: ' SIGN IN',
                                   style: TextStyle(
                                       fontSize: 16,
-                                      color: AppThemes.primaryColor,
+                                      color: AppThemes.secondarycolor,
                                       fontWeight: FontWeight.w400)),
                             ]),
                       ),

@@ -51,21 +51,15 @@ class CustomAppBarWithCircleback extends StatelessWidget {
                   context.popFromScreen();
                 },
                 child: CircleAvatar(
-                  backgroundColor: AppThemes.primaryColor,
+                  backgroundColor: Colors.white,
                   radius: 12,
                   child: Icon(
                     Icons.keyboard_arrow_left,
                     size: 24,
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                 ),
               ),
-              Text(
-                "Back",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ).addPadding(left: 10)
             ],
           ).addPadding(left: 10),
         ),

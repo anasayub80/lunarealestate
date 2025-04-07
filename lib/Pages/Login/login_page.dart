@@ -56,11 +56,11 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                130.height,
+                80.height,
                 Container(
-                  child: Image.asset('assets/icons/icon.png'),
+                  child: Image.asset('assets/icons/logo.png'),
                   width: size.width,
-                  height: 75,
+                  height: 152,
                 ),
                 30.height,
                 Expanded(
@@ -72,10 +72,9 @@ class _LoginPageState extends State<LoginPage> {
                       Text(
                         'SIGN IN',
                         style: TextStyle(
-                          color: AppThemes.primaryColor,
-                          fontSize: 18.0,
+                          color: Color(0xffEFD397),
+                          fontSize: 22.0,
                           fontWeight: FontWeight.w600,
-                          letterSpacing: 3.2,
                         ),
                       ),
                       Text(
@@ -88,14 +87,13 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       40.height,
                       textBox(
-                          icon: SvgPicture.asset('assets/icons/email_icon.svg'),
+                          icon: null,
                           controller: _emailController,
-                          isSvg: true,
                           validator: (p0) {
                             return null;
                           },
                           Ktype: TextInputType.emailAddress,
-                          hint: 'Enter Email'),
+                          hint: 'Email here'),
                       SizedBox(
                         height: 25,
                       ),
@@ -103,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                           passwordController: _passwordController,
                           hint: 'Enter Password'),
                       SizedBox(
-                        height: 25,
+                        height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,14 +111,30 @@ class _LoginPageState extends State<LoginPage> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Checkbox(
-                                  activeColor: AppThemes.primaryColor,
-                                  value: isRememberMe,
-                                  onChanged: (c) {
-                                    setState(() {
-                                      isRememberMe = c ?? false;
-                                    });
-                                  }),
+                              Transform.scale(
+                                scale: 1.2,
+                                child: Checkbox(
+                                    fillColor: MaterialStateProperty
+                                        .resolveWith<Color?>(
+                                      (Set<MaterialState> states) {
+                                        // Return black color when unchecked
+                                        if (states
+                                            .contains(MaterialState.selected)) {
+                                          return AppThemes
+                                              .primaryColor; // Active state color
+                                        }
+                                        return Colors
+                                            .black; // Inactive state color
+                                      },
+                                    ),
+                                    activeColor: AppThemes.primaryColor,
+                                    value: isRememberMe,
+                                    onChanged: (c) {
+                                      setState(() {
+                                        isRememberMe = c ?? false;
+                                      });
+                                    }),
+                              ),
                               Text(
                                 "Remember",
                                 style: TextStyle(
@@ -144,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                               );
                             },
                             child: Text(
-                              'trouble signing in?',
+                              'Forget Password',
                               style: TextStyle(
                                 color: Color(0xFFE2BC81),
                                 fontWeight: FontWeight.w200,
@@ -155,12 +169,14 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                       SizedBox(
-                        height: 25,
+                        height: 80,
                       ),
                       roundButton(
-                        height: context.screenHeight * 0.057,
+                        height: 62,
+                        // height: context.screenHeight * 0.057,
                         horizontalPadding: 0,
-                        circleBorder: 31,
+                        circleBorder: 12,
+
                         onClick: (() async {
                           FocusManager.instance.primaryFocus?.unfocus();
                           if (_emailController.text.trim().isEmpty ||
@@ -278,15 +294,15 @@ class _LoginPageState extends State<LoginPage> {
                             text: TextSpan(
                                 text: "Don't have an Account?",
                                 style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w300,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
                                 ),
                                 children: [
                                   TextSpan(
                                     text: ' SIGN UP',
                                     style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppThemes.primaryColor,
+                                      fontSize: 18,
+                                      color: AppThemes.secondarycolor,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),

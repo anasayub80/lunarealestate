@@ -15,7 +15,7 @@ class roundButton extends StatelessWidget {
     this.textColor,
     this.buttonWidth = double.infinity,
     this.height = 40,
-    this.circleBorder = 18,
+    this.circleBorder = 12,
   });
 
   @override
