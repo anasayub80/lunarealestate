@@ -169,7 +169,7 @@ class ImagePickWidget extends StatelessWidget {
                   text: 'Upload atleast',
                   children: [
                     TextSpan(
-                        text: ' 10 ',
+                        text: ' 4 ',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         )),

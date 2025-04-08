@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Models/SurveyModelMore.dart';
 import 'package:lunarestate/Pages/Survery/surveyData.dart';
-import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:lunarestate/Widgets/textBox.dart';
 import 'package:lunarestate/pdf/pdf_view.dart';
@@ -63,17 +61,19 @@ class _AgreementInfoState extends State<AgreementInfo> {
     return Form(
       key: basicInfoFormKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          getHeader(
-            'Agreement Info',
-          ),
+          Text('Agreement Info',
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontFamily: 'Outfit')),
           45.height,
           textBox(
             controller: agreementNameController,
             hint: 'Name',
-            icon: SvgPicture.asset(
-              'assets/icons/person_icon.svg',
-            ),
+            icon: null,
             validator: (email) {
               if (agreementNameController.text.isNotEmpty)
                 return null;
@@ -96,9 +96,7 @@ class _AgreementInfoState extends State<AgreementInfo> {
                 return 'Enter Owner Number';
             },
             hint: 'Your Mobile Number',
-            icon: SvgPicture.asset(
-              'assets/icons/phone_icon.svg',
-            ),
+            icon: null,
             isSvg: true,
           ).addPadding(
             horizontal: 10,
@@ -114,9 +112,7 @@ class _AgreementInfoState extends State<AgreementInfo> {
                 return 'Enter Address Number';
             },
             hint: 'Enter email address',
-            icon: SvgPicture.asset(
-              'assets/icons/email_icon.svg',
-            ),
+            icon: null,
             isSvg: true,
           ).addPadding(
             horizontal: 10,
@@ -136,9 +132,7 @@ class _AgreementInfoState extends State<AgreementInfo> {
                 return 'Enter address';
             },
             hint: 'Address here',
-            icon: SvgPicture.asset(
-              'assets/icons/location.svg',
-            ),
+            icon: null,
             isSvg: true,
           ).addPadding(
             horizontal: 10,

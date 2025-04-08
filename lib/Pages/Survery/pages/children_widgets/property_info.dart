@@ -1,8 +1,11 @@
+import 'dart:io';
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
+import 'package:lunarestate/Pages/Survery/pages/children_widgets/upload_photos.dart';
+import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
 import 'package:lunarestate/Pages/Survery/surveyData.dart';
-import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:lunarestate/Widgets/textBox.dart';
 import 'package:provider/provider.dart';
@@ -29,14 +32,19 @@ class _PropertyInfoState extends State<PropertyInfo> {
   @override
   Widget build(BuildContext context) {
     var prov = Provider.of<SurvProvider>(context, listen: false);
+    final provider = Provider.of<SellHouseProvider>(context);
     return Form(
       key: propInfoFormKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          getHeader(
-            'Property Info',
-          ),
-          45.height,
+          Text('Property Info',
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontFamily: 'Outfit')),
+          10.height,
           textBox(
             controller: areaSize,
             Ktype: TextInputType.number,
@@ -51,9 +59,7 @@ class _PropertyInfoState extends State<PropertyInfo> {
                 return 'Enter areasize';
             },
             hint: 'Lot Size',
-            icon: SvgPicture.asset(
-              'assets/icons/lot_size_icon.svg',
-            ),
+            icon: null,
             isSvg: true,
           ).addPadding(
             horizontal: 10,
@@ -73,9 +79,7 @@ class _PropertyInfoState extends State<PropertyInfo> {
                 return 'Enter bedrooms';
             },
             hint: 'How many bedrooms?',
-            icon: SvgPicture.asset(
-              'assets/icons/bedroom_icon.svg',
-            ),
+            icon: null,
             isSvg: true,
           ).addPadding(
             horizontal: 10,
@@ -94,9 +98,7 @@ class _PropertyInfoState extends State<PropertyInfo> {
                   .savePropInfoData(context);
             },
             hint: 'How may bathrooms?',
-            icon: SvgPicture.asset(
-              'assets/icons/bathroom_icon.svg',
-            ),
+            icon: null,
             isSvg: true,
             Ktype: TextInputType.number,
           ).addPadding(
@@ -116,9 +118,7 @@ class _PropertyInfoState extends State<PropertyInfo> {
                   .savePropInfoData(context);
             },
             hint: 'How many stories?',
-            icon: SvgPicture.asset(
-              'assets/icons/stories_icon.svg',
-            ),
+            icon: null,
             isSvg: true,
             Ktype: TextInputType.number,
           ).addPadding(
@@ -138,57 +138,150 @@ class _PropertyInfoState extends State<PropertyInfo> {
                   .savePropInfoData(context);
             },
             hint: 'Interior Sq Ft',
-            icon: SvgPicture.asset(
-              'assets/icons/ft_icon.svg',
-            ),
+            icon: null,
             isSvg: true,
             Ktype: TextInputType.number,
           ).addPadding(
             horizontal: 10,
           ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              40.height,
+              Text('Upload Photos',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontFamily: 'Outfit')),
+              10.height,
+              Consumer<SellHouseProvider>(builder: (context, p, _) {
+                return Visibility(
+                    visible: provider.selectedHouseImages.isEmpty,
+                    replacement: Column(
+                      children: [
+                        ListView.builder(
+                          itemCount: p.selectedHouseImages.length,
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (c, i) {
+                            return Column(
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    12.width,
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Image.file(
+                                        File(p.selectedHouseImages[i].path),
+                                        fit: BoxFit.cover,
+                                        height: 100,
+                                        width: 70,
+                                      ),
+                                    ),
+                                    12.width,
+                                    Column(children: [
+                                      AutoSizeText(
+                                        // provider.selectedHouseImages[i].name,
+                                        "Image_$i",
+                                        maxLines: 1,
+                                        maxFontSize: 17,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ]),
+                                    Spacer(),
+                                    InkWell(
+                                      onTap: () {
+                                        p.removeSelectedImage(i);
+                                      },
+                                      child: Icon(
+                                        Icons.close,
+                                        color: Color(0Xff6A6464),
+                                      ),
+                                    ),
+                                    4.width,
+                                  ],
+                                ),
+                                12.height,
+                              ],
+                            );
+                          },
+                        ),
+                        Visibility(
+                            visible: images.length != 4,
+                            child: ImagePickWidget(provider: provider)),
+                      ],
+                    ),
+                    child: ImagePickWidget(provider: provider));
+              }),
+              12.height,
+            ],
+          ),
           40.height,
-          roundButton(
-            horizontalPadding: 15,
-            buttonWidth: double.infinity,
-            height: 55,
-            circleBorder: 30,
-            onClick: () async {
-              // Navigator.push(
-              //     context,
-              //     PageTransition(
-              //       isIos: true,
-              //       duration: Duration(milliseconds: 700),
-              //       child: SellHousePage(
-              //         child: UploadPhotos(),
-              //       ),
-              //       type: PageTransitionType.fade,
-              //     ));
-              if (propInfoFormKey.currentState!.validate()) {
-                Provider.of<SurvProvider>(context, listen: false)
-                    .savePropInfoData(context);
-                PropertyInfoModel propInfoModel = PropertyInfoModel(
-                  bedrooms: bedrooms.text,
-                  bathrooms: bathrooms.text,
-                  areasize: areaSize.text,
-                  stories: stories.text,
-                  formid: prov.formid!,
-                  tab: 'property_info',
-                  squarefootage: squarefootageController.text,
-                  userid: Provider.of<UserData>(context, listen: false).id!,
-                );
+          Visibility(
+            visible: provider.selectedHouseImages.isNotEmpty,
+            child: roundButton(
+              horizontalPadding: 15,
+              buttonWidth: double.infinity,
+              height: 55,
+              circleBorder: 12,
+              onClick: () async {
+                // Navigator.push(
+                //     context,
+                //     PageTransition(
+                //       isIos: true,
+                //       duration: Duration(milliseconds: 700),
+                //       child: SellHousePage(
+                //         child: UploadPhotos(),
+                //       ),
+                //       type: PageTransitionType.fade,
+                //     ));
+                if (propInfoFormKey.currentState!.validate()) {
+                  Provider.of<SurvProvider>(context, listen: false)
+                      .savePropInfoData(context);
+                  PropertyInfoModel propInfoModel = PropertyInfoModel(
+                    bedrooms: bedrooms.text,
+                    bathrooms: bathrooms.text,
+                    areasize: areaSize.text,
+                    stories: stories.text,
+                    formid: prov.formid!,
+                    tab: 'property_info',
+                    squarefootage: squarefootageController.text,
+                    userid: Provider.of<UserData>(context, listen: false).id!,
+                  );
 
-                // ignore:
-                var res = await submitpropertyInfo(
-                    false, propInfoModel.toJson(), context);
-                if (res == '1') {
-                  prov.activeStepIndex++;
-                  prov.saveStepIndex(prov.activeStepIndex);
-                } else {
-                  Utils.showSnackbar('Something Wrong', Colors.red, context);
+                  // ignore:
+                  var res = await submitpropertyInfo(
+                      false, propInfoModel.toJson(), context);
+                  if (res == '1') {
+                    if (images.isEmpty) {
+                      Utils.showSnackbar(
+                        'Select at least 4 Image',
+                        Colors.red,
+                        context,
+                      );
+                    } else if (images.length >= 4) {
+                      var res = await submitMultipleImages(context);
+                      if (res == '1') {
+                        prov.activeStepIndex += 1;
+                        prov.saveStepIndex(prov.activeStepIndex);
+                      }
+                    } else {
+                      Utils.showSnackbar(
+                          'Select at least 4 Image', Colors.red, context);
+                    }
+                  } else {
+                    Utils.showSnackbar('Something Wrong', Colors.red, context);
+                  }
                 }
-              }
-            },
-            text: 'NEXT',
+              },
+              text: 'NEXT',
+            ),
           ),
         ],
       ),

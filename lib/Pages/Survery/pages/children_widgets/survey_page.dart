@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Survery/survey_questions.dart';
-import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -41,10 +41,14 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
     var prov = Provider.of<SurvProvider>(context, listen: false);
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        getHeader(
-          'Survey',
-        ),
+        Text('Suvey',
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+                color: AppThemes.secondarycolor,
+                fontFamily: 'Outfit')),
         Column(
           children: [
             TextButton(
@@ -124,6 +128,306 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                 },
                 box1: langloc.yes,
                 box2: 'No'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      langloc.timeframe,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      langloc.eg,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ],
+                ),
+                18.width,
+                Container(
+                  height: 50,
+                  width: 100,
+                  decoration: AppThemes.commonBoxDecoration,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 50,
+                        child: DropdownButtonFormField<int>(
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            color: AppThemes.secondarycolor,
+                          ),
+                          value: int.tryParse(timeFrameofPro
+                              .text), // Parse the existing value from the text field
+                          style: TextStyle(color: Colors.white),
+                          dropdownColor: Colors.black,
+                          onChanged: (int? newValue) {
+                            if (newValue != null) {
+                              timeFrameofPro.text = newValue
+                                  .toString(); // Update the text field with selected value
+                              Provider.of<SurvProvider>(context, listen: false)
+                                  .saveSurveyMoreData(Provider.of<UserData>(
+                                          context,
+                                          listen: false)
+                                      .id!);
+                            }
+                          },
+                          items: List.generate(
+                                  100,
+                                  (index) =>
+                                      index +
+                                      1) // Generates a list of numbers 1 to 100
+                              .map<DropdownMenuItem<int>>(
+                                (int value) => DropdownMenuItem<int>(
+                                  value: value,
+                                  child: Text(value.toString(),
+                                      style: TextStyle(color: Colors.white)),
+                                ),
+                              )
+                              .toList(),
+                          decoration: InputDecoration(
+                            enabledBorder: InputBorder.none,
+                            border: InputBorder.none,
+                            hintStyle: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(),
+              ],
+            ),
+            10.height,
+            Divider(
+              thickness: 0.5,
+              color: Color(0xff424448),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  langloc.ratecond,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      FontAwesomeIcons.solidStar,
+                      size: 18,
+                      color: AppThemes.primaryColor,
+                    ),
+                    10.width,
+                    Container(
+                      height: 50,
+                      width: 100,
+                      decoration: AppThemes.commonBoxDecoration,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 50,
+                            child: DropdownButtonFormField<int>(
+                              icon: Icon(
+                                Icons.arrow_drop_down,
+                                color: AppThemes.secondarycolor,
+                              ),
+                              value: int.tryParse(timeFrameofPro
+                                  .text), // Parse the existing value from the text field
+                              style: TextStyle(color: Colors.white),
+                              dropdownColor: Colors.black,
+                              onChanged: (int? newValue) {
+                                if (newValue != null) {
+                                  timeFrameofPro.text = newValue
+                                      .toString(); // Update the text field with selected value
+                                  Provider.of<SurvProvider>(context,
+                                          listen: false)
+                                      .saveSurveyMoreData(Provider.of<UserData>(
+                                              context,
+                                              listen: false)
+                                          .id!);
+                                }
+                              },
+                              items: List.generate(
+                                      5,
+                                      (index) =>
+                                          index +
+                                          1) // Generates a list of numbers 1 to 5
+                                  .map<DropdownMenuItem<int>>(
+                                    (int value) => DropdownMenuItem<int>(
+                                      value: value,
+                                      child: Text(value.toString(),
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                    ),
+                                  )
+                                  .toList(),
+                              decoration: InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            10.height,
+            Divider(
+              thickness: 0.5,
+              color: Color(0xff424448),
+            ),
+            if (backtaxValY == 'true') ...[
+              ListTile(
+                title: Text(
+                  langloc.backedtaxamount,
+                  style: TextStyle(color: AppThemes.primaryColor),
+                ),
+                leading: Icon(
+                  FontAwesomeIcons.moneyBill,
+                  color: Colors.white,
+                ),
+                subtitle: TextField(
+                  controller: backedTaxAmount,
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.start,
+                  onSubmitted: (value) {
+                    Provider.of<SurvProvider>(context, listen: false)
+                        .saveSurveyMoreData(
+                            Provider.of<UserData>(context, listen: false).id!);
+                  },
+                  decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    hintText: langloc.enteramount,
+                    hintStyle: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+            10.height,
+            if (lopValY == 'true') ...[
+              ListTile(
+                title: Text(
+                  langloc.lopexplain,
+                  style: TextStyle(color: AppThemes.primaryColor),
+                ),
+                leading: Icon(
+                  Icons.houseboat_outlined,
+                  color: Colors.white,
+                ),
+                subtitle: TextField(
+                  controller: leanOnProp,
+                  keyboardType: TextInputType.name,
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.start,
+                  onSubmitted: (value) {
+                    Provider.of<SurvProvider>(context, listen: false)
+                        .saveSurveyMoreData(
+                            Provider.of<UserData>(context, listen: false).id!);
+                  },
+                  decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    hintText: langloc.explease,
+                    hintStyle: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+            if (lockBoxValY == 'true')
+              ListTile(
+                title: Text(
+                  langloc.describeplace,
+                  style: TextStyle(color: AppThemes.primaryColor),
+                ),
+                leading: Icon(
+                  Icons.add_box,
+                  color: Colors.white,
+                ),
+                subtitle: TextField(
+                  controller: lockBoxPlaced,
+                  keyboardType: TextInputType.name,
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.start,
+                  onSubmitted: (value) {
+                    Provider.of<SurvProvider>(context, listen: false)
+                        .saveSurveyMoreData(
+                            Provider.of<UserData>(context, listen: false).id!);
+                  },
+                  decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                    hintText: langloc.describe,
+                    hintStyle: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ChoiceTileNew(
+                y: fastcashY == 'none'
+                    ? false
+                    : fastcashY == 'true'
+                        ? true
+                        : false,
+                n: fastcashY == 'none'
+                    ? false
+                    : fastcashY == 'true'
+                        ? false
+                        : true,
+                index: ' ',
+                title: langloc.fastcash,
+                onChange1: (newVal) {
+                  if (newVal!) {
+                    setState(() {
+                      fastcashY = 'true';
+                    });
+                  } else {
+                    setState(() {
+                      fastcashY = 'none';
+                    });
+                  }
+                  Provider.of<SurvProvider>(context, listen: false)
+                      .saveSurveyMoreData(
+                          Provider.of<UserData>(context, listen: false).id!);
+                },
+                onChange2: (newVal) {
+                  if (newVal!) {
+                    setState(() {
+                      fastcashY = 'false';
+                    });
+                  } else {
+                    setState(() {
+                      exmValY = 'none';
+                    });
+                  }
+                  print(newVal);
+                  Provider.of<SurvProvider>(context, listen: false)
+                      .saveSurveyMoreData(
+                          Provider.of<UserData>(context, listen: false).id!);
+                },
+                box1: langloc.yes,
+                box2: 'No'),
+            SizedBox(
+              height: 10,
+            ),
             ChoiceTileNew(
                 y: surveryValY == 'none'
                     ? false
@@ -828,7 +1132,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
           horizontalPadding: 15,
           buttonWidth: double.infinity,
           height: 55,
-          circleBorder: 30,
+          circleBorder: 12,
           onClick: () async {
             // Navigator.push(
             //     context,
@@ -873,7 +1177,7 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
               Utils.showSnackbar('Something Wrong', Colors.red, context);
             }
           },
-          text: 'NEXT',
+          text: 'Finish',
         ),
       ],
     );

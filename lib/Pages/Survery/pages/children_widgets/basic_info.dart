@@ -31,17 +31,20 @@ class _BasicInfoState extends State<BasicInfo> {
     return Form(
       key: basicInfoFormKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          getHeader(
-            'Basic Info',
-          ),
-          45.height,
+          10.height,
+          Text('Basic Info',
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontFamily: 'Outfit')),
+          20.height,
           textBox(
             controller: ownerName,
             hint: 'Name of owner',
-            icon: SvgPicture.asset(
-              'assets/icons/person_icon.svg',
-            ),
+            icon: null,
             validator: (email) {
               if (ownerName.text.isNotEmpty)
                 return null;
@@ -64,9 +67,7 @@ class _BasicInfoState extends State<BasicInfo> {
                 return 'Enter Owner Number';
             },
             hint: 'Best Number to contact you?',
-            icon: SvgPicture.asset(
-              'assets/icons/phone_icon.svg',
-            ),
+            icon: null,
             isSvg: true,
           ).addPadding(
             horizontal: 10,
@@ -85,15 +86,20 @@ class _BasicInfoState extends State<BasicInfo> {
                 return 'Enter property title';
             },
             hint: 'Property Title',
-            icon: SvgPicture.asset(
-              'assets/icons/title_icon.svg',
-            ),
+            icon: null,
             isSvg: true,
             Ktype: TextInputType.text,
           ).addPadding(
             horizontal: 10,
           ),
-          20.height,
+          40.height,
+          Text('Address',
+              style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontFamily: 'Outfit')),
+          10.height,
           textBox(
             controller: locationController,
             Ktype: TextInputType.streetAddress,
@@ -107,10 +113,28 @@ class _BasicInfoState extends State<BasicInfo> {
               else
                 return 'Enter address';
             },
-            hint: 'Address here',
-            icon: SvgPicture.asset(
-              'assets/icons/location.svg',
-            ),
+            hint: 'Street, building, house number',
+            icon: null,
+            isSvg: true,
+          ).addPadding(
+            horizontal: 10,
+          ),
+          15.height,
+          textBox(
+            controller: location2Controller,
+            Ktype: TextInputType.streetAddress,
+            onFieldSubmitted: (value) {
+              Provider.of<SurvProvider>(context, listen: false)
+                  .savePropInfoData(context);
+            },
+            validator: (address) {
+              if (location2Controller.text.isNotEmpty)
+                return null;
+              else
+                return 'Enter address';
+            },
+            hint: 'Apartment name',
+            icon: null,
             isSvg: true,
           ).addPadding(
             horizontal: 10,
@@ -120,7 +144,7 @@ class _BasicInfoState extends State<BasicInfo> {
             buttonWidth: double.infinity,
             horizontalPadding: 15,
             height: 55,
-            circleBorder: 30,
+            circleBorder: 12,
             onClick: () async {
               if (basicInfoFormKey.currentState!.validate()) {
                 Provider.of<SurvProvider>(context, listen: false)

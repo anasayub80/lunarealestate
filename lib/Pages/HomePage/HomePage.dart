@@ -12,10 +12,12 @@ import 'package:lunarestate/Config/customDelgate.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/Gallery/GalleryPage.dart';
+import 'package:lunarestate/Pages/HomePage/Widgets/sell_bottom_sheet.dart';
 import 'package:lunarestate/Pages/SellHistory/fullDetail.dart';
 import 'package:lunarestate/Pages/SellHistory/listview_house.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
+import 'package:lunarestate/Pages/property_full_detail/property_full_detal.dart';
 import 'package:lunarestate/Service/UserData.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Widgets/global_appbar.dart';
@@ -295,14 +297,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       roundButton(
                         height: 62,
                         onClick: () {
-                          Navigator.push(
-                              context,
-                              PageTransition(
-                                isIos: true,
-                                duration: Duration(milliseconds: 700),
-                                child: InitializedSellHouse(),
-                                type: PageTransitionType.fade,
-                              ));
+                          showSellBottomSheet(context);
                         },
                         text: 'Sell Your House',
                         buttonWidth: double.infinity,
@@ -458,7 +453,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                       Navigator.push(context,
                                                           MaterialPageRoute(
                                                         builder: (context) {
-                                                          return FullDetail(
+                                                          return PropertyFullDetail(
                                                               from: 'name',
                                                               formId: snapshot
                                                                       .data[
@@ -512,8 +507,25 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                           right:
                                                                               5,
                                                                           child:
-                                                                              SvgPicture.asset(
-                                                                            'assets/icons/edit_pencil.svg',
+                                                                              GestureDetector(
+                                                                            onTap:
+                                                                                () {
+                                                                              Navigator.push(
+                                                                                  context,
+                                                                                  PageTransition(
+                                                                                    isIos: true,
+                                                                                    duration: Duration(milliseconds: 700),
+                                                                                    child: FullDetail(
+                                                                                      formId: snapshot.data[index]['id'],
+                                                                                      from: 'name',
+                                                                                    ),
+                                                                                    type: PageTransitionType.fade,
+                                                                                  ));
+                                                                            },
+                                                                            child:
+                                                                                SvgPicture.asset(
+                                                                              'assets/icons/edit_pencil.svg',
+                                                                            ),
                                                                           )),
                                                                       Align(
                                                                         alignment:

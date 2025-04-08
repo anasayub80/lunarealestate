@@ -47,6 +47,8 @@ TextEditingController bathrooms = TextEditingController();
 TextEditingController areaSize = TextEditingController();
 TextEditingController stories = TextEditingController();
 TextEditingController locationController = TextEditingController();
+TextEditingController location2Controller = TextEditingController();
+
 TextEditingController squarefootageController = TextEditingController();
 // survery checkbox bool
 TextEditingController timeFrameofPro = TextEditingController(text: '1');

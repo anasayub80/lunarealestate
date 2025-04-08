@@ -52,24 +52,30 @@ class _SurveyPage2State extends State<SurveyPage2> {
                     "assets/icons/time_frame_icon.svg",
                     height: 40,
                   ),
-                  Text(
-                    langloc.timeframe,
-                    style: TextStyle(
-                      color: AppThemes.secondarycolor,
-                    ),
-                  ),
                   SizedBox(),
                 ],
               ).addPadding(left: 21, top: 21),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    langloc.eg,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        langloc.timeframe,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        langloc.eg,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w300),
+                      ),
+                    ],
                   ),
                   18.width,
                   Container(

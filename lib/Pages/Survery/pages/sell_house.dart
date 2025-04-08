@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
@@ -7,8 +6,6 @@ import 'package:lunarestate/Pages/Survery/pages/children_widgets/agreement_info.
 import 'package:lunarestate/Pages/Survery/pages/children_widgets/basic_info.dart';
 import 'package:lunarestate/Pages/Survery/pages/children_widgets/property_info.dart';
 import 'package:lunarestate/Pages/Survery/pages/children_widgets/survey_page.dart';
-import 'package:lunarestate/Pages/Survery/pages/children_widgets/survey_page_2.dart';
-import 'package:lunarestate/Pages/Survery/pages/children_widgets/upload_photos.dart';
 
 import 'package:lunarestate/Widgets/global_appbar.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +37,7 @@ class _SellHousePageState extends State<SellHousePage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              20.height,
+              GlobalAppBar().addPadding(top: 20),
               SafeArea(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -62,25 +59,18 @@ class _SellHousePageState extends State<SellHousePage> {
                         // }
                       },
                       child: CircleAvatar(
-                        backgroundColor: AppThemes.primaryColor,
+                        backgroundColor: Colors.white,
                         radius: 10,
                         child: Icon(
                           Icons.keyboard_arrow_left,
                           size: 18,
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     ),
-                    Text(
-                      "Back",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ).addPadding(left: 10)
                   ],
                 ).addPadding(left: 10),
               ),
-              GlobalAppBar().addPadding(overall: 10),
               20.height,
               widget.child
             ],
@@ -120,15 +110,12 @@ class InitializedSellHouse extends StatelessWidget {
                         case 1:
                           return SellHousePage(child: PropertyInfo());
                         case 2:
-                          return SellHousePage(child: UploadPhotos());
-                        case 3:
                           return SellHousePage(
                               child: SurveyPageOne(
                             surveyQuestions: null,
                           ));
-                        case 4:
-                          return SellHousePage(child: SurveyPage2());
-                        case 5:
+
+                        case 3:
                           return SellHousePage(
                             child: AgreementInfo(),
                           );

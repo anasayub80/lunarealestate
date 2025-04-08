@@ -111,74 +111,73 @@ class ChoiceTileNew extends StatefulWidget {
 class _ChoiceTileNewState extends State<ChoiceTileNew> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 120,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Color(0xFF22252A),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          width: 1,
-          color: Color(0xFF494748),
-        ),
-      ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            AutoSizeText(
-              widget.title,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
+    return Column(
+      children: [
+        Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: AutoSizeText(
+                  widget.title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                  maxLines: 2,
+                  presetFontSizes: [14, 12, 10, 9],
+                ),
               ),
-              maxLines: 2,
-              presetFontSizes: [14, 12, 10, 9],
-            ),
-            Row(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Checkbox(
-                      value: widget.y,
-                      onChanged: widget.onChange1,
-                      activeColor: Colors.amber,
-                    ),
-                    Text(
-                      widget.box1,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
+              Row(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.box1,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Checkbox(
-                      value: widget.n,
-                      onChanged: widget.onChange2,
-                      activeColor: Colors.amber,
-                    ),
-                    Text(
-                      widget.box2,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
+                      Checkbox(
+                        value: widget.y,
+                        onChanged: widget.onChange1,
+                        activeColor: Colors.amber,
                       ),
-                    ),
-                  ],
-                ),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-            ),
-          ],
-        ).addPadding(horizontal: 10),
-      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.box2,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Checkbox(
+                        value: widget.n,
+                        onChanged: widget.onChange2,
+                        activeColor: Colors.amber,
+                      ),
+                    ],
+                  ),
+                ],
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+              ),
+            ],
+          ).addPadding(horizontal: 10),
+        ),
+        10.height,
+        Divider(
+          thickness: 0.5,
+          color: Color(0xff424448),
+        ),
+      ],
     ).addPadding(vertical: 10);
   }
 }
