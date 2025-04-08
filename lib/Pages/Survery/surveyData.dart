@@ -133,7 +133,7 @@ Future submitpropertyInfo(
         await pref.remove('activeStepIndex');
         await pref.remove('surveyMore');
         await pref.remove('PropInfoData');
-        await pref.remove('PropInfoData');
+        await pref.remove('basicData');
         FLoading.hide();
         Utils.showSnackbar('Property Submitted', Colors.green, context);
         Navigator.of(context).popUntil((route) => route.isFirst);
