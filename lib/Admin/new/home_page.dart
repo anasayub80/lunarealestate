@@ -354,7 +354,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Gallery',
+                                      'Seller request',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 20,
@@ -368,7 +368,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                                 isIos: true,
                                                 duration:
                                                     Duration(milliseconds: 700),
-                                                child: GalleryPage(from: 'btn'),
+                                                child: SellerRequestPage(),
                                                 type: PageTransitionType.fade));
                                       },
                                       child: Text(

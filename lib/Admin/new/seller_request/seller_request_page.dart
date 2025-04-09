@@ -108,42 +108,19 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Seller request',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20,
-                          color: Colors.white),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Text(
+                        'Seller request',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: Colors.white),
+                      ),
                     ),
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            togglegrid();
-                          },
-                          child: SvgPicture.asset(
-                            'assets/icons/grid_icon.svg',
-                            colorFilter: ColorFilter.mode(
-                                !isGrid ? Colors.white : Color(0xFFD3A45C),
-                                BlendMode.srcIn),
-                          ),
-                        ),
-                        12.width,
-                        GestureDetector(
-                          onTap: () {
-                            togglegrid();
-                          },
-                          child: SvgPicture.asset(
-                            'assets/icons/list_icon.svg',
-                            colorFilter: ColorFilter.mode(
-                                !isGrid ? Colors.white : Color(0xFFD3A45C),
-                                BlendMode.srcIn),
-                          ),
-                        ),
-                      ],
-                    ).addPadding(horizontal: 21, vertical: 12),
                   ],
                 ),
+                10.height,
                 StreamBuilder(
                   stream: _streamController.stream,
                   builder: (context, snapshot) {
