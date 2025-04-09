@@ -52,6 +52,7 @@ TextEditingController location2Controller = TextEditingController();
 TextEditingController squarefootageController = TextEditingController();
 // survery checkbox bool
 TextEditingController timeFrameofPro = TextEditingController(text: '1');
+TextEditingController paymentMethod = TextEditingController();
 TextEditingController backedTaxAmount = TextEditingController();
 TextEditingController leanOnProp = TextEditingController();
 TextEditingController lockBoxPlaced = TextEditingController();

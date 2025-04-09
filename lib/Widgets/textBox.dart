@@ -7,6 +7,7 @@ import 'package:lunarestate/Config/spacing_ext.dart';
 class textBox extends StatelessWidget {
   String hint;
   TextInputType Ktype;
+  final suffix;
   var icon;
   final bool isSvg;
   final bool readOnly;
@@ -22,6 +23,7 @@ class textBox extends StatelessWidget {
     required this.Ktype,
     this.onFieldSubmitted,
     this.isSvg = false,
+    this.suffix,
   })  : _emailController = controller,
         super(key: key);
 
@@ -52,6 +54,7 @@ class textBox extends StatelessWidget {
               hintText: hint,
               // !! parse the whole Svg widget in "icon", but make sure you have "isSvg" enabled.
               // !! -jawad
+              suffix: suffix,
               icon: icon != null
                   ? isSvg
                       ? icon

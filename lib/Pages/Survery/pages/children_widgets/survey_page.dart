@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
+import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Survery/survey_questions.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
+import 'package:lunarestate/Widgets/textBox.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../Models/SurveyModel.dart';
@@ -1126,6 +1128,97 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
                 box1: langloc.yes,
                 box2: 'No'),
           ],
+        ),
+        20.height,
+        Text('Payment Method',
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+                color: Colors.white,
+                fontFamily: 'Outfit')),
+        10.height,
+        Container(
+          height: 50,
+          width: double.infinity,
+          decoration: AppThemes.commonBoxDecoration,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: context.screenWidth * 0.85,
+                child: TextFormField(
+                  controller: paymentMethod,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: paymentMethod.text.isEmpty
+                        ? 'Select Payment Method'
+                        : paymentMethod.text, // Show the hint or selected value
+                    hintStyle: TextStyle(color: Colors.white),
+                    enabledBorder: InputBorder.none,
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.only(left: 10, top: 10),
+                    suffixIcon: GestureDetector(
+                      onTap: () async {
+                        String? selectedValue = await showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: Colors.black,
+                              title: Text('Select Payment Method',
+                                  style: TextStyle(color: Colors.white)),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: [
+                                    ListTile(
+                                      title: Text('Cash',
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                      onTap: () {
+                                        Navigator.pop(context, 'Cash');
+                                      },
+                                    ),
+                                    ListTile(
+                                      title: Text('Check',
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                      onTap: () {
+                                        Navigator.pop(context, 'Check');
+                                      },
+                                    ),
+                                    ListTile(
+                                      title: Text('Wire Transfer',
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                      onTap: () {
+                                        Navigator.pop(context, 'Wire Transfer');
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+
+                        // Update the paymentMethod text field with the selected value
+                        if (selectedValue != null) {
+                          paymentMethod.text = selectedValue;
+                          Provider.of<SurvProvider>(context, listen: false)
+                              .saveSurveyMoreData(
+                                  Provider.of<UserData>(context, listen: false)
+                                      .id!);
+                        }
+                      },
+                      child: Icon(
+                        Icons.arrow_drop_down,
+                        color: AppThemes.secondarycolor,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         40.height,
         roundButton(

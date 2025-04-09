@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
+import 'package:lunarestate/Pages/More/MorePage.dart';
 import 'package:lunarestate/Pages/ProfilePage/ProfilePage.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -27,9 +28,20 @@ class GlobalAppBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // 4.height,
-                SvgPicture.asset(
-                  'assets/icons/menu.svg',
-                  height: 19,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            isIos: true,
+                            duration: Duration(milliseconds: 700),
+                            child: MorePage(),
+                            type: PageTransitionType.fade));
+                  },
+                  child: SvgPicture.asset(
+                    'assets/icons/menu.svg',
+                    height: 19,
+                  ),
                 ),
               ],
             ),
