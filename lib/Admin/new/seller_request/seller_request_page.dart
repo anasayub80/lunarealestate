@@ -108,7 +108,13 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    getHeader('Seller Request'),
+                    Text(
+                      'Seller request',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                          color: Colors.white),
+                    ),
                     Row(
                       children: [
                         GestureDetector(
@@ -150,8 +156,13 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
                           return Text('Error');
                         } else if (snapshot.data != null) {
                           return isGrid
-                              ? getGridViewAdmin(context, itemlist!, onrefresh)
-                              : getListViewAdmin(context, itemlist!, onrefresh);
+                              ? getGridViewAdmin(
+                                  context, itemlist!, onrefresh, false)
+                              : getListViewAdmin(
+                                  context,
+                                  itemlist!,
+                                  onrefresh,
+                                );
                         } else {
                           return Column(
                             children: [

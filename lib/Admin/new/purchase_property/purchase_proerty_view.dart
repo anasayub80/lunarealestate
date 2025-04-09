@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lunarestate/Admin/new/seller_request/widgets/grid_view.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Widgets/customAppBar.dart';
 import 'package:lunarestate/Widgets/global_appbar.dart';
-import 'package:lunarestate/Widgets/header_text.dart';
 
 class PurchaseProertyView extends StatefulWidget {
   const PurchaseProertyView({super.key});
@@ -73,77 +73,56 @@ class _PurchaseProertyViewState extends State<PurchaseProertyView> {
       body: BgTwo(
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               10.height,
               CustomAppBarWithCircleback().addPadding(left: 12),
               10.height,
               GlobalAppBar().addPadding(horizontal: 12),
               20.height,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  getHeader('Purchase Property'),
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          togglegrid();
-                        },
-                        child: SvgPicture.asset(
-                          'assets/icons/grid_icon.svg',
-                          colorFilter: ColorFilter.mode(
-                              !isGrid ? Colors.white : Color(0xFFD3A45C),
-                              BlendMode.srcIn),
-                        ),
-                      ),
-                      12.width,
-                      GestureDetector(
-                        onTap: () {
-                          togglegrid();
-                        },
-                        child: SvgPicture.asset(
-                          'assets/icons/list_icon.svg',
-                          colorFilter: ColorFilter.mode(
-                              !isGrid ? Colors.white : Color(0xFFD3A45C),
-                              BlendMode.srcIn),
-                        ),
-                      ),
-                    ],
-                  ).addPadding(horizontal: 21, vertical: 12),
-                ],
+              10.height,
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Text(
+                  'Purchase Property',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                      color: Colors.white),
+                ),
               ),
               // Spacer(),
-              100.height,
-              SizedBox(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset("assets/images/no_property.svg"),
-                    15.height,
-                    Text(
-                      'NO PURCHASED PROPERTY',
-                      style: TextStyle(
-                        color: Color(0xFFDBAE68),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
+              20.height,
+              itemlist!.isNotEmpty
+                  ? getGridViewAdmin(context, itemlist ?? [], () {}, false)
+                  : SizedBox(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset("assets/images/no_property.svg"),
+                          15.height,
+                          Text(
+                            'NO PURCHASED PROPERTY',
+                            style: TextStyle(
+                              color: Color(0xFFDBAE68),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Text(
+                            'Not found any property purchased by LUNA ENTERPRIESES',
+                            style: TextStyle(
+                              // color: Color(0xFFDBAE68),
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Text(
-                      'Not found any property purchased by LUNA ENTERPRIESES',
-                      style: TextStyle(
-                        // color: Color(0xFFDBAE68),
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ).center(),
+                    ).center(),
               // Spacer(),
-              // getGridViewAdmin(context, {}, 6),
             ],
           ),
         ),

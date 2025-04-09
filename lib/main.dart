@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Pages/HomePage/ChooseType.dart';
+import 'package:lunarestate/Pages/HomePage/controller/admin_home_controller.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
 import 'package:lunarestate/Pages/property_full_detail/property_detail_controller.dart';
@@ -83,6 +84,9 @@ class _MyAppState extends State<MyApp> {
               create: (_) => SingleNotifier()),
           ChangeNotifierProvider<SellHouseProvider>(
             create: (_) => SellHouseProvider(),
+          ),
+           ChangeNotifierProvider<AdminHomeController>(
+            create: (_) => AdminHomeController(),
           ),
         ],
         child: MaterialApp(

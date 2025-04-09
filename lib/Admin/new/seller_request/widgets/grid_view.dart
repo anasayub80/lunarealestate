@@ -11,15 +11,15 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../Pages/SellHistory/fullDetail.dart';
 
 Widget getGridViewAdmin(
-    BuildContext context, List property, Function? refresh) {
+    BuildContext context, List property, Function? refresh, bool isHome) {
   return SizedBox(
     height: context.screenHeight,
     width: double.infinity,
     child: GridView.builder(
-      itemCount: property.length,
+      itemCount: isHome ? property.length.clamp(0, 4) : property.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 5.0,
+        crossAxisSpacing: 0,
         mainAxisSpacing: 5.0,
       ),
       physics: NeverScrollableScrollPhysics(),
@@ -98,7 +98,7 @@ Widget getGridViewAdmin(
                           Text(
                             prop['title'],
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
                             ),
@@ -176,7 +176,7 @@ Widget getGridViewAdmin(
                               width: 66,
                             ),
                           ),
-                          20.width,
+                          15.width,
                           GestureDetector(
                             onTap: () {
                               makePhoneCall(prop['phone']);

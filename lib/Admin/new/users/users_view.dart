@@ -69,14 +69,23 @@ class _UsersViewState extends State<UsersView> {
     return Scaffold(
       body: BgTwo(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             15.height,
             CustomAppBarWithCircleback().addPadding(left: 12),
             20.height,
             GlobalAppBar().addPadding(horizontal: 12),
             20.height,
-            getHeader('Users').addPadding(),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Text(
+                'Users',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                    color: Colors.white),
+              ),
+            ),
             10.height,
             StreamBuilder(
               stream: _streamController.stream,
