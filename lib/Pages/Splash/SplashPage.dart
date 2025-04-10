@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:lunarestate/Admin/new/home_page.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/HomePage/HomePage.dart';
@@ -135,11 +136,11 @@ class _SplashPageState extends State<SplashPage> {
                     duration: const Duration(milliseconds: 500),
                     child: Container(
                       child: Image.asset(
-                        'assets/icons/icon.png',
+                        'assets/icons/logo.png',
                         fit: BoxFit.fill,
                       ),
                       width: size.width * 0.50,
-                      height: 85,
+                      height: 120,
                     ),
                   ),
                 ],
