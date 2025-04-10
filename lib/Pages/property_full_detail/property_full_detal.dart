@@ -278,7 +278,7 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
                                 children: [
                                   20.height,
                                   Text(
-                                    '\$ 2,790 - \$5,500',
+                                   '${snapshot.data[0]['title']}' ,
                                     style: TextStyle(
                                       fontSize: 32,
                                       color: AppThemes.primaryColor,
