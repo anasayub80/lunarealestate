@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Admin/new/home_page.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
+import 'package:lunarestate/Pages/HomePage/HomePage.dart';
 import 'package:lunarestate/Pages/Login/login_page.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -98,7 +99,7 @@ class _SplashPageState extends State<SplashPage> {
             Navigator.pushReplacement(
                 context,
                 PageTransition(
-                    child: MyNavigation(),
+                    child: MyHomePage(),
                     isIos: true,
                     duration: Duration(milliseconds: 700),
                     type: PageTransitionType.bottomToTop));
