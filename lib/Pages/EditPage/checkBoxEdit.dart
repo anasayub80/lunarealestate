@@ -118,7 +118,7 @@ class _checkBoxEditPageState extends State<checkBoxEditPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(
-                          "assets/icons/icon.png",
+                          "assets/icons/logo.png",
                           width: 200,
                           height: 200,
                         ),

@@ -117,7 +117,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Image.asset(
-                                  "assets/icons/icon.png",
+                                  "assets/icons/logo.png",
                                   width: 200,
                                   height: 200,
                                 ),

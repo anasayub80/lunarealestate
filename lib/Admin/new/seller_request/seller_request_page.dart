@@ -59,7 +59,7 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
   StreamController _sellereReqstreamController = StreamController();
   bool hasMoreSellReq = true;
   int sellReqPage = 0;
-  sellerReqFetch() async {
+  Future<void> sellerReqFetch() async {
     log('getData');
     var newitems = await backend().fetchMoreAdminProperty(
         {'type': 'unsold', 'limit': sellReqPage.toString()});

@@ -278,7 +278,7 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
                                 children: [
                                   20.height,
                                   Text(
-                                   '${snapshot.data[0]['title']}' ,
+                                    '${snapshot.data[0]['title']}',
                                     style: TextStyle(
                                       fontSize: 32,
                                       color: AppThemes.primaryColor,
@@ -511,7 +511,7 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Image.asset(
-                                        "assets/icons/icon.png",
+                                        "assets/icons/logo.png",
                                         width: 200,
                                         height: 200,
                                       ),

@@ -81,12 +81,6 @@ class _HomePageAdminState extends State<HomePageAdmin> {
         }
       }
     });
-    sellerReqFetch();
-    controller.addListener(() {
-      if (controller.position.maxScrollExtent == controller.offset) {
-        sellerReqFetch();
-      }
-    });
 
     fetchUser();
   }
@@ -108,7 +102,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
   List? reqItemlist = [];
   int sellReqLimit = 20;
 
-  fetchUser() async {
+ Future<void> fetchUser() async {
     log('Fetching users... Page: $usersPage, Limit: $userLimit');
     try {
       var newItems = await backend().fetchAdminUsers({
@@ -137,7 +131,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
     }
   }
 
-  fetch() async {
+ Future<void> fetch() async {
     log('getData');
     var newitems = await backend()
         .fetchMoreAdminProperty({'type': 'unsold', 'limit': page.toString()});
@@ -158,35 +152,11 @@ class _HomePageAdminState extends State<HomePageAdmin> {
     });
   }
 
-  StreamController _sellereReqstreamController = StreamController.broadcast();
-  bool hasMoreSellReq = true;
-  int sellReqPage = 0;
-  sellerReqFetch() async {
-    log('getData');
-    var newitems = await backend().fetchMoreAdminProperty(
-        {'type': 'unsold', 'limit': sellReqPage.toString()});
+  onRefresh() {
     setState(() {
-      if (newitems != null) {
-        sellReqPage += 10;
-        if (newitems.length <= 10) {
-          hasMoreSellReq = false;
-        }
-        reqItemlist!.addAll(newitems.map((item) {
-          return item;
-        }));
-        _sellereReqstreamController.add(['hasData']);
-      } else {
-        _sellereReqstreamController.add(null);
-        hasMoreSellReq = false;
-      }
-    });
-  }
-
-  onrefresh() {
-    setState(() {
-      sellReqPage = 0;
-      reqItemlist = [];
-      sellerReqFetch();
+      page = 0;
+      itemlist = [];
+      fetch();
     });
   }
 
@@ -431,8 +401,8 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                 ),
                                 10.height,
                                 itemlist!.isNotEmpty
-                                    ? getGridViewAdmin(
-                                        context, itemlist ?? [], () {}, true)
+                                    ? getGridViewAdmin(context, itemlist ?? [],
+                                        onRefresh, true)
                                     : Text('Loading..'),
                               ],
                             )

@@ -189,7 +189,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Image.asset(
-                                "assets/icons/icon.png",
+                                "assets/icons/logo/s.png",
                                 width: 200,
                                 height: 200,
                               ),

@@ -99,7 +99,7 @@ Future submitpropertyInfo(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset(
-          "assets/icons/icon.png",
+          "assets/icons/logo.png",
           width: 200,
           height: 200,
         ),
@@ -167,7 +167,7 @@ Future submitSurvey(dynamic data, BuildContext context) async {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset(
-            "assets/icons/icon.png",
+            "assets/icons/logo.png",
             width: 200,
             height: 200,
           ),
@@ -212,7 +212,7 @@ Future submitMultipleImages(BuildContext context) async {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset(
-          "assets/icons/icon.png",
+          "assets/icons/log.png",
           width: 200,
           height: 200,
         ),

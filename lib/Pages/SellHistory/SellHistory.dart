@@ -518,7 +518,7 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/icons/icon.png",
+                  "assets/icons/logo/s.png",
                   width: 200,
                   height: 200,
                 ),
