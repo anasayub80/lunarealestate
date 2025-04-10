@@ -72,7 +72,7 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
         reqItemlist!.addAll(newitems.map((item) {
           return item;
         }));
-        _sellereReqstreamController.add(['hasData']);
+        _sellereReqstreamController.add(['hasData']); //
       } else {
         _sellereReqstreamController.add(null);
         hasMoreSellReq = false;
@@ -102,8 +102,6 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CustomAppBarWithCircleback().addPadding(left: 12),
-                20.height,
-                GlobalAppBar().addPadding(horizontal: 12),
                 30.height,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
