@@ -174,10 +174,30 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
                                             ),
                                           ),
                                         ),
-                                        SvgPicture.asset(
-                                          'assets/icons/edit_pencil.svg',
-                                          height: 26,
-                                        )
+                                        if (widget.from != 'admin')
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  PageTransition(
+                                                    isIos: true,
+                                                    duration: Duration(
+                                                        milliseconds: 700),
+                                                    child: FullDetail(
+                                                      formId: widget.formId,
+                                                      from: 'name',
+                                                    ),
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                  ));
+                                            },
+                                            child: SvgPicture.asset(
+                                              'assets/icons/edit_pencil.svg',
+                                              height: 26,
+                                            ),
+                                          )
+                                        else
+                                          SizedBox.shrink(),
                                       ],
                                     ).addPadding(left: 20, right: 20, top: 10),
                                   ),
