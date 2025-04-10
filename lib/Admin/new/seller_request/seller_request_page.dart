@@ -37,15 +37,15 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
     setState(() {});
   }
 
-  List? itemlist = [];
-  int Limit = 20;
+  List? reqItemlist = [];
+  int sellReqLimit = 20;
   @override
   void initState() {
     super.initState();
-    fetch();
+    sellerReqFetch();
     controller.addListener(() {
       if (controller.position.maxScrollExtent == controller.offset) {
-        fetch();
+        sellerReqFetch();
       }
     });
   }
@@ -56,35 +56,35 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
     super.dispose();
   }
 
-  StreamController _streamController = StreamController();
-  bool hasMore = true;
-  int page = 0;
-  fetch() async {
+  StreamController _sellereReqstreamController = StreamController();
+  bool hasMoreSellReq = true;
+  int sellReqPage = 0;
+  sellerReqFetch() async {
     log('getData');
-    var newitems = await backend()
-        .fetchMoreAdminProperty({'type': 'unsold', 'limit': page.toString()});
+    var newitems = await backend().fetchMoreAdminProperty(
+        {'type': 'unsold', 'limit': sellReqPage.toString()});
     setState(() {
       if (newitems != null) {
-        page += 10;
+        sellReqPage += 10;
         if (newitems.length <= 10) {
-          hasMore = false;
+          hasMoreSellReq = false;
         }
-        itemlist!.addAll(newitems.map((item) {
+        reqItemlist!.addAll(newitems.map((item) {
           return item;
         }));
-        _streamController.add(['hasData']);
+        _sellereReqstreamController.add(['hasData']);
       } else {
-        _streamController.add(null);
-        hasMore = false;
+        _sellereReqstreamController.add(null);
+        hasMoreSellReq = false;
       }
     });
   }
 
   onrefresh() {
     setState(() {
-      page = 0;
-      itemlist = [];
-      fetch();
+      sellReqPage = 0;
+      reqItemlist = [];
+      sellerReqFetch();
     });
   }
 
@@ -113,6 +113,7 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
                       child: Text(
                         'Seller request',
                         style: TextStyle(
+                            fontFamily: 'Outfit',
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
                             color: Colors.white),
@@ -122,7 +123,7 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
                 ),
                 10.height,
                 StreamBuilder(
-                  stream: _streamController.stream,
+                  stream: _sellereReqstreamController.stream,
                   builder: (context, snapshot) {
                     switch (snapshot.connectionState) {
                       case ConnectionState.waiting:
@@ -132,14 +133,8 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
                         if (snapshot.hasError) {
                           return Text('Error');
                         } else if (snapshot.data != null) {
-                          return isGrid
-                              ? getGridViewAdmin(
-                                  context, itemlist!, onrefresh, false)
-                              : getListViewAdmin(
-                                  context,
-                                  itemlist!,
-                                  onrefresh,
-                                );
+                          return getGridViewAdmin(
+                              context, reqItemlist!, onrefresh, false);
                         } else {
                           return Column(
                             children: [
@@ -155,6 +150,7 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
                                 'NO SELLER REQUEST',
                                 style: TextStyle(
                                   color: AppThemes.primaryColor,
+                                  fontFamily: 'Outfit',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
                                 ),
@@ -163,6 +159,7 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
                                 'There is no seller request come yet.',
                                 style: TextStyle(
                                   color: Colors.white,
+                                  fontFamily: 'Outfit',
                                 ),
                               )
                             ],

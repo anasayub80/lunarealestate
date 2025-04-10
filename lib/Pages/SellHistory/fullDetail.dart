@@ -15,7 +15,6 @@ import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/EditPage/textEdit.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Widgets/global_appbar.dart';
-import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../Widgets/Utils.dart';
@@ -62,7 +61,16 @@ class FullDetail extends StatelessWidget {
               10.height,
               GlobalAppBar().addPadding(overall: 12),
               10.height,
-              getHeader('Property Details'),
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0),
+                child: Text(
+                  'Features',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                      color: Colors.white),
+                ),
+              ),
               10.height,
               FutureBuilder(
                   future: getImages(),
@@ -580,13 +588,14 @@ class ListCard extends StatelessWidget {
               title,
               maxLines: null,
               style: TextStyle(
+                fontFamily: 'Outfit',
                 fontSize: 14,
                 color: Color(0xFFD3A45C),
               ),
             ).addPadding(left: 5, vertical: 8),
           ),
           Expanded(
-            flex: 2,
+            flex: from == 'admin' ? 0 : 2,
             child: Padding(
               padding: const EdgeInsets.only(left: 12.0),
               child: Text(
@@ -598,53 +607,54 @@ class ListCard extends StatelessWidget {
                             : box2!)
                     : val),
                 style: TextStyle(
+                  fontFamily: 'Outfit',
                   color: Color(0xFF606060),
                   fontSize: 14,
                 ),
               ),
             ),
           ),
-          from == 'admin'
-              ? SizedBox.shrink()
-              : IconButton(
-                  onPressed: () async {
-                    if (type == 'text') {
-                      var res = await Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return TextEditPage(
-                            val: val,
-                            column: column,
-                            title: title,
-                            formid: formId,
-                          );
-                        },
-                      ));
-                      // ignore: unrelated_type_equality_checks
-                      if (res == 'success') getData(formId);
-                    } else {
-                      var res = await Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return checkBoxEditPage(
-                            val1: box1!,
-                            val2: box2!,
-                            val: val == '--' ? 'none' : val,
-                            column: column,
-                            title: title,
-                            formid: formId,
-                          );
-                        },
-                      ));
-                      print('my res $res');
-                      // ignore: unrelated_type_equality_checks
-                      if (res.toString() == 'success') getData(formId);
-                    }
-                  },
-                  icon: type == "date"
-                      ? Icon(
-                          Icons.calendar_month,
-                          color: AppThemes.primaryColor,
-                        )
-                      : SvgPicture.asset("assets/icons/edit_icon.svg"))
+          if (from != 'admin') ...[
+            IconButton(
+                onPressed: () async {
+                  if (type == 'text') {
+                    var res = await Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return TextEditPage(
+                          val: val,
+                          column: column,
+                          title: title,
+                          formid: formId,
+                        );
+                      },
+                    ));
+                    // ignore: unrelated_type_equality_checks
+                    if (res == 'success') getData(formId);
+                  } else {
+                    var res = await Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return checkBoxEditPage(
+                          val1: box1!,
+                          val2: box2!,
+                          val: val == '--' ? 'none' : val,
+                          column: column,
+                          title: title,
+                          formid: formId,
+                        );
+                      },
+                    ));
+                    print('my res $res');
+                    // ignore: unrelated_type_equality_checks
+                    if (res.toString() == 'success') getData(formId);
+                  }
+                },
+                icon: type == "date"
+                    ? Icon(
+                        Icons.calendar_month,
+                        color: AppThemes.primaryColor,
+                      )
+                    : SvgPicture.asset("assets/icons/edit_icon.svg"))
+          ]
         ],
       ).addPadding(overall: 12),
     ).addPadding(overall: 12);

@@ -12,6 +12,7 @@ import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
+import 'package:lunarestate/Pages/SellHistory/fullDetail.dart';
 import 'package:lunarestate/Pages/property_full_detail/property_detail_controller.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:provider/provider.dart';
@@ -354,12 +355,24 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
                                           fontFamily: 'Outfit',
                                         ),
                                       ),
-                                      Text(
-                                        'See all',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.white,
-                                          fontFamily: 'Outfit',
+                                      InkWell(
+                                        onTap: () async {
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                            builder: (context) {
+                                              return FullDetail(
+                                                  formId: widget.formId,
+                                                  from: 'admin');
+                                            },
+                                          ));
+                                        },
+                                        child: Text(
+                                          'See all',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                            fontFamily: 'Outfit',
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -507,6 +520,7 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
                         child: Text(
                           'Delete',
                           style: TextStyle(
+                            fontFamily: 'Outfit',
                             color: Colors.white,
                           ),
                         ),

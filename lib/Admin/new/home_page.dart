@@ -10,20 +10,16 @@ import 'package:lunarestate/Admin/new/purchase_property/purchase_proerty_view.da
 import 'package:lunarestate/Admin/new/seller_request/seller_request_page.dart';
 import 'package:lunarestate/Admin/new/seller_request/widgets/grid_view.dart';
 import 'package:lunarestate/Admin/new/users/users_view.dart';
-import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
-import 'package:lunarestate/Pages/Gallery/GalleryPage.dart';
-import 'package:lunarestate/Pages/HomePage/Widgets/home_button.dart';
+
 import 'package:lunarestate/Pages/HomePage/controller/admin_home_controller.dart';
 import 'package:lunarestate/Service/UserData.dart';
 import 'package:lunarestate/Service/backend.dart';
 // import 'package:lunarestate/Widgets/customAppBar.dart';
-import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-import '../../Pages/Gallery/ImageView.dart';
 import '../../Widgets/global_appbar.dart';
 
 class HomePageAdmin extends StatefulWidget {
@@ -85,6 +81,12 @@ class _HomePageAdminState extends State<HomePageAdmin> {
         }
       }
     });
+    sellerReqFetch();
+    controller.addListener(() {
+      if (controller.position.maxScrollExtent == controller.offset) {
+        sellerReqFetch();
+      }
+    });
 
     fetchUser();
   }
@@ -103,6 +105,8 @@ class _HomePageAdminState extends State<HomePageAdmin> {
   bool hasMoreUser = true;
   int usersPage = 0;
   int page = 0;
+  List? reqItemlist = [];
+  int sellReqLimit = 20;
 
   fetchUser() async {
     log('Fetching users... Page: $usersPage, Limit: $userLimit');
@@ -154,6 +158,38 @@ class _HomePageAdminState extends State<HomePageAdmin> {
     });
   }
 
+  StreamController _sellereReqstreamController = StreamController.broadcast();
+  bool hasMoreSellReq = true;
+  int sellReqPage = 0;
+  sellerReqFetch() async {
+    log('getData');
+    var newitems = await backend().fetchMoreAdminProperty(
+        {'type': 'unsold', 'limit': sellReqPage.toString()});
+    setState(() {
+      if (newitems != null) {
+        sellReqPage += 10;
+        if (newitems.length <= 10) {
+          hasMoreSellReq = false;
+        }
+        reqItemlist!.addAll(newitems.map((item) {
+          return item;
+        }));
+        _sellereReqstreamController.add(['hasData']);
+      } else {
+        _sellereReqstreamController.add(null);
+        hasMoreSellReq = false;
+      }
+    });
+  }
+
+  onrefresh() {
+    setState(() {
+      sellReqPage = 0;
+      reqItemlist = [];
+      sellerReqFetch();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -187,6 +223,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
+                                fontFamily: 'Outfit',
                                 fontSize: 34,
                               ),
                             ),
@@ -198,6 +235,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
+                                fontFamily: 'Outfit',
                                 fontSize: 34,
                               ),
                             ),
@@ -214,6 +252,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white,
                                 fontSize: 34,
+                                fontFamily: 'Outfit',
                               ),
                             ),
                             Text(
@@ -232,6 +271,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                       style: TextStyle(
                         fontSize: 18,
                         color: Color(0xFFD3A45C),
+                        fontFamily: 'Outfit',
                       ),
                     ),
                   ],
@@ -276,6 +316,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                   child: Text(
                                     'Seller Request',
                                     style: TextStyle(
+                                      fontFamily: 'Outfit',
                                       color: tabSelection.selectedTabIndex == 0
                                           ? Color(0xffF6A825)
                                           : Colors.grey,
@@ -302,6 +343,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                   child: Text(
                                     'Purchase Property',
                                     style: TextStyle(
+                                      fontFamily: 'Outfit',
                                       color: tabSelection.selectedTabIndex == 1
                                           ? AppThemes.primaryColor
                                           : Colors.grey,
@@ -328,6 +370,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                   child: Text(
                                     'Users',
                                     style: TextStyle(
+                                      fontFamily: 'Outfit',
                                       color: tabSelection.selectedTabIndex == 2
                                           ? Color(0xffF6A825)
                                           : Colors.grey,
@@ -356,6 +399,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                     Text(
                                       'Seller request',
                                       style: TextStyle(
+                                          fontFamily: 'Outfit',
                                           fontWeight: FontWeight.w600,
                                           fontSize: 20,
                                           color: Colors.white),
@@ -377,6 +421,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                             .textTheme
                                             .bodyMedium!
                                             .copyWith(
+                                              fontFamily: 'Outfit',
                                               color: AppThemes.secondarycolor,
                                               fontSize: 20,
                                             ),
@@ -384,26 +429,11 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                     )
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 18,
-                                ),
-                                GridView.builder(
-                                  padding: EdgeInsets.zero,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: img.length,
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    mainAxisSpacing: 8,
-                                    crossAxisSpacing: 8,
-                                  ),
-                                  itemBuilder: (context, index) {
-                                    return GridChild(
-                                      url: "assets/house_images/${img[index]}",
-                                    );
-                                  },
-                                ),
+                                10.height,
+                                itemlist!.isNotEmpty
+                                    ? getGridViewAdmin(
+                                        context, itemlist ?? [], () {}, true)
+                                    : Text('Loading..'),
                               ],
                             )
                           ],
@@ -419,6 +449,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                 Text(
                                   'Purchase Property',
                                   style: TextStyle(
+                                      fontFamily: 'Outfit',
                                       fontWeight: FontWeight.w600,
                                       fontSize: 20,
                                       color: Colors.white),
@@ -440,6 +471,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                         .textTheme
                                         .bodyMedium!
                                         .copyWith(
+                                          fontFamily: 'Outfit',
                                           color: AppThemes.secondarycolor,
                                           fontSize: 20,
                                         ),
@@ -465,6 +497,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                 Text(
                                   'Users',
                                   style: TextStyle(
+                                      fontFamily: 'Outfit',
                                       fontWeight: FontWeight.w600,
                                       fontSize: 20,
                                       color: Colors.white),
@@ -486,6 +519,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                         .textTheme
                                         .bodyMedium!
                                         .copyWith(
+                                          fontFamily: 'Outfit',
                                           color: AppThemes.secondarycolor,
                                           fontSize: 20,
                                         ),
@@ -539,6 +573,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                               Text(
                                                 'NO USER FOUND',
                                                 style: TextStyle(
+                                                  fontFamily: 'Outfit',
                                                   color: AppThemes.primaryColor,
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 18,
@@ -547,6 +582,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                               Text(
                                                 'No registered user found in Luna App.',
                                                 style: TextStyle(
+                                                    fontFamily: 'Outfit',
                                                     color: Colors.white),
                                               ),
                                             ],

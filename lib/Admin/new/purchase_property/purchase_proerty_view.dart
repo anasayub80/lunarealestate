@@ -71,60 +71,61 @@ class _PurchaseProertyViewState extends State<PurchaseProertyView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BgTwo(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              10.height,
-              CustomAppBarWithCircleback().addPadding(left: 12),
-              10.height,
-              GlobalAppBar().addPadding(horizontal: 12),
-              20.height,
-              10.height,
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Text(
-                  'Purchase Property',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                      color: Colors.white),
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            10.height,
+            CustomAppBarWithCircleback().addPadding(left: 12),
+            10.height,
+            GlobalAppBar().addPadding(horizontal: 12),
+            10.height,
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Text(
+                'Purchase Property',
+                style: TextStyle(
+                    fontFamily: 'Outfit',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                    color: Colors.white),
               ),
-              // Spacer(),
-              20.height,
-              itemlist!.isNotEmpty
-                  ? getGridViewAdmin(context, itemlist ?? [], () {}, false)
-                  : SizedBox(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset("assets/images/no_property.svg"),
-                          15.height,
-                          Text(
-                            'NO PURCHASED PROPERTY',
-                            style: TextStyle(
-                              color: Color(0xFFDBAE68),
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
+            ),
+            // Spacer(),
+            20.height,
+            itemlist!.isNotEmpty
+                ? getGridViewAdmin(context, itemlist ?? [], () {}, false)
+                : SizedBox(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset("assets/images/no_property.svg"),
+                        15.height,
+                        Text(
+                          'NO PURCHASED PROPERTY',
+                          style: TextStyle(
+                            fontFamily: 'Outfit',
+                            color: Color(0xFFDBAE68),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
                           ),
-                          Text(
-                            'Not found any property purchased by LUNA ENTERPRIESES',
-                            style: TextStyle(
-                              // color: Color(0xFFDBAE68),
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                            ),
+                        ),
+                        Text(
+                          'Not found any property purchased by LUNA ENTERPRIESES',
+                          style: TextStyle(
+                            fontFamily: 'Outfit',
+
+                            // color: Color(0xFFDBAE68),
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
                           ),
-                        ],
-                      ),
-                    ).center(),
-              // Spacer(),
-            ],
-          ),
+                        ),
+                      ],
+                    ),
+                  ).center(),
+            // Spacer(),
+          ],
         ),
       ),
     );

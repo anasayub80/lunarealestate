@@ -49,8 +49,9 @@ class roundButton extends StatelessWidget {
             child: Text(
               text,
               style: TextStyle(
+                fontFamily: 'Outfit',
                 fontSize: 16,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w500,
                 color: textColor ?? Color(0xff25272A),
               ),
             ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
-import 'package:lunarestate/Pages/HomePage/Widgets/home_button.dart';
 import 'package:lunarestate/Pages/Login/login_page.dart';
-import 'package:lunarestate/Pages/SignUp/SignUpPage.dart';
 import 'package:lunarestate/Widgets/custom_gradient_elevated_button.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -46,6 +44,7 @@ class WelcomePage extends StatelessWidget {
                   Text(
                     'FIND A HOME OF YOUR DREAMS',
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontFamily: 'Outfit',
                           height: 1.2,
                           fontWeight: FontWeight.w700,
                           fontSize: 41,
@@ -55,7 +54,10 @@ class WelcomePage extends StatelessWidget {
                   Text(
                     'Find a place to live can be a difficult task, therefore we have done our best to simplify it',
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: Colors.white, fontSize: 20, height: 1.2),
+                        fontFamily: 'Outfit',
+                        color: Colors.white,
+                        fontSize: 20,
+                        height: 1.2),
                   ),
                   40.height,
                   CustomGradientElevatedButton(
@@ -76,6 +78,7 @@ class WelcomePage extends StatelessWidget {
                       child: Text(
                         'Get Started',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontFamily: 'Outfit',
                               color: Colors.black,
                               fontSize: 20,
                             ),

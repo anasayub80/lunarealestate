@@ -300,6 +300,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: Text(
                       'Change Password',
                       style: TextStyle(
+                        fontFamily: 'Outfit',
                         color: Colors.white,
                       ),
                     ),

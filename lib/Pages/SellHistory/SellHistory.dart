@@ -221,6 +221,8 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
                                                                           'detailType'],
                                                                       style:
                                                                           TextStyle(
+                                                                        fontFamily:
+                                                                            'Outfit',
                                                                         color: snapshot.data[index]['detailType'] ==
                                                                                 'Complete'
                                                                             ? Colors.green
@@ -266,6 +268,8 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
                                                                   TextOverflow
                                                                       .ellipsis,
                                                               style: TextStyle(
+                                                                fontFamily:
+                                                                    'Outfit',
                                                                 fontSize: 14,
                                                                 fontWeight:
                                                                     FontWeight
@@ -296,6 +300,8 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
                                                                           .ellipsis,
                                                                   style:
                                                                       TextStyle(
+                                                                    fontFamily:
+                                                                        'Outfit',
                                                                     fontSize:
                                                                         12,
                                                                     fontWeight:
@@ -339,6 +345,8 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
                                                                 TextOverflow
                                                                     .ellipsis,
                                                             style: TextStyle(
+                                                              fontFamily:
+                                                                  'Outfit',
                                                               fontSize: 11,
                                                               color:
                                                                   Colors.white,
@@ -375,6 +383,8 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
                                                                   Text(
                                                                     "Delete",
                                                                     style: TextStyle(
+                                                                        fontFamily:
+                                                                            'Outfit',
                                                                         color: Colors
                                                                             .white,
                                                                         fontWeight:
@@ -457,6 +467,7 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
                                   Text(
                                     'NO UPLOADED PROPERTY',
                                     style: TextStyle(
+                                      fontFamily: 'Outfit',
                                       color: mainColor,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18,
@@ -465,6 +476,7 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
                                   Text(
                                     'You have not posted any house for sell.',
                                     style: TextStyle(
+                                      fontFamily: 'Outfit',
                                       color: Colors.white,
                                     ),
                                   )

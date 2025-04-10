@@ -122,6 +122,7 @@ class _ChoiceTileNewState extends State<ChoiceTileNew> {
                 child: AutoSizeText(
                   widget.title,
                   style: TextStyle(
+                    fontFamily: 'Outfit',
                     color: Colors.white,
                     fontSize: 20,
                   ),
@@ -137,6 +138,7 @@ class _ChoiceTileNewState extends State<ChoiceTileNew> {
                       Text(
                         widget.box1,
                         style: TextStyle(
+                          fontFamily: 'Outfit',
                           color: Colors.white,
                           fontSize: 12,
                         ),
@@ -154,6 +156,7 @@ class _ChoiceTileNewState extends State<ChoiceTileNew> {
                       Text(
                         widget.box2,
                         style: TextStyle(
+                          fontFamily: 'Outfit',
                           color: Colors.white,
                           fontSize: 12,
                         ),
@@ -241,6 +244,7 @@ class _ChoiceTileNewVState extends State<ChoiceTileNewV> {
             AutoSizeText(
               widget.title,
               style: TextStyle(
+                fontFamily: 'Outfit',
                 color: Colors.white,
                 fontSize: 20,
               ),
@@ -277,6 +281,7 @@ class _ChoiceTileNewVState extends State<ChoiceTileNewV> {
                                 widget.surveryAnswer[index].answer,
                                 maxLines: 3,
                                 style: TextStyle(
+                                  fontFamily: 'Outfit',
                                   color: Colors.white,
                                   fontSize: 12,
                                 ),

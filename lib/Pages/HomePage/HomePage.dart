@@ -16,7 +16,6 @@ import 'package:lunarestate/Pages/HomePage/Widgets/sell_bottom_sheet.dart';
 import 'package:lunarestate/Pages/SellHistory/fullDetail.dart';
 import 'package:lunarestate/Pages/SellHistory/listview_house.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
-import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Pages/property_full_detail/property_full_detal.dart';
 import 'package:lunarestate/Service/UserData.dart';
 import 'package:lunarestate/Service/backend.dart';
@@ -146,6 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Text(
                                 'Let’s',
                                 style: TextStyle(
+                                  fontFamily: 'Outfit',
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white,
                                   fontSize: 34,
@@ -157,6 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Text(
                                 'Find You The',
                                 style: TextStyle(
+                                  fontFamily: 'Outfit',
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white,
                                   fontSize: 34,
@@ -172,6 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               Text(
                                 'Best Deal',
                                 style: TextStyle(
+                                  fontFamily: 'Outfit',
                                   fontWeight: FontWeight.w600,
                                   color: Colors.white,
                                   fontSize: 34,
@@ -203,12 +205,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Text(
                                     'Location',
                                     style: TextStyle(
-                                        fontSize: 14, color: Color(0xff919191)),
+                                        fontFamily: 'Outfit',
+                                        fontSize: 14,
+                                        color: Color(0xff919191)),
                                   ),
                                   Text(
                                     'Toronto',
                                     style: TextStyle(
-                                        fontSize: 18, color: Colors.white),
+                                        fontFamily: 'Outfit',
+                                        fontSize: 18,
+                                        color: Colors.white),
                                   ),
                                 ],
                               ),
@@ -252,6 +258,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   child: Text(
                                     'Sell House',
                                     style: TextStyle(
+                                      fontFamily: 'Outfit',
                                       color: isSellSelected
                                           ? Color(0xffF6A825)
                                           : Colors.grey,
@@ -280,6 +287,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   child: Text(
                                     'My Home',
                                     style: TextStyle(
+                                      fontFamily: 'Outfit',
                                       color: !isSellSelected
                                           ? AppThemes.primaryColor
                                           : Colors.grey,
@@ -315,6 +323,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Text(
                                       'Gallery',
                                       style: TextStyle(
+                                          fontFamily: 'Outfit',
                                           fontWeight: FontWeight.w600,
                                           fontSize: 20,
                                           color: Colors.white),
@@ -336,6 +345,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             .textTheme
                                             .bodyMedium!
                                             .copyWith(
+                                              fontFamily: 'Outfit',
                                               color: AppThemes.secondarycolor,
                                               fontSize: 20,
                                             ),
@@ -375,6 +385,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Text(
                                       'My Homes',
                                       style: TextStyle(
+                                          fontFamily: 'Outfit',
                                           fontWeight: FontWeight.w600,
                                           fontSize: 20,
                                           color: Colors.white),
@@ -397,6 +408,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             .textTheme
                                             .bodyMedium!
                                             .copyWith(
+                                              fontFamily: 'Outfit',
                                               color: AppThemes.secondarycolor,
                                               fontSize: 20,
                                             ),
@@ -546,6 +558,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                                   child: Text(
                                                                                     snapshot.data[index]['detailType'],
                                                                                     style: TextStyle(
+                                                                                      fontFamily: 'Outfit',
                                                                                       color: snapshot.data[index]['detailType'] == 'Complete' ? Colors.green : Colors.white,
                                                                                       fontSize: 12,
                                                                                     ),
@@ -591,6 +604,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                                 TextOverflow.ellipsis,
                                                                             style:
                                                                                 TextStyle(
+                                                                              fontFamily: 'Outfit',
                                                                               fontSize: 14,
                                                                               fontWeight: FontWeight.w500,
                                                                               color: Colors.white,
@@ -610,6 +624,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                                 maxLines: 1,
                                                                                 overflow: TextOverflow.ellipsis,
                                                                                 style: TextStyle(
+                                                                                  fontFamily: 'Outfit',
                                                                                   fontSize: 12,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   color: AppThemes.primaryColor,
@@ -654,6 +669,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                                               TextOverflow.ellipsis,
                                                                           style:
                                                                               TextStyle(
+                                                                            fontFamily:
+                                                                                'Outfit',
                                                                             fontSize:
                                                                                 11,
                                                                             color:
@@ -729,6 +746,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 Text(
                                                   'NO UPLOADED PROPERTY',
                                                   style: TextStyle(
+                                                    fontFamily: 'Outfit',
                                                     color: mainColor,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 18,
@@ -737,6 +755,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 Text(
                                                   'You have not posted any house for sell.',
                                                   style: TextStyle(
+                                                    fontFamily: 'Outfit',
                                                     color: Colors.white,
                                                   ),
                                                 )

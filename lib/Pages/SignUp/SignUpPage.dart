@@ -4,9 +4,7 @@ import 'dart:developer';
 
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
-import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/Login/login_page.dart';
@@ -66,6 +64,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   Text(
                     'SIGN UP',
                     style: TextStyle(
+                      fontFamily: 'Outfit',
+
                       color: AppThemes.secondarycolor,
                       fontSize: 22.0,
                       fontWeight: FontWeight.w600,
@@ -75,6 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Text(
                     'Create your account',
                     style: TextStyle(
+                      fontFamily: 'Outfit',
                       color: AppThemes.whiteColor,
                       fontSize: 16.0,
                       fontWeight: FontWeight.w300,
@@ -84,6 +85,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Text(
                     'User Info',
                     style: TextStyle(
+                      fontFamily: 'Outfit',
                       color: AppThemes.whiteColor,
                       fontSize: 16.0,
                       fontWeight: FontWeight.w600,
@@ -148,6 +150,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Text(
                     'Set Your Credential',
                     style: TextStyle(
+                        fontFamily: 'Outfit',
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: Colors.white),
@@ -258,6 +261,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         text: TextSpan(
                             text: "Already have an account?",
                             style: TextStyle(
+                              fontFamily: 'Outfit',
                               fontSize: 16,
                               fontWeight: FontWeight.w300,
                             ),
@@ -266,6 +270,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   text: ' SIGN IN',
                                   style: TextStyle(
                                       fontSize: 16,
+                                      fontFamily: 'Outfit',
                                       color: AppThemes.secondarycolor,
                                       fontWeight: FontWeight.w400)),
                             ]),

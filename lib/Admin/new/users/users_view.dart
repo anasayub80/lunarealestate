@@ -8,10 +8,8 @@ import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Widgets/customAppBar.dart';
-import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../Service/backend.dart';
-import '../../../Widgets/global_appbar.dart';
 
 class UsersView extends StatefulWidget {
   const UsersView({super.key});
@@ -74,13 +72,12 @@ class _UsersViewState extends State<UsersView> {
             15.height,
             CustomAppBarWithCircleback().addPadding(left: 12),
             20.height,
-            GlobalAppBar().addPadding(horizontal: 12),
-            20.height,
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Text(
                 'Users',
                 style: TextStyle(
+                    fontFamily: 'Outfit',
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                     color: Colors.white),
@@ -139,6 +136,7 @@ class _UsersViewState extends State<UsersView> {
                           Text(
                             'NO USER FOUND',
                             style: TextStyle(
+                              fontFamily: 'Outfit',
                               color: AppThemes.primaryColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
@@ -147,6 +145,7 @@ class _UsersViewState extends State<UsersView> {
                           Text(
                             'No registerd user found in Luna App.',
                             style: TextStyle(
+                              fontFamily: 'Outfit',
                               color: Colors.white,
                             ),
                           )
@@ -196,71 +195,80 @@ class UserTile extends StatelessWidget {
           profile: profile,
         ));
       },
-      child: Container(
-        height: context.screenHeight * 0.1,
-        width: double.infinity,
-        decoration: AppThemes.commonBoxDecoration.copyWith(
-          borderRadius: BorderRadius.circular(51),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
+      child: Column(
+        children: [
+          Container(
+            height: context.screenHeight * 0.1,
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CircleAvatar(
-                  radius: context.screenHeight * 0.04,
-                  backgroundImage: NetworkImage(
-                    profile,
-                  ),
-                ).addPadding(horizontal: 12, vertical: 6),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   children: [
-                    Text(
-                      name,
-                      style: TextStyle(
-                        color: Color(0xFFD3A45C),
-                        fontSize: 16,
+                    CircleAvatar(
+                      radius: context.screenHeight * 0.04,
+                      backgroundImage: NetworkImage(
+                        profile,
                       ),
-                    ),
-                    2.height,
-                    Text(
-                      phone,
-                      style: TextStyle(
-                        // color: Color(0xFFD3A45C),
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
+                    ).addPadding(horizontal: 12, vertical: 6),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          name,
+                          style: TextStyle(
+                            fontFamily: 'Outfit',
+                            color: Color(0xFFD3A45C),
+                            fontSize: 16,
+                          ),
+                        ),
+                        2.height,
+                        Text(
+                          phone,
+                          style: TextStyle(
+                            fontFamily: 'Outfit',
+
+                            // color: Color(0xFFD3A45C),
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ).addPadding(vertical: 6),
                   ],
-                ).addPadding(vertical: 6),
+                ),
+                // 6.width,
+                InkWell(
+                  onTap: () {
+                    _makePhoneCall(phone);
+                  },
+                  child: Container(
+                    height: context.screenHeight * 0.14,
+                    width: context.screenWidth * 0.14,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: SvgPicture.asset(
+                      'assets/icons/phone_icon.svg',
+                      color: Colors.black,
+                      height: context.screenHeight * 0.12,
+                      fit: BoxFit.scaleDown,
+                      width: context.screenWidth * 0.14,
+                    ),
+                    // backgroundImage:
+                    //     SvgPicture.asset('assets/icons/phone_icon.svg') ,
+                  ).addPadding(horizontal: 12, vertical: 6),
+                ),
               ],
-            ),
-            // 6.width,
-            InkWell(
-              onTap: () {
-                _makePhoneCall(phone);
-              },
-              child: Container(
-                height: context.screenHeight * 0.14,
-                width: context.screenWidth * 0.14,
-                decoration: BoxDecoration(
-                  color: Color(0xFF4C4B4B),
-                  shape: BoxShape.circle,
-                ),
-                child: SvgPicture.asset(
-                  'assets/icons/phone_icon.svg',
-                  height: context.screenHeight * 0.12,
-                  fit: BoxFit.scaleDown,
-                  width: context.screenWidth * 0.14,
-                ),
-                // backgroundImage:
-                //     SvgPicture.asset('assets/icons/phone_icon.svg') ,
-              ).addPadding(horizontal: 12, vertical: 6),
-            ),
-          ],
-        ).addPadding(horizontal: 18, vertical: 12),
+            ).addPadding(horizontal: 18, vertical: 12),
+          ),
+          Divider(
+            thickness: 0.8,
+            color: Color(0xff424448),
+          ),
+        ],
       ),
     );
   }

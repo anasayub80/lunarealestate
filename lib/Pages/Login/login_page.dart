@@ -3,9 +3,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
-import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/config.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/ForgetPass/ForgetPass.dart';
@@ -72,6 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                       Text(
                         'SIGN IN',
                         style: TextStyle(
+                          fontFamily: 'Outfit',
                           color: Color(0xffEFD397),
                           fontSize: 22.0,
                           fontWeight: FontWeight.w600,
@@ -80,6 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                       Text(
                         'Login into your account',
                         style: TextStyle(
+                          fontFamily: 'Outfit',
                           color: AppThemes.whiteColor,
                           fontSize: 16.0,
                           fontWeight: FontWeight.w300,
@@ -114,12 +114,12 @@ class _LoginPageState extends State<LoginPage> {
                               Transform.scale(
                                 scale: 1.2,
                                 child: Checkbox(
-                                    fillColor: MaterialStateProperty
-                                        .resolveWith<Color?>(
-                                      (Set<MaterialState> states) {
+                                    fillColor:
+                                        WidgetStateProperty.resolveWith<Color?>(
+                                      (Set<WidgetState> states) {
                                         // Return black color when unchecked
                                         if (states
-                                            .contains(MaterialState.selected)) {
+                                            .contains(WidgetState.selected)) {
                                           return AppThemes
                                               .primaryColor; // Active state color
                                         }
@@ -138,6 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                               Text(
                                 "Remember",
                                 style: TextStyle(
+                                  fontFamily: 'Outfit',
                                   color: AppThemes.whiteColor,
                                   fontSize: 14,
                                 ),
@@ -160,6 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: Text(
                               'Forget Password',
                               style: TextStyle(
+                                fontFamily: 'Outfit',
                                 color: Color(0xFFE2BC81),
                                 fontWeight: FontWeight.w200,
                                 fontSize: 14.0,
@@ -294,6 +296,7 @@ class _LoginPageState extends State<LoginPage> {
                             text: TextSpan(
                                 text: "Don't have an Account?",
                                 style: TextStyle(
+                                  fontFamily: 'Outfit',
                                   fontSize: 18,
                                   fontWeight: FontWeight.w400,
                                 ),
@@ -301,6 +304,7 @@ class _LoginPageState extends State<LoginPage> {
                                   TextSpan(
                                     text: ' SIGN UP',
                                     style: TextStyle(
+                                      fontFamily: 'Outfit',
                                       fontSize: 18,
                                       color: AppThemes.secondarycolor,
                                       fontWeight: FontWeight.w400,

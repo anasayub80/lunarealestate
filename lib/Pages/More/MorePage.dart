@@ -179,6 +179,8 @@ class MorePage extends StatelessWidget {
                 title: Text(
                   'Privacy Policy',
                   style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'Outfit',
                     color: Colors.white,
                   ),
                 ),

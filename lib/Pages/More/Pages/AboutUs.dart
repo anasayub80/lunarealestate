@@ -29,6 +29,7 @@ class AboutUsPage extends StatelessWidget {
               TextSpan(
                 text: '',
                 style: TextStyle(
+                  fontFamily: 'Outfit',
                   color: AppThemes.whiteColor,
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
@@ -37,6 +38,7 @@ class AboutUsPage extends StatelessWidget {
                   TextSpan(
                     text: 'About ',
                     style: TextStyle(
+                      fontFamily: 'Outfit',
                       decoration: TextDecoration.underline,
                       decorationColor: AppThemes.primaryColor,
                       color: AppThemes.whiteColor,
@@ -47,6 +49,7 @@ class AboutUsPage extends StatelessWidget {
                   TextSpan(
                     text: 'Us',
                     style: TextStyle(
+                      fontFamily: 'Outfit',
                       color: AppThemes.whiteColor,
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -88,6 +91,7 @@ class AboutUsPage extends StatelessWidget {
                       title: Text(
                         'luna@lunaent.io',
                         style: TextStyle(
+                          fontFamily: 'Outfit',
                           color: Colors.white,
                         ),
                       ),
@@ -100,6 +104,7 @@ class AboutUsPage extends StatelessWidget {
                       title: Text(
                         '5 Cowboys Way Suite 300 Frisco tx 75034',
                         style: TextStyle(
+                          fontFamily: 'Outfit',
                           color: Colors.white,
                         ),
                       ),
