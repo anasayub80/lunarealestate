@@ -6,6 +6,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lunarestate/Pages/HomePage/HomePage.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:provider/provider.dart';
@@ -141,7 +142,7 @@ Future submitpropertyInfo(
         Navigator.pushReplacement(
           context,
           PageTransition(
-            child: MyNavigation(),
+            child: MyHomePage(),
             isIos: true,
             duration: Duration(milliseconds: 600),
             type: PageTransitionType.bottomToTop,
