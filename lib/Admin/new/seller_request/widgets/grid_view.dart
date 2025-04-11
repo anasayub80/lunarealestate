@@ -11,7 +11,7 @@ import 'package:lunarestate/Pages/property_full_detail/property_full_detal.dart'
 Widget getGridViewAdmin(
     BuildContext context, List property, Function? refresh, bool isHome) {
   return SizedBox(
-    height: context.screenHeight * 0.9,
+    height: context.screenHeight * 0.83,
     width: double.infinity,
     child: GridView.builder(
       itemCount: isHome ? property.length.clamp(0, 4) : property.length,

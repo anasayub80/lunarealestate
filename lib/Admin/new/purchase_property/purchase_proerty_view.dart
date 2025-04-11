@@ -77,8 +77,7 @@ class _PurchaseProertyViewState extends State<PurchaseProertyView> {
             10.height,
             CustomAppBarWithCircleback().addPadding(left: 12),
             10.height,
-            GlobalAppBar().addPadding(horizontal: 12),
-            10.height,
+
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Text(
