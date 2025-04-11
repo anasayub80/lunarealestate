@@ -19,6 +19,14 @@ class SurvProvider with ChangeNotifier {
   String? formid;
   double value = 0;
   double get getvalue => value;
+  void resetState() async {
+    activeStepIndex = 0;
+    formid = null;
+    value = 0;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('activeStepIndex', 0);
+    notifyListeners();
+  }
 
   String get getFormId => formid!;
   Future updateStepIndex(var activeStepIndex) async {
@@ -36,6 +44,10 @@ class SurvProvider with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     activeStepIndex = prefs.getInt('activeStepIndex') ?? 0;
     debugPrint("activeStepIndex $activeStepIndex");
+    if (ownerNumber.text.isEmpty || ownerName.text.isEmpty) {
+      activeStepIndex = 0;
+      stepperIndexStream.add('done');
+    }
     stepperIndexStream.add('done');
     notifyListeners();
   }

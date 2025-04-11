@@ -81,14 +81,24 @@ class _SellHousePageState extends State<SellHousePage> {
   }
 }
 
-class InitializedSellHouse extends StatelessWidget {
+class InitializedSellHouse extends StatefulWidget {
   const InitializedSellHouse({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<InitializedSellHouse> createState() => _InitializedSellHouseState();
+}
+
+class _InitializedSellHouseState extends State<InitializedSellHouse> {
+  @override
+  void initState() {
+    super.initState();
     // var prov = Provider.of<SurvProvider>(context, listen: false);
     Provider.of<SurvProvider>(context, listen: false).initStepIndex();
     Provider.of<SurvProvider>(context, listen: false).getFormIdfrom();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
           stream: stepperIndexStream.stream,

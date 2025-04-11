@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lunarestate/Pages/HomePage/HomePage.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
+import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -89,6 +90,27 @@ bool wire = false;
 
 StreamController surveyStream = BehaviorSubject();
 StreamController surveyMoreStream = BehaviorSubject();
+void resetControllers() {
+  ownerName.clear();
+  ownerNumber.clear();
+  title.clear();
+  locationController.clear();
+  location2Controller.clear();
+  bedrooms.clear();
+  bathrooms.clear();
+  areaSize.clear();
+  stories.clear();
+  squarefootageController.clear();
+  timeFrameofPro.clear();
+  paymentMethod.clear();
+  backedTaxAmount.clear();
+  leanOnProp.clear();
+  lockBoxPlaced.clear();
+  agreementNameController.clear();
+  agreementAddressController.clear();
+  agreementphoneController.clear();
+  agreementemailController.clear();
+}
 
 Future submitpropertyInfo(
     bool isbasic, dynamic data, BuildContext context) async {
@@ -136,6 +158,12 @@ Future submitpropertyInfo(
         await pref.remove('surveyMore');
         await pref.remove('PropInfoData');
         await pref.remove('basicData');
+        resetControllers();
+        Provider.of<SurvProvider>(context, listen: false).resetState();
+        Provider.of<SellHouseProvider>(context, listen: false)
+            .selectedHouseImages
+            .clear();
+
         FLoading.hide();
         Utils.showSnackbar('Property Submitted', Colors.green, context);
         Navigator.of(context).popUntil((route) => route.isFirst);
@@ -212,7 +240,7 @@ Future submitMultipleImages(BuildContext context) async {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset(
-          "assets/icons/log.png",
+          "assets/icons/logo.png",
           width: 200,
           height: 200,
         ),
