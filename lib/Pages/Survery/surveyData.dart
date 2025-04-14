@@ -42,6 +42,9 @@ List<XFile> images = <XFile>[];
 TextEditingController ownerName = TextEditingController();
 TextEditingController ownerNumber = TextEditingController();
 
+//drop down options property type
+String? selectedPropertyType;
+
 // property info
 TextEditingController title = TextEditingController();
 TextEditingController bedrooms = TextEditingController();
@@ -92,6 +95,7 @@ StreamController surveyStream = BehaviorSubject();
 StreamController surveyMoreStream = BehaviorSubject();
 void resetControllers() {
   ownerName.clear();
+  selectedPropertyType = '';
   ownerNumber.clear();
   title.clear();
   locationController.clear();

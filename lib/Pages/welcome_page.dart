@@ -4,8 +4,59 @@ import 'package:lunarestate/Pages/Login/login_page.dart';
 import 'package:lunarestate/Widgets/custom_gradient_elevated_button.dart';
 import 'package:page_transition/page_transition.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
+
+  @override
+  State<WelcomePage> createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  late Animation<Offset> _slideAnimation;
+  late Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.fastOutSlowIn,
+    );
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.3),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOut,
+    ));
+
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeIn,
+    ));
+
+    Future.delayed(const Duration(seconds: 1), () {
+      _controller.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +77,15 @@ class WelcomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            ScaleTransition(
+              scale: _animation,
+              child: Image.asset(
+                "assets/icons/logo.png",
+                width: 200,
+                height: 200,
+              ),
+            ),
+            120.height,
             Container(
               padding: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(
@@ -41,25 +101,39 @@ class WelcomePage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Text(
-                    'FIND A HOME OF YOUR DREAMS',
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          fontFamily: 'Outfit',
-                          height: 1.2,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 41,
-                          color: Color(0xffDAA34F),
-                        ),
+                  FadeTransition(
+                    opacity: _fadeAnimation,
+                    child: SlideTransition(
+                      position: _slideAnimation,
+                      child: Column(
+                        children: [
+                          Text(
+                            'Where Deals Get Done',
+                            style:
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      fontFamily: 'Outfit',
+                                      height: 1.2,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 41,
+                                      color: Color(0xffDAA34F),
+                                    ),
+                          ),
+                          Text(
+                            'Find out what we can do for you. Partner with Luna.',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    fontFamily: 'Outfit',
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    height: 1.2),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  Text(
-                    'Find a place to live can be a difficult task, therefore we have done our best to simplify it',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontFamily: 'Outfit',
-                        color: Colors.white,
-                        fontSize: 20,
-                        height: 1.2),
-                  ),
-                  40.height,
+                  60.height,
                   CustomGradientElevatedButton(
                     gradient: LinearGradient(
                         colors: [Color(0xffDAA34F), Color(0xffDAA34F)]),

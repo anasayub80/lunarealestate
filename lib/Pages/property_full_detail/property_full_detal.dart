@@ -304,6 +304,7 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
                                     builder: (context, controller, child) {
                                       final isExpanded = controller.isExpanded;
                                       final text = snapshot.data[0]['survery'];
+                                      debugPrint(text);
 
                                       String displayText = isExpanded
                                           ? text
@@ -334,23 +335,20 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
                                                         color:
                                                             Color(0xffAAAAAA)),
                                                   ),
-                                                if (text.length > 150)
-                                                  TextSpan(
-                                                    text: isExpanded
-                                                        ? ' See Less'
-                                                        : ' See More',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    recognizer:
-                                                        TapGestureRecognizer()
-                                                          ..onTap = () {
-                                                            controller
-                                                                .toggleExpanded(); // Toggle between expanded/collapsed state
-                                                          },
-                                                  ),
                                               ],
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              controller.toggleExpanded();
+                                            },
+                                            child: Text(
+                                              isExpanded
+                                                  ? ' See Less'
+                                                  : ' See More',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                         ],

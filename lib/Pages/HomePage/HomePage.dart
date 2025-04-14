@@ -125,22 +125,21 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.transparent,
         body: BgTwo(
           child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: [
-                  30.height,
-                  GlobalAppBar().addPadding(horizontal: 8),
-                  30.height,
-                  Column(
-                    children: [
-                      Column(
+            child: Column(
+              children: [
+                30.height,
+                GlobalAppBar().addPadding(horizontal: 8),
+                30.height,
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15.0),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             spacing: 10,
-                            runSpacing: 10,
                             children: [
                               Text(
                                 'Let’s',
@@ -166,8 +165,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             ],
                           ),
                           const SizedBox(height: 10),
-                          Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             spacing: 10,
                             children: [
                               Text(
@@ -189,131 +188,145 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ],
                       ),
-                      20.height,
-                      Container(
-                        width: double.infinity,
-                        height: 74,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                    ),
+                    20.height,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            height: 74,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    'Location',
-                                    style: TextStyle(
-                                        fontFamily: 'Outfit',
-                                        fontSize: 14,
-                                        color: Color(0xff919191)),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Location',
+                                        style: TextStyle(
+                                            fontFamily: 'Outfit',
+                                            fontSize: 14,
+                                            color: Color(0xff919191)),
+                                      ),
+                                      Text(
+                                        'Toronto',
+                                        style: TextStyle(
+                                            fontFamily: 'Outfit',
+                                            fontSize: 18,
+                                            color: Colors.white),
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    'Toronto',
-                                    style: TextStyle(
-                                        fontFamily: 'Outfit',
-                                        fontSize: 18,
-                                        color: Colors.white),
-                                  ),
+                                  SvgPicture.asset(
+                                      'assets/icons/location_marker.svg')
                                 ],
                               ),
-                              SvgPicture.asset(
-                                  'assets/icons/location_marker.svg')
-                            ],
+                            ),
+                            decoration: BoxDecoration(
+                                color: Color(0xff3B3C3E),
+                                border: Border.all(color: Color(0xff646566)),
+                                borderRadius: BorderRadius.circular(12)),
                           ),
-                        ),
-                        decoration: BoxDecoration(
-                            color: Color(0xff3B3C3E),
-                            border: Border.all(color: Color(0xff646566)),
-                            borderRadius: BorderRadius.circular(12)),
-                      ),
-                      10.height,
-                      Container(
-                        width: double.infinity,
-                        height: 74,
-                        padding: const EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          color: Color(0xff3B3C3E),
-                          border: Border.all(color: Color(0xff646566)),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isSellSelected = true;
-                                  });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: isSellSelected
-                                        ? Color(0xff1C1D20)
-                                        : Colors.transparent,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'Sell House',
-                                    style: TextStyle(
-                                      fontFamily: 'Outfit',
-                                      color: isSellSelected
-                                          ? Color(0xffF6A825)
-                                          : Colors.grey,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
+                          10.height,
+                          Container(
+                            width: double.infinity,
+                            height: 74,
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: Color(0xff3B3C3E),
+                              border: Border.all(color: Color(0xff646566)),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isSellSelected = true;
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: isSellSelected
+                                            ? Color(0xff1C1D20)
+                                            : Colors.transparent,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Sell House',
+                                        style: TextStyle(
+                                          fontFamily: 'Outfit',
+                                          color: isSellSelected
+                                              ? Color(0xffF6A825)
+                                              : Colors.grey,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isSellSelected = false;
-                                  });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: !isSellSelected
-                                        ? Color(0xff1C1D20)
-                                        : Colors.transparent,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'My Home',
-                                    style: TextStyle(
-                                      fontFamily: 'Outfit',
-                                      color: !isSellSelected
-                                          ? AppThemes.primaryColor
-                                          : Colors.grey,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isSellSelected = false;
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: !isSellSelected
+                                            ? Color(0xff1C1D20)
+                                            : Colors.transparent,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'My Home',
+                                        style: TextStyle(
+                                          fontFamily: 'Outfit',
+                                          color: !isSellSelected
+                                              ? AppThemes.primaryColor
+                                              : Colors.grey,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          10.height,
+                          roundButton(
+                            height: 62,
+                            onClick: () {
+                              showSellBottomSheet(context);
+                            },
+                            text: 'Sell Your House',
+                            buttonWidth: double.infinity,
+                            horizontalPadding: 0,
+                          ),
+                          10.height,
+                        ],
                       ),
-                      10.height,
-                      roundButton(
-                        height: 62,
-                        onClick: () {
-                          showSellBottomSheet(context);
-                        },
-                        text: 'Sell Your House',
-                        buttonWidth: double.infinity,
-                        horizontalPadding: 0,
-                      ),
-                      10.height,
-                      isSellSelected
-                          ? Column(
+                    ),
+                    isSellSelected
+                        ? Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Column(
                               children: [
                                 Row(
                                   mainAxisAlignment:
@@ -374,8 +387,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                   },
                                 ),
                               ],
-                            )
-                          : Column(
+                            ),
+                          )
+                        : Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Column(
                               children: [
                                 Row(
                                   mainAxisAlignment:
@@ -770,12 +787,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                     }),
                               ],
                             ),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                  ),
-                ],
-              ),
+                          ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                ),
+              ],
             ),
           ),
         ),

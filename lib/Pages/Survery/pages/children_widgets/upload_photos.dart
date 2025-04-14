@@ -96,7 +96,7 @@ class UploadPhotos extends StatelessWidget {
           }),
           12.height,
           Visibility(
-            visible: provider.selectedHouseImages.isEmpty,
+            visible: provider.selectedHouseImages.isNotEmpty,
             replacement: roundButton(
               horizontalPadding: 15,
               buttonWidth: double.infinity,
@@ -169,7 +169,7 @@ class ImagePickWidget extends StatelessWidget {
                   text: 'Upload atleast',
                   children: [
                     TextSpan(
-                        text: ' 4 ',
+                        text: ' 10 ',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         )),

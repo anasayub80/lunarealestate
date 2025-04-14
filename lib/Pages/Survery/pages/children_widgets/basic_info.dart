@@ -73,25 +73,60 @@ class _BasicInfoState extends State<BasicInfo> {
             horizontal: 10,
           ),
           20.height,
-          textBox(
-            controller: title,
-            onFieldSubmitted: (value) {
-              Provider.of<SurvProvider>(context, listen: false)
-                  .savePropInfoData(context);
-            },
-            validator: (titlet) {
-              if (title.text.isNotEmpty)
-                return null;
-              else
-                return 'Enter property title';
-            },
-            hint: 'Property Title',
-            icon: null,
-            isSvg: true,
-            Ktype: TextInputType.text,
-          ).addPadding(
-            horizontal: 10,
-          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Color(0xff3B3C3E),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Color(0xff646566)),
+            ),
+            child: DropdownButtonFormField<String>(
+              icon: Icon(
+                Icons.arrow_drop_down,
+                color: Colors.white,
+              ),
+              dropdownColor: Color(0xff3B3C3E),
+              hint: Text(
+                'Property Type',
+                style: TextStyle(color: Colors.grey),
+              ),
+              decoration: InputDecoration(
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+              ),
+              value: [
+                'Apartment',
+                'Villa',
+                'Commercial Land',
+                'Office',
+                'Other'
+              ].contains(selectedPropertyType)
+                  ? selectedPropertyType
+                  : null,
+              items:
+                  ['Apartment', 'Villa', 'Commercial Land', 'Office', 'Other']
+                      .map((type) => DropdownMenuItem<String>(
+                            value: type,
+                            child: Text(
+                              type,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ))
+                      .toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedPropertyType = value;
+                });
+
+                // Call your Provider method after selection
+                Provider.of<SurvProvider>(context, listen: false)
+                    .savePropInfoData(context);
+              },
+              validator: (value) =>
+                  value == null ? 'Please select a property type' : null,
+            ),
+          ).addPadding(horizontal: 10),
           40.height,
           Text('Address',
               style: TextStyle(
@@ -128,12 +163,9 @@ class _BasicInfoState extends State<BasicInfo> {
                   .savePropInfoData(context);
             },
             validator: (address) {
-              if (location2Controller.text.isNotEmpty)
-                return null;
-              else
-                return 'Enter address';
+              return null;
             },
-            hint: 'Apartment name',
+            hint: 'Apartment name (Optional)',
             icon: null,
             isSvg: true,
           ).addPadding(
@@ -150,7 +182,7 @@ class _BasicInfoState extends State<BasicInfo> {
                 Provider.of<SurvProvider>(context, listen: false)
                     .savedbasicData(context);
                 BasicInfoModel basicInfomodel = BasicInfoModel(
-                  title: title.text,
+                  title: selectedPropertyType ?? 'others',
                   phone: ownerNumber.text,
                   name: ownerName.text,
                   location: locationController.text,

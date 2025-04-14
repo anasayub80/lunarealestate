@@ -104,7 +104,7 @@ class _AgreementInfoState extends State<AgreementInfo> {
           20.height,
           textBox(
             controller: agreementemailController,
-            Ktype: TextInputType.number,
+            Ktype: TextInputType.emailAddress,
             validator: (phone) {
               if (agreementemailController.text.isNotEmpty)
                 return null;
@@ -136,6 +136,21 @@ class _AgreementInfoState extends State<AgreementInfo> {
             isSvg: true,
           ).addPadding(
             horizontal: 10,
+          ),
+          20.height,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Text(
+              'I hereby certify that I am the owner and that all the information provided above is true and correct to the best of my knowledge.',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                height: 1.5,
+                fontFamily: 'Outfit',
+              ),
+              textAlign: TextAlign.justify,
+            ),
           ),
           20.height,
           Align(

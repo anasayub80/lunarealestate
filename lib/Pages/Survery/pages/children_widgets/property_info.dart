@@ -213,7 +213,7 @@ class _PropertyInfoState extends State<PropertyInfo> {
                           },
                         ),
                         Visibility(
-                            visible: images.length != 4,
+                            visible: images.length != 10,
                             child: ImagePickWidget(provider: provider)),
                       ],
                     ),
@@ -261,11 +261,11 @@ class _PropertyInfoState extends State<PropertyInfo> {
                   if (res == '1') {
                     if (images.isEmpty) {
                       Utils.showSnackbar(
-                        'Select at least 4 Image',
+                        'Select at least 10 Image',
                         Colors.red,
                         context,
                       );
-                    } else if (images.length >= 4) {
+                    } else if (images.length >= 10) {
                       var res = await submitMultipleImages(context);
                       if (res == '1') {
                         prov.activeStepIndex += 1;
@@ -273,7 +273,7 @@ class _PropertyInfoState extends State<PropertyInfo> {
                       }
                     } else {
                       Utils.showSnackbar(
-                          'Select at least 4 Image', Colors.red, context);
+                          'Select at least 10 Image', Colors.red, context);
                     }
                   } else {
                     Utils.showSnackbar('Something Wrong', Colors.red, context);

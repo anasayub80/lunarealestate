@@ -155,8 +155,9 @@ class SurvProvider with ChangeNotifier {
 
   savedbasicData(BuildContext context) {
     BasicInfoModel basicInfoModel = BasicInfoModel(
-      title: title.text,
-      location: locationController.text + location2Controller.text,
+      title: selectedPropertyType??'others',
+      location: locationController.text +
+    (location2Controller.text.isNotEmpty ? ', ${location2Controller.text}' : ''),
       name: ownerName.text,
       phone: ownerNumber.text,
       tab: 'basic_info',
