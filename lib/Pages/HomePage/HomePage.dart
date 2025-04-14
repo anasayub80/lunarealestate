@@ -115,6 +115,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final CarouselSliderController _carouselController =
       CarouselSliderController();
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<SurvProvider>(context, listen: false).getCurrentLocation();
+  }
+
   @override
   Widget build(BuildContext context) {
     Provider.of<SurvProvider>(context, listen: false).getFormIdfrom();
@@ -204,26 +211,33 @@ class _MyHomePageState extends State<MyHomePage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Location',
-                                        style: TextStyle(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 14,
-                                            color: Color(0xff919191)),
-                                      ),
-                                      Text(
-                                        'Toronto',
-                                        style: TextStyle(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 18,
-                                            color: Colors.white),
-                                      ),
-                                    ],
+                                  Consumer<SurvProvider>(
+                                    builder: (context, provider, child) {
+                                      return Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Location',
+                                            style: TextStyle(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 14,
+                                              color: Color(0xff919191),
+                                            ),
+                                          ),
+                                          Text(
+                                            provider.city ?? 'Unavailable',
+                                            style: TextStyle(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 18,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   ),
                                   SvgPicture.asset(
                                       'assets/icons/location_marker.svg')

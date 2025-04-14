@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:lunarestate/Models/BasicInfoMode.dart';
 import 'package:lunarestate/Models/SurveyModel.dart';
 import 'package:lunarestate/Models/SurveyModelMore.dart';
@@ -26,6 +28,55 @@ class SurvProvider with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('activeStepIndex', 0);
     notifyListeners();
+  }
+
+  String? city;
+  Future<Position?> getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    try {
+      serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        return Future.error('Location services are disabled.');
+      }
+
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          return Future.error('Location permission denied.');
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        return Future.error('Location permissions are permanently denied.');
+      }
+
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+
+      if (placemarks.isNotEmpty) {
+        city = placemarks.first.locality ?? 'Unknown';
+        debugPrint('📍 City: $city');
+        notifyListeners();
+      } else {
+        city = 'Unknown';
+        notifyListeners();
+      }
+
+      return position;
+    } catch (e) {
+      debugPrint('❌ Error getting location: $e');
+      city = 'Unknown';
+      return null;
+    }
   }
 
   String get getFormId => formid!;
@@ -155,9 +206,11 @@ class SurvProvider with ChangeNotifier {
 
   savedbasicData(BuildContext context) {
     BasicInfoModel basicInfoModel = BasicInfoModel(
-      title: selectedPropertyType??'others',
+      title: selectedPropertyType ?? 'others',
       location: locationController.text +
-    (location2Controller.text.isNotEmpty ? ', ${location2Controller.text}' : ''),
+          (location2Controller.text.isNotEmpty
+              ? ', ${location2Controller.text}'
+              : ''),
       name: ownerName.text,
       phone: ownerNumber.text,
       tab: 'basic_info',
