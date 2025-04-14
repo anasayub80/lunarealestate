@@ -34,7 +34,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.lunaenterprises"
-    compileSdkVersion 34
+    compileSdkVersion 35
     ndkVersion "26.1.10909125"
     namespace  "com.lunaenterprises"
     compileOptions {

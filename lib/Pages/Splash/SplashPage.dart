@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lunarestate/Admin/new/home_page.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/HomePage/HomePage.dart';
@@ -11,7 +10,6 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import '../../Service/UserData.dart';
-import '../../main.dart';
 import 'dart:io' show Platform;
 
 class SplashPage extends StatefulWidget {

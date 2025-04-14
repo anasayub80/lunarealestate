@@ -1,18 +1,14 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Admin/new/seller_request/widgets/grid_view.dart';
-import 'package:lunarestate/Admin/new/seller_request/widgets/list_view.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Widgets/customAppBar.dart';
-import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../Widgets/global_appbar.dart';
 
 Future<void> makePhoneCall(String phoneNumber) async {
   final Uri launchUri = Uri(

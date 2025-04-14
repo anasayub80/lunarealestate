@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 
-import '../Admin/AppTheme.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String title;

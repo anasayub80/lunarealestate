@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:floading/floading.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_svg/flutter_svg.dart';

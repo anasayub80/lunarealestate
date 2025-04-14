@@ -13,7 +13,6 @@ import 'package:lunarestate/Pages/HomePage/controller/admin_home_controller.dart
 import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
 import 'package:lunarestate/Pages/property_full_detail/property_detail_controller.dart';
-import 'package:lunarestate/Pages/welcome_page.dart';
 import 'package:lunarestate/firebase_options.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -85,7 +84,7 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider<SellHouseProvider>(
             create: (_) => SellHouseProvider(),
           ),
-           ChangeNotifierProvider<AdminHomeController>(
+          ChangeNotifierProvider<AdminHomeController>(
             create: (_) => AdminHomeController(),
           ),
         ],
@@ -134,8 +133,8 @@ class _MyAppState extends State<MyApp> {
           // home: CreatenewPassPage(
           //   email: 'Forgot',
           // ),
-          // home: SplashPage(),
-          home: WelcomePage(),
+          home: SplashPage(),
+          // home: WelcomePage(),
           // home: LoginPage(),
         ),
       );

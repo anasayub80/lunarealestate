@@ -16,7 +16,6 @@ import 'package:floading/floading.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Widgets/Utils.dart';
-import '../../main.dart';
 
 // form key
 final basicInfoFormKey = GlobalKey<FormState>();

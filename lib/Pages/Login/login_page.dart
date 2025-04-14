@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
 import 'dart:developer';
 
@@ -175,10 +175,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       roundButton(
                         height: 62,
-                        // height: context.screenHeight * 0.057,
                         horizontalPadding: 0,
                         circleBorder: 12,
-
                         onClick: (() async {
                           FocusManager.instance.primaryFocus?.unfocus();
                           if (_emailController.text.trim().isEmpty ||

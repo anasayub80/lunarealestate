@@ -7,7 +7,6 @@ import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Widgets/customAppBar.dart';
-import 'package:lunarestate/Widgets/global_appbar.dart';
 
 class PurchaseProertyView extends StatefulWidget {
   const PurchaseProertyView({super.key});

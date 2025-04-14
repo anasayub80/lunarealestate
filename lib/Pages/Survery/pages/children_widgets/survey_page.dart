@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
-import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Survery/survey_questions.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
-import 'package:lunarestate/Widgets/textBox.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../Models/SurveyModel.dart';

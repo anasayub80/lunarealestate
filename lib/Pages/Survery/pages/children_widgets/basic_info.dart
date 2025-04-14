@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Survery/surveyData.dart';
-import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:lunarestate/Widgets/textBox.dart';
 import 'package:provider/provider.dart';

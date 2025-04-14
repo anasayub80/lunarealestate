@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/config.dart';
@@ -10,7 +9,6 @@ import 'package:lunarestate/Pages/SellHistory/fullDetail.dart';
 import 'package:lunarestate/Pages/SellHistory/listview_house.dart';
 import 'package:lunarestate/Service/UserData.dart';
 import 'package:lunarestate/Service/backend.dart';
-import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Config/customDelgate.dart';
