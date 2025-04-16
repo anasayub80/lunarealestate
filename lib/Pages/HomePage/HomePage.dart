@@ -277,7 +277,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ),
                                       alignment: Alignment.center,
                                       child: Text(
-                                        'Sell House',
+                                        'Sell Property',
                                         style: TextStyle(
                                           fontFamily: 'Outfit',
                                           color: isSellSelected
@@ -328,7 +328,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             onClick: () {
                               showSellBottomSheet(context);
                             },
-                            text: 'Sell Your House',
+                            text: 'Sell Your Property',
                             buttonWidth: double.infinity,
                             horizontalPadding: 0,
                           ),
@@ -414,7 +414,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'My Homes',
+                                      'My Properties',
                                       style: TextStyle(
                                           fontFamily: 'Outfit',
                                           fontWeight: FontWeight.w600,
@@ -483,8 +483,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                                         crossAxisCount: 2,
                                                         crossAxisSpacing: 5.0,
                                                         mainAxisSpacing: 5.0,
-                                                        // childAspectRatio:
-                                                        //     size.width / (size.height / 1.6),
                                                         height: 210),
                                                 itemBuilder: (context, index) {
                                                   debugPrint(snapshot

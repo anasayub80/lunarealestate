@@ -133,12 +133,6 @@ class GridChild extends StatelessWidget {
         child: Image.asset(
           url,
           fit: BoxFit.fill,
-          // loadingBuilder: (context, child, loadingProgress) {
-          //   if (loadingProgress == null) return child;
-          //   return Center(
-          //     child: CircularProgressIndicator(),
-          //   );
-          // },
         ),
       ),
     );

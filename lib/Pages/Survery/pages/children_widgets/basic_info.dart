@@ -94,24 +94,29 @@ class _BasicInfoState extends State<BasicInfo> {
                 enabledBorder: InputBorder.none,
               ),
               value: [
-                'Apartment',
-                'Villa',
-                'Commercial Land',
-                'Office',
+                'Residential',
+                'Commercial',
+                'Lot/Land',
+                'Multi Family',
                 'Other'
               ].contains(selectedPropertyType)
                   ? selectedPropertyType
                   : null,
-              items:
-                  ['Apartment', 'Villa', 'Commercial Land', 'Office', 'Other']
-                      .map((type) => DropdownMenuItem<String>(
-                            value: type,
-                            child: Text(
-                              type,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ))
-                      .toList(),
+              items: [
+                'Residential',
+                'Commercial',
+                'Lot/Land',
+                'Multi Family',
+                'Other'
+              ]
+                  .map((type) => DropdownMenuItem<String>(
+                        value: type,
+                        child: Text(
+                          type,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ))
+                  .toList(),
               onChanged: (value) {
                 setState(() {
                   selectedPropertyType = value;

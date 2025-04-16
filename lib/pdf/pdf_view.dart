@@ -349,12 +349,12 @@ Future generatePdf(
         ]);
   }));
   final output = await getTemporaryDirectory();
-  final file = File("${output.path}/Invoice.pdf");
+  var date = DateTime.now().microsecondsSinceEpoch;
+  final file = File("${output.path}/PropertyAgreement${date}.pdf");
   await file.writeAsBytes(await pdf.save());
   // debugPrint("Invoice PDF saved to ${file.path}");
 
-  // await FileSaver.instance.saveFile(name: 'name${DateTime.now().millisecond}', bytes: file.readAsBytesSync());
-  await Printing.layoutPdf(onLayout: (format) async {
-    return pdf.save();
-  });
+  // await Printing.layoutPdf(onLayout: (format) async {
+  return pdf.save();
+  // });
 }
