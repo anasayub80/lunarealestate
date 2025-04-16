@@ -138,7 +138,7 @@ class _SplashPageState extends State<SplashPage> {
                         fit: BoxFit.fill,
                       ),
                       width: size.width * 0.50,
-                      height: 120,
+                      height: 175,
                     ),
                   ),
                 ],

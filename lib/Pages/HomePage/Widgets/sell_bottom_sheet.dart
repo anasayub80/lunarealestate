@@ -33,18 +33,25 @@ void showSellBottomSheet(context) {
                   style: TextStyle(
                       color: Colors.white, fontSize: 20, fontFamily: 'Outfit'),
                 ),
+                Text(
+                  'Diversified investment firm in all asset class types. - House, lots, land, multi-family, commercial, etc.',
+                  style: TextStyle(
+                      color: AppThemes.secondarycolor,
+                      fontSize: 16,
+                      fontFamily: 'Outfit'),
+                ),
                 20.height,
                 InfoContainer(
-                  title: 'Commissions / Fees:',
+                  title: 'Fees :',
                   subtitle:
-                      '6% on average is paid by you, the seller-No Commissions by  Luna Enterprises.',
+                      'Paid fees for you to net max capital covered by us.',
                 ),
                 15.height,
-                InfoContainer(
-                  title: 'Who Pays Closing Costs?',
-                  subtitle:
-                      '2% on average is paid by you, the seller. We split close closing cost.',
-                ),
+                // InfoContainer(
+                //   title: 'Who Pays Closing Costs?',
+                //   subtitle:
+                //       '2% on average is paid by you, the seller. We split close closing cost.',
+                // ),
                 15.height,
                 OtherBenifits(
                   title: 'Other Benefits.',
@@ -135,10 +142,12 @@ class OtherBenifits extends StatelessWidget {
   final String title;
 
   final List<String> bulletPoints = [
-    'No Showing',
-    'No out of pocket repair cost.',
-    'No dealing with multiple inspectors hassling or nitpick your home.',
-    'Fast quick and cash.',
+    'Multi-level exit strategies.',
+    'We offer what\'s best for the situation given any circumstances.',
+    'Investment groups at the tap of your fingertips with no commitments.',
+    'Free muli point evaluation with your property.',
+    'Pay outs range 5 - 30 days depending on deal to deal basis.',
+    'Multi million dollar investment funds at hand.',
   ];
 
   @override

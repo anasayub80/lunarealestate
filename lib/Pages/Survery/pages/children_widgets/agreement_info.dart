@@ -20,6 +20,7 @@ class AgreementInfo extends StatefulWidget {
 }
 
 class _AgreementInfoState extends State<AgreementInfo> {
+  bool isClarify = false;
   @override
   void initState() {
     super.initState();
@@ -81,7 +82,7 @@ class _AgreementInfoState extends State<AgreementInfo> {
                 return 'Enter Owner Name';
             },
             isSvg: true,
-            Ktype: TextInputType.name,
+            Ktype: TextInputType.emailAddress,
           ).addPadding(
             horizontal: 10,
           ),
@@ -138,19 +139,32 @@ class _AgreementInfoState extends State<AgreementInfo> {
             horizontal: 10,
           ),
           20.height,
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Text(
-              'I hereby certify that I am the owner and that all the information provided above is true and correct to the best of my knowledge.',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                height: 1.5,
-                fontFamily: 'Outfit',
+          Row(
+            children: [
+              Checkbox(
+                  value: isClarify,
+                  onChanged: (v) {
+                    setState(() {
+                      isClarify = v ?? false;
+                    });
+                  }),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Text(
+                    'I hereby certify that I am the owner and that all the information provided above is true and correct to the best of my knowledge.',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      height: 1.5,
+                      fontFamily: 'Outfit',
+                    ),
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
               ),
-              textAlign: TextAlign.justify,
-            ),
+            ],
           ),
           20.height,
           Align(
@@ -228,10 +242,57 @@ class _AgreementInfoState extends State<AgreementInfo> {
             height: 55,
             circleBorder: 30,
             onClick: () async {
+              if (!isClarify) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                        'Please click on the "Certify i am the Owner" checkbox.'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+                return;
+              }
               if (_controller.isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Please draw your signature, First'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+                return;
+              }
+              if (agreementNameController.text.trim().isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Please enter your name'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+                return;
+              }
+              if (agreementemailController.text.trim().isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Please enter your email'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+                return;
+              }
+              if (agreementphoneController.text.trim().isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Please enter your phone #'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+                return;
+              }
+              if (agreementAddressController.text.trim().isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Please enter your address'),
+                    backgroundColor: Colors.red,
                   ),
                 );
                 return;

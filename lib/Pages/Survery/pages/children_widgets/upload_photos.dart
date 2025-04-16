@@ -94,7 +94,6 @@ class UploadPhotos extends StatelessWidget {
                 ),
                 child: ImagePickWidget(provider: provider));
           }),
-          12.height,
           Visibility(
             visible: provider.selectedHouseImages.isNotEmpty,
             replacement: roundButton(
@@ -124,6 +123,7 @@ class UploadPhotos extends StatelessWidget {
             ),
             child: SizedBox.shrink(),
           ),
+          20.height,
         ],
       ),
     );
