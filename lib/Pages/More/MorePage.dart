@@ -199,20 +199,6 @@ class MorePage extends StatelessWidget {
                   size: 17,
                 ),
               ),
-
-              // GestureDetector(
-              //   onTap: () {
-              //     backend().launchInBrowser(
-              //         Uri.parse('https://lunaenterprises.info/'));
-              //   },
-              //   child: Text(
-              //     'lunaenterprises.info',
-              //     style: TextStyle(
-              //       color: Colors.amber,
-              //       decoration: TextDecoration.underline,
-              //     ),
-              //   ),
-              // ),
               Spacer(),
               CustomGradientElevatedButton(
                   height: 55,

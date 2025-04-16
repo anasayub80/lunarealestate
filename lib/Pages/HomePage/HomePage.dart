@@ -131,680 +131,696 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: BgTwo(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                30.height,
-                GlobalAppBar().addPadding(horizontal: 8),
-                30.height,
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            spacing: 10,
-                            children: [
-                              Text(
-                                'Let’s',
-                                style: TextStyle(
-                                  fontFamily: 'Outfit',
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  fontSize: 34,
-                                ),
-                              ),
-                              SvgPicture.asset(
-                                'assets/icons/magnify.svg',
-                              ),
-                              Text(
-                                'Find You The',
-                                style: TextStyle(
-                                  fontFamily: 'Outfit',
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  fontSize: 34,
-                                ),
-                              ),
-                            ],
+          child: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  GlobalAppBar().addPadding(horizontal: 8),
+                  30.height,
+                  Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15.0),
+                          // padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Where Deals Get Done',
+                            style: TextStyle(
+                              fontFamily: 'Outfit',
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                              fontSize: 26,
+                            ),
                           ),
-                          const SizedBox(height: 10),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            spacing: 10,
-                            children: [
-                              Text(
-                                'Best Deal',
-                                style: TextStyle(
-                                  fontFamily: 'Outfit',
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  fontSize: 34,
-                                ),
-                              ),
-                              Text(
-                                '🏡',
-                                style: TextStyle(
-                                  fontSize: 34,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                        ),
+                        // child: Column(
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   children: [
+                        //     Row(
+                        //       crossAxisAlignment: CrossAxisAlignment.start,
+                        //       spacing: 10,
+                        //       children: [
+                        //         Text(
+                        //           'Where Deals Get Done',
+                        //           style: TextStyle(
+                        //             fontFamily: 'Outfit',
+                        //             fontWeight: FontWeight.w600,
+                        //             color: Colors.white,
+                        //             fontSize: 34,
+                        //           ),
+                        //         ),
+                        //         SvgPicture.asset(
+                        //           'assets/icons/magnify.svg',
+                        //         ),
+                        //         Text(
+                        //           'Find You The',
+                        //           style: TextStyle(
+                        //             fontFamily: 'Outfit',
+                        //             fontWeight: FontWeight.w600,
+                        //             color: Colors.white,
+                        //             fontSize: 34,
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //     const SizedBox(height: 10),
+                        //     Row(
+                        //       crossAxisAlignment: CrossAxisAlignment.start,
+                        //       spacing: 10,
+                        //       children: [
+                        //         Text(
+                        //           'Best Deal',
+                        //           style: TextStyle(
+                        //             fontFamily: 'Outfit',
+                        //             fontWeight: FontWeight.w600,
+                        //             color: Colors.white,
+                        //             fontSize: 34,
+                        //           ),
+                        //         ),
+                        //         Text(
+                        //           '🏡',
+                        //           style: TextStyle(
+                        //             fontSize: 34,
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ],
+                        // ),
                       ),
-                    ),
-                    20.height,
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            height: 74,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10.0),
+                      20.height,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              height: 74,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Consumer<SurvProvider>(
+                                      builder: (context, provider, child) {
+                                        return Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Location',
+                                              style: TextStyle(
+                                                fontFamily: 'Outfit',
+                                                fontSize: 14,
+                                                color: Color(0xff919191),
+                                              ),
+                                            ),
+                                            Text(
+                                              provider.city ?? 'Unavailable',
+                                              style: TextStyle(
+                                                fontFamily: 'Outfit',
+                                                fontSize: 18,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                    SvgPicture.asset(
+                                        'assets/icons/location_marker.svg')
+                                  ],
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                  color: Color(0xff3B3C3E),
+                                  border: Border.all(color: Color(0xff646566)),
+                                  borderRadius: BorderRadius.circular(12)),
+                            ),
+                            10.height,
+                            Container(
+                              width: double.infinity,
+                              height: 74,
+                              padding: const EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                color: Color(0xff3B3C3E),
+                                border: Border.all(color: Color(0xff646566)),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Consumer<SurvProvider>(
-                                    builder: (context, provider, child) {
-                                      return Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Location',
-                                            style: TextStyle(
-                                              fontFamily: 'Outfit',
-                                              fontSize: 14,
-                                              color: Color(0xff919191),
-                                            ),
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isSellSelected = true;
+                                        });
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: isSellSelected
+                                              ? Color(0xff1C1D20)
+                                              : Colors.transparent,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Sell Property',
+                                          style: TextStyle(
+                                            fontFamily: 'Outfit',
+                                            color: isSellSelected
+                                                ? Color(0xffF6A825)
+                                                : Colors.grey,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
                                           ),
-                                          Text(
-                                            provider.city ?? 'Unavailable',
-                                            style: TextStyle(
-                                              fontFamily: 'Outfit',
-                                              fontSize: 18,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  SvgPicture.asset(
-                                      'assets/icons/location_marker.svg')
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isSellSelected = false;
+                                        });
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: !isSellSelected
+                                              ? Color(0xff1C1D20)
+                                              : Colors.transparent,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'My Home',
+                                          style: TextStyle(
+                                            fontFamily: 'Outfit',
+                                            color: !isSellSelected
+                                                ? AppThemes.primaryColor
+                                                : Colors.grey,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
-                            decoration: BoxDecoration(
-                                color: Color(0xff3B3C3E),
-                                border: Border.all(color: Color(0xff646566)),
-                                borderRadius: BorderRadius.circular(12)),
-                          ),
-                          10.height,
-                          Container(
-                            width: double.infinity,
-                            height: 74,
-                            padding: const EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                              color: Color(0xff3B3C3E),
-                              border: Border.all(color: Color(0xff646566)),
-                              borderRadius: BorderRadius.circular(12),
+                            10.height,
+                            roundButton(
+                              height: 62,
+                              onClick: () {
+                                showSellBottomSheet(context);
+                              },
+                              text: 'Sell Your Property',
+                              buttonWidth: double.infinity,
+                              horizontalPadding: 0,
                             ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        isSellSelected = true;
-                                      });
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: isSellSelected
-                                            ? Color(0xff1C1D20)
-                                            : Colors.transparent,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Sell Property',
-                                        style: TextStyle(
-                                          fontFamily: 'Outfit',
-                                          color: isSellSelected
-                                              ? Color(0xffF6A825)
-                                              : Colors.grey,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        isSellSelected = false;
-                                      });
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: !isSellSelected
-                                            ? Color(0xff1C1D20)
-                                            : Colors.transparent,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'My Home',
-                                        style: TextStyle(
-                                          fontFamily: 'Outfit',
-                                          color: !isSellSelected
-                                              ? AppThemes.primaryColor
-                                              : Colors.grey,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          10.height,
-                          roundButton(
-                            height: 62,
-                            onClick: () {
-                              showSellBottomSheet(context);
-                            },
-                            text: 'Sell Your Property',
-                            buttonWidth: double.infinity,
-                            horizontalPadding: 0,
-                          ),
-                          10.height,
-                        ],
+                            10.height,
+                          ],
+                        ),
                       ),
-                    ),
-                    isSellSelected
-                        ? Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Gallery',
-                                      style: TextStyle(
-                                          fontFamily: 'Outfit',
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 20,
-                                          color: Colors.white),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            PageTransition(
-                                                isIos: true,
-                                                duration:
-                                                    Duration(milliseconds: 700),
-                                                child: GalleryPage(from: 'btn'),
-                                                type: PageTransitionType.fade));
-                                      },
-                                      child: Text(
-                                        'See all',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(
-                                              fontFamily: 'Outfit',
-                                              color: AppThemes.secondarycolor,
-                                              fontSize: 20,
-                                            ),
+                      isSellSelected
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Gallery',
+                                        style: TextStyle(
+                                            fontFamily: 'Outfit',
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 20,
+                                            color: Colors.white),
                                       ),
-                                    )
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 18,
-                                ),
-                                GridView.builder(
-                                  padding: EdgeInsets.zero,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: img.length,
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    mainAxisSpacing: 8,
-                                    crossAxisSpacing: 8,
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  isIos: true,
+                                                  duration: Duration(
+                                                      milliseconds: 700),
+                                                  child:
+                                                      GalleryPage(from: 'btn'),
+                                                  type:
+                                                      PageTransitionType.fade));
+                                        },
+                                        child: Text(
+                                          'See all',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium!
+                                              .copyWith(
+                                                fontFamily: 'Outfit',
+                                                color: AppThemes.secondarycolor,
+                                                fontSize: 20,
+                                              ),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                  itemBuilder: (context, index) {
-                                    return GridChild(
-                                      url: "assets/house_images/${img[index]}",
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          )
-                        : Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'My Properties',
-                                      style: TextStyle(
-                                          fontFamily: 'Outfit',
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 20,
-                                          color: Colors.white),
+                                  SizedBox(
+                                    height: 18,
+                                  ),
+                                  GridView.builder(
+                                    padding: EdgeInsets.zero,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: img.length,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      mainAxisSpacing: 8,
+                                      crossAxisSpacing: 8,
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            PageTransition(
-                                                isIos: true,
-                                                duration:
-                                                    Duration(milliseconds: 700),
-                                                child: SellHistoryPage(
-                                                    from: 'btn'),
-                                                type: PageTransitionType.fade));
-                                      },
-                                      child: Text(
-                                        'See all',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(
-                                              fontFamily: 'Outfit',
-                                              color: AppThemes.secondarycolor,
-                                              fontSize: 20,
-                                            ),
+                                    itemBuilder: (context, index) {
+                                      return GridChild(
+                                        url:
+                                            "assets/house_images/${img[index]}",
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'My Properties',
+                                        style: TextStyle(
+                                            fontFamily: 'Outfit',
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 20,
+                                            color: Colors.white),
                                       ),
-                                    )
-                                  ],
-                                ),
-                                18.height,
-                                FutureBuilder(
-                                    future: backend().fetchProperty(
-                                        Provider.of<UserData>(context,
-                                                listen: false)
-                                            .id!),
-                                    builder: (context, AsyncSnapshot snapshot) {
-                                      switch (snapshot.connectionState) {
-                                        case ConnectionState.waiting:
-                                          return Center(
-                                              child:
-                                                  CircularProgressIndicator());
-                                        default:
-                                          if (snapshot.hasError) {
-                                            return Text('Error');
-                                          } else if (snapshot.data != null) {
-                                            if (!isGrid) {
-                                              return getListView(
-                                                  snapshot.data,
-                                                  snapshot.data.length,
-                                                  context, (index) {
-                                                DeleteProperty(
-                                                    context, snapshot, index);
-                                              });
-                                            } else
-                                              return GridView.builder(
-                                                itemCount: snapshot.data.length,
-                                                shrinkWrap: true,
-                                                padding: EdgeInsets.zero,
-                                                physics:
-                                                    NeverScrollableScrollPhysics(),
-                                                gridDelegate:
-                                                    SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
-                                                        crossAxisCount: 2,
-                                                        crossAxisSpacing: 5.0,
-                                                        mainAxisSpacing: 5.0,
-                                                        height: 210),
-                                                itemBuilder: (context, index) {
-                                                  debugPrint(snapshot
-                                                      .data[index]
-                                                      .toString());
-                                                  return GestureDetector(
-                                                    onTap: () {
-                                                      // debugPrint(snapshot.data[index]['id']);
-                                                      Navigator.push(context,
-                                                          MaterialPageRoute(
-                                                        builder: (context) {
-                                                          return PropertyFullDetail(
-                                                              from: 'name',
-                                                              formId: snapshot
-                                                                      .data[
-                                                                  index]['id']);
-                                                        },
-                                                      ));
-                                                    },
-                                                    child: Card(
-                                                      child: Container(
-                                                          child: Column(
-                                                            children: [
-                                                              SizedBox(
-                                                                height: 120,
-                                                                width:
-                                                                    size.width,
-                                                                child:
-                                                                    ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .only(
-                                                                    topLeft: Radius
-                                                                        .circular(
-                                                                            8),
-                                                                    topRight: Radius
-                                                                        .circular(
-                                                                            8),
-                                                                  ),
-                                                                  child: Stack(
-                                                                    children: [
-                                                                      SizedBox(
-                                                                        width: size
-                                                                            .width,
-                                                                        child:
-                                                                            CachedNetworkImage(
-                                                                          imageUrl:
-                                                                              snapshot.data[index]['image'],
-                                                                          height: MediaQuery.of(context)
-                                                                              .size
-                                                                              .height,
-                                                                          fit: BoxFit
-                                                                              .fill,
-                                                                          placeholder: (context, url) =>
-                                                                              Center(child: CircularProgressIndicator()),
-                                                                          errorWidget: (context, url, error) =>
-                                                                              Icon(Icons.error),
-                                                                        ),
-                                                                      ),
-                                                                      Positioned(
-                                                                          top:
-                                                                              5,
-                                                                          right:
-                                                                              5,
-                                                                          child:
-                                                                              GestureDetector(
-                                                                            onTap:
-                                                                                () {
-                                                                              Navigator.push(
-                                                                                  context,
-                                                                                  PageTransition(
-                                                                                    isIos: true,
-                                                                                    duration: Duration(milliseconds: 700),
-                                                                                    child: FullDetail(
-                                                                                      formId: snapshot.data[index]['id'],
-                                                                                      from: 'name',
-                                                                                    ),
-                                                                                    type: PageTransitionType.fade,
-                                                                                  ));
-                                                                            },
-                                                                            child:
-                                                                                SvgPicture.asset(
-                                                                              'assets/icons/edit_pencil.svg',
-                                                                            ),
-                                                                          )),
-                                                                      Align(
-                                                                        alignment:
-                                                                            Alignment.topLeft,
-                                                                        child: snapshot.data[index]['detailType'] ==
-                                                                                'Complete'
-                                                                            ? SizedBox.shrink()
-                                                                            : Container(
-                                                                                decoration: BoxDecoration(
-                                                                                  color: Colors.red,
-                                                                                  borderRadius: BorderRadius.only(
-                                                                                    topLeft: Radius.circular(8),
-                                                                                    bottomRight: Radius.circular(8),
-                                                                                  ),
-                                                                                ),
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(left: 8.0, right: 8),
-                                                                                  child: Text(
-                                                                                    snapshot.data[index]['detailType'],
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Outfit',
-                                                                                      color: snapshot.data[index]['detailType'] == 'Complete' ? Colors.green : Colors.white,
-                                                                                      fontSize: 12,
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Expanded(
-                                                                flex: 2,
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .only(
-                                                                    left: 8.0,
-                                                                    right: 8.0,
-                                                                  ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  isIos: true,
+                                                  duration: Duration(
+                                                      milliseconds: 700),
+                                                  child: SellHistoryPage(
+                                                      from: 'btn'),
+                                                  type:
+                                                      PageTransitionType.fade));
+                                        },
+                                        child: Text(
+                                          'See all',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium!
+                                              .copyWith(
+                                                fontFamily: 'Outfit',
+                                                color: AppThemes.secondarycolor,
+                                                fontSize: 20,
+                                              ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  18.height,
+                                  FutureBuilder(
+                                      future: backend().fetchProperty(
+                                          Provider.of<UserData>(context,
+                                                  listen: false)
+                                              .id!),
+                                      builder:
+                                          (context, AsyncSnapshot snapshot) {
+                                        switch (snapshot.connectionState) {
+                                          case ConnectionState.waiting:
+                                            return Center(
+                                                child:
+                                                    CircularProgressIndicator());
+                                          default:
+                                            if (snapshot.hasError) {
+                                              return Text('Error');
+                                            } else if (snapshot.data != null) {
+                                              if (!isGrid) {
+                                                return getListView(
+                                                    snapshot.data,
+                                                    snapshot.data.length,
+                                                    context, (index) {
+                                                  DeleteProperty(
+                                                      context, snapshot, index);
+                                                });
+                                              } else
+                                                return GridView.builder(
+                                                  itemCount:
+                                                      snapshot.data.length,
+                                                  shrinkWrap: true,
+                                                  padding: EdgeInsets.zero,
+                                                  physics:
+                                                      NeverScrollableScrollPhysics(),
+                                                  gridDelegate:
+                                                      SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
+                                                          crossAxisCount: 2,
+                                                          crossAxisSpacing: 5.0,
+                                                          mainAxisSpacing: 5.0,
+                                                          height: 210),
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    debugPrint(snapshot
+                                                        .data[index]
+                                                        .toString());
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        // debugPrint(snapshot.data[index]['id']);
+                                                        Navigator.push(context,
+                                                            MaterialPageRoute(
+                                                          builder: (context) {
+                                                            return PropertyFullDetail(
+                                                                from: 'name',
+                                                                formId: snapshot
+                                                                        .data[
+                                                                    index]['id']);
+                                                          },
+                                                        ));
+                                                      },
+                                                      child: Card(
+                                                        child: Container(
+                                                            child: Column(
+                                                              children: [
+                                                                SizedBox(
+                                                                  height: 120,
+                                                                  width: size
+                                                                      .width,
                                                                   child:
-                                                                      Container(
-                                                                    // color: Colors.green,
+                                                                      ClipRRect(
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .only(
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              8),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              8),
+                                                                    ),
                                                                     child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .start,
+                                                                        Stack(
                                                                       children: [
                                                                         SizedBox(
-                                                                          height:
-                                                                              5,
-                                                                        ),
-                                                                        Align(
-                                                                          alignment:
-                                                                              Alignment.centerLeft,
+                                                                          width:
+                                                                              size.width,
                                                                           child:
-                                                                              Text(
-                                                                            snapshot.data[index]['title'],
-                                                                            maxLines:
-                                                                                2,
-                                                                            overflow:
-                                                                                TextOverflow.ellipsis,
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontFamily: 'Outfit',
-                                                                              fontSize: 14,
-                                                                              fontWeight: FontWeight.w500,
-                                                                              color: Colors.white,
-                                                                            ),
+                                                                              CachedNetworkImage(
+                                                                            imageUrl:
+                                                                                snapshot.data[index]['image'],
+                                                                            height:
+                                                                                MediaQuery.of(context).size.height,
+                                                                            fit:
+                                                                                BoxFit.fill,
+                                                                            placeholder: (context, url) =>
+                                                                                Center(child: CircularProgressIndicator()),
+                                                                            errorWidget: (context, url, error) =>
+                                                                                Icon(Icons.error),
                                                                           ),
                                                                         ),
-                                                                        Row(
-                                                                          children: [
-                                                                            Icon(
-                                                                              Icons.location_on,
-                                                                              color: AppThemes.primaryColor,
-                                                                              size: 15,
-                                                                            ),
-                                                                            Expanded(
-                                                                              child: Text(
-                                                                                snapshot.data[index]['location'],
-                                                                                maxLines: 1,
-                                                                                overflow: TextOverflow.ellipsis,
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Outfit',
-                                                                                  fontSize: 12,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                  color: AppThemes.primaryColor,
-                                                                                ),
+                                                                        Positioned(
+                                                                            top:
+                                                                                5,
+                                                                            right:
+                                                                                5,
+                                                                            child:
+                                                                                GestureDetector(
+                                                                              onTap: () {
+                                                                                Navigator.push(
+                                                                                    context,
+                                                                                    PageTransition(
+                                                                                      isIos: true,
+                                                                                      duration: Duration(milliseconds: 700),
+                                                                                      child: FullDetail(
+                                                                                        formId: snapshot.data[index]['id'],
+                                                                                        from: 'name',
+                                                                                      ),
+                                                                                      type: PageTransitionType.fade,
+                                                                                    ));
+                                                                              },
+                                                                              child: SvgPicture.asset(
+                                                                                'assets/icons/edit_pencil.svg',
                                                                               ),
-                                                                            ),
-                                                                          ],
+                                                                            )),
+                                                                        Align(
+                                                                          alignment:
+                                                                              Alignment.topLeft,
+                                                                          child: snapshot.data[index]['detailType'] == 'Complete'
+                                                                              ? SizedBox.shrink()
+                                                                              : Container(
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: Colors.red,
+                                                                                    borderRadius: BorderRadius.only(
+                                                                                      topLeft: Radius.circular(8),
+                                                                                      bottomRight: Radius.circular(8),
+                                                                                    ),
+                                                                                  ),
+                                                                                  child: Padding(
+                                                                                    padding: const EdgeInsets.only(left: 8.0, right: 8),
+                                                                                    child: Text(
+                                                                                      snapshot.data[index]['detailType'],
+                                                                                      style: TextStyle(
+                                                                                        fontFamily: 'Outfit',
+                                                                                        color: snapshot.data[index]['detailType'] == 'Complete' ? Colors.green : Colors.white,
+                                                                                        fontSize: 12,
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
                                                                         ),
                                                                       ],
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              Expanded(
-                                                                child:
-                                                                    Container(
-                                                                  // color: Colors.brown,
-                                                                  child: Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .end,
-                                                                    children: [
+                                                                Expanded(
+                                                                  flex: 2,
+                                                                  child:
                                                                       Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.only(
-                                                                          left:
-                                                                              8.0,
-                                                                          bottom:
-                                                                              5.0,
-                                                                        ),
-                                                                        child:
-                                                                            Text(
-                                                                          snapshot.data[index]
-                                                                              [
-                                                                              'date'],
-                                                                          maxLines:
-                                                                              1,
-                                                                          overflow:
-                                                                              TextOverflow.ellipsis,
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontFamily:
-                                                                                'Outfit',
-                                                                            fontSize:
-                                                                                11,
-                                                                            color:
-                                                                                Colors.white,
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .only(
+                                                                      left: 8.0,
+                                                                      right:
+                                                                          8.0,
+                                                                    ),
+                                                                    child:
+                                                                        Container(
+                                                                      // color: Colors.green,
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.start,
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            height:
+                                                                                5,
                                                                           ),
-                                                                        ),
+                                                                          Align(
+                                                                            alignment:
+                                                                                Alignment.centerLeft,
+                                                                            child:
+                                                                                Text(
+                                                                              snapshot.data[index]['title'],
+                                                                              maxLines: 2,
+                                                                              overflow: TextOverflow.ellipsis,
+                                                                              style: TextStyle(
+                                                                                fontFamily: 'Outfit',
+                                                                                fontSize: 14,
+                                                                                fontWeight: FontWeight.w500,
+                                                                                color: Colors.white,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Row(
+                                                                            children: [
+                                                                              Icon(
+                                                                                Icons.location_on,
+                                                                                color: AppThemes.primaryColor,
+                                                                                size: 15,
+                                                                              ),
+                                                                              Expanded(
+                                                                                child: Text(
+                                                                                  snapshot.data[index]['location'],
+                                                                                  maxLines: 1,
+                                                                                  overflow: TextOverflow.ellipsis,
+                                                                                  style: TextStyle(
+                                                                                    fontFamily: 'Outfit',
+                                                                                    fontSize: 12,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                    color: AppThemes.primaryColor,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ],
                                                                       ),
-                                                                    ],
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            ],
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                          ),
-                                                          width:
-                                                              size.width * 0.25,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                  boxShadow: [
-                                                                BoxShadow(
-                                                                  color: Colors
-                                                                      .black
-                                                                      .withOpacity(
-                                                                          0.2),
-                                                                  spreadRadius:
-                                                                      1,
-                                                                  blurRadius: 2,
-                                                                  offset: Offset(
-                                                                      2,
-                                                                      2), // changes position of shadow
+                                                                Expanded(
+                                                                  child:
+                                                                      Container(
+                                                                    // color: Colors.brown,
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .end,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.only(
+                                                                            left:
+                                                                                8.0,
+                                                                            bottom:
+                                                                                5.0,
+                                                                          ),
+                                                                          child:
+                                                                              Text(
+                                                                            snapshot.data[index]['date'],
+                                                                            maxLines:
+                                                                                1,
+                                                                            overflow:
+                                                                                TextOverflow.ellipsis,
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontFamily: 'Outfit',
+                                                                              fontSize: 11,
+                                                                              color: Colors.white,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                               ],
-                                                                  color: AppThemes
-                                                                      .cardColornew,
-                                                                  // Color.fromARGB(255, 69, 64, 64),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              12))),
-                                                      // color: Color.fromARGB(255, 69, 64, 64),
-                                                      elevation: 2,
-                                                      color: Color.fromARGB(
-                                                          255, 69, 64, 64),
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                            ),
+                                                            width: size.width *
+                                                                0.25,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                                    boxShadow: [
+                                                                  BoxShadow(
+                                                                    color: Colors
+                                                                        .black
+                                                                        .withOpacity(
+                                                                            0.2),
+                                                                    spreadRadius:
+                                                                        1,
+                                                                    blurRadius:
+                                                                        2,
+                                                                    offset: Offset(
+                                                                        2,
+                                                                        2), // changes position of shadow
+                                                                  ),
+                                                                ],
+                                                                    color: AppThemes
+                                                                        .cardColornew,
+                                                                    // Color.fromARGB(255, 69, 64, 64),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            12))),
+                                                        // color: Color.fromARGB(255, 69, 64, 64),
+                                                        elevation: 2,
+                                                        color: Color.fromARGB(
+                                                            255, 69, 64, 64),
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                        ),
                                                       ),
+                                                    ).addPadding(bottom: 10);
+                                                  },
+                                                );
+                                            } else {
+                                              return Column(
+                                                children: [
+                                                  Center(
+                                                    child: Image.asset(
+                                                      'assets/noreccustom.gif',
+                                                      width: 275,
+                                                      height: 275,
+                                                      fit: BoxFit.fill,
                                                     ),
-                                                  ).addPadding(bottom: 10);
-                                                },
+                                                  ),
+                                                  Text(
+                                                    'NO UPLOADED PROPERTY',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Outfit',
+                                                      color: mainColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    'You have not posted any house for sell.',
+                                                    style: TextStyle(
+                                                      fontFamily: 'Outfit',
+                                                      color: Colors.white,
+                                                    ),
+                                                  )
+                                                ],
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
                                               );
-                                          } else {
-                                            return Column(
-                                              children: [
-                                                Center(
-                                                  child: Image.asset(
-                                                    'assets/noreccustom.gif',
-                                                    width: 275,
-                                                    height: 275,
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'NO UPLOADED PROPERTY',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Outfit',
-                                                    color: mainColor,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'You have not posted any house for sell.',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Outfit',
-                                                    color: Colors.white,
-                                                  ),
-                                                )
-                                              ],
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                            );
-                                          }
-                                      }
-                                    }),
-                              ],
+                                            }
+                                        }
+                                      }),
+                                ],
+                              ),
                             ),
-                          ),
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                ),
-              ],
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

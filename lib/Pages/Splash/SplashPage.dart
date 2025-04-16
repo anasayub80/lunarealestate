@@ -20,31 +20,52 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class _SplashPageState extends State<SplashPage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  late Animation<Offset> _slideAnimation;
+  late Animation<double> _fadeAnimation;
+
   @override
   void initState() {
-    // ignore: todo
-    // TODO: implement initState
     super.initState();
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.fastOutSlowIn,
+    );
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.3),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOut,
+    ));
+
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeIn,
+    ));
+
+    Future.delayed(const Duration(seconds: 1), () {
+      _controller.forward();
+    });
     checkLogin();
-    // Future.delayed(Duration.zero, () {
-    //   Navigator.pushReplacement(
-    //     context,
-    //     PageTransition(
-    //       type: PageTransitionType.bottomToTop,
-    //       child: LoginPage(),
-    //       isIos: true,
-    //       duration: Duration(milliseconds: 800),
-    //     ),
-    //   );
-    // });
-    // runAnimate();
-    // enterFullScreen();
   }
 
   @override
   void dispose() {
     timer?.cancel();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -129,16 +150,24 @@ class _SplashPageState extends State<SplashPage> {
               flex: 9,
               child: Column(
                 children: [
-                  AnimatedOpacity(
-                    opacity: _visible ? 1.0 : 0.0,
-                    duration: const Duration(milliseconds: 500),
-                    child: Container(
-                      child: Image.asset(
-                        'assets/icons/logo.png',
-                        fit: BoxFit.fill,
-                      ),
-                      width: size.width * 0.50,
-                      height: 175,
+                  // AnimatedOpacity(
+                  //   opacity: _visible ? 1.0 : 0.0,
+                  //   duration: const Duration(milliseconds: 500),
+                  //   child: Container(
+                  //     child: Image.asset(
+                  //       'assets/icons/logo.png',
+                  //       fit: BoxFit.fill,
+                  //     ),
+                  //     width: size.width * 0.50,
+                  //     height: 175,
+                  //   ),
+                  // ),
+                  ScaleTransition(
+                    scale: _animation,
+                    child: Image.asset(
+                      "assets/icons/logo.png",
+                      width: 200,
+                      height: 200,
                     ),
                   ),
                 ],
@@ -149,7 +178,7 @@ class _SplashPageState extends State<SplashPage> {
             Expanded(
               flex: 1,
               child: Text(
-                'We Buy Houses',
+                'Property Investors',
                 style: TextStyle(color: Colors.white),
               ),
             )
