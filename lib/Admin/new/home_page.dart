@@ -1,8 +1,6 @@
 // import 'package:carousel_slider/carousel_options.dart';
 import 'dart:async';
 import 'dart:developer';
-
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
@@ -60,8 +58,8 @@ class _HomePageAdminState extends State<HomePageAdmin> {
     });
   }
 
-  final CarouselSliderController _carouselController =
-      CarouselSliderController();
+  // final CarouselSliderController _carouselController =
+  //     CarouselSliderController();
   final controller = ScrollController();
 
   List? itemlist = [];
@@ -102,7 +100,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
   List? reqItemlist = [];
   int sellReqLimit = 20;
 
- Future<void> fetchUser() async {
+  Future<void> fetchUser() async {
     log('Fetching users... Page: $usersPage, Limit: $userLimit');
     try {
       var newItems = await backend().fetchAdminUsers({
@@ -131,7 +129,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
     }
   }
 
- Future<void> fetch() async {
+  Future<void> fetch() async {
     log('getData');
     var newitems = await backend()
         .fetchMoreAdminProperty({'type': 'unsold', 'limit': page.toString()});

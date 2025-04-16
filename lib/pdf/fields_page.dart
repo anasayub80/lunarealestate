@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 // import 'package:flutter_svg/svg.dart';
 // import 'package:http/http.dart';
@@ -159,7 +157,7 @@ class _FormFieldsState extends State<FormFields> {
                   );
                   return;
                 }
-                Uint8List? bytes = await _controller.toPngBytes();
+                // Uint8List? bytes = await _controller.toPngBytes();
 
                 generatePdf(
                     nameController.text.trim(),

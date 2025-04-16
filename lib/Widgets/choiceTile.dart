@@ -185,12 +185,12 @@ class _ChoiceTileNewState extends State<ChoiceTileNew> {
   }
 }
 
-// ignore: must_be_immutable// ignore: must_be_immutable
+// ignore: must_be_immutable
 class ChoiceTileNewV extends StatefulWidget {
-  String title;
-  List<SurveryAnswer> surveryAnswer;
-  String index;
-  Color? bgColor;
+  final String title;
+  final List<SurveryAnswer> surveryAnswer;
+  final String index;
+  final Color? bgColor;
   void Function(SurveryAnswer)? onChange;
 
   ChoiceTileNewV({

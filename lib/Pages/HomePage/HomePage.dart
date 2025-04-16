@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -113,8 +112,8 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  final CarouselSliderController _carouselController =
-      CarouselSliderController();
+  // final CarouselSliderController _carouselController =
+  //     CarouselSliderController();
 
   @override
   void initState() {
@@ -154,60 +153,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                         ),
-                        // child: Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                        //   children: [
-                        //     Row(
-                        //       crossAxisAlignment: CrossAxisAlignment.start,
-                        //       spacing: 10,
-                        //       children: [
-                        //         Text(
-                        //           'Where Deals Get Done',
-                        //           style: TextStyle(
-                        //             fontFamily: 'Outfit',
-                        //             fontWeight: FontWeight.w600,
-                        //             color: Colors.white,
-                        //             fontSize: 34,
-                        //           ),
-                        //         ),
-                        //         SvgPicture.asset(
-                        //           'assets/icons/magnify.svg',
-                        //         ),
-                        //         Text(
-                        //           'Find You The',
-                        //           style: TextStyle(
-                        //             fontFamily: 'Outfit',
-                        //             fontWeight: FontWeight.w600,
-                        //             color: Colors.white,
-                        //             fontSize: 34,
-                        //           ),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //     const SizedBox(height: 10),
-                        //     Row(
-                        //       crossAxisAlignment: CrossAxisAlignment.start,
-                        //       spacing: 10,
-                        //       children: [
-                        //         Text(
-                        //           'Best Deal',
-                        //           style: TextStyle(
-                        //             fontFamily: 'Outfit',
-                        //             fontWeight: FontWeight.w600,
-                        //             color: Colors.white,
-                        //             fontSize: 34,
-                        //           ),
-                        //         ),
-                        //         Text(
-                        //           '🏡',
-                        //           style: TextStyle(
-                        //             fontSize: 34,
-                        //           ),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ],
-                        // ),
                       ),
                       20.height,
                       Padding(
@@ -321,7 +266,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         ),
                                         alignment: Alignment.center,
                                         child: Text(
-                                          'My Home',
+                                          'My Properties',
                                           style: TextStyle(
                                             fontFamily: 'Outfit',
                                             color: !isSellSelected
@@ -357,6 +302,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: Column(
                                 children: [
+                                  15.height,
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,

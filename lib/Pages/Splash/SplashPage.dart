@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unused_field
 
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -141,7 +141,7 @@ class _SplashPageState extends State<SplashPage>
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: BgOne(
         child: Column(
