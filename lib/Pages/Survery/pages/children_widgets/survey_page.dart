@@ -33,6 +33,105 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
     Provider.of<SurvProvider>(context, listen: false).initSurveyData();
   }
 
+  String exmValY = 'none';
+  String surveryValY = 'none';
+  String washerValY = 'none';
+  String dryerValY = 'none';
+  String rangeValY = 'none';
+  String guaValY = 'none';
+  String waterValY = 'none';
+  String sewerValY = 'none';
+  String backtaxValY = 'none';
+  String lopValY = 'none';
+  String isPropValY = 'none';
+  String lockBoxValY = 'none';
+  String ownerFinanaceValY = 'none';
+  String newHomeValY = 'none';
+  String assistfornewHomeValY = 'none';
+  String morghelpValY = 'none';
+  String FoundationValY = 'none';
+  String basementValY = 'none';
+  String fastcashY = 'none';
+  bool _validateForm() {
+    // List of all required ChoiceTileNew fields
+    final requiredFields = {
+      'Existing Mortgage': exmValY,
+      'Survey': surveryValY,
+      'Washer': washerValY,
+      'Dryer': dryerValY,
+      'Range': rangeValY,
+      'Gas Utility': guaValY,
+      'Water On': waterValY,
+      'Sewer': sewerValY,
+      'Back Taxes Owed': backtaxValY,
+      'Lien on Property': lopValY,
+      'Property Status': isPropValY,
+      'Lockbox': lockBoxValY,
+      'Owner Finance': ownerFinanaceValY,
+      'New Home': newHomeValY,
+      'Assistance for New Home': assistfornewHomeValY,
+      'Mortgage Help': morghelpValY,
+      'Foundation': FoundationValY,
+      'Basement': basementValY,
+      'Fast Cash': fastcashY,
+    };
+
+    // Check ChoiceTileNew fields
+    for (var entry in requiredFields.entries) {
+      if (entry.value == 'none') {
+        Utils.showSnackbar('${entry.key} is required', Colors.red, context);
+        return false;
+      }
+    }
+
+    // Check timeFrameofPro dropdown
+    if (timeFrameofPro.text.isEmpty ||
+        int.tryParse(timeFrameofPro.text) == null) {
+      Utils.showSnackbar('Timeframe is required', Colors.red, context);
+      return false;
+    }
+
+    // Check ratecond dropdown (assuming it's stored in timeFrameofPro for simplicity; adjust if separate)
+    if (timeFrameofPro.text.isEmpty ||
+        int.tryParse(timeFrameofPro.text) == null) {
+      Utils.showSnackbar(
+          'Property condition rating is required', Colors.red, context);
+      return false;
+    }
+
+    // Check conditional text fields
+    if (backtaxValY == 'true' && backedTaxAmount.text.isEmpty) {
+      Utils.showSnackbar('Backed tax amount is required', Colors.red, context);
+      return false;
+    }
+
+    if (lopValY == 'true' && leanOnProp.text.isEmpty) {
+      Utils.showSnackbar('Lien explanation is required', Colors.red, context);
+      return false;
+    }
+
+    if (lockBoxValY == 'true' && lockBoxPlaced.text.isEmpty) {
+      Utils.showSnackbar(
+          'Lockbox placement description is required', Colors.red, context);
+      return false;
+    }
+
+    // Check dynamic survey questions (if any)
+    if (widget.surveyQuestions != null) {
+      for (var question in widget.surveyQuestions!) {
+        // Assuming each question has a selected answer stored somewhere (e.g., in SurvProvider)
+        // You may need to adjust this based on how answers are stored
+        if (question.answers.isEmpty) {
+          Utils.showSnackbar(
+              '${question.question} requires an answer', Colors.red, context);
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     var singleNotifier = Provider.of<SingleNotifier>(context, listen: false);
@@ -1144,6 +1243,9 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
             //       ),
             //       type: PageTransitionType.fade,
             //     ));
+            if (!_validateForm()) {
+              return; // Stop submission if validation fails
+            }
             SurveyModel surveyModel = SurveyModel(
               assitnewhome: assistfornewHomeValY,
               backedtaxowed: backtaxValY,
