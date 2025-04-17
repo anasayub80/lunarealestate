@@ -19,7 +19,7 @@ Widget getGridViewAdmin(
           crossAxisCount: 2,
           crossAxisSpacing: 0,
           mainAxisSpacing: 5.0,
-          childAspectRatio: isHome ? 0.62 : 0.70),
+          mainAxisExtent: 280),
       padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
         final prop = property[index];
@@ -131,7 +131,7 @@ Widget getGridViewAdmin(
                           ),
                           Expanded(
                             child: Text(
-                              maxLines: 2,
+                              maxLines: 1,
                               prop['location'],
                               style: TextStyle(
                                 fontSize: 12,

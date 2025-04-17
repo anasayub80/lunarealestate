@@ -198,7 +198,7 @@ class UserTile extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: context.screenHeight * 0.1,
+            height: 100,
             width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -206,7 +206,7 @@ class UserTile extends StatelessWidget {
                 Row(
                   children: [
                     CircleAvatar(
-                      radius: context.screenHeight * 0.04,
+                      radius: 30,
                       backgroundImage: NetworkImage(
                         profile,
                       ),
@@ -244,8 +244,8 @@ class UserTile extends StatelessWidget {
                     _makePhoneCall(phone);
                   },
                   child: Container(
-                    height: context.screenHeight * 0.14,
-                    width: context.screenWidth * 0.14,
+                    height: 40,
+                    width: 40,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.circle,
@@ -253,9 +253,8 @@ class UserTile extends StatelessWidget {
                     child: SvgPicture.asset(
                       'assets/icons/phone_icon.svg',
                       color: Colors.black,
-                      height: context.screenHeight * 0.12,
+                      height: 40,
                       fit: BoxFit.scaleDown,
-                      width: context.screenWidth * 0.14,
                     ),
                     // backgroundImage:
                     //     SvgPicture.asset('assets/icons/phone_icon.svg') ,
