@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Config/config.dart';
@@ -35,6 +36,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late VideoPlayerController controller;
+  bool _hasAnimated = false;
 
   void setStateIfMounted(f) {
     if (mounted) setState(f);
@@ -119,6 +121,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     Provider.of<SurvProvider>(context, listen: false).getCurrentLocation();
+    Future.delayed(Duration(milliseconds: 100), () {
+      if (mounted) {
+        setState(() {
+          _hasAnimated = true; // Trigger animation on init
+        });
+      }
+    });
   }
 
   @override
@@ -224,6 +233,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                       onTap: () {
                                         setState(() {
                                           isSellSelected = true;
+                                          _hasAnimated =
+                                              false; // Reset animation
+                                          Future.delayed(
+                                              Duration(milliseconds: 100), () {
+                                            setState(() {
+                                              _hasAnimated =
+                                                  true; // Trigger animation
+                                            });
+                                          });
                                         });
                                       },
                                       child: Container(
@@ -254,6 +272,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                       onTap: () {
                                         setState(() {
                                           isSellSelected = false;
+                                          _hasAnimated =
+                                              false; // Reset animation
+                                          Future.delayed(
+                                              Duration(milliseconds: 100), () {
+                                            setState(() {
+                                              _hasAnimated =
+                                                  true; // Trigger animation
+                                            });
+                                          });
                                         });
                                       },
                                       child: Container(
@@ -347,24 +374,82 @@ class _MyHomePageState extends State<MyHomePage> {
                                   SizedBox(
                                     height: 18,
                                   ),
-                                  GridView.builder(
-                                    padding: EdgeInsets.zero,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: img.length,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      mainAxisSpacing: 8,
-                                      crossAxisSpacing: 8,
+                                  AnimationLimiter(
+                                    key: ValueKey(_hasAnimated),
+                                    child: GridView.builder(
+                                      padding: EdgeInsets.zero,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: img.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        mainAxisSpacing: 8,
+                                        crossAxisSpacing: 8,
+                                      ),
+                                      itemBuilder: (context, index) {
+                                        // Base child widget
+                                        Widget child = GridChild(
+                                          url:
+                                              "assets/house_images/${img[index]}",
+                                        );
+
+                                        // Mixed animations per index
+                                        Widget animatedChild;
+                                        switch (index % 4) {
+                                          case 0:
+                                            animatedChild = SlideAnimation(
+                                              verticalOffset: 50,
+                                              duration:
+                                                  Duration(milliseconds: 400),
+                                              child:
+                                                  FadeInAnimation(child: child),
+                                            );
+                                            break;
+                                          case 1:
+                                            animatedChild = ScaleAnimation(
+                                              duration:
+                                                  Duration(milliseconds: 500),
+                                              child:
+                                                  FadeInAnimation(child: child),
+                                            );
+                                            break;
+                                          case 2:
+                                            animatedChild = SlideAnimation(
+                                              horizontalOffset: 50,
+                                              duration:
+                                                  Duration(milliseconds: 500),
+                                              child:
+                                                  FadeInAnimation(child: child),
+                                            );
+                                            break;
+                                          case 3:
+                                            animatedChild = SlideAnimation(
+                                              verticalOffset: -30,
+                                              duration:
+                                                  Duration(milliseconds: 500),
+                                              child: ScaleAnimation(
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                child: FadeInAnimation(
+                                                    child: child),
+                                              ),
+                                            );
+                                            break;
+                                          default:
+                                            animatedChild =
+                                                FadeInAnimation(child: child);
+                                        }
+
+                                        return AnimationConfiguration
+                                            .staggeredGrid(
+                                          position: index,
+                                          columnCount: 2,
+                                          child: animatedChild,
+                                        );
+                                      },
                                     ),
-                                    itemBuilder: (context, index) {
-                                      return GridChild(
-                                        url:
-                                            "assets/house_images/${img[index]}",
-                                      );
-                                    },
-                                  ),
+                                  )
                                 ],
                               ),
                             )
