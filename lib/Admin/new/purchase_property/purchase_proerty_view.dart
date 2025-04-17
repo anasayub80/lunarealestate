@@ -91,7 +91,7 @@ class _PurchaseProertyViewState extends State<PurchaseProertyView> {
             // Spacer(),
             20.height,
             itemlist!.isNotEmpty
-                ? getGridViewAdmin(context, itemlist ?? [], () {}, false)
+                ? getGridViewAdmin(context, itemlist ?? [], () {}, false, true)
                 : SizedBox(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

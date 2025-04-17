@@ -58,7 +58,7 @@ dependencies:
   shared_preferences: ^2.0.15
   shimmer: ^3.0.0
   signature: ^5.3.0
-
+  shaky_animated_listview: ^0.0.5
   sizer: ^3.0.3
   ultimate_bottom_navbar: ^0.0.7
   url_launcher: ^6.3.0

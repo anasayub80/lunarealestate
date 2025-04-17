@@ -1221,6 +1221,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.28.0"
+  shaky_animated_listview:
+    dependency: "direct main"
+    description:
+      name: shaky_animated_listview
+      sha256: "5925c5865eb86c886e21e2c2eb3137ffb0b14f73761f21aea246a646f67f39f5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   shared_preferences:
     dependency: "direct main"
     description:

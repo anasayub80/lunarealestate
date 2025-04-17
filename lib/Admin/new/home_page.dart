@@ -2,7 +2,6 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
 import 'package:lunarestate/Admin/new/purchase_property/purchase_proerty_view.dart';
 import 'package:lunarestate/Admin/new/seller_request/seller_request_page.dart';
@@ -131,17 +130,21 @@ class _HomePageAdminState extends State<HomePageAdmin> {
 
   Future<void> fetch() async {
     log('getData');
-    var newitems = await backend()
-        .fetchMoreAdminProperty({'type': 'unsold', 'limit': page.toString()});
+    var newitems = await backend().fetchMoreAdminProperty({
+      'type': 'unsold',
+      'limit': page.toString(),
+    });
     setState(() {
       if (newitems != null) {
         page += 10;
         if (newitems.length <= 10) {
           hasMore = false;
         }
-        itemlist!.addAll(newitems.map((item) {
-          return item;
-        }));
+        itemlist!.addAll(
+          newitems.map((item) {
+            return item;
+          }),
+        );
         _streamController.add(['hasData']);
       } else {
         _streamController.add(null);
@@ -162,409 +165,373 @@ class _HomePageAdminState extends State<HomePageAdmin> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BgTwo(
-          child: SingleChildScrollView(
-        child: Column(
-          children: [
-            // SafeArea(
-            //   child: CustomAppBarWithCircleback(),
-            // ).addPadding(horizontal: 21),
-            10.height,
-            SafeArea(child: GlobalAppBar().addPadding(horizontal: 12)),
-
-            18.height,
-            Align(
-              alignment: Alignment.centerLeft,
-              child: SizedBox(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          spacing: 10,
-                          runSpacing: 10,
-                          children: [
-                            Text(
-                              'Let’s',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                                fontFamily: 'Outfit',
-                                fontSize: 34,
-                              ),
-                            ),
-                            SvgPicture.asset(
-                              'assets/icons/magnify.svg',
-                            ),
-                            Text(
-                              'Find You The',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                                fontFamily: 'Outfit',
-                                fontSize: 34,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          spacing: 10,
-                          children: [
-                            Text(
-                              'Best Deal',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                                fontSize: 34,
-                                fontFamily: 'Outfit',
-                              ),
-                            ),
-                            Text(
-                              '🏡',
-                              style: TextStyle(
-                                fontSize: 34,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    10.height,
-                    Text(
-                      'Welcome ${Provider.of<UserData>(context, listen: false).name.toString()} 👋',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Color(0xFFD3A45C),
-                        fontFamily: 'Outfit',
-                      ),
-                    ),
-                  ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SafeArea(child: GlobalAppBar().addPadding(horizontal: 12)),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Welcome ${Provider.of<UserData>(context, listen: false).name.toString()} 👋',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Color(0xFFD3A45C),
+                    fontFamily: 'Outfit',
+                  ),
                 ),
-              ),
-            ).addPadding(horizontal: 14),
-
-            20.height,
-            Consumer<AdminHomeController>(
-              builder: (context, tabSelection, child) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: 74,
-                        padding: const EdgeInsets.all(6),
-                        decoration: BoxDecoration(
-                          color: Color(0xff3B3C3E),
-                          border: Border.all(color: Color(0xff646566)),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  tabSelection
-                                      .selectTab(0); // Select "Sell House"
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  decoration: BoxDecoration(
-                                    color: tabSelection.selectedTabIndex == 0
-                                        ? Color(0xff1C1D20)
-                                        : Colors.transparent,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'Seller Request',
-                                    style: TextStyle(
-                                      fontFamily: 'Outfit',
+              ).addPadding(horizontal: 14),
+              20.height,
+              Consumer<AdminHomeController>(
+                builder: (context, tabSelection, child) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: 74,
+                          padding: const EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            color: Color(0xff3B3C3E),
+                            border: Border.all(color: Color(0xff646566)),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    tabSelection.selectTab(
+                                      0,
+                                    ); // Select "Sell House"
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                                    decoration: BoxDecoration(
                                       color: tabSelection.selectedTabIndex == 0
-                                          ? Color(0xffF6A825)
-                                          : Colors.grey,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
+                                          ? Color(0xff1C1D20)
+                                          : Colors.transparent,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Seller Request',
+                                      style: TextStyle(
+                                        fontFamily: 'Outfit',
+                                        color:
+                                            tabSelection.selectedTabIndex == 0
+                                                ? Color(0xffF6A825)
+                                                : Colors.grey,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              10.width,
-                              GestureDetector(
-                                onTap: () {
-                                  tabSelection.selectTab(1); // Select "My Home"
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  decoration: BoxDecoration(
-                                    color: tabSelection.selectedTabIndex == 1
-                                        ? Color(0xff1C1D20)
-                                        : Colors.transparent,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'Purchase Property',
-                                    style: TextStyle(
-                                      fontFamily: 'Outfit',
+                                10.width,
+                                GestureDetector(
+                                  onTap: () {
+                                    tabSelection.selectTab(
+                                      1,
+                                    ); // Select "My Home"
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                                    decoration: BoxDecoration(
                                       color: tabSelection.selectedTabIndex == 1
-                                          ? AppThemes.primaryColor
-                                          : Colors.grey,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
+                                          ? Color(0xff1C1D20)
+                                          : Colors.transparent,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Purchase Property',
+                                      style: TextStyle(
+                                        fontFamily: 'Outfit',
+                                        color:
+                                            tabSelection.selectedTabIndex == 1
+                                                ? AppThemes.primaryColor
+                                                : Colors.grey,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              10.width,
-                              GestureDetector(
-                                onTap: () {
-                                  tabSelection.selectTab(2); // Select "User"
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  decoration: BoxDecoration(
-                                    color: tabSelection.selectedTabIndex == 2
-                                        ? Color(0xff1C1D20)
-                                        : Colors.transparent,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'Users',
-                                    style: TextStyle(
-                                      fontFamily: 'Outfit',
+                                10.width,
+                                GestureDetector(
+                                  onTap: () {
+                                    tabSelection.selectTab(2); // Select "User"
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                                    decoration: BoxDecoration(
                                       color: tabSelection.selectedTabIndex == 2
-                                          ? Color(0xffF6A825)
-                                          : Colors.grey,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
+                                          ? Color(0xff1C1D20)
+                                          : Colors.transparent,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Users',
+                                      style: TextStyle(
+                                        fontFamily: 'Outfit',
+                                        color:
+                                            tabSelection.selectedTabIndex == 2
+                                                ? Color(0xffF6A825)
+                                                : Colors.grey,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      // You can add additional content here based on the selected tab index
-                      if (tabSelection.selectedTabIndex == 0)
-                        Column(
-                          children: [
-                            Column(
-                              children: [
-                                10.height,
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Seller request',
-                                      style: TextStyle(
+                        // You can add additional content here based on the selected tab index
+                        if (tabSelection.selectedTabIndex == 0)
+                          Column(
+                            children: [
+                              Column(
+                                children: [
+                                  10.height,
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Seller request',
+                                        style: TextStyle(
                                           fontFamily: 'Outfit',
                                           fontWeight: FontWeight.w600,
                                           fontSize: 20,
-                                          color: Colors.white),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
                                             context,
                                             PageTransition(
-                                                isIos: true,
-                                                duration:
-                                                    Duration(milliseconds: 700),
-                                                child: SellerRequestPage(),
-                                                type: PageTransitionType.fade));
-                                      },
-                                      child: Text(
-                                        'See all',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium!
-                                            .copyWith(
-                                              fontFamily: 'Outfit',
-                                              color: AppThemes.secondarycolor,
-                                              fontSize: 20,
+                                              isIos: true,
+                                              duration: Duration(
+                                                milliseconds: 700,
+                                              ),
+                                              child: SellerRequestPage(),
+                                              type: PageTransitionType.fade,
                                             ),
+                                          );
+                                        },
+                                        child: Text(
+                                          'See all',
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodyMedium!.copyWith(
+                                                fontFamily: 'Outfit',
+                                                color: AppThemes.secondarycolor,
+                                                fontSize: 20,
+                                              ),
+                                        ),
                                       ),
-                                    )
-                                  ],
-                                ),
-                                10.height,
-                                itemlist!.isNotEmpty
-                                    ? getGridViewAdmin(context, itemlist ?? [],
-                                        onRefresh, true)
-                                    : Text('Loading..'),
-                              ],
-                            )
-                          ],
-                        ),
-                      if (tabSelection.selectedTabIndex == 1)
-                        Column(
-                          children: [
-                            10.height,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Purchase Property',
-                                  style: TextStyle(
+                                    ],
+                                  ),
+                                  10.height,
+                                  itemlist!.isNotEmpty
+                                      ? getGridViewAdmin(
+                                          context,
+                                          itemlist ?? [],
+                                          onRefresh,
+                                          true,
+                                          false,
+                                        )
+                                      : Text('Loading..'),
+                                ],
+                              ),
+                            ],
+                          ),
+                        if (tabSelection.selectedTabIndex == 1)
+                          Column(
+                            children: [
+                              10.height,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Purchase Property',
+                                    style: TextStyle(
                                       fontFamily: 'Outfit',
                                       fontWeight: FontWeight.w600,
                                       fontSize: 20,
-                                      color: Colors.white),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
                                         context,
                                         PageTransition(
-                                            isIos: true,
-                                            duration:
-                                                Duration(milliseconds: 700),
-                                            child: PurchaseProertyView(),
-                                            type: PageTransitionType.fade));
-                                  },
-                                  child: Text(
-                                    'See all',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          fontFamily: 'Outfit',
-                                          color: AppThemes.secondarycolor,
-                                          fontSize: 20,
+                                          isIos: true,
+                                          duration: Duration(milliseconds: 700),
+                                          child: PurchaseProertyView(),
+                                          type: PageTransitionType.fade,
                                         ),
-                                  ),
-                                )
-                              ],
-                            ),
-                            10.height,
-                            itemlist!.isNotEmpty
-                                ? getGridViewAdmin(
-                                    context, itemlist ?? [], () {}, true)
-                                : Text('Loading..'),
-                          ],
-                        ),
-                      if (tabSelection.selectedTabIndex == 2)
-                        Column(
-                          children: [
-                            10.height,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Users',
-                                  style: TextStyle(
-                                      fontFamily: 'Outfit',
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20,
-                                      color: Colors.white),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
+                                      );
+                                    },
+                                    child: Text(
+                                      'See all',
+                                      style: Theme.of(
                                         context,
-                                        PageTransition(
-                                            isIos: true,
-                                            duration:
-                                                Duration(milliseconds: 700),
-                                            child: UsersView(),
-                                            type: PageTransitionType.fade));
-                                  },
-                                  child: Text(
-                                    'See all',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          fontFamily: 'Outfit',
-                                          color: AppThemes.secondarycolor,
-                                          fontSize: 20,
-                                        ),
-                                  ),
-                                )
-                              ],
-                            ),
-                            10.height,
-                            isLoadingUsers
-                                ? Center(child: CircularProgressIndicator())
-                                : errorMessage != null
-                                    ? Text(
-                                        errorMessage!,
-                                        style: TextStyle(color: Colors.red),
-                                      )
-                                    : usersList!.isNotEmpty
-                                        ? ListView.builder(
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            physics:
-                                                NeverScrollableScrollPhysics(),
-                                            itemCount:
-                                                usersList?.length.clamp(0, 4),
-                                            itemBuilder: (context, index) {
-                                              return UserTile(
-                                                profile: usersList?[index]
-                                                    ['profile'],
-                                                name: usersList?[index]['name'],
-                                                id: usersList?[index]['id'],
-                                                phone: usersList?[index]
-                                                    ['phone'],
-                                                email: usersList?[index]
-                                                    ['email'],
-                                              ).addPadding(vertical: 10);
-                                            },
-                                          )
-                                        : Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Center(
-                                                child: Image.asset(
-                                                  'assets/noreccustom.gif',
-                                                  width: 275,
-                                                  height: 275,
-                                                  fit: BoxFit.fill,
-                                                ),
-                                              ),
-                                              Text(
-                                                'NO USER FOUND',
-                                                style: TextStyle(
-                                                  fontFamily: 'Outfit',
-                                                  color: AppThemes.primaryColor,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18,
-                                                ),
-                                              ),
-                                              Text(
-                                                'No registered user found in Luna App.',
-                                                style: TextStyle(
-                                                    fontFamily: 'Outfit',
-                                                    color: Colors.white),
-                                              ),
-                                            ],
+                                      ).textTheme.bodyMedium!.copyWith(
+                                            fontFamily: 'Outfit',
+                                            color: AppThemes.secondarycolor,
+                                            fontSize: 20,
                                           ),
-                          ],
-                        ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              10.height,
+                              itemlist!.isNotEmpty
+                                  ? getGridViewAdmin(
+                                      context,
+                                      itemlist ?? [],
+                                      () {},
+                                      true,
+                                      false,
+                                    )
+                                  : Text('Loading..'),
+                            ],
+                          ),
+                        if (tabSelection.selectedTabIndex == 2)
+                          Column(
+                            children: [
+                              10.height,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Users',
+                                    style: TextStyle(
+                                      fontFamily: 'Outfit',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        PageTransition(
+                                          isIos: true,
+                                          duration: Duration(milliseconds: 700),
+                                          child: UsersView(),
+                                          type: PageTransitionType.fade,
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      'See all',
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium!.copyWith(
+                                            fontFamily: 'Outfit',
+                                            color: AppThemes.secondarycolor,
+                                            fontSize: 20,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              10.height,
+                              isLoadingUsers
+                                  ? Center(child: CircularProgressIndicator())
+                                  : errorMessage != null
+                                      ? Text(
+                                          errorMessage!,
+                                          style: TextStyle(color: Colors.red),
+                                        )
+                                      : usersList!.isNotEmpty
+                                          ? ListView.builder(
+                                              padding: EdgeInsets.zero,
+                                              shrinkWrap: true,
+                                              physics:
+                                                  NeverScrollableScrollPhysics(),
+                                              itemCount:
+                                                  usersList?.length.clamp(0, 4),
+                                              itemBuilder: (context, index) {
+                                                return UserTile(
+                                                  profile: usersList?[index]
+                                                      ['profile'],
+                                                  name: usersList?[index]
+                                                      ['name'],
+                                                  id: usersList?[index]['id'],
+                                                  phone: usersList?[index]
+                                                      ['phone'],
+                                                  email: usersList?[index]
+                                                      ['email'],
+                                                ).addPadding(vertical: 10);
+                                              },
+                                            )
+                                          : Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Center(
+                                                  child: Image.asset(
+                                                    'assets/noreccustom.gif',
+                                                    width: 275,
+                                                    height: 275,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'NO USER FOUND',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Outfit',
+                                                    color:
+                                                        AppThemes.primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'No registered user found in Luna App.',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Outfit',
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                            ],
+                          ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }

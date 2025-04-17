@@ -9,7 +9,6 @@ import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Widgets/customAppBar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 Future<void> makePhoneCall(String phoneNumber) async {
   final Uri launchUri = Uri(
     scheme: 'tel',
@@ -128,7 +127,7 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
                           return Text('Error');
                         } else if (snapshot.data != null) {
                           return getGridViewAdmin(
-                              context, reqItemlist!, onrefresh, false);
+                              context, reqItemlist!, onrefresh, false, true);
                         } else {
                           return Column(
                             children: [

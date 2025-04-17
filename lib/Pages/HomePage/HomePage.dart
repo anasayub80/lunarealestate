@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:floading/floading.dart';
@@ -23,6 +22,7 @@ import 'package:lunarestate/Widgets/global_appbar.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:shaky_animated_listview/animators/grid_animator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 import '../SellHistory/SellHistory.dart';
@@ -449,7 +449,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                         );
                                       },
                                     ),
-                                  )
+                                    // itemBuilder: (context, index) {
+                                    //   return GridAnimatorWidget(
+                                    //     child: GridChild(
+                                    //       url:
+                                    //           "assets/house_images/${img[index]}",
+                                    //     ),
+                                    //   );
+                                    // },
+                                  ),
                                 ],
                               ),
                             )
