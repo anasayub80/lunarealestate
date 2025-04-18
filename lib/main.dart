@@ -133,6 +133,7 @@ class _MyAppState extends State<MyApp> {
           // home: CreatenewPassPage(
           //   email: 'Forgot',
           // ),
+          // home: SellHousePage(child: AgreementInfo()),
           home: SplashPage(),
           // home: WelcomePage(),
           // home: LoginPage(),

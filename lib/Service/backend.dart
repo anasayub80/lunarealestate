@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../Pages/Survery/surveyData.dart';
 
-class backend {
+class Backend {
   launchInBrowser(Uri url) async {
     if (!await launchUrl(
       url,

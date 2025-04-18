@@ -102,7 +102,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
   Future<void> fetchUser() async {
     log('Fetching users... Page: $usersPage, Limit: $userLimit');
     try {
-      var newItems = await backend().fetchAdminUsers({
+      var newItems = await Backend().fetchAdminUsers({
         'limit': userLimit.toString(),
         'page': usersPage.toString(), // Adjust if backend uses offset instead
       });
@@ -130,7 +130,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
 
   Future<void> fetch() async {
     log('getData');
-    var newitems = await backend().fetchMoreAdminProperty({
+    var newitems = await Backend().fetchMoreAdminProperty({
       'type': 'unsold',
       'limit': page.toString(),
     });

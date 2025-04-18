@@ -47,7 +47,7 @@ class _PurchaseProertyViewState extends State<PurchaseProertyView> {
   int page = 0;
   fetch() async {
     log('getData');
-    var newitems = await backend()
+    var newitems = await Backend()
         .fetchMoreAdminProperty({'type': 'unsold', 'limit': page.toString()});
     setState(() {
       if (newitems != null) {

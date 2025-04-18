@@ -89,7 +89,7 @@ class CreatenewPassPage extends StatelessWidget {
                           closable: false,
                           color: Colors.black.withOpacity(0.7),
                         );
-                        var res = await backend().setNewAccount({
+                        var res = await Backend().setNewAccount({
                           'newpswd': _pass1.text,
                           "email": email,
                         });

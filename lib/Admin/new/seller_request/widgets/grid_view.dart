@@ -6,7 +6,7 @@ import 'package:lunarestate/Config/bc_ext.dart';
 
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
-import 'package:lunarestate/Pages/property_full_detail/property_full_detal.dart';
+import 'package:lunarestate/Pages/property_full_detail/property_full_detail.dart';
 
 Widget getGridViewAdmin(BuildContext context, List property, Function? refresh,
     bool isHome, bool isScrollAble) {

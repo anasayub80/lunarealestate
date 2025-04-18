@@ -27,7 +27,7 @@ getData(String formId) async {
   // add error to show loading progress
   _houseDetail.addError('loading');
   log('calling data');
-  var res = await backend().fetchFullPropertyDetails(formId);
+  var res = await Backend().fetchFullPropertyDetails(formId);
   _houseDetail.add(res);
 }
 
@@ -47,7 +47,7 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
   final List<String> imgList = [];
 
   getImages() async {
-    var res = await backend().fetchPropertyImages(widget.formId);
+    var res = await Backend().fetchPropertyImages(widget.formId);
     if (res != null)
       for (var i = 0; i < res.length; i++) {
         log('image $i');
@@ -74,7 +74,6 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
 
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
     getData(widget.formId);
     return Scaffold(
       body: BgTwo(
@@ -298,6 +297,19 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
                                     thickness: 0.8,
                                     color: Color(0xff424448),
                                   ),
+                                  TextButton(
+                                      onPressed: () {},
+                                      child: Text("View Agreement")),
+                                  Divider(
+                                    thickness: 0.8,
+                                    color: Color(0xff424448),
+                                  ),
+                                  10.height,
+                                  10.height,
+                                  Divider(
+                                    thickness: 0.8,
+                                    color: Color(0xff424448),
+                                  ),
                                   10.height,
                                   Consumer<PropertyDetailController>(
                                     builder: (context, controller, child) {
@@ -451,7 +463,7 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
                               },
                               btnOkText: 'Yes',
                               btnOkOnPress: () async {
-                                var res = await backend().update({
+                                var res = await Backend().update({
                                   'value': '3',
                                   'column': 'detailType',
                                   'table': 'house_details',
@@ -523,7 +535,7 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
                                   closable: false,
                                   color: Colors.black.withOpacity(0.7),
                                 );
-                                var res = await backend().deleteProperty({
+                                var res = await Backend().deleteProperty({
                                   'formid': widget.formId,
                                 });
 

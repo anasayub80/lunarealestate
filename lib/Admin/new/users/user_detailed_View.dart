@@ -152,7 +152,7 @@ class UserDetailedView extends StatelessWidget {
                         closable: true,
                         color: Colors.black.withOpacity(0.7),
                       );
-                      var res = await backend()
+                      var res = await Backend()
                           .delete({'table': 'users', 'id': id, 'column': 'id'});
 
                       if (res['status'] == 'success') {

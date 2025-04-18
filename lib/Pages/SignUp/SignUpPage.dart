@@ -203,7 +203,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           color: Colors.black.withOpacity(0.7),
                         );
 
-                        var res = await backend().signUpAccount({
+                        var res = await Backend().signUpAccount({
                           'email': _emailController.text,
                           'password': _passwordController.text,
                           'phone': "$countryCode ${_number.text.trim()}",

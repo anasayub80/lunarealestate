@@ -29,7 +29,7 @@ getData(String formId) async {
   // add error to show loading progress
   _houseDetail.addError('loading');
   log('calling data');
-  var res = await backend().fetchFullPropertyDetails(formId);
+  var res = await Backend().fetchFullPropertyDetails(formId);
   _houseDetail.add(res);
 }
 
@@ -40,7 +40,7 @@ class FullDetail extends StatelessWidget {
   FullDetail({super.key, required this.formId, required this.from});
   final List<String> imgList = [];
   getImages() async {
-    var res = await backend().fetchPropertyImages(formId);
+    var res = await Backend().fetchPropertyImages(formId);
     if (res != null)
       for (var i = 0; i < res.length; i++) {
         log('image $i');
@@ -441,7 +441,7 @@ class FullDetail extends StatelessWidget {
                               },
                               btnOkText: 'Yes',
                               btnOkOnPress: () async {
-                                var res = await backend().update({
+                                var res = await Backend().update({
                                   'value': '3',
                                   'column': 'detailType',
                                   'table': 'house_details',
@@ -513,7 +513,7 @@ class FullDetail extends StatelessWidget {
                                   closable: false,
                                   color: Colors.black.withOpacity(0.7),
                                 );
-                                var res = await backend().deleteProperty({
+                                var res = await Backend().deleteProperty({
                                   'formid': formId,
                                 });
 

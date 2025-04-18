@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
@@ -11,6 +13,8 @@ import 'package:provider/provider.dart';
 import 'package:signature/signature.dart';
 import '../../../../Service/UserData.dart';
 import '../../SurvProvider.dart';
+
+File? pdfAggre;
 
 class AgreementInfo extends StatefulWidget {
   AgreementInfo({super.key});
@@ -312,7 +316,7 @@ class _AgreementInfoState extends State<AgreementInfo> {
                 formid: prov.formid,
               );
               await submitpropertyInfo(false, surveyMoreData.toJson(), context);
-              await generatePdf(
+              pdfAggre = await generatePdf(
                 agreementNameController.text,
                 agreementemailController.text,
                 agreementphoneController.text,
@@ -321,6 +325,11 @@ class _AgreementInfoState extends State<AgreementInfo> {
                 formatDate(DateTime.now().toString()),
                 _controller.toRawSVG() ?? '',
               );
+              // Navigator.pushReplacement(context, MaterialPageRoute(
+              //   builder: (context) {
+              //     return ViewPDF(file: pdf);
+              //   },
+              // ));
               prov.activeStepIndex += 1;
               prov.saveStepIndex(prov.activeStepIndex);
             },

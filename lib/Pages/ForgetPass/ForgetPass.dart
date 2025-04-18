@@ -87,7 +87,7 @@ class ForgetMyPass extends StatelessWidget {
                               color: Colors.black.withOpacity(0.7),
                             );
 
-                            var res = await backend().forgotPassword({
+                            var res = await Backend().forgotPassword({
                               'email': _email.text.trim(),
                             });
                             if (res['status'] == 'success') {

@@ -15,20 +15,23 @@ import 'package:lunarestate/Pages/HomePage/Widgets/sell_bottom_sheet.dart';
 import 'package:lunarestate/Pages/SellHistory/fullDetail.dart';
 import 'package:lunarestate/Pages/SellHistory/listview_house.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
-import 'package:lunarestate/Pages/property_full_detail/property_full_detal.dart';
+import 'package:lunarestate/Pages/Survery/pages/children_widgets/agreement_info.dart';
+import 'package:lunarestate/Pages/property_full_detail/property_full_detail.dart';
 import 'package:lunarestate/Service/UserData.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Widgets/global_appbar.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
+import 'package:lunarestate/pdf/pdf_view.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:shaky_animated_listview/animators/grid_animator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 import '../SellHistory/SellHistory.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  final bool? isFromPropSubmit;
+  final int? propID;
+  const MyHomePage({super.key, this.isFromPropSubmit = false, this.propID});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -94,22 +97,6 @@ class _MyHomePageState extends State<MyHomePage> {
         if (key != "userData") {
           pref.remove(key);
         }
-        //   }
-        // if (pref.containsKey('formid')) {
-        //   pref.remove('formid');
-        // }
-        // if (pref.containsKey('activeStepIndex')) {
-        //   pref.remove('activeStepIndex');
-        // }
-        // if (pref.containsKey('PropInfoData')) {
-        //   pref.remove('PropInfoData');
-        // }
-        // if (pref.containsKey('data')) {
-        //   pref.remove('data');
-        // }
-        // if (pref.containsKey('surveyMore')) {
-        //   pref.remove('surveyMore');
-        // }
       }
     }
   }
@@ -120,6 +107,31 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    if (widget.isFromPropSubmit ?? false) {
+      AwesomeDialog(
+        context: context,
+        title: "Property Submitted",
+        desc: "do you want to view the property details?",
+        btnOkText: "Yes",
+        btnCancelText: "No",
+        onDismissCallback: (type) {},
+        btnOkOnPress: () {
+          // Navigator.push(context, MaterialPageRoute(
+          //   builder: (context) {
+          //     return ViewPDF(file: pdfAggre!);
+          //   },
+          // ));
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) {
+              return PropertyFullDetail(
+                from: 'name',
+                formId: widget.propID.toString(),
+              );
+            },
+          ));
+        },
+      ).show();
+    }
     Provider.of<SurvProvider>(context, listen: false).getCurrentLocation();
     Future.delayed(Duration(milliseconds: 100), () {
       if (mounted) {
@@ -509,7 +521,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                   18.height,
                                   FutureBuilder(
-                                      future: backend().fetchProperty(
+                                      future: Backend().fetchProperty(
                                           Provider.of<UserData>(context,
                                                   listen: false)
                                               .id!),
@@ -903,7 +915,7 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.black.withOpacity(0.7),
           );
           deleteSurveyOldData(snapshot.data[index]['id']);
-          var res = await backend().deleteProperty({
+          var res = await Backend().deleteProperty({
             'formid': snapshot.data[index]['id'],
           });
 

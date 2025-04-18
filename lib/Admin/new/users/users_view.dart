@@ -44,7 +44,7 @@ class _UsersViewState extends State<UsersView> {
   bool hasMore = true;
   int page = 0;
   fetch() async {
-    var newitems = await backend().fetchAdminUsers({'limit': page.toString()});
+    var newitems = await Backend().fetchAdminUsers({'limit': page.toString()});
     setState(() {
       if (newitems != null) {
         page += 10;

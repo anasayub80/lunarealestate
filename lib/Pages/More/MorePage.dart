@@ -173,7 +173,7 @@ class MorePage extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  backend().launchInBrowser(Uri.parse(
+                  Backend().launchInBrowser(Uri.parse(
                       'https://sites.google.com/view/lunaenterprises/home'));
                 },
                 title: Text(

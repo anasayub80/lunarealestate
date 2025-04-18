@@ -205,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                               color: Colors.black.withOpacity(0.7),
                             );
                             try {
-                              var res = await backend().loginAccount({
+                              var res = await Backend().loginAccount({
                                 'email': _emailController.text,
                                 'password': _passwordController.text,
                                 'token': TOKEN,

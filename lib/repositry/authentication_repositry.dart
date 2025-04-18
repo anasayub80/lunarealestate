@@ -55,7 +55,7 @@ class AuthenticationRepositry {
           color: Colors.black.withOpacity(0.7),
         );
         // ?  Update user verify status here
-        var res = await backend().update({
+        var res = await Backend().update({
           'value': '1',
           'column': "phone_verified",
           'table': 'users',

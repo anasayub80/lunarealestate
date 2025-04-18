@@ -131,7 +131,7 @@ class _checkBoxEditPageState extends State<checkBoxEditPage> {
                     closable: false,
                     color: Colors.black.withOpacity(0.7),
                   );
-                  var res = await backend().update({
+                  var res = await Backend().update({
                     'value': widget.val,
                     'column': widget.column,
                     'table': 'house_details',

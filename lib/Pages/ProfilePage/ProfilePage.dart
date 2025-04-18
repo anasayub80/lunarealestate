@@ -350,7 +350,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           );
 
                           var res = profileImage != null
-                              ? await backend().updateAccountwithImage({
+                              ? await Backend().updateAccountwithImage({
                                   'id': Provider.of<UserData>(context,
                                           listen: false)
                                       .id,
@@ -358,7 +358,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   'email': _email.text,
                                   'phone': _phone.text,
                                 }, profileImage!)
-                              : await backend().updateAccountwithOutImage({
+                              : await Backend().updateAccountwithOutImage({
                                   'userid': Provider.of<UserData>(context,
                                           listen: false)
                                       .id,

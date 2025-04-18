@@ -1,24 +1,16 @@
 import 'dart:io';
+import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 // import 'package:printing/printing.dart'; // Optional for newer Android SDK versions
 
-Future generatePdf(
-  String name,
-  String email,
-  String phone,
-  String address,
-  bool isEnglish,
-  String todayDate,
-  String svg,
-) async {
+Future<File> generatePdf(String name, String email, String phone,
+    String address, bool isEnglish, String todayDate, String svg) async {
   final svgImage = pw.SvgImage(svg: svg);
 
-  final pdf = pw.Document(
-      // pageMode: Pagemod
-
-      );
+  final pdf = pw.Document();
 
   pdf.addPage(
     pw.Page(
@@ -350,10 +342,48 @@ Future generatePdf(
   final output = await getTemporaryDirectory();
   var date = DateTime.now().microsecondsSinceEpoch;
   final file = File("${output.path}/PropertyAgreement${date}.pdf");
-  await file.writeAsBytes(await pdf.save());
+  var pdfFile = await file.writeAsBytes(await pdf.save());
   // debugPrint("Invoice PDF saved to ${file.path}");
-
   // await Printing.layoutPdf(onLayout: (format) async {
-  return pdf.save();
+  return pdfFile;
+  // return pdf.save();
   // });
+}
+
+class ViewPDF extends StatefulWidget {
+  final File file;
+  const ViewPDF({super.key, required this.file});
+
+  @override
+  State<ViewPDF> createState() => _ViewPDFState();
+}
+
+class _ViewPDFState extends State<ViewPDF> {
+  bool _isLoading = true;
+  late PDFDocument document;
+
+  @override
+  void initState() {
+    super.initState();
+    loadDocument();
+  }
+
+  loadDocument() async {
+    document = await PDFDocument.fromFile(widget.file);
+
+    setState(() => _isLoading = false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Example'),
+      ),
+      body: Center(
+          child: _isLoading
+              ? Center(child: CircularProgressIndicator())
+              : PDFViewer(document: document)),
+    );
+  }
 }

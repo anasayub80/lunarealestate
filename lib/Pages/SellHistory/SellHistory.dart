@@ -93,7 +93,7 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
                 children: [
                   20.height,
                   FutureBuilder(
-                      future: backend().fetchProperty(
+                      future: Backend().fetchProperty(
                           Provider.of<UserData>(context, listen: false).id!),
                       builder: (context, AsyncSnapshot snapshot) {
                         switch (snapshot.connectionState) {
@@ -530,7 +530,7 @@ class _SellHistoryPageState extends State<SellHistoryPage> {
             color: Colors.black.withOpacity(0.7),
           );
           deleteSurveyOldData(snapshot.data[index]['id']);
-          var res = await backend().deleteProperty({
+          var res = await Backend().deleteProperty({
             'formid': snapshot.data[index]['id'],
           });
 

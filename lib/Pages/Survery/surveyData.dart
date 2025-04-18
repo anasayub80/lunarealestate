@@ -138,7 +138,7 @@ Future submitpropertyInfo(
     color: Colors.black.withOpacity(0.7),
   );
 
-  var res = await backend().submitForm(data);
+  var res = await Backend().submitForm(data);
   log(res.toString());
   if (res['status'] == 'success') {
     log('Detail type ${res['detailType']}');
@@ -166,14 +166,16 @@ Future submitpropertyInfo(
         Provider.of<SellHouseProvider>(context, listen: false)
             .selectedHouseImages
             .clear();
-
         FLoading.hide();
         Utils.showSnackbar('Property Submitted', Colors.green, context);
         Navigator.of(context).popUntil((route) => route.isFirst);
         Navigator.pushReplacement(
           context,
           PageTransition(
-            child: MyHomePage(),
+            child: MyHomePage(
+              isFromPropSubmit: true,
+              propID: res['id'],
+            ),
             isIos: true,
             duration: Duration(milliseconds: 600),
             type: PageTransitionType.bottomToTop,
@@ -218,7 +220,7 @@ Future submitSurvey(dynamic data, BuildContext context) async {
     //     return '1';
     //   },
     // );
-    var res = await backend().submitsurvery(json.encode(data));
+    var res = await Backend().submitsurvery(json.encode(data));
     // var res = await backend().submitsurvery(data);
     log("APIResponse: ${res.toString()}");
     if (res['status'] == 'success') {
@@ -257,7 +259,7 @@ Future submitMultipleImages(BuildContext context) async {
     color: Colors.black.withOpacity(0.7),
   );
 
-  await backend().uploadImageToServer(context);
+  await Backend().uploadImageToServer(context);
   FLoading.hide();
   return '1';
 }

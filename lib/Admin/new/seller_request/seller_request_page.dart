@@ -56,7 +56,7 @@ class _SellerRequestPageState extends State<SellerRequestPage> {
   int sellReqPage = 0;
   Future<void> sellerReqFetch() async {
     log('getData');
-    var newitems = await backend().fetchMoreAdminProperty(
+    var newitems = await Backend().fetchMoreAdminProperty(
         {'type': 'unsold', 'limit': sellReqPage.toString()});
     setState(() {
       if (newitems != null) {

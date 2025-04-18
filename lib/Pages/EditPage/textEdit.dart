@@ -97,7 +97,7 @@ class _TextEditPageState extends State<TextEditPage> {
                     closable: false,
                     color: Colors.black.withOpacity(0.7),
                   );
-                  var res = await backend().update({
+                  var res = await Backend().update({
                     'value': _textEditingController.text,
                     'column': widget.column,
                     'table': 'house_details',

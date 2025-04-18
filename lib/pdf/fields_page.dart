@@ -157,16 +157,17 @@ class _FormFieldsState extends State<FormFields> {
                   );
                   return;
                 }
-                // Uint8List? bytes = await _controller.toPngBytes();
+                // Uin8List? bytes = await _controller.toPngBytes();
 
                 generatePdf(
-                    nameController.text.trim(),
-                    emailAddressController.text.trim(),
-                    phoneNumberController.text.trim(),
-                    addressController.text.trim(),
-                    true,
-                    '12-21-2024',
-                    _controller.toRawSVG() ?? '');
+                  nameController.text.trim(),
+                  emailAddressController.text.trim(),
+                  phoneNumberController.text.trim(),
+                  addressController.text.trim(),
+                  true,
+                  '12-21-2024',
+                  _controller.toRawSVG() ?? '',
+                );
               },
               text: "Submit Form",
             ),
