@@ -1,5 +1,3 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
@@ -8,7 +6,6 @@ import 'package:lunarestate/Widgets/customAppBar.dart';
 import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../Service/backend.dart';
 import '../../../Widgets/global_appbar.dart';
 
 class UserDetailedView extends StatelessWidget {
@@ -18,9 +15,10 @@ class UserDetailedView extends StatelessWidget {
     required this.phone,
     required this.id,
     required this.email,
+    required this.acStatus,
     required this.name,
   });
-  final String profile, name, id, phone, email;
+  final String profile, name, id, phone, email, acStatus;
   Future<void> _makePhoneCall(String phoneNumber) async {
     final Uri launchUri = Uri(
       scheme: 'tel',
@@ -117,68 +115,138 @@ class UserDetailedView extends StatelessWidget {
             //   // color: Colors.green,
             // ),
             18.height,
+            // InkWell(
+            //   onTap: () {
+            //     // AwesomeDialog(
+            //     //     context: context,
+            //     //     dialogType: DialogType.warning,
+            //     //     headerAnimationLoop: false,
+            //     //     animType: AnimType.topSlide,
+            //     //     title: 'Delete User',
+            //     //     desc: 'do you want to delete this user?',
+            //     //     btnCancelOnPress: () {},
+            //     //     onDismissCallback: (type) {
+            //     //       debugPrint('Dialog Dismiss from callback $type');
+            //     //     },
+            //     //     btnOkText: 'Yes',
+            //     //     btnOkOnPress: () async {
+            //     //       FLoading.show(
+            //     //         context,
+            //     //         loading: Column(
+            //     //           mainAxisAlignment: MainAxisAlignment.center,
+            //     //           crossAxisAlignment: CrossAxisAlignment.center,
+            //     //           children: [
+            //     //             Image.asset(
+            //     //               "assets/icons/logo.png",
+            //     //               width: 200,
+            //     //               height: 200,
+            //     //             ),
+            //     //             SizedBox(
+            //     //               height: 25,
+            //     //             ),
+            //     //             CircularProgressIndicator()
+            //     //           ],
+            //     //         ),
+            //     //         closable: true,
+            //     //         color: Colors.black.withOpacity(0.7),
+            //     //       );
+            //     //       var res = await Backend()
+            //     //           .delete({'table': 'users', 'id': id, 'column': 'id'});
+
+            //     //       if (res['status'] == 'success') {
+            //     //         FLoading.hide();
+            //     //         context.popFromScreen();
+            //     //       }
+            //     //     }).show();
+            //   },
+            //   child: Container(
+            //     height: 50,
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(41),
+            //       color: Color(0xFFFF3E3E),
+            //     ),
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.center,
+            //       children: [
+            //         Icon(Icons.delete, color: Colors.white),
+            //         4.width,
+            //         Text(
+            //           'Delete',
+            //           style: TextStyle(color: Colors.white),
+            //         ),
+            //       ],
+            //     ),
+            //     width: context.screenWidth * 0.39,
+            //     // color: Colors.green,
+            //   ),
+            // ),
             InkWell(
               onTap: () {
-                AwesomeDialog(
-                    context: context,
-                    dialogType: DialogType.warning,
-                    headerAnimationLoop: false,
-                    animType: AnimType.topSlide,
-                    title: 'Delete User',
-                    desc: 'do you want to delete this user?',
-                    btnCancelOnPress: () {},
-                    onDismissCallback: (type) {
-                      debugPrint('Dialog Dismiss from callback $type');
-                    },
-                    btnOkText: 'Yes',
-                    btnOkOnPress: () async {
-                      FLoading.show(
-                        context,
-                        loading: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/icons/logo.png",
-                              width: 200,
-                              height: 200,
-                            ),
-                            SizedBox(
-                              height: 25,
-                            ),
-                            CircularProgressIndicator()
-                          ],
-                        ),
-                        closable: true,
-                        color: Colors.black.withOpacity(0.7),
-                      );
-                      var res = await Backend()
-                          .delete({'table': 'users', 'id': id, 'column': 'id'});
+                // AwesomeDialog(
+                //     context: context,
+                //     dialogType: DialogType.warning,
+                //     headerAnimationLoop: false,
+                //     animType: AnimType.topSlide,
+                //     title: 'Delete User',
+                //     desc: 'do you want to delete this user?',
+                //     btnCancelOnPress: () {},
+                //     onDismissCallback: (type) {
+                //       debugPrint('Dialog Dismiss from callback $type');
+                //     },
+                //     btnOkText: 'Yes',
+                //     btnOkOnPress: () async {
+                //       FLoading.show(
+                //         context,
+                //         loading: Column(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           crossAxisAlignment: CrossAxisAlignment.center,
+                //           children: [
+                //             Image.asset(
+                //               "assets/icons/logo.png",
+                //               width: 200,
+                //               height: 200,
+                //             ),
+                //             SizedBox(
+                //               height: 25,
+                //             ),
+                //             CircularProgressIndicator()
+                //           ],
+                //         ),
+                //         closable: true,
+                //         color: Colors.black.withOpacity(0.7),
+                //       );
+                //       var res = await Backend()
+                //           .delete({'table': 'users', 'id': id, 'column': 'id'});
 
-                      if (res['status'] == 'success') {
-                        FLoading.hide();
-                        context.popFromScreen();
-                      }
-                    }).show();
+                //       if (res['status'] == 'success') {
+                //         FLoading.hide();
+                //         context.popFromScreen();
+                //       }
+                //     }).show();
               },
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(41),
-                  color: Color(0xFFFF3E3E),
+                  color:
+                      acStatus == '1' ? Color(0xFFD3A45C) : Color(0xFFFF3E3E),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.delete, color: Colors.white),
+                    Icon(
+                        acStatus == '1' ? Icons.lock_open_outlined : Icons.lock,
+                        color: Colors.white),
                     4.width,
                     Text(
-                      'Delete',
+                      acStatus == '1'
+                          ? 'DeActivate Account'
+                          : "Activate Account",
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
                 ),
-                width: context.screenWidth * 0.39,
+                width: context.screenWidth * 0.45,
                 // color: Colors.green,
               ),
             ),

@@ -43,7 +43,7 @@ Widget getGridViewAdmin(BuildContext context, List property, Function? refresh,
             child: Column(
               children: [
                 SizedBox(
-                  height: 140,
+                  height: 120,
                   child: Stack(
                     children: [
                       // Image.network(

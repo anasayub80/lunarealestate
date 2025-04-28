@@ -15,13 +15,11 @@ import 'package:lunarestate/Pages/HomePage/Widgets/sell_bottom_sheet.dart';
 import 'package:lunarestate/Pages/SellHistory/fullDetail.dart';
 import 'package:lunarestate/Pages/SellHistory/listview_house.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
-import 'package:lunarestate/Pages/Survery/pages/children_widgets/agreement_info.dart';
 import 'package:lunarestate/Pages/property_full_detail/property_full_detail.dart';
 import 'package:lunarestate/Service/UserData.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Widgets/global_appbar.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
-import 'package:lunarestate/pdf/pdf_view.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -101,9 +99,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  // final CarouselSliderController _carouselController =
-  //     CarouselSliderController();
-
   @override
   void initState() {
     super.initState();
@@ -116,11 +111,6 @@ class _MyHomePageState extends State<MyHomePage> {
         btnCancelText: "No",
         onDismissCallback: (type) {},
         btnOkOnPress: () {
-          // Navigator.push(context, MaterialPageRoute(
-          //   builder: (context) {
-          //     return ViewPDF(file: pdfAggre!);
-          //   },
-          // ));
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {
               return PropertyFullDetail(

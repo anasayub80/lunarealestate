@@ -337,6 +337,7 @@ class SurvProvider with ChangeNotifier {
 
   void saveSurveyMoreData(var uid) {
     SurveyMoreModel model = SurveyMoreModel(
+      aggrement_pdf: aggrement_pdf,
       // survery data
       lockboxPlace: lockBoxPlaced.value.toString(),
       lopExplain: leanOnProp.value.toString(),

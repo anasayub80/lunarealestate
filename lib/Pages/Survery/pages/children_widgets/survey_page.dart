@@ -1233,16 +1233,6 @@ class _SurveyPageOneState extends State<SurveyPageOne> {
           height: 55,
           circleBorder: 12,
           onClick: () async {
-            // Navigator.push(
-            //     context,
-            //     PageTransition(
-            //       isIos: true,
-            //       duration: Duration(milliseconds: 700),
-            //       child: SellHousePage(
-            //         child: SurveyPage2(),
-            //       ),
-            //       type: PageTransitionType.fade,
-            //     ));
             if (!_validateForm()) {
               return; // Stop submission if validation fails
             }

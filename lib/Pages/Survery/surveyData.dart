@@ -1,9 +1,7 @@
-// ignore_for_file: unused_element, use_build_context_synchronously
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lunarestate/Pages/HomePage/HomePage.dart';
@@ -84,6 +82,7 @@ String newHomeValY = 'none';
 String assistfornewHomeValY = 'none';
 String fastcashY = 'none';
 String morghelpValY = 'none';
+String aggrement_pdf = 'none';
 String FoundationValY = 'none';
 String basementValY = 'none';
 bool cash = true;
@@ -113,6 +112,37 @@ void resetControllers() {
   agreementAddressController.clear();
   agreementphoneController.clear();
   agreementemailController.clear();
+}
+
+Future uploadPDF(BuildContext context, File pdfFile) async {
+  try {
+    FLoading.show(
+      context,
+      loading: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            "assets/icons/logo.png",
+            width: 200,
+            height: 200,
+          ),
+          SizedBox(
+            height: 25,
+          ),
+          CircularProgressIndicator()
+        ],
+      ),
+      closable: false,
+      color: Colors.black.withOpacity(0.7),
+    );
+    var fileName = await Backend().uploadPdf(pdfFile);
+    FLoading.hide();
+    return fileName;
+  } on Exception catch (e) {
+    debugPrint("uploadPDF Error: ${e.toString()}");
+    FLoading.hide();
+  }
 }
 
 Future submitpropertyInfo(
@@ -151,7 +181,6 @@ Future submitpropertyInfo(
             .saveFormId(res['formid'], context);
         log('Data Submitted');
         break;
-
       case "1":
         log('case 1');
         SharedPreferences pref = await SharedPreferences.getInstance();

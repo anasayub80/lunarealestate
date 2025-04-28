@@ -20,6 +20,7 @@ var FETCH_USERS = '${Base_URL}fetchusers'.trim();
 var FETCH_FULL_HOUSE_URL = '${Base_URL}houseDetails'.trim();
 // var UPLOAD_URL = '${Base_URL}login'.trim();
 var FETCH_PROPERTY = '${Base_URL}fetchHouse'.trim();
+var FETCH_NOTIFICATIONS = '${Base_URL}fetch_notification'.trim();
 // var SET_NEW_PASSWORD = '${Base_URL}newpass';
 var SET_NEW_PASSWORD = '${Base_URL}changePassword'.trim();
 AutoSizeText headingText(String text) {

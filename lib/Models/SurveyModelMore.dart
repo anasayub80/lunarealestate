@@ -2,6 +2,7 @@ class SurveyMoreModel {
   SurveyMoreModel({
     required this.userid,
     required this.taxAmount,
+    required this.aggrement_pdf,
     required this.lopExplain,
     required this.lockboxPlace,
     required this.rating,
@@ -14,6 +15,7 @@ class SurveyMoreModel {
   String userid;
   var taxAmount,
       lopExplain,
+      aggrement_pdf,
       lockboxPlace,
       fastcash,
       timeFrame,
@@ -28,6 +30,7 @@ class SurveyMoreModel {
         lockboxPlace: json['lockboxPlace'],
         lopExplain: json['lopExplain'],
         paymethod: json['paymethod'],
+        aggrement_pdf: json['aggrement_pdf'],
         rating: json['rating'],
         taxAmount: json['taxAmount'],
         fastcash: json['fastcash'],
@@ -42,6 +45,7 @@ class SurveyMoreModel {
         // more data
         'lockboxPlace': lockboxPlace,
         'lopExplain': lopExplain,
+        'aggrement_pdf': aggrement_pdf,
         'paymethod': paymethod,
         'rating': rating,
         'taxAmount': taxAmount,

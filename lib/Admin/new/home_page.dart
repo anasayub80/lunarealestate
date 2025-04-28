@@ -485,6 +485,10 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                                       ['phone'],
                                                   email: usersList?[index]
                                                       ['email'],
+                                                  acStatus: usersList?[index]
+                                                              ['status']
+                                                          .toString() ??
+                                                      '',
                                                 ).addPadding(vertical: 10);
                                               },
                                             )

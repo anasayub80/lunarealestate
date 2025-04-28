@@ -108,6 +108,7 @@ class _UsersViewState extends State<UsersView> {
                                 id: itemlist![index]['id'],
                                 phone: itemlist![index]['phone'],
                                 email: itemlist![index]['email'],
+                                acStatus: itemlist![index]['status'].toString(),
                               ).addPadding(vertical: 10);
                             } else {
                               return hasMore
@@ -171,9 +172,10 @@ class UserTile extends StatelessWidget {
     required this.phone,
     required this.id,
     required this.email,
+    required this.acStatus,
     required this.name,
   });
-  final String profile, name, id, phone, email;
+  final String profile, name, id, phone, email, acStatus;
 
   Future<void> _makePhoneCall(String phoneNumber) async {
     final Uri launchUri = Uri(
@@ -188,6 +190,7 @@ class UserTile extends StatelessWidget {
     return InkWell(
       onTap: () {
         context.pushScreenTo(UserDetailedView(
+          acStatus: acStatus,
           email: email,
           id: id,
           name: name,

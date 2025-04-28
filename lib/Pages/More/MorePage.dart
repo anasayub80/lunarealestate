@@ -6,6 +6,7 @@ import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/More/Pages/AboutUs.dart';
 import 'package:lunarestate/Pages/More/Pages/TermsAndCondition.dart';
+import 'package:lunarestate/Pages/More/Pages/notifications.dart';
 import 'package:lunarestate/Pages/ProfilePage/ProfilePage.dart';
 import 'package:lunarestate/Pages/Splash/SplashPage.dart';
 import 'package:lunarestate/Service/UserData.dart';
@@ -127,6 +128,28 @@ class MorePage extends StatelessWidget {
                 ],
               ),
               40.height,
+              ListTile(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return NotificationsPage();
+                    },
+                  ));
+                },
+                title: Text(
+                  'Notifications',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'Outfit',
+                    color: Colors.white,
+                  ),
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: AppThemes.secondarycolor,
+                  size: 17,
+                ),
+              ),
               ListTile(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(

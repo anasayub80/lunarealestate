@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lunarestate/Config/config.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
+import 'package:lunarestate/Service/UserData.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
 
@@ -93,6 +95,35 @@ class Backend {
       } else {
         print('Something Wrong');
       }
+    }
+  }
+
+  fetchNotifications(BuildContext context) async {
+    try {
+      String uid = Provider.of<UserData>(context, listen: false).id!;
+      print("$uid my uid");
+      List arraydata;
+      http.Response res =
+          await http.post(Uri.parse(FETCH_NOTIFICATIONS), body: {
+        'user_id': uid,
+      });
+      if (res.statusCode == 200) {
+        if (res.body.isNotEmpty) {
+          var decres = json.decode(res.body);
+          debugPrint("fetchNotifications $decres");
+          if (decres['status'] != 'success') {
+            // No Notifications Found
+            return null;
+          } else {
+            arraydata = decres['data'];
+            return arraydata;
+          }
+        } else {
+          print('Something Wrong');
+        }
+      }
+    } on Exception catch (e) {
+      throw Exception(e);
     }
   }
 
@@ -281,6 +312,30 @@ class Backend {
     } else {
       print('Something Wrong');
     }
+  }
+
+  Future<String?> uploadPdf(File pdfFile) async {
+    final uri = Uri.parse(FORM_URL);
+    var request = http.MultipartRequest('POST', uri);
+    request.fields['tab'] = "upload_pdf";
+    request.fields['token'] = TOKEN;
+    request.files.add(
+      await http.MultipartFile.fromPath('surveyPdf', pdfFile.path),
+    );
+
+    var response = await request.send();
+    var responseBody = await response.stream.bytesToString();
+
+    if (response.statusCode == 200) {
+      final json = jsonDecode(responseBody);
+      debugPrint(json.toString());
+      if (json['success']) {
+        return json['fileName']; // <-- return file name
+      } else {
+        BotToast.showText(text: json['message'], contentColor: Colors.red);
+      }
+    }
+    return null;
   }
 
   submitForm(dynamic data) async {
