@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBIcE7J9ZP83xmMXlgSWqBdAnRogPFrQuI',
-    appId: '1:872097734544:android:376539e76e586255c55d15',
-    messagingSenderId: '872097734544',
-    projectId: 'testotp-57a8a',
-    storageBucket: 'testotp-57a8a.appspot.com',
+    apiKey: 'AIzaSyAv6KKWuEmqrdslSLkV1B5ia8CfJzsFz-k',
+    appId: '1:9195639332:android:80ceb6edfe623c33ef7eb1',
+    messagingSenderId: '9195639332',
+    projectId: 'lunaenterprises-bf474',
+    storageBucket: 'lunaenterprises-bf474.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAGyp6yIdHsUTo8lAq3grv0J6rzVRZl-Qk',
-    appId: '1:872097734544:ios:f76c772ce94f0455c55d15',
-    messagingSenderId: '872097734544',
-    projectId: 'testotp-57a8a',
-    storageBucket: 'testotp-57a8a.appspot.com',
+    apiKey: 'AIzaSyDoV2wZ9b-ZVLrJdkv1yz7u3hOf2YVQgfg',
+    appId: '1:9195639332:ios:f449dc76724d631fef7eb1',
+    messagingSenderId: '9195639332',
+    projectId: 'lunaenterprises-bf474',
+    storageBucket: 'lunaenterprises-bf474.firebasestorage.app',
     iosBundleId: 'com.lunaenterprises',
   );
+
 }

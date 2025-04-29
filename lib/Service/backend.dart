@@ -318,7 +318,7 @@ class Backend {
     final uri = Uri.parse(FORM_URL);
     var request = http.MultipartRequest('POST', uri);
     request.fields['tab'] = "upload_pdf";
-    request.fields['token'] = TOKEN;
+    // request.fields['token'] = TOKEN;
     request.files.add(
       await http.MultipartFile.fromPath('surveyPdf', pdfFile.path),
     );
@@ -363,7 +363,6 @@ class Backend {
       http.Response res = await http.post(Uri.parse(SAVE_SURVEY),
           body: data, headers: {"Accept": "application/json"});
       if (res.statusCode == 200) {
-        // log("response:: ${res.body}", name: "SAVE_SURVEY Response");
         if (res.body.isNotEmpty) {
           var response = jsonDecode(res.body);
           return response;
@@ -390,7 +389,6 @@ class Backend {
           return "0";
         }
       }
-      // return '1';
     }
   }
 }
