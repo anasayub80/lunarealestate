@@ -193,7 +193,6 @@ class Backend {
       if (res.body.isNotEmpty) {
         Map<String, dynamic> map = json.decode(res.body);
         print('updateAccountwithOutImage res ${map.toString()}');
-
         return map;
       } else {
         print('Something Wrong');
