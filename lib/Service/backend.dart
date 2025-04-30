@@ -107,8 +107,9 @@ class Backend {
           await http.post(Uri.parse(FETCH_NOTIFICATIONS), body: {
         'user_id': uid,
       });
+      debugPrint("fetchNotifications statusCode ${res.statusCode} ${res.body}");
       if (res.statusCode == 200) {
-        if (res.body.isNotEmpty) {
+        if (res.body.trim().isNotEmpty) {
           var decres = json.decode(res.body);
           debugPrint("fetchNotifications $decres");
           if (decres['status'] != 'success') {
@@ -121,8 +122,11 @@ class Backend {
         } else {
           print('Something Wrong');
         }
+      } else {
+        print('Something Wrong ${res.body}');
       }
     } on Exception catch (e) {
+      debugPrint("fetchNotifications Error: ${e.toString()}");
       throw Exception(e);
     }
   }
