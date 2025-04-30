@@ -418,127 +418,130 @@ class FullDetail extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: from == 'admin'
-          ? Container(
-              color: AppThemes.bgColor,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.warning,
-                              headerAnimationLoop: false,
-                              animType: AnimType.topSlide,
-                              title: 'Purchased Property',
-                              desc: 'do you want to mark this as purchased?',
-                              btnCancelOnPress: () {},
-                              onDismissCallback: (type) {
-                                debugPrint(
-                                    'Dialog Dismiss from callback $type');
-                              },
-                              btnOkText: 'Yes',
-                              btnOkOnPress: () async {
-                                var res = await Backend().update({
-                                  'value': '3',
-                                  'column': 'detailType',
-                                  'table': 'house_details',
-                                  'id': formId,
-                                });
+          ? SafeArea(
+              child: Container(
+                color: AppThemes.bgColor,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.warning,
+                                headerAnimationLoop: false,
+                                animType: AnimType.topSlide,
+                                title: 'Purchased Property',
+                                desc: 'do you want to mark this as purchased?',
+                                btnCancelOnPress: () {},
+                                onDismissCallback: (type) {
+                                  debugPrint(
+                                      'Dialog Dismiss from callback $type');
+                                },
+                                btnOkText: 'Yes',
+                                btnOkOnPress: () async {
+                                  var res = await Backend().update({
+                                    'value': '3',
+                                    'column': 'detailType',
+                                    'table': 'house_details',
+                                    'id': formId,
+                                  });
 
-                                if (res['status'] == 'success') {
-                                  debugPrint('success');
-                                  FLoading.hide();
-                                  Navigator.pop(context, 'success');
-                                } else {
-                                  FLoading.hide();
-                                  debugPrint('fail');
-                                  Utils.showSnackbar(
-                                      res['msg'], Colors.red, context);
-                                }
-                              }).show();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                        ),
-                        child: Text(
-                          'Purchased',
-                          style: TextStyle(
-                            color: Colors.white,
+                                  if (res['status'] == 'success') {
+                                    debugPrint('success');
+                                    FLoading.hide();
+                                    Navigator.pop(context, 'success');
+                                  } else {
+                                    FLoading.hide();
+                                    debugPrint('fail');
+                                    Utils.showSnackbar(
+                                        res['msg'], Colors.red, context);
+                                  }
+                                }).show();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                          ),
+                          child: Text(
+                            'Purchased',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.warning,
-                              headerAnimationLoop: false,
-                              animType: AnimType.topSlide,
-                              title: 'Delete Property',
-                              desc: 'do you want to delete this property?',
-                              btnCancelOnPress: () {},
-                              onDismissCallback: (type) {
-                                debugPrint(
-                                  'Dialog Dismiss from callback $type',
-                                );
-                              },
-                              btnOkText: 'Yes',
-                              btnOkOnPress: () async {
-                                FLoading.show(
-                                  context,
-                                  loading: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        "assets/icons/logo.png",
-                                        width: 200,
-                                        height: 200,
-                                      ),
-                                      SizedBox(
-                                        height: 25,
-                                      ),
-                                      CircularProgressIndicator()
-                                    ],
-                                  ),
-                                  closable: false,
-                                  color: Colors.black.withOpacity(0.7),
-                                );
-                                var res = await Backend().deleteProperty({
-                                  'formid': formId,
-                                });
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.warning,
+                                headerAnimationLoop: false,
+                                animType: AnimType.topSlide,
+                                title: 'Delete Property',
+                                desc: 'do you want to delete this property?',
+                                btnCancelOnPress: () {},
+                                onDismissCallback: (type) {
+                                  debugPrint(
+                                    'Dialog Dismiss from callback $type',
+                                  );
+                                },
+                                btnOkText: 'Yes',
+                                btnOkOnPress: () async {
+                                  FLoading.show(
+                                    context,
+                                    loading: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          "assets/icons/logo.png",
+                                          width: 200,
+                                          height: 200,
+                                        ),
+                                        SizedBox(
+                                          height: 25,
+                                        ),
+                                        CircularProgressIndicator()
+                                      ],
+                                    ),
+                                    closable: false,
+                                    color: Colors.black.withOpacity(0.7),
+                                  );
+                                  var res = await Backend().deleteProperty({
+                                    'formid': formId,
+                                  });
 
-                                if (res['status'] == 'success') {
-                                  FLoading.hide();
-                                  Navigator.pop(context, 'success');
-                                }
-                              }).show();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
-                        ),
-                        child: Text(
-                          'Delete',
-                          style: TextStyle(
-                            color: Colors.white,
+                                  if (res['status'] == 'success') {
+                                    FLoading.hide();
+                                    Navigator.pop(context, 'success');
+                                  }
+                                }).show();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                          ),
+                          child: Text(
+                            'Delete',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
+                height: 60,
+                width: double.infinity,
               ),
-              height: 60,
-              width: double.infinity,
             )
           : SizedBox.shrink(),
     );
