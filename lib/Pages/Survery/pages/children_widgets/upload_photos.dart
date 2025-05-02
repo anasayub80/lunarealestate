@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
@@ -108,7 +109,7 @@ class UploadPhotos extends StatelessWidget {
                     Colors.red,
                     context,
                   );
-                } else if (images.length >= 10) {
+                } else if (kDebugMode || images.length >= 10) {
                   var res = await submitMultipleImages(context);
                   if (res == '1') {
                     prov.activeStepIndex += 1;

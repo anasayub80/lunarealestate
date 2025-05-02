@@ -32,7 +32,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // SKU FOR APPSTORE DOTCLICK-LUNA-SKU
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

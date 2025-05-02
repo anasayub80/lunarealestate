@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Survery/pages/children_widgets/upload_photos.dart';
@@ -265,7 +266,7 @@ class _PropertyInfoState extends State<PropertyInfo> {
                         Colors.red,
                         context,
                       );
-                    } else if (images.length >= 10) {
+                    } else if (kDebugMode || images.length >= 10) {
                       var res = await submitMultipleImages(context);
                       if (res == '1') {
                         prov.activeStepIndex += 1;

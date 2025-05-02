@@ -149,6 +149,19 @@ class Backend {
     }
   }
 
+  fetchUserDetail(dynamic data) async {
+    List arraydata;
+    http.Response res = await http.post(Uri.parse(FetchUserDetail), body: data);
+    if (res.statusCode == 200) {
+      if (res.body.isNotEmpty) {
+        arraydata = json.decode(res.body);
+        return arraydata;
+      } else {
+        print('Something Wrong');
+      }
+    }
+  }
+
   fetchPropertyImages(String formid) async {
     http.Response res = await http.post(Uri.parse(GET_IMAGES_URL), body: {
       'formid': formid,
@@ -171,6 +184,7 @@ class Backend {
   }
 
   fetchFullPropertyDetails(String formid) async {
+    debugPrint("formid $formid");
     http.Response res = await http.post(Uri.parse(FETCH_FULL_HOUSE_URL), body: {
       'formid': formid,
     });
@@ -331,7 +345,7 @@ class Backend {
 
     if (response.statusCode == 200) {
       final json = jsonDecode(responseBody);
-      debugPrint(json.toString());
+      debugPrint("uploadPdf response $json");
       if (json['success']) {
         return json['fileName']; // <-- return file name
       } else {

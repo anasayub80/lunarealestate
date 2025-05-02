@@ -12,8 +12,10 @@ import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
 import 'package:lunarestate/Pages/SellHistory/fullDetail.dart';
+import 'package:lunarestate/Pages/client_information.dart';
 import 'package:lunarestate/Pages/property_full_detail/property_detail_controller.dart';
 import 'package:lunarestate/Service/backend.dart';
+import 'package:lunarestate/pdf/pdf_view.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -58,6 +60,7 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
   @override
   void initState() {
     super.initState();
+    getData(widget.formId);
     _pageController.addListener(() {
       // Update the page index when the page changes
       context
@@ -74,7 +77,6 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
 
   @override
   Widget build(BuildContext context) {
-    getData(widget.formId);
     return Scaffold(
       body: BgTwo(
         child: Container(
@@ -293,23 +295,80 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
                                     ),
                                   ),
                                   10.height,
-                                  Divider(
-                                    thickness: 0.8,
-                                    color: Color(0xff424448),
-                                  ),
-                                  TextButton(
-                                      onPressed: () {},
-                                      child: Text("View Agreement")),
-                                  Divider(
-                                    thickness: 0.8,
-                                    color: Color(0xff424448),
+                                  Text(
+                                    "Property Submitted on ${snapshot.data[0]['date']}",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontFamily: 'Outfit',
+                                    ),
                                   ),
                                   10.height,
-                                  10.height,
                                   Divider(
                                     thickness: 0.8,
                                     color: Color(0xff424448),
                                   ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                            builder: (context) {
+                                              return ViewPDFURL(
+                                                  url: snapshot.data[0]
+                                                      ['aggrement_pdf'],
+                                                  title: snapshot.data[0]
+                                                      ['title']);
+                                            },
+                                          ));
+                                        },
+                                        child: Text(
+                                          "View Agreement",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: widget.from == 'admin',
+                                        child: TextButton(
+                                          onPressed: () {
+                                            Navigator.push(context,
+                                                MaterialPageRoute(
+                                              builder: (context) {
+                                                return ClientInformationPage(
+                                                  uid: snapshot.data[0]
+                                                      ['user_id'],
+                                                );
+                                              },
+                                            ));
+                                          },
+                                          child: Text(
+                                            "Client Information",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Divider(
+                                    thickness: 0.8,
+                                    color: Color(0xff424448),
+                                  ),
+                                  // 10.height,
+                                  // Divider(
+                                  //   thickness: 0.8,
+                                  //   color: Color(0xff424448),
+                                  // ),
                                   10.height,
                                   Consumer<PropertyDetailController>(
                                     builder: (context, controller, child) {

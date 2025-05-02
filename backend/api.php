@@ -27,15 +27,137 @@ function imagecheck($imagetype)
         return false;
     }
 }
+$tabb = $_GET['page'];
 //usage
-switch ($_GET['page']) {
+switch ($tabb) {
+  case 'FetchNotification':
+    $user_id = $_POST['user_id'];
+    $select = mysqli_query($con, "SELECT * FROM `notifications` WHERE `user_id` = '$user_id' ORDER BY `id` DESC");
+
+    if (mysqli_num_rows($select) > 0) {
+        $response = array();
+        while ($fetch = mysqli_fetch_array($select)) {
+            $response[] = array(
+                'id' => $fetch['id'],
+                'noti_title' => $fetch['noti_title'],
+                'noti_subtitle' => $fetch['noti_subtitle'],
+                'noti_type' => $fetch['noti_type'],
+                'user_id' => $fetch['user_id'],
+                'prop_id' => $fetch['prop_id']
+            );
+        }
+        echo json_encode(array('status' => "success", 'msg' => "Notifications Found", "data" => $response));
+    } else {
+        echo json_encode(array('status' => "warning", 'msg' => "No Notifications Found"));
+    }
+    break;
+        case 'fetchUserDetails':
+            // Check if user_id is set
+            if (!isset($_POST['user_id']) || empty($_POST['user_id'])) {
+                echo json_encode([
+                    'status' => 'error',
+                    'msg' => 'user_id is required'
+                ]);
+                break;
+            }
+            $user_id = $_POST['user_id'];
+            // Query to fetch user details
+            $select = mysqli_query($con, "SELECT * FROM `users` WHERE `id` = '$user_id'");
+            if ($select && mysqli_num_rows($select) > 0) {
+                $fetch = mysqli_fetch_assoc($select);
+        
+                // Prepare response
+                $response = array(
+                    'id' => $fetch['id'],
+                    'name' => $fetch['name'],
+                    'email' => $fetch['email'],
+                    'username' => $fetch['username'],
+                    'phone' => $fetch['phone'],
+                    'address' => $fetch['adress'],  // Note: spelling in DB is 'adress'
+                    'country' => $fetch['country'],
+                    'role_id' => $fetch['role_id'],
+                    'code' => $fetch['code'],
+                    'status' => $fetch['status'],
+                    'profile' => $fetch['profile'],
+                    'phone_verified' => $fetch['phone_verified']
+                );
+        
+                echo json_encode([
+                    'status' => 'success',
+                    'msg' => 'User details found',
+                    'data' => $response
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => 'warning',
+                    'msg' => 'User not found'
+                ]);
+            }
+            break;
+     case 'changeUserStatus':
+            $uid = htmlspecialchars($_POST['uid']);
+            $newstatus = htmlspecialchars($_POST['newstatus']);
+            $update = mysqli_query($con, "UPDATE `users` SET `status`='$newstatus' WHERE  id='$id'");
+            if($update){
+            echo json_encode(array(
+                            "status" => "success",
+                            'msg' => "Account Status Changed Successfully"
+                        ));
+            }else{
+            echo json_encode(array(
+                            "status" => "warning",
+                            'msg' => "Failed to Change thestatuspassword"
+                        ));
+            }
+            break;
         // Insert Property Data 
     case 'addProperty':
         $files = array();
         // Property Steps
         switch ($_POST['tab']) {
+            case 'upload_pdf':
+                $response = [];
+                if (!empty($_FILES['surveyPdf']['name'])) {
+                    $uploadDir = 'uploads/pdf/';
+                    
+                    if (!file_exists($uploadDir)) {
+                        mkdir($uploadDir, 0777, true);
+                    }
+            
+                    $fileType = mime_content_type($_FILES['surveyPdf']['tmp_name']);
+                    if ($fileType !== 'application/pdf') {
+                        $response = [
+                            'success' => false,
+                            'message' => 'Only PDF files are allowed.'
+                        ];
+                        echo json_encode($response);
+                        break;
+                    }
+            
+                    $fileName = uniqid() . '_' . basename($_FILES['surveyPdf']['name']);
+                    $targetPath = $uploadDir . $fileName;
+            
+                    if (move_uploaded_file($_FILES['surveyPdf']['tmp_name'], $targetPath)) {
+                        $response = [
+                            'success' => true,
+                            'fileName' => $fileName,
+                            // 'fileUrl' => 'https://yourdomain.com/' . $targetPath
+                        ];
+                    } else {
+                        $response = [
+                            'success' => false,
+                            'message' => 'File upload failed.'
+                        ];
+                    }
+                } else {
+                    $response = [
+                        'success' => false,
+                        'message' => 'No file uploaded.'
+                    ];
+                }
+                echo json_encode($response);
+                break;
             case "basic_info":
-                
                 if(isset($_POST['formid'])){
                     $formid =     htmlentities(mysqli_real_escape_string($con, $_POST['formid']));
                     $onwerName =  htmlentities(mysqli_real_escape_string($con, $_POST['ownerName']));
@@ -88,7 +210,8 @@ switch ($_GET['page']) {
                     echo json_encode(array('status' => "warning", 'msg' => "Database Error"));
                 }
                 break;
-              case "survey_info":
+            
+            case "survey_info":
                 $formid =     htmlentities(mysqli_real_escape_string($con, $_POST['formid']));
                 $assiteNewHome =  htmlentities(mysqli_real_escape_string($con, $_POST['assitnewhome']));
                 $backedTaxowed =  htmlentities(mysqli_real_escape_string($con, $_POST['backedtaxowed']));
@@ -120,7 +243,7 @@ switch ($_GET['page']) {
                     echo json_encode(array('status' => "warning", 'msg' => "Database Error"));
                 }
 
-                break;    
+                break;
             case 'image':
                     $formid = htmlentities(mysqli_real_escape_string($con, $_POST['formid']));
                      $select = mysqli_query($con, "SELECT * FROM `form_images` where `form_id` = '$formid'");
@@ -168,17 +291,18 @@ switch ($_GET['page']) {
                     } else {
                         echo json_encode(array('status' => "warning", 'msg' => "Old Image not deleting"));
                     }
-                 break;       
+                 break;  
             case 'survey_more':
                 $formid = htmlentities(mysqli_real_escape_string($con, $_POST['formid']));
                 $lockboxPlace =  htmlentities(mysqli_real_escape_string($con, $_POST['lockboxPlace']));
                 $lopExplain =  htmlentities(mysqli_real_escape_string($con, $_POST['lopExplain']));
                 $payMethod =  htmlentities(mysqli_real_escape_string($con, $_POST['paymethod']));
                 $rating =  htmlentities(mysqli_real_escape_string($con, $_POST['rating']));
+                $aggrement_pdf =  htmlentities(mysqli_real_escape_string($con, $_POST['aggrement_pdf']));
                 $taxAmount =  htmlentities(mysqli_real_escape_string($con, $_POST['taxAmount']));
                 $timeFrame =  htmlentities(mysqli_real_escape_string($con, $_POST['timeFrame']));
                 $fastcash =  htmlentities(mysqli_real_escape_string($con, $_POST['fastcash']));
-                $query = mysqli_query($con, "UPDATE `house_details` SET  `detailType` = '1' , `lopExplain`='$lopExplain',`lockboxPlace`='$lockboxPlace',`payMethod`='$payMethod',`rating`='$rating',`taxAmount`='$taxAmount',`timeFrame`='$timeFrame',`fastcash` = '$fastcash' WHERE `id` = '$formid'");
+                $query = mysqli_query($con, "UPDATE `house_details` SET  `detailType` = '1' ,`aggrement_pdf` ='$aggrement_pdf', `lopExplain`='$lopExplain',`lockboxPlace`='$lockboxPlace',`payMethod`='$payMethod',`rating`='$rating',`taxAmount`='$taxAmount',`timeFrame`='$timeFrame',`fastcash` = '$fastcash' WHERE `id` = '$formid'");
 
                 if ($query) {
                     echo json_encode(array('status' => "success", 'msg' => "Successfully Inserted", 'formid' => $formid, 'detailType' => "1"));
@@ -196,82 +320,6 @@ switch ($_GET['page']) {
             break;
         }
 
-    break;
- case "saveSurvey":
-    // Receive and decode the JSON from Flutter app
-    $json = file_get_contents('php://input');
-    $data = json_decode($json, true); // Decode JSON into an associative array
-
-    // Check if the necessary data exists
-    if (isset($data['formid']) && isset($data['userid']) && isset($data['questions_and_answers'])) {
-        // Sanitize and escape input data
-        $formid = htmlentities(mysqli_real_escape_string($con, $data['formid']));
-        $userid = htmlentities(mysqli_real_escape_string($con, $data['userid']));
-
-        // Insert general survey info into `survey_info` table
-        $survey_query = mysqli_query($con, "INSERT INTO survey_info (formid, userid) 
-                                            VALUES ('$formid', '$userid')");
-
-        if ($survey_query) {
-            // Get the survey_info_id after inserting
-            $survey_info_id = mysqli_insert_id($con);
-
-            // Loop through questions and insert them into `survey_questions` and `survey_answers`
-            foreach ($data['questions_and_answers'] as $question_data) {
-                // Check if question and answers are present
-                if (isset($question_data['question']) && isset($question_data['answers'])) {
-                    $question = htmlentities(mysqli_real_escape_string($con, $question_data['question']));
-
-                    // Insert the question into `survey_questions`
-                    $insert_question = mysqli_query($con, "INSERT INTO survey_questions (survey_info_id, question) 
-                                                           VALUES ('$survey_info_id', '$question')");
-
-                    if ($insert_question) {
-                        $survey_question_id = mysqli_insert_id($con);  // Get the ID of the inserted question
-
-                        // Loop through the answers and insert them into `survey_answers`
-                        foreach ($question_data['answers'] as $answer_data) {
-                            // Check if 'answer' and 'selectedAnswer' are present in answer data
-                            if (isset($answer_data['answer']) && isset($answer_data['selectedAnswer'])) {
-                                $answer = htmlentities(mysqli_real_escape_string($con, $answer_data['answer']));
-                                $selected_answer = $answer_data['selectedAnswer'] ? 1 : 0;  // Convert boolean to 1 or 0
-
-                                // Insert the answer into `survey_answers`
-                                $insert_answer = mysqli_query($con, "INSERT INTO survey_answers (survey_question_id, answer, selectedAnswer) 
-                                                                     VALUES ('$survey_question_id', '$answer', '$selected_answer')");
-                            } else {
-                                echo json_encode(array('status' => "warning", 'msg' => "Missing 'answer' or 'selectedAnswer' for one of the answers"));
-                                exit;
-                            }
-                        }
-                    }
-                } else {
-                    echo json_encode(array('status' => "warning", 'msg' => "Missing 'question' or 'answers' for one of the questions"));
-                    exit;
-                }
-            }
-
-            // Check if everything was inserted correctly
-            if (isset($insert_answer) && $insert_answer) {
-                // Fetch the survey info details
-                $select = mysqli_query($con, "SELECT * FROM survey_info WHERE formid = '$formid'");
-                $fetch = mysqli_fetch_array($select);
-
-                echo json_encode(array(
-                    'status' => "success", 
-                    'msg' => "Successfully Inserted", 
-                    'formid' => $formid,
-                    // 'detailType' => $fetch['detailType']
-                ));
-            } else {
-                echo json_encode(array('status' => "warning", 'msg' => "Error inserting answers"));
-            }
-        } else {
-            echo json_encode(array('status' => "warning", 'msg' => "Error inserting survey info"));
-        }
-    } else {
-        echo json_encode(array('status' => "error", 'msg' => "Missing required data: formid, userid, or questions_and_answers"));
-    }
     break;
 
     case 'deleteProperty':
@@ -387,6 +435,8 @@ switch ($_GET['page']) {
             $response[$i]['taxAmount'] = $fetch['taxAmount'] == ''? '--': $fetch['taxAmount'];
             $response[$i]['timeFrame'] = $fetch['timeFrame'] == ''? '--': $fetch['timeFrame'];
             $response[$i]['squarefootage'] = $fetch['squarefootage'] == ''? '--': $fetch['squarefootage'];
+            // $url . 'uploads/users/' .$pofile
+            $response[$i]['aggrement_pdf'] = $url.'uploads/pdf/'.$fetch['aggrement_pdf'];
             $response[$i]['fastcash'] = $fetch['fastcash'] == ''? '--': $fetch['fastcash'];
             echo json_encode($response);
         } else {
@@ -492,7 +542,6 @@ switch ($_GET['page']) {
         break;
 
    case 'fetchusers':
-       
             $limit = htmlspecialchars($_POST['limit']);
             $select = mysqli_query($con,"SELECT * FROM `users` WHERE role_id != '1' LIMIT $limit,10");
             $i = 0;
@@ -505,6 +554,7 @@ switch ($_GET['page']) {
                     }
                 
                     $response[$i]['id'] = $row['id'];
+                    $response[$i]['status'] = $row['status'];
                     $response[$i]['name'] = $row['name'];
                     $response[$i]['email'] = $row['email'];
                     $response[$i]['phone'] = $row['phone'];
@@ -630,136 +680,119 @@ switch ($_GET['page']) {
             if (mysqli_num_rows($check_email) > 0) {
             ob_start();
             ?>
-<!doctype html>
-<html>
+            <!doctype html>
+            <html>
 
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Forgot Password</title>
-    <style>
-    .text-center {
-        text-align: center !important;
-    }
+            <head>
+                <meta name="viewport" content="width=device-width" />
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <title>Forgot Password</title>
+                <style>
+                   .text-center{
+                       text-align:center !important;
+                   }
+                    .text-white{
+                       color:white !important;
+                   }
+                    .text-theme{
+                       color:#B48717 !important;
+                   }
+                   .bg-dark{
+                       background-color:#262626 !important;
+                   }
+                   .bg-theme{
+                       background-color:#B48717 !important;
+                   }
+                   .bg-white{
+                        background-color:white !important;
+                   }
+                   .w-100{
+                       width:100% !important;
+                   }
+                   .p-0{
+                       padding:0 !important;
+                   }
+                    .m-0{
+                       margin:0 !important;
+                   }
+                   .code-box{
+                        padding: 0px 15px;
+                        letter-spacing: 10px;
+                        margin: 20px auto;
+                        font-family: sans-serif;
+                        font-weight: bold;
+                        font-size: 30px;
+                        border-radius: 10px;
+                        border: 2px solid #ffbf00;
+                        width: fit-content;
+                        color: #ffbf00;
+                        background-color: white;
+                        text-align: center;
+                   }
+                   .footer{
+                       background-color:#B48717;
+                       text-align:center;
+                       font-size:15px;
+                       padding:10px;
+                        color:#fff !important;
+                   }
+                   .footer a {
+                       color:#fff !important;
+                   }
+                   .main-box{
+                        max-width: 600px;
+                        margin: 0 auto;
+                        border-radius: 10px;
+                        overflow: hidden;
+                   }
+                   .header{
+                        background-color: #000;
+                        border-bottom: solid #939292 1px;
+                        margin-bottom: 10px;
+                        align-items: center;
+                        display: flex;
+                   }
+                   .header a{
+                        width:30%;
+                        padding:0px 10px;
+                        
+                   }
+                   .header img{
+                     width: 100%;
+                     margin: 5px 0;
+                        
+                   }
+                    .header h4{
+                        width: 70%;
+                        color: #fff;
+                        font-size: 20px;
+                        margin: auto 0;
+                    }
+                </style>
+            </head>
 
-    .text-white {
-        color: white !important;
-    }
+            <body class="p-0 m-0 w-100">
+               <div class="bg-dark w-100 main-box">
+                   <div class="header" style="align-items: center;">
+                       <a href="https://lunaenterprises.info/"><img src="<?=$logo?>"></a>
+                       <h4>Reset Your Password</h4>
+                   </div>
+                    <h1 class="text-center text-white m-0">
+                        Hi <?=$name?>
+                    </h1>
+                    <a class="text-center text-white m-0" href="javascript:void(0)" style="color:#fff !important;display:block"><?=$emailuser?></a>
+                    <div class="code-box" style="background-color:#fff !important;">
+                        <?=$rand?>
+                    </div>
+                    <div class="footer">
+                        Regards <a href="https://lunaenterprises.info/">https://lunaenterprises.info/</a>
+                    </div>
+               </div>
+               
+            </body>
 
-    .text-theme {
-        color: #B48717 !important;
-    }
-
-    .bg-dark {
-        background-color: #262626 !important;
-    }
-
-    .bg-theme {
-        background-color: #B48717 !important;
-    }
-
-    .bg-white {
-        background-color: white !important;
-    }
-
-    .w-100 {
-        width: 100% !important;
-    }
-
-    .p-0 {
-        padding: 0 !important;
-    }
-
-    .m-0 {
-        margin: 0 !important;
-    }
-
-    .code-box {
-        padding: 0px 15px;
-        letter-spacing: 10px;
-        margin: 20px auto;
-        font-family: sans-serif;
-        font-weight: bold;
-        font-size: 30px;
-        border-radius: 10px;
-        border: 2px solid #ffbf00;
-        width: fit-content;
-        color: #ffbf00;
-        background-color: white;
-        text-align: center;
-    }
-
-    .footer {
-        background-color: #B48717;
-        text-align: center;
-        font-size: 15px;
-        padding: 10px;
-        color: #fff !important;
-    }
-
-    .footer a {
-        color: #fff !important;
-    }
-
-    .main-box {
-        max-width: 600px;
-        margin: 0 auto;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .header {
-        background-color: #000;
-        border-bottom: solid #939292 1px;
-        margin-bottom: 10px;
-        align-items: center;
-        display: flex;
-    }
-
-    .header a {
-        width: 30%;
-        padding: 0px 10px;
-
-    }
-
-    .header img {
-        width: 100%;
-        margin: 5px 0;
-
-    }
-
-    .header h4 {
-        width: 70%;
-        color: #fff;
-        font-size: 20px;
-        margin: auto 0;
-    }
-    </style>
-</head>
-
-<body class="p-0 m-0 w-100">
-    <div class="bg-dark w-100 main-box">
-        <div class="header" style="align-items: center;">
-            <a href="https://lunaenterprises.info/"><img src="<?=$logo?>"></a>
-            <h4>Reset Your Password</h4>
-        </div>
-        <h1 class="text-center text-white m-0">
-            Hi <?=$name?>
-        </h1>
-        <a class="text-center text-white m-0" href="javascript:void(0)"
-            style="color:#fff !important;display:block"><?=$emailuser?></a>
-        <div class="code-box" style="background-color:#fff !important;">
-            <?=$rand?>
-        </div>
-        <div class="footer">
-            Regards <a href="https://lunaenterprises.info/">https://lunaenterprises.info/</a>
-        </div>
-    </div>
-
-</body>
-
-</html>
-<?php
+            </html>
+         <?php
             $html = ob_get_contents();
             ob_end_clean();
             $message = $html;
@@ -1010,10 +1043,9 @@ switch ($_GET['page']) {
             }else{
                     echo json_encode(array('status'=>"warning",'msg'=>"Query Error"));
             }
-            
-            
-            
         break;
+        default:
+        echo json_encode(array('status' => "warning", 'msg' => "$tabb Tab not found"));
 }
 
 

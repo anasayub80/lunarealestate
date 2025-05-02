@@ -8,6 +8,8 @@ import 'package:lunarestate/Pages/HomePage/HomePage.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
 import 'package:lunarestate/Service/backend.dart';
+import 'package:lunarestate/Service/one_signal.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:floading/floading.dart';
@@ -182,7 +184,7 @@ Future submitpropertyInfo(
         log('Data Submitted');
         break;
       case "1":
-        log('case 1');
+        log('case 1 Property Submitted response ID ${res['formid']}');
         SharedPreferences pref = await SharedPreferences.getInstance();
         await pref.remove('data');
         await pref.remove('formid');
@@ -198,12 +200,13 @@ Future submitpropertyInfo(
         FLoading.hide();
         Utils.showSnackbar('Property Submitted', Colors.green, context);
         Navigator.of(context).popUntil((route) => route.isFirst);
+        OneSignalService.sendNotification('', "New Property Submitted", {});
         Navigator.pushReplacement(
           context,
           PageTransition(
             child: MyHomePage(
               isFromPropSubmit: true,
-              propID: res['id'],
+              propID: res['formid'].toString(),
             ),
             isIos: true,
             duration: Duration(milliseconds: 600),
@@ -292,23 +295,3 @@ Future submitMultipleImages(BuildContext context) async {
   FLoading.hide();
   return '1';
 }
-// FLoading.show(
-//     context,
-//     loading: Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       crossAxisAlignment: CrossAxisAlignment.center,
-//       children: [
-//         Image.asset(
-//           "assets/icons/icon.png",
-//           width: 200,
-//           height: 200,
-//         ),
-//         SizedBox(
-//           height: 25,
-//         ),
-//         CircularProgressIndicator()
-//       ],
-//     ),
-//     closable: false,
-//     color: Colors.black.withOpacity(0.7),
-//   );

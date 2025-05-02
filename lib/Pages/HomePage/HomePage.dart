@@ -28,7 +28,7 @@ import '../SellHistory/SellHistory.dart';
 
 class MyHomePage extends StatefulWidget {
   final bool? isFromPropSubmit;
-  final int? propID;
+  final String? propID;
   const MyHomePage({super.key, this.isFromPropSubmit = false, this.propID});
 
   @override
@@ -102,25 +102,31 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    if (widget.isFromPropSubmit ?? false) {
-      AwesomeDialog(
-        context: context,
-        title: "Property Submitted",
-        desc: "do you want to view the property details?",
-        btnOkText: "Yes",
-        btnCancelText: "No",
-        onDismissCallback: (type) {},
-        btnOkOnPress: () {
-          Navigator.push(context, MaterialPageRoute(
-            builder: (context) {
-              return PropertyFullDetail(
-                from: 'name',
-                formId: widget.propID.toString(),
-              );
+    if (widget.isFromPropSubmit! && widget.propID != null) {
+      Future.delayed(
+        Duration(seconds: 1),
+        () {
+          AwesomeDialog(
+            context: context,
+            title: "Property Submitted",
+            desc: "do you want to view the property details?",
+            btnOkText: "Yes",
+            btnCancelText: "No",
+            onDismissCallback: (type) {},
+            btnCancelOnPress: () {},
+            btnOkOnPress: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return PropertyFullDetail(
+                    from: 'name',
+                    formId: widget.propID.toString(),
+                  );
+                },
+              ));
             },
-          ));
+          ).show();
         },
-      ).show();
+      );
     }
     Provider.of<SurvProvider>(context, listen: false).getCurrentLocation();
     Future.delayed(Duration(milliseconds: 100), () {

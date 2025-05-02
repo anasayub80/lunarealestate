@@ -350,6 +350,45 @@ Future<File> generatePdf(String name, String email, String phone,
   // });
 }
 
+class ViewPDFURL extends StatefulWidget {
+  final String title;
+  final String url;
+  const ViewPDFURL({super.key, required this.url, required this.title});
+
+  @override
+  State<ViewPDFURL> createState() => _ViewPDFURLState();
+}
+
+class _ViewPDFURLState extends State<ViewPDFURL> {
+  bool _isLoading = true;
+  late PDFDocument document;
+
+  @override
+  void initState() {
+    super.initState();
+    loadDocument();
+  }
+
+  loadDocument() async {
+    document = await PDFDocument.fromURL(widget.url);
+
+    setState(() => _isLoading = false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+          child: _isLoading
+              ? Center(child: CircularProgressIndicator())
+              : PDFViewer(document: document)),
+    );
+  }
+}
+
 class ViewPDF extends StatefulWidget {
   final File file;
   const ViewPDF({super.key, required this.file});
