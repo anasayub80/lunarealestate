@@ -106,7 +106,7 @@ switch ($tabb) {
             }else{
             echo json_encode(array(
                             "status" => "warning",
-                            'msg' => "Failed to Change thestatuspassword"
+                            'msg' => "Failed to Change the status password"
                         ));
             }
             break;
@@ -118,7 +118,7 @@ switch ($tabb) {
             case 'upload_pdf':
                 $response = [];
                 if (!empty($_FILES['surveyPdf']['name'])) {
-                    $uploadDir = 'uploads/pdf/';
+                    $uploadDir = '../uploads/pdf/';
                     
                     if (!file_exists($uploadDir)) {
                         mkdir($uploadDir, 0777, true);
