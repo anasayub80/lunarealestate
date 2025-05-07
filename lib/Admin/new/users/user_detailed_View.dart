@@ -1,14 +1,17 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:floading/floading.dart';
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/Background/bg_one.dart';
+import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Widgets/customAppBar.dart';
 import 'package:lunarestate/Widgets/header_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Widgets/global_appbar.dart';
 
-class UserDetailedView extends StatelessWidget {
+class UserDetailedView extends StatefulWidget {
   UserDetailedView({
     super.key,
     required this.profile,
@@ -19,12 +22,25 @@ class UserDetailedView extends StatelessWidget {
     required this.name,
   });
   final String profile, name, id, phone, email, acStatus;
+
+  @override
+  State<UserDetailedView> createState() => _UserDetailedViewState();
+}
+
+class _UserDetailedViewState extends State<UserDetailedView> {
+  String acStatus = '';
   Future<void> _makePhoneCall(String phoneNumber) async {
     final Uri launchUri = Uri(
       scheme: 'tel',
       path: phoneNumber,
     );
     await launchUrl(launchUri);
+  }
+
+  @override
+  void initState() {
+    acStatus = widget.acStatus;
+    super.initState();
   }
 
   @override
@@ -47,12 +63,12 @@ class UserDetailedView extends StatelessWidget {
             CircleAvatar(
               radius: context.screenHeight * 0.1,
               backgroundImage: NetworkImage(
-                profile,
+                widget.profile,
               ),
             ),
             20.height,
             Text(
-              name,
+              widget.name,
               style: TextStyle(
                 color: Color(0xFFD3A45C),
                 fontSize: 21,
@@ -60,7 +76,7 @@ class UserDetailedView extends StatelessWidget {
             ),
             2.height,
             Text(
-              phone,
+              widget.phone,
               style: TextStyle(
                 // color: Color(0xFFD3A45C),
                 color: Colors.white,
@@ -70,7 +86,7 @@ class UserDetailedView extends StatelessWidget {
             20.height,
             InkWell(
               onTap: () {
-                _makePhoneCall(phone);
+                _makePhoneCall(widget.phone);
               },
               child: Container(
                 height: 50,
@@ -182,47 +198,56 @@ class UserDetailedView extends StatelessWidget {
             // ),
             InkWell(
               onTap: () {
-                // AwesomeDialog(
-                //     context: context,
-                //     dialogType: DialogType.warning,
-                //     headerAnimationLoop: false,
-                //     animType: AnimType.topSlide,
-                //     title: 'Delete User',
-                //     desc: 'do you want to delete this user?',
-                //     btnCancelOnPress: () {},
-                //     onDismissCallback: (type) {
-                //       debugPrint('Dialog Dismiss from callback $type');
-                //     },
-                //     btnOkText: 'Yes',
-                //     btnOkOnPress: () async {
-                //       FLoading.show(
-                //         context,
-                //         loading: Column(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           crossAxisAlignment: CrossAxisAlignment.center,
-                //           children: [
-                //             Image.asset(
-                //               "assets/icons/logo.png",
-                //               width: 200,
-                //               height: 200,
-                //             ),
-                //             SizedBox(
-                //               height: 25,
-                //             ),
-                //             CircularProgressIndicator()
-                //           ],
-                //         ),
-                //         closable: true,
-                //         color: Colors.black.withOpacity(0.7),
-                //       );
-                //       var res = await Backend()
-                //           .delete({'table': 'users', 'id': id, 'column': 'id'});
+                AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.warning,
+                    headerAnimationLoop: false,
+                    animType: AnimType.topSlide,
+                    title:
+                        acStatus != '1' ? 'Activate User' : 'DeActivate User',
+                    desc: acStatus != '1'
+                        ? 'do you want to Activate this user?'
+                        : 'do you want to DeActivate this user?',
+                    btnCancelOnPress: () {
+                      context.popFromScreen();
+                    },
+                    onDismissCallback: (type) {
+                      debugPrint('Dialog Dismiss from callback $type');
+                    },
+                    btnOkText: 'Yes',
+                    btnOkOnPress: () async {
+                      FLoading.show(
+                        context,
+                        loading: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/icons/logo.png",
+                              width: 200,
+                              height: 200,
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            CircularProgressIndicator()
+                          ],
+                        ),
+                        closable: true,
+                        color: Colors.black.withOpacity(0.7),
+                      );
+                      var res = await Backend().changeUserStatus({
+                        'uid': widget.id,
+                        'newstatus': acStatus == '1' ? '0' : '1',
+                      });
+                      if (res['status'] == 'success') {
+                        FLoading.hide();
 
-                //       if (res['status'] == 'success') {
-                //         FLoading.hide();
-                //         context.popFromScreen();
-                //       }
-                //     }).show();
+                        setState(() {
+                          acStatus = acStatus == '1' ? '0' : '1';
+                        });
+                      }
+                    }).show();
               },
               child: Container(
                 height: 50,

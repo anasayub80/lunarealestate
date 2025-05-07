@@ -22,6 +22,7 @@ import 'package:lunarestate/Pages/SellHistory/SellHistory.dart';
 import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
 import 'package:lunarestate/Service/UserData.dart';
 import 'package:ultimate_bottom_navbar/ultimate_bottom_navbar.dart';
+import 'Pages/GoogleMap/choose_address_map.dart';
 import 'Pages/HomePage/HomePage.dart';
 import 'Pages/More/MorePage.dart';
 import 'Pages/Splash/SplashPage.dart';
@@ -133,7 +134,8 @@ class _MyAppState extends State<MyApp> {
           //   email: 'Forgot',
           // ),
           // home: SellHousePage(child: AgreementInfo()),
-          home: SplashPage(),
+          home: MapPicker(),
+          // home: SplashPage(),
           // home: WelcomePage(),
           // home: LoginPage(),
         ),

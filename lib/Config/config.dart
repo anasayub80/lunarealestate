@@ -7,6 +7,7 @@ var Base_URL = 'https://app.lunaenterprises.info/api/';
 var TOKEN = 'C8xWxGvIue37SwP2MEU7W5oKE32fm7Z3JxHfeK897a8eE0SdLl';
 var LOGIN_URL = '${Base_URL}login'.trim();
 var DELETE_PROPERTY_URL = '${Base_URL}deleteProperty'.trim();
+var ChangeUserStatus = '${Base_URL}changeUserStatus'.trim();
 var DELETE = '${Base_URL}delete'.trim();
 var UPDATE_PROFILE_URL = '${Base_URL}profile'.trim();
 var SIGNUP_URL = '${Base_URL}signup'.trim();

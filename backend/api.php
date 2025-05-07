@@ -78,7 +78,7 @@ switch ($tabb) {
                     'role_id' => $fetch['role_id'],
                     'code' => $fetch['code'],
                     'status' => $fetch['status'],
-                    'profile' => $fetch['profile'],
+                    'profile' => $url.'uploads/users/'.$fetch['profile'],
                     'phone_verified' => $fetch['phone_verified']
                 );
         

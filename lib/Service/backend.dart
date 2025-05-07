@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
+import 'package:floading/floading.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -49,6 +50,26 @@ class Backend {
       } else {
         print('Something Wrong');
       }
+    }
+  }
+
+  changeUserStatus(dynamic data) async {
+    try {
+      http.Response res =
+          await http.post(Uri.parse(ChangeUserStatus), body: data);
+      if (res.statusCode == 200) {
+        if (res.body.isNotEmpty) {
+          var data = json.decode(res.body);
+          print(data);
+          return data;
+        } else {
+          debugPrint('Something Wrong');
+        }
+      }
+    } on Exception catch (e) {
+      FLoading.hide();
+      debugPrint('changeUserStatus $e');
+      throw Exception(e);
     }
   }
 
@@ -150,11 +171,12 @@ class Backend {
   }
 
   fetchUserDetail(dynamic data) async {
-    List arraydata;
+    var arraydata;
     http.Response res = await http.post(Uri.parse(FetchUserDetail), body: data);
     if (res.statusCode == 200) {
       if (res.body.isNotEmpty) {
         arraydata = json.decode(res.body);
+        debugPrint("fetchUserDetail $arraydata");
         return arraydata;
       } else {
         print('Something Wrong');

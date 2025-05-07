@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable, use_build_context_synchronously
-
 import 'dart:async';
 import 'dart:developer';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -18,7 +16,6 @@ import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/pdf/pdf_view.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
-
 import '../../Widgets/Utils.dart';
 import '../Gallery/ImageView.dart';
 import 'package:page_transition/page_transition.dart';
@@ -34,9 +31,9 @@ getData(String formId) async {
 }
 
 class PropertyFullDetail extends StatefulWidget {
-  String from;
+  final String from;
 
-  String formId;
+  final String formId;
   PropertyFullDetail({super.key, required this.formId, required this.from});
 
   @override
@@ -314,24 +311,31 @@ class _PropertyFullDetailState extends State<PropertyFullDetail> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.push(context,
-                                              MaterialPageRoute(
-                                            builder: (context) {
-                                              return ViewPDFURL(
-                                                  url: snapshot.data[0]
-                                                      ['aggrement_pdf'],
-                                                  title: snapshot.data[0]
-                                                      ['title']);
-                                            },
-                                          ));
-                                        },
-                                        child: Text(
-                                          "View Agreement",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
+                                      Visibility(
+                                        visible: (snapshot.data[0]
+                                                    ['aggrement_pdf'] !=
+                                                null ||
+                                            snapshot.data[0]['aggrement_pdf'] !=
+                                                ''),
+                                        child: TextButton(
+                                          onPressed: () {
+                                            Navigator.push(context,
+                                                MaterialPageRoute(
+                                              builder: (context) {
+                                                return ViewPDFURL(
+                                                    url: snapshot.data[0]
+                                                        ['aggrement_pdf'],
+                                                    title: snapshot.data[0]
+                                                        ['title']);
+                                              },
+                                            ));
+                                          },
+                                          child: Text(
+                                            "View Agreement",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
                                       ),

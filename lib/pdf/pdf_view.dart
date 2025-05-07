@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'dart:math';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:dio/dio.dart';
 import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -361,18 +364,143 @@ class ViewPDFURL extends StatefulWidget {
 
 class _ViewPDFURLState extends State<ViewPDFURL> {
   bool _isLoading = true;
+  String? filePath;
   late PDFDocument document;
+  static Future<String> getFilePath(String fileName) async {
+    var dir = await getApplicationDocumentsDirectory();
+    return "${dir.path}/$fileName";
+  }
 
   @override
   void initState() {
     super.initState();
+    debugPrint("Agreemnt URL ${widget.url}");
+    if (Platform.isAndroid) {
+      platform = TargetPlatform.android;
+    } else {
+      platform = TargetPlatform.iOS;
+    }
     loadDocument();
   }
 
   loadDocument() async {
+    Random rand = Random();
+    _fileName = widget.title.trim() + rand.nextInt(100).toString();
+    var _path = await getFilePath(_fileName);
     document = await PDFDocument.fromURL(widget.url);
+    filePath = _path;
 
     setState(() => _isLoading = false);
+  }
+
+  bool isFileAlreadyDownloaded = false;
+  late String _localPath;
+  late TargetPlatform? platform;
+  bool isDownloaded = false;
+  String _fileName = '';
+  static Future<bool> checkIfDownloadedButton(String fileName) async {
+    var filePath = await getexternalFilePath(fileName);
+    var file = File(filePath);
+    return await file.exists();
+  }
+
+  void checkFileDownloaded() async {
+    // ignore: no_leading_underscores_for_local_identifiers
+    var _path = await getexternalFilePath(_fileName);
+    isFileAlreadyDownloaded = await checkIfDownloadedButton(_fileName);
+    if (isFileAlreadyDownloaded) {
+      Future.delayed(
+        const Duration(milliseconds: 500),
+        () {
+          if (mounted) {
+            setState(() => isDownloaded = true);
+          }
+        },
+      );
+    } else {
+      debugPrint('not exist $_path');
+    }
+  }
+
+  static get pdfDownloadOpt => BaseOptions(
+        connectTimeout: const Duration(milliseconds: 6000),
+        validateStatus: (statusCode) => statusCode == 200,
+        receiveTimeout: const Duration(milliseconds: 60000),
+        receiveDataWhenStatusError: false,
+      );
+  Future<void> downloadFile(String filePath) async {
+    // setState(() => downloading = true);
+    Dio dio = Dio(pdfDownloadOpt);
+    // if (isQP && urlInUse == null || !isQP && msUrlInUse == null) {
+    //   bool fileAvailable = await filterInvalidUrls();
+    //   if (!fileAvailable) {
+    //     await handleNotFoundError();
+    //     return;
+    //   }
+    // }
+
+    await dio.download(
+      // (isQP) ? urlInUse! : msUrlInUse!,
+      widget.url,
+      filePath,
+      onReceiveProgress: (received, total) {
+        // var percentage = ((received / total) * 100);
+        BotToast.showLoading();
+        // setState(() {
+        //   downloading = true;
+        //   if (percentage >= 0) {
+        //     progress = "${percentage.toStringAsFixed(0)}%";
+        //   }
+        // });
+      },
+    );
+    // .catchError(
+    //   debugPrint(""),
+    //   rethrow "";
+    //   // ignore: invalid_return_type_for_catch_error
+    //   // (Object error) => handlePdfLoadError(
+    //   //     "Looks like a network error occured. Please try again"),
+    // );
+
+    if (mounted) {
+      // setState(() {
+      //   isFileAlreadyDownloaded = true;
+      //   downloading = false;
+      //   isDownloaded = true;
+      //   isLoaded = true;
+      // });
+      BotToast.closeAllLoading();
+      checkFileDownloaded();
+    }
+  }
+
+  Future<String?> _findLocalPath() async {
+    if (platform == TargetPlatform.android) {
+      return "/storage/emulated/0/Download";
+    } else {
+      var directory = await getApplicationDocumentsDirectory();
+      return '${directory.path}${Platform.pathSeparator}Download';
+    }
+  }
+
+  Future<void> _prepareSaveDir() async {
+    _localPath = (await _findLocalPath())!;
+    debugPrint(_localPath);
+    final savedDir = Directory(_localPath);
+    bool hasExisted = await savedDir.exists();
+    if (!hasExisted) {
+      savedDir.create();
+    }
+  }
+
+  static Future<String> getexternalFilePath(String fileName) async {
+    if (Platform.isAndroid) {
+      return "/storage/emulated/0/Download/$fileName";
+    } else {
+      var directory = await getApplicationDocumentsDirectory();
+      return '${directory.path}${Platform.pathSeparator}Download$fileName';
+    }
+    // return '${dir.path}${Platform.pathSeparator}Download/$fileName';
   }
 
   @override
@@ -380,44 +508,27 @@ class _ViewPDFURLState extends State<ViewPDFURL> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-      ),
-      body: Center(
-          child: _isLoading
-              ? Center(child: CircularProgressIndicator())
-              : PDFViewer(document: document)),
-    );
-  }
-}
-
-class ViewPDF extends StatefulWidget {
-  final File file;
-  const ViewPDF({super.key, required this.file});
-
-  @override
-  State<ViewPDF> createState() => _ViewPDFState();
-}
-
-class _ViewPDFState extends State<ViewPDF> {
-  bool _isLoading = true;
-  late PDFDocument document;
-
-  @override
-  void initState() {
-    super.initState();
-    loadDocument();
-  }
-
-  loadDocument() async {
-    document = await PDFDocument.fromFile(widget.file);
-
-    setState(() => _isLoading = false);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Example'),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              if (isDownloaded) {
+                BotToast.showText(
+                    text: 'Already Downloaded!', contentColor: Colors.green);
+                return;
+              }
+              BotToast.showText(
+                  text: 'Downloading Start!', contentColor: Colors.green);
+              await _prepareSaveDir();
+              var path = await getexternalFilePath(_fileName);
+              await downloadFile(path);
+              BotToast.showText(text: 'Downloaded', contentColor: Colors.green);
+            },
+            icon: Icon(
+              isDownloaded ? Icons.verified : Icons.download,
+              color: isDownloaded ? Colors.green : Colors.white,
+            ),
+          ),
+        ],
       ),
       body: Center(
           child: _isLoading

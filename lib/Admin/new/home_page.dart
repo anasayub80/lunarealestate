@@ -61,7 +61,8 @@ class _HomePageAdminState extends State<HomePageAdmin> {
   //     CarouselSliderController();
   final controller = ScrollController();
 
-  List? itemlist = [];
+  List? solditemlist = [];
+  List? unsolditemlist = [];
   int limit = 6;
   List? usersList = [];
   int userLimit = 6;
@@ -71,6 +72,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
   void initState() {
     super.initState();
     fetch();
+    fetchSold();
     controller.addListener(() {
       if (controller.position.maxScrollExtent == controller.offset) {
         if (hasMore) {
@@ -128,6 +130,31 @@ class _HomePageAdminState extends State<HomePageAdmin> {
     }
   }
 
+  Future<void> fetchSold() async {
+    log('getData');
+    var newitems = await Backend().fetchMoreAdminProperty({
+      'type': 'sold',
+      'limit': page.toString(),
+    });
+    setState(() {
+      if (newitems != null) {
+        page += 10;
+        if (newitems.length <= 10) {
+          hasMore = false;
+        }
+        solditemlist!.addAll(
+          newitems.map((item) {
+            return item;
+          }),
+        );
+        _streamController.add(['hasData']);
+      } else {
+        _streamController.add(null);
+        hasMore = false;
+      }
+    });
+  }
+
   Future<void> fetch() async {
     log('getData');
     var newitems = await Backend().fetchMoreAdminProperty({
@@ -140,7 +167,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
         if (newitems.length <= 10) {
           hasMore = false;
         }
-        itemlist!.addAll(
+        unsolditemlist!.addAll(
           newitems.map((item) {
             return item;
           }),
@@ -156,7 +183,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
   onRefresh() {
     setState(() {
       page = 0;
-      itemlist = [];
+      unsolditemlist = [];
       fetch();
     });
   }
@@ -347,10 +374,10 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                     ],
                                   ),
                                   10.height,
-                                  itemlist!.isNotEmpty
+                                  unsolditemlist!.isNotEmpty
                                       ? getGridViewAdmin(
                                           context,
-                                          itemlist ?? [],
+                                          unsolditemlist ?? [],
                                           onRefresh,
                                           true,
                                           false,
@@ -404,10 +431,10 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                 ],
                               ),
                               10.height,
-                              itemlist!.isNotEmpty
+                              solditemlist!.isNotEmpty
                                   ? getGridViewAdmin(
                                       context,
-                                      itemlist ?? [],
+                                      solditemlist ?? [],
                                       () {},
                                       true,
                                       false,
