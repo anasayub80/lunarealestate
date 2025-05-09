@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart'
-    as gplaces;
+import 'package:google_places_autocomplete/google_places_autocomplete.dart';
+import 'package:lunarestate/Admin/AppTheme.dart';
+import 'package:lunarestate/Pages/GoogleMap/search_places.dart';
 
 const kGoogleApiKey = "AIzaSyCqUd6HTIUNSS1kjbCeX6bvIg6VwBxEXKM";
 
@@ -15,6 +16,20 @@ class _MapPickerState extends State<MapPicker> {
   GoogleMapController? mapController;
   LatLng _cameraPosition = LatLng(37.4219999, -122.0840575);
   String _address = "";
+  late final GooglePlacesAutocomplete _placesAutocomplete;
+
+  @override
+  void initState() {
+    super.initState();
+    _placesAutocomplete = GooglePlacesAutocomplete(
+      apiKey: kGoogleApiKey,
+      predictionsListner: (predictions) {
+        // Handle predictions and update UI
+      },
+    );
+    _placesAutocomplete.initialize();
+    _getAddressFromLatLng(_cameraPosition);
+  }
 
   Future<void> _getAddressFromLatLng(LatLng pos) async {
     try {
@@ -33,46 +48,25 @@ class _MapPickerState extends State<MapPicker> {
   }
 
   Future<void> _handleSearch() async {
-    // Prediction? p = await PlacesAutocomplete.show(
-    //   context: context,
-    //   apiKey: kGoogleApiKey,
-    //   mode: Mode.overlay,
-    //   language: "en",
-    // );
-
-    // if (p != null) {
-    //   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
-    //   PlacesDetailsResponse detail =
-    //       await _places.getDetailsByPlaceId(p.placeId!);
-    //   final lat = detail.result.geometry!.location.lat;
-    //   final lng = detail.result.geometry!.location.lng;
-
-    //   LatLng newPos = LatLng(lat, lng);
-    //   mapController?.animateCamera(CameraUpdate.newLatLng(newPos));
-
-    //   setState(() {
-    //     _cameraPosition = newPos;
-    //   });
-
-    //   _getAddressFromLatLng(newPos);
-    // }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getAddressFromLatLng(_cameraPosition);
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return PlacesAutocompleteScreen();
+      },
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Map Drag Picker"),
+        backgroundColor: AppThemes.bgColor,
+        title: Text("Select Location"),
         actions: [
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: _handleSearch,
+            onPressed: () {
+              _handleSearch();
+            },
           ),
         ],
       ),
@@ -95,6 +89,7 @@ class _MapPickerState extends State<MapPicker> {
               debugPrint("Camera Idle");
               _getAddressFromLatLng(_cameraPosition);
             },
+            zoomControlsEnabled: true,
             myLocationEnabled: true,
             myLocationButtonEnabled: true,
           ),
@@ -119,17 +114,44 @@ class _MapPickerState extends State<MapPicker> {
                 children: [
                   Text("📍 $_address", textAlign: TextAlign.center),
                   SizedBox(height: 5),
-                  Text(
-                    "Lat: ${_cameraPosition.latitude}, "
-                    "Lng: ${_cameraPosition.longitude}",
-                    style: TextStyle(fontSize: 12),
-                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(AppThemes.primaryColor),
+                      minimumSize: WidgetStatePropertyAll(
+                        Size(double.infinity, 45),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context, () {
+                        return {
+                          "address": _address,
+                          "lat": _cameraPosition.latitude,
+                          "lng": _cameraPosition.longitude
+                        };
+                      });
+                    },
+                    child: Text(
+                      "Continue",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
+                    ),
+                  )
+                  // Text(
+                  //   "Lat: ${_cameraPosition.latitude}, "
+                  //   "Lng: ${_cameraPosition.longitude}",
+                  //   style: TextStyle(fontSize: 12),
+                  // ),
                 ],
               ),
             ),
           ),
         ],
       ),
+      // bottomNavigationBar: BottomAppBar(
+      //     child: ),
     );
   }
 }

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lunarestate/Admin/AppTheme.dart';
+import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
+import 'package:lunarestate/Pages/GoogleMap/choose_address_map.dart';
+import 'package:lunarestate/Pages/Splash/SplashPage.dart';
 import 'package:lunarestate/Pages/Survery/surveyData.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:lunarestate/Widgets/textBox.dart';
@@ -152,11 +156,29 @@ class _BasicInfoState extends State<BasicInfo> {
                 return 'Enter address';
             },
             hint: 'Street, building, house number',
-            icon: null,
+            icon: SizedBox(
+              width: 20,
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                onPressed: () async {
+                  // context.pushScreenTo();
+                  var res = await Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return MapPicker();
+                    },
+                  ));
+                  if (res != null) {
+                    locationController.text = res['address'];
+                  }
+                },
+                icon: Icon(
+                  Icons.location_on,
+                  color: AppThemes.primaryColor,
+                ),
+              ),
+            ),
             isSvg: true,
-          ).addPadding(
-            horizontal: 10,
-          ),
+          ).addPadding(horizontal: 10),
           15.height,
           textBox(
             controller: location2Controller,

@@ -22,6 +22,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   dio: ^5.7.0
   dotted_border: ^2.1.0
+  google_places_autocomplete: ^0.0.4
   easy_pdf_viewer: ^1.0.8
   eva_icons_flutter: ^3.1.0
   firebase_auth: ^5.1.0
@@ -65,7 +66,7 @@ dependencies:
   pin_code_fields: ^8.0.1
   printing: ^5.9.3
   provider: ^6.0.4
-  rxdart: ^0.26.0
+  rxdart: ^0.28.0
   shaky_animated_listview: ^0.0.5
   shared_preferences: ^2.0.15
   shimmer: ^3.0.0
