@@ -7,11 +7,11 @@ import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Widgets/choiceTile.dart';
 import 'package:lunarestate/Widgets/header_text.dart';
+import 'package:lunarestate/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../../../../Service/UserData.dart';
 import '../../../../Widgets/roundbutton.dart';
 import '../../SurvProvider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../surveyData.dart';
 

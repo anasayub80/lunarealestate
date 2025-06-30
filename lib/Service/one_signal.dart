@@ -19,7 +19,7 @@ class OneSignalService {
   }
 
   Future<void> configOneSignal(BuildContext context) async {
-    OneSignal.initialize("");
+    OneSignal.initialize("8e7c56b7-6242-4977-978e-d1b71073f325");
     OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
     OneSignal.Debug.setAlertLevel(OSLogLevel.none);
     OneSignal.Notifications.requestPermission(true);
@@ -54,7 +54,7 @@ class OneSignalService {
 
     bool isSetup = await sps.getBool("oneSignalSetup") ?? false;
     if (!isSetup) {
-      debugPrint("Setup OneSignal ID $uid");
+      debugPrint("Setup OneSignal ID $uid  $role");
       sps.setBool("oneSignalSetup", true);
       OneSignal.login(uid);
       OneSignal.User.addAlias("uid", uid);
@@ -75,10 +75,10 @@ class OneSignalService {
       var headers = {
         "Content-Type": "application/json; charset=utf-8",
         "Authorization":
-            "Basic ${"AppConstants.oneSignalrestkey"}", //from one signal auth key
+            "Basic os_v2_org_xkre3rjdj5egxpdc7qipbp2hpw3olg2harbulx5sxg7mbyspwiiu3wszowh6vn6fnyykjtf4ft2qxbdvfhypf7wjpcb6ra5paxfejaa", //from one signal auth key
       };
       var body = {
-        "app_id": "AppConstants.oneSignalAppId",
+        "app_id": "8e7c56b7-6242-4977-978e-d1b71073f325",
         "contents": {"en": message},
         "data": additionalData, // Include additional data here
         "include_aliases": {

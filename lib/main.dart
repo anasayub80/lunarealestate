@@ -13,6 +13,7 @@ import 'package:lunarestate/Pages/HomePage/controller/admin_home_controller.dart
 import 'package:lunarestate/Pages/Survery/pages/sell_house.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
 import 'package:lunarestate/Pages/property_full_detail/property_detail_controller.dart';
+import 'package:lunarestate/Service/one_signal.dart';
 import 'package:lunarestate/firebase_options.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -25,16 +26,14 @@ import 'package:ultimate_bottom_navbar/ultimate_bottom_navbar.dart';
 import 'Pages/HomePage/HomePage.dart';
 import 'Pages/More/MorePage.dart';
 import 'Pages/Splash/SplashPage.dart';
-import 'l10n/l10n.dart';
 import 'provider/languageProvider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'l10n/app_localizations.dart';
+import 'l10n/l10n.dart';
 
 // SKU FOR APPSTORE DOTCLICK-LUNA-SKU
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const MyApp());
 }
@@ -61,78 +60,78 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
-    return sizer.Sizer(builder: (context, or, d) {
-      return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (_) => UserData(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => SurvProvider(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => PropertyDetailController(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => SurvProvider(),
-          ),
-          ChangeNotifierProvider<SingleNotifier>(
-              create: (_) => SingleNotifier()),
-          ChangeNotifierProvider<SellHouseProvider>(
-            create: (_) => SellHouseProvider(),
-          ),
-          ChangeNotifierProvider<AdminHomeController>(
-            create: (_) => AdminHomeController(),
-          ),
-        ],
-        child: MaterialApp(
-          title: 'Luna Estate',
-          locale: _locale,
-          debugShowCheckedModeBanner: false,
-          builder: BotToastInit(), //1. call BotToastInit
-          navigatorObservers: [BotToastNavigatorObserver()],
-          supportedLocales: L10n.all,
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
+    OneSignalService().configOneSignal(context);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
+    return sizer.Sizer(
+      builder: (context, or, d) {
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => UserData()),
+            ChangeNotifierProvider(create: (_) => SurvProvider()),
+            ChangeNotifierProvider(create: (_) => PropertyDetailController()),
+            ChangeNotifierProvider(create: (_) => SurvProvider()),
+            ChangeNotifierProvider<SingleNotifier>(
+              create: (_) => SingleNotifier(),
+            ),
+            ChangeNotifierProvider<SellHouseProvider>(
+              create: (_) => SellHouseProvider(),
+            ),
+            ChangeNotifierProvider<AdminHomeController>(
+              create: (_) => AdminHomeController(),
+            ),
           ],
-          theme: ThemeData(
-            // cupertinoOverrideTheme: TextSelectionTheme(data: data, child: child),
-            textSelectionTheme: TextSelectionThemeData(
-              cursorColor: AppThemes.primaryColor,
-              // ignore: deprecated_member_use
-              selectionColor: AppThemes.primaryColor.withOpacity(.1),
-              selectionHandleColor: AppThemes.primaryColor,
-            ),
+          child: MaterialApp(
+            title: 'Luna Estate',
+            locale: _locale,
+            debugShowCheckedModeBanner: false,
+            builder: BotToastInit(), //1. call BotToastInit
+            navigatorObservers: [BotToastNavigatorObserver()],
+            supportedLocales: L10n.all,
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            theme: ThemeData(
+              // cupertinoOverrideTheme: TextSelectionTheme(data: data, child: child),
+              textSelectionTheme: TextSelectionThemeData(
+                cursorColor: AppThemes.primaryColor,
+                // ignore: deprecated_member_use
+                selectionColor: AppThemes.primaryColor.withOpacity(.1),
+                selectionHandleColor: AppThemes.primaryColor,
+              ),
 
-            cupertinoOverrideTheme: CupertinoThemeData(
-              primaryColor: AppThemes.primaryColor,
-            ),
-            checkboxTheme: CheckboxThemeData(
-              fillColor: WidgetStateProperty.resolveWith((states) {
-                if (states.contains(WidgetState.selected)) {
-                  return mainColor;
-                }
-                return null;
-              }),
-            ),
-            progressIndicatorTheme:
-                ProgressIndicatorThemeData(color: mainColor),
-            fontFamily: 'Aspekta',
-            appBarTheme: AppBarTheme(
+              cupertinoOverrideTheme: CupertinoThemeData(
+                primaryColor: AppThemes.primaryColor,
+              ),
+              checkboxTheme: CheckboxThemeData(
+                fillColor: WidgetStateProperty.resolveWith((states) {
+                  if (states.contains(WidgetState.selected)) {
+                    return mainColor;
+                  }
+                  return null;
+                }),
+              ),
+              progressIndicatorTheme: ProgressIndicatorThemeData(
+                color: mainColor,
+              ),
+              fontFamily: 'Aspekta',
+              appBarTheme: AppBarTheme(
                 backgroundColor: mainColor,
-                foregroundColor: Colors.white //here you can give the text color
-                ),
-            primarySwatch: Colors.amber,
+                foregroundColor:
+                    Colors.white, //here you can give the text color
+              ),
+              primarySwatch: Colors.amber,
+            ),
+            home: SplashPage(),
           ),
-          home: SplashPage(),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
 
@@ -186,19 +185,17 @@ class _MyNavigationState extends State<MyNavigation> {
     EvaIcons.gift,
     Icons.more,
   ];
-  final titles = <String>[
-    "",
-    "",
-    "",
-    "",
-  ];
+  final titles = <String>["", "", "", ""];
   void onButtonPressed(int index) {
     print("${index.toString()} my index***");
     setState(() {
       selectedIndex = index;
     });
-    _pageController.animateToPage(selectedIndex,
-        duration: const Duration(milliseconds: 400), curve: Curves.easeOutQuad);
+    _pageController.animateToPage(
+      selectedIndex,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeOutQuad,
+    );
   }
 
   void pageChanged(int index) {
@@ -210,8 +207,11 @@ class _MyNavigationState extends State<MyNavigation> {
   void bottomTapped(int index) {
     setState(() {
       selectedIndex = index;
-      _pageController.animateToPage(index,
-          duration: Duration(milliseconds: 500), curve: Curves.ease);
+      _pageController.animateToPage(
+        index,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.ease,
+      );
     });
   }
 
@@ -232,9 +232,9 @@ class _MyNavigationState extends State<MyNavigation> {
       },
       child: Scaffold(
         backgroundColor: Color(0xff141414),
+
         // body: children.elementAt(_bottomNavIndex
         // b),
-
         body: PageView(
           // physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
@@ -247,18 +247,21 @@ class _MyNavigationState extends State<MyNavigation> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(
-                context,
-                PageTransition(
-                    child: InitializedSellHouse(),
-                    type: PageTransitionType.bottomToTop));
+              context,
+              PageTransition(
+                child: InitializedSellHouse(),
+                type: PageTransitionType.bottomToTop,
+              ),
+            );
           },
           child: Icon(
             // Icons.sell_outlined,
             EvaIcons.home,
             color: Colors.white,
           ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22),
+          ),
           backgroundColor: AppThemes.primaryColor,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -281,3 +284,8 @@ class _MyNavigationState extends State<MyNavigation> {
     );
   }
 }
+
+// Email. user@gmail.com
+// Password. anas80
+// admin@sample.com
+// 1234

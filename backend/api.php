@@ -97,7 +97,7 @@ switch ($tabb) {
      case 'changeUserStatus':
             $uid = htmlspecialchars($_POST['uid']);
             $newstatus = htmlspecialchars($_POST['newstatus']);
-            $update = mysqli_query($con, "UPDATE `users` SET `status`='$newstatus' WHERE  id='$id'");
+            $update = mysqli_query($con, "UPDATE `users` SET `status`='$newstatus' WHERE  id='$uid'");
             if($update){
             echo json_encode(array(
                             "status" => "success",

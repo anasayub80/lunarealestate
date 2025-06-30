@@ -1,12 +1,14 @@
+import 'dart:developer' as dv;
 import 'dart:io';
 import 'dart:math';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
-import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
+// import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:pdfrx/pdfrx.dart';
 // import 'package:printing/printing.dart'; // Optional for newer Android SDK versions
 
 Future<File> generatePdf(String name, String email, String phone,
@@ -365,7 +367,7 @@ class ViewPDFURL extends StatefulWidget {
 class _ViewPDFURLState extends State<ViewPDFURL> {
   bool _isLoading = true;
   String? filePath;
-  late PDFDocument document;
+  // late PDFDocument document;
   static Future<String> getFilePath(String fileName) async {
     var dir = await getApplicationDocumentsDirectory();
     return "${dir.path}/$fileName";
@@ -373,21 +375,21 @@ class _ViewPDFURLState extends State<ViewPDFURL> {
 
   @override
   void initState() {
-    super.initState();
-    debugPrint("Agreemnt URL ${widget.url}");
+    dv.log("Agreemnt URL ${widget.url}");
     if (Platform.isAndroid) {
       platform = TargetPlatform.android;
     } else {
       platform = TargetPlatform.iOS;
     }
     loadDocument();
+    super.initState();
   }
 
   loadDocument() async {
     Random rand = Random();
     _fileName = widget.title.trim() + rand.nextInt(100).toString();
     var _path = await getFilePath(_fileName);
-    document = await PDFDocument.fromURL(widget.url);
+    // document = await PDFDocument.fromURL(widget.url);
     filePath = _path;
 
     setState(() => _isLoading = false);
@@ -506,34 +508,38 @@ class _ViewPDFURLState extends State<ViewPDFURL> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              if (isDownloaded) {
+        appBar: AppBar(
+          title: Text(widget.title),
+          actions: [
+            IconButton(
+              onPressed: () async {
+                if (isDownloaded) {
+                  BotToast.showText(
+                      text: 'Already Downloaded!', contentColor: Colors.green);
+                  return;
+                }
                 BotToast.showText(
-                    text: 'Already Downloaded!', contentColor: Colors.green);
-                return;
-              }
-              BotToast.showText(
-                  text: 'Downloading Start!', contentColor: Colors.green);
-              await _prepareSaveDir();
-              var path = await getexternalFilePath(_fileName);
-              await downloadFile(path);
-              BotToast.showText(text: 'Downloaded', contentColor: Colors.green);
-            },
-            icon: Icon(
-              isDownloaded ? Icons.verified : Icons.download,
-              color: isDownloaded ? Colors.green : Colors.white,
+                    text: 'Downloading Start!', contentColor: Colors.green);
+                await _prepareSaveDir();
+                var path = await getexternalFilePath(_fileName);
+                await downloadFile(path);
+                BotToast.showText(
+                    text: 'Downloaded', contentColor: Colors.green);
+              },
+              icon: Icon(
+                isDownloaded ? Icons.verified : Icons.download,
+                color: isDownloaded ? Colors.green : Colors.white,
+              ),
             ),
-          ),
-        ],
-      ),
-      body: Center(
+          ],
+        ),
+        body: Center(
           child: _isLoading
               ? Center(child: CircularProgressIndicator())
-              : PDFViewer(document: document)),
-    );
+              : PdfViewer.uri(
+                  Uri.parse(widget.url),
+                ),
+          // : PDFViewer(document: document)),
+        ));
   }
 }

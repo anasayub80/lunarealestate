@@ -11,6 +11,7 @@ import 'package:lunarestate/Pages/OTPVerification/verify_phone.dart';
 import 'package:lunarestate/Pages/SignUp/SignUpPage.dart';
 import 'package:floading/floading.dart';
 import 'package:lunarestate/Pages/Splash/SplashPage.dart';
+import 'package:lunarestate/Service/one_signal.dart';
 import 'package:provider/provider.dart';
 import 'package:lunarestate/Service/sharedPref.dart';
 import 'package:lunarestate/Widgets/Utils.dart';
@@ -246,6 +247,9 @@ class _LoginPageState extends State<LoginPage> {
                                   if (isRememberMe) {
                                     sharedPref().storeBool('isLogin', true);
                                   }
+                                  OneSignalService().setOneSignalId(
+                                      res['user']['id'].toString(),
+                                      res['user']['role'].toString());
                                   Navigator.pushReplacement(
                                       context,
                                       PageTransition(

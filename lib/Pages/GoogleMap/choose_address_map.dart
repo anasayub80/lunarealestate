@@ -123,12 +123,10 @@ class _MapPickerState extends State<MapPicker> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pop(context, () {
-                        return {
-                          "address": _address,
-                          "lat": _cameraPosition.latitude,
-                          "lng": _cameraPosition.longitude
-                        };
+                      Navigator.pop(context, {
+                        "address": _address,
+                        "lat": _cameraPosition.latitude,
+                        "lng": _cameraPosition.longitude
                       });
                     },
                     child: Text(
@@ -150,8 +148,6 @@ class _MapPickerState extends State<MapPicker> {
           ),
         ],
       ),
-      // bottomNavigationBar: BottomAppBar(
-      //     child: ),
     );
   }
 }

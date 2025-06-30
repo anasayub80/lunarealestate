@@ -1,0 +1,38 @@
+Need this(Aggrement PDF) in app in English or Spanish option to print and option to view it app by user and admin.
+I haven't seen in demos admin usage at all need log in for admin.
+------------------------
+On photos for admin needs to be able to swipe photos while in photo option instead of backing out to swipe
+--------------------------------------------
+Admin
+Notification for new incoming property
+On the property i just uploaded it says I bought it so I need the data not to be operated to avoid confusion
+when asked client to explain it got this msg.
+(It wants to verify that your not a robot. By having you make a payment by making a deposit not charging more than 200 then it will ask for a upgrade)
+Dates on when the property was submitted
+For master addmin to add users so I can send secondary admins tasks to give them orders thru the app and assign houses to the secondary admins.
+
+It wants to verify that your not a robot.
+By having you make a payment by making a deposit not charging more than 200 then it will ask for a upgrade
+--------------------------------
+For master admin can we suspend accounts so we have control and security?
+A live view or history on who was on date and time?
+User
+On the information clicked i left things unfilled and it allowed me to go the the next  portion make it required to fill in the blank.
+----------------------
+Admin
+Analytics to see how many users download and are live using the app
+---------------------------------
+On the location what is the purposes of that if admin can't verify the location of property they are selling.
+Location to be used for them to mark the exact location of the property so admins can see property location on map.
+---------------------
+Add calendar to schedule in app appointments. (ye bhi explain kren kis tarah ki appointment hogi? on site ya zoom pr kia free hogi ya paid)
+---------------
+I didnt know the access to admin but It's still very underwhelming.
+I need a master log in to see who is on app strong security. Ability to suspend users.
+Notification.
+It need alot still. It looks better. But still very underperformed.
+-------------------------
+Notification for seller. To let them know we received there information and we'll schedule a meeting or call.
+
+--------------------------------
+For the app I need to be able to kick out. Assign tasks to users a master admin and secondary admins

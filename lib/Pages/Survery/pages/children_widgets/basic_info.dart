@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lunarestate/Admin/AppTheme.dart';
-import 'package:lunarestate/Config/bc_ext.dart';
 import 'package:lunarestate/Config/spacing_ext.dart';
 import 'package:lunarestate/Pages/GoogleMap/choose_address_map.dart';
-import 'package:lunarestate/Pages/Splash/SplashPage.dart';
 import 'package:lunarestate/Pages/Survery/surveyData.dart';
 import 'package:lunarestate/Widgets/roundbutton.dart';
 import 'package:lunarestate/Widgets/textBox.dart';
@@ -168,7 +166,10 @@ class _BasicInfoState extends State<BasicInfo> {
                     },
                   ));
                   if (res != null) {
+                    debugPrint('response is $res');
                     locationController.text = res['address'];
+                  } else {
+                    debugPrint('response is null $res');
                   }
                 },
                 icon: Icon(

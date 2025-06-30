@@ -9,7 +9,6 @@ import 'package:lunarestate/Pages/Survery/SurvProvider.dart';
 import 'package:lunarestate/Pages/Survery/pages/sell_house_provider.dart';
 import 'package:lunarestate/Service/backend.dart';
 import 'package:lunarestate/Service/one_signal.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:floading/floading.dart';
@@ -200,7 +199,7 @@ Future submitpropertyInfo(
         FLoading.hide();
         Utils.showSnackbar('Property Submitted', Colors.green, context);
         Navigator.of(context).popUntil((route) => route.isFirst);
-        OneSignalService.sendNotification('', "New Property Submitted", {});
+        OneSignalService.sendNotification('4416', "New Property Submitted", {});
         Navigator.pushReplacement(
           context,
           PageTransition(
