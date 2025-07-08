@@ -489,6 +489,109 @@ switch ($tabb) {
         }
 
         break;
+    case 'deleteAccount':
+        if (isset($_POST['token'])) {
+            if ($_POST['token'] != "C8xWxGvIue37SwP2MEU7W5oKE32fm7Z3JxHfeK897a8eE0SdLl") {
+                exit();
+            }
+            
+            // Check if email and password are provided
+            if (!isset($_POST['email']) || !isset($_POST['password'])) {
+                echo json_encode(array(
+                    'status' => "warning",
+                    'msg' => "Email and password are required"
+                ));
+                break;
+            }
+            
+            $email = htmlspecialchars($_POST['email']);
+            $password = md5(htmlspecialchars($_POST['password']));
+            
+            // Verify user credentials
+            $select = mysqli_query($con, "SELECT * from `users` where `email` = '$email' and `password` = '$password'");
+            
+            if (mysqli_num_rows($select) > 0) {
+                $fetch = mysqli_fetch_array($select);
+                $userId = $fetch['id'];
+                
+                // Check if user is admin (prevent admin deletion)
+                if ($fetch['role_id'] == 2) {
+                    echo json_encode(array(
+                        'status' => "warning",
+                        'msg' => "Admin accounts cannot be deleted"
+                    ));
+                    break;
+                }
+                
+                // Delete user's property data
+                $HouseDetails = mysqli_query($con, "SELECT * FROM `house_details` WHERE `user_id` = '$userId'");
+                if (mysqli_num_rows($HouseDetails) > 0) {
+                    while ($fetchHouseDetails = mysqli_fetch_array($HouseDetails)) {
+                        $formid = $fetchHouseDetails['id'];
+                        
+                        // Delete property images
+                        $select = mysqli_query($con, "SELECT * FROM `form_images` where `form_id` = '$formid'");
+                        if (mysqli_num_rows($select) > 0) {
+                            while ($fetch_check = mysqli_fetch_array($select)) {
+                                $scan_pix = $fetch_check['images'];
+                                $file_path = "../uploads/house_details/";
+                                $pix_handle = opendir($file_path);
+                                while ($pix_file = readdir($pix_handle)) {
+                                    if ($pix_file == $scan_pix) {
+                                        unlink($file_path . "/" . $pix_file);
+                                    }
+                                }
+                                closedir($pix_handle);
+                            }
+                            mysqli_query($con, "DELETE FROM `form_images` WHERE `form_id` = '$formid'");
+                        }
+                        
+                        // Delete property details
+                        mysqli_query($con, "DELETE FROM `house_details` WHERE `id` = '$formid'");
+                    }
+                }
+                
+                // Delete user's profile image if exists
+                if ($fetch['profile'] != '' && $fetch['profile'] != 'user.png' && $fetch['profile'] != 'default.png') {
+                    $profile_path = "../uploads/users/" . $fetch['profile'];
+                    if (file_exists($profile_path)) {
+                        unlink($profile_path);
+                    }
+                }
+                
+                // Backup user data to deletedAccounts table
+                $uemail = $fetch['email'];
+                $name = $fetch['name'];
+                $upassword = $fetch['password'];
+                mysqli_query($con, "INSERT INTO `deletedAccounts`(`user_id`, `name`,`email`, `password`) VALUES ('$userId','$name','$uemail','$upassword')");
+                
+                // Delete user from users table
+                $delete = mysqli_query($con, "DELETE FROM `users` WHERE `id` = '$userId'");
+                
+                if ($delete) {
+                    echo json_encode(array(
+                        'status' => "success",
+                        'msg' => "Account deleted successfully"
+                    ));
+                } else {
+                    echo json_encode(array(
+                        'status' => "warning",
+                        'msg' => "Failed to delete account"
+                    ));
+                }
+            } else {
+                echo json_encode(array(
+                    'status' => "warning",
+                    'msg' => "Invalid email or password"
+                ));
+            }
+        } else {
+            echo json_encode(array(
+                'status' => "warning",
+                'msg' => "Security token not found"
+            ));
+        }
+        break;
     case 'login':
         if (isset($_POST['token'])) {
             if ($_POST['token'] != "C8xWxGvIue37SwP2MEU7W5oKE32fm7Z3JxHfeK897a8eE0SdLl") {
@@ -833,60 +936,6 @@ switch ($tabb) {
                         ));
             }
             break;
-    case 'deleteAccount':
-        $userId = $_POST['id'];
-        $HouseDetails = mysqli_query($con,"SELECT * FROM `house_details` WHERE `user_id` = '$userId'");
-        if(mysqli_num_rows($HouseDetails)>0){
-        $fetchHouseDetails = mysqli_fetch_array($HouseDetails);
-        $formid = $fetchHouseDetails['id'];
-         
-        // Delete User Property data in "house_details" table
-        $delete = mysqli_query($con, "DELETE FROM `house_details` WHERE `id` = '$formid'");
-        if ($delete) {
-            $select = mysqli_query($con, "SELECT * FROM `form_images` where `form_id` = '$formid'");
-            if (mysqli_num_rows($select) > 0) {
-                while($fetch_check = mysqli_fetch_array($select))
-                {
-                $scan_pix = $fetch_check['images'];
-                $file_path = "../uploads/house_details/";
-                $pix_handle = opendir($file_path);
-                while ($pix_file = readdir($pix_handle)) {
-                    if ($pix_file == $scan_pix) {
-                        unlink($file_path . "/" . $pix_file);
-                    }
-                }
-                closedir($pix_handle);
-                }
-                $delete = mysqli_query($con, "DELETE FROM `form_images` WHERE `form_id` = '$formid'"); 
-            }
-            
-        }
-        }
-        
-        //  Inset User details in "deletedAccounts" Table 
-        $user = mysqli_query($con,"SELECT * FROM `users` WHERE `id` = '$userId'");
-       
-        $fetchUser = mysqli_fetch_array($user);
-        $uemail = $fetchUser['email'];
-        $name = $fetchUser['name'];
-        $upassword = $fetchUser['password'];
-        $insert = mysqli_query($con,"INSERT INTO `deletedAccounts`(`user_id`, `name`,`email`, `password`) VALUES ('$userId','$name','$uemail','$upassword')");
-       
-        // Delete User data in "users" table
-        $delete = mysqli_query($con,"DELETE FROM `users` WHERE `id` = '$userId'");
-        if($delete){
-           echo json_encode(array(
-                "status" => "success",
-                'msg' => "Account Delete Successfully"
-            ));
-        } else {
-            
-            echo json_encode(array(
-                "status" => "warning",
-                'msg' => "Something Error on Database"
-            ));
-        }
-    break;
     case 'profile':
         if (isset($_POST['token'])) {
             if ($_POST['token'] != "C8xWxGvIue37SwP2MEU7W5oKE32fm7Z3JxHfeK897a8eE0SdLl") {
