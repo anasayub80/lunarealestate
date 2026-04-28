@@ -3,7 +3,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 String bullet = "\u2022";
 Color mainColor = Color(0xffB48717);
-var Base_URL = 'https://app.lunaenterprises.info/api/';
+var Base_URL = 'https://luna.dotclickdevelopers.com/luna/api.php?page=';
+// var Base_URL = 'https://app.lunaenterprises.info/api/';
 var TOKEN = 'C8xWxGvIue37SwP2MEU7W5oKE32fm7Z3JxHfeK897a8eE0SdLl';
 var LOGIN_URL = '${Base_URL}login'.trim();
 var DELETE_PROPERTY_URL = '${Base_URL}deleteProperty'.trim();
